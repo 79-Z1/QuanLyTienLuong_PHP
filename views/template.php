@@ -44,6 +44,9 @@ class Template
         $this->__current_section = null;
     }
 
+    private function dosPath($path){
+        return str_replace("\\","/",$path);
+    }
 
     /**
      * 
@@ -57,12 +60,14 @@ class Template
     private function __resolvePath(string $path)
     {
         clearstatcache();
-        $file =  __DIR__ .$this->__directory . '\\' . $path . '.php';
+        $file = $this->dosPath(__DIR__ .$this->__directory . '/' . $path . '.php');
         if (!file_exists($file)) {
             throw new Exception("$file is not exist");
         }
         return $file;
     }
+
+    
 
     /**
      * 
@@ -160,7 +165,6 @@ class Template
         }
 
         ob_start();
-        echo "<script>console.log('Debug Objects: " . $view_name . "' );</script>";
         include_once $this->__resolvePath($view_name);
 
         $content = ob_get_clean();
