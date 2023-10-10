@@ -57,7 +57,7 @@ class Template
     private function __resolvePath(string $path)
     {
         clearstatcache();
-        $file =  __DIR__ . '\\'.$this->__directory . '\\' . $path . '.php';
+        $file =  __DIR__ .$this->__directory . '\\' . $path . '.php';
         if (!file_exists($file)) {
             throw new Exception("$file is not exist");
         }
