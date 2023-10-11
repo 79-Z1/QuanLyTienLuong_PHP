@@ -3,7 +3,7 @@ require_once '../../template.php';
 $page = $_GET['page'];
 
 $template = new Template('');
-echo $template->render('header', ['css' => 'main_nhanvien.css', 'js' => 'main_nhanvien.js']);
+echo $template->render('header_employee', []);
 
 switch ($page) {
     
