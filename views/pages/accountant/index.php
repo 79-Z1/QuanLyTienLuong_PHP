@@ -3,8 +3,7 @@ require_once '../../template.php';
 $page = $_GET['page'];
 
 $template = new Template('');
-echo $template->render('header', ['css' => 'satistic.css', 'js' => 'satistic.js']);
-echo $template->render('navbar', []);
+echo $template->render('header', ['css' => 'nhanvien.css', 'js' => 'nhanvien.js']);
 
 switch ($page) {
     case 'payroll-accountant':
