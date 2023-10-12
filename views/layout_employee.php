@@ -23,15 +23,7 @@
                         </div>
                     </div>
                     <div class="grid-body">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
-                            <li class=""><a href="#timeline" data-toggle="tab">Timeline</a></li>
-                            <li class=""><a href="#photos" data-toggle="tab">Photos</a></li>
-                            <li class=""><a href="#settings" data-toggle="tab">Settings</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <?php $this->renderSection('content'); ?>
-                        </div>
+                    <?php $this->renderSection('content'); ?>
                     </div>
                 </div>
             </div>
