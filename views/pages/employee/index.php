@@ -1,6 +1,6 @@
 <?php
 require_once '../../template.php';
-$page = $_GET['page'];
+$page = $_GET['page'] ?? '';
 
 $template = new Template('');
 echo $template->render('header_employee', []);

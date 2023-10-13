@@ -3,7 +3,7 @@
 
 <body>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <div class="row" >
+        <div >
             <!-- BEGIN USER PROFILE -->
             <div class="col-md-12">
                 <div class="grid profile">
@@ -11,7 +11,7 @@
                         <div class="">
                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle" alt="">
                         </div>
-                        <div class="">
+                        <div>
                             <h3>John Doe</h3>
                             <p>@bootdey</p>
                             <p>Website Developer, Programmer</p>
