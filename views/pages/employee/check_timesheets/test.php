@@ -1,1 +1,0 @@
-<?php echo "Hòa ăn cc";?>
