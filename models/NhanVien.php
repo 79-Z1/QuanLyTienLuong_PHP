@@ -11,6 +11,22 @@
         var $soCon;
         var $maPhong;
         var $maChucVu;
+
+        function __construct($maNV, $hoNV, $tenNV, $gioiTinh, $ngaySinh, $diaChi, $stk, $cccd, $maPhong, $maChucVu, $soCon){
+            $this->maNV = $maNV;
+            $this->hoNV = $hoNV;
+            $this->tenNV = $tenNV;
+            $this->gioiTinh = $gioiTinh;
+            $this->ngaySinh = $ngaySinh;
+            $this->diaChi = $diaChi;
+            $this->stk = $stk;
+            $this->cccd = $cccd;
+            $this->soCon = $soCon;
+            $this->maPhong = $maPhong;
+            $this->maChucVu = $maChucVu;
+
+        }
+
         const troCapXang = 500000;
         const troCapCon = 350000;
         const dinhMucVang = 1;
