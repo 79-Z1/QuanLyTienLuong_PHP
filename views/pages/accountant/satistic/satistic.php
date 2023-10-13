@@ -1,4 +1,4 @@
 <?php $this->layout('layout') ?>
 <?php $this->section('content'); ?>
-    <p>Hello, <?php echo "satistic"; ?></p>
+    <h1>a</h1>
 <?php $this->end(); ?>
