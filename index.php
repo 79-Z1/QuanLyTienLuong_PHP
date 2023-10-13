@@ -9,6 +9,6 @@ else $page = '';
 
 // set thư mục views là ~/views
 $template = new Template('');
-echo $template->render('header', ['css' => 'satistic.css', 'js' => 'satistic.js']);
+echo $template->render('header', ['css' => 'satistic.css', 'js' => 'satistic.js']); 
 echo $template->render('navbar', []);
 echo $template->render('pages/login_logout/login/test', []);
