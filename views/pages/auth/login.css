@@ -22,6 +22,12 @@ body {
 	width: 100%
 }
 
+.w-100 a{
+	margin-bottom: 15px;
+    display: flex;
+    justify-content: end;
+}
+
 #upload-form {
 	display: flex;
 	flex-direction: column;
