@@ -1,0 +1,27 @@
+table {
+    border-collapse: collapse;
+  }
+  
+  td {
+    padding: 10px;
+    font-size: 20px;
+  }
+  p{
+    font-size: 20px;
+    font-weight: bold;
+  }
+  input[type="radio"] {
+  transform: scale(1.6); 
+  margin-right: 5px; 
+}
+.larger-text {
+  font-size: 18px; /* Điều chỉnh kích thước chữ theo nhu cầu */
+  margin-left: 10px; /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
+}
+h3{
+    font-weight: bold;
+    font-size: 26px;
+}
+.search-btn {
+    width: 25%;
+}
