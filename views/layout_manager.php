@@ -1,5 +1,5 @@
 <html>
-<?php $this->renderSection('header'); ?>
+<?php $this->renderSection('header_manager'); ?>
 <body>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
         <?php $this->renderSection('navbar_manager'); ?>
