@@ -18,9 +18,12 @@
 			<label for='username' class='form-label '>Username</label>
 			<input type='text' class='form-control username' id='username' />
 		</div>
-		<div class=' mb-3 w-100'>
+		<div class= 'w-100'>
 			<label for='password' class='form-labe'>Password</label>
 			<input type='password' class="mb-3 w-100 form-control password" id='password'/>
+		</div>
+		<div class= 'w-100'>
+			<a href="">Quên mật khẩu?</a>
 		</div>
 		<button type='submit' class='btn btn-primary w-100' id='submit-btn'>
 			Login
