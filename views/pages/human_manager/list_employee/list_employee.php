@@ -1,4 +1,4 @@
 <?php $this->layout('layout') ?>
 <?php $this->section('content'); ?>
-    <h1>a</h1>
+    <button><a href="index.php?page=human-manager-add-employee">Add</a></button>
 <?php $this->end(); ?>
