@@ -3,7 +3,7 @@ require_once '../../template.php';
 $page = $_GET['page'] ?? '';
 
 $template = new Template('');
-echo $template->render('navbar', []);
+echo $template->render('navbar_manager', []);
 
 switch ($page) {
     case 'human-manager-add-employee':
