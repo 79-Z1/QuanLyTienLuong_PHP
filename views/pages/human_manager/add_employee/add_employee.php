@@ -1,5 +1,5 @@
 
-<?php $this->layout('layout') ?>
+<?php $this->layout('layout_manager') ?>
 <?php $this->section('content'); ?>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/models/NhanVien.php"); 
