@@ -76,11 +76,11 @@ if (isset($_GET['radGT']))
 else $gioiTinh = "";
 
 $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
-if (!isset($_GET['page'])) {
-    $_GET['page'] = 1;
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
 }
 //vị trí của mẩu tin đầu tiên trên mỗi trang
-$offset = ($_GET['page'] - 1) * $rowsPerPage;
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
 //lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
 
 $sqlTimKiem =
@@ -252,19 +252,19 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <?php
             echo '<p align="center">';
-            if ($_GET['page'] > 1) {
+            if ($_GET['p'] > 1) {
                 echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . (1) . ">Về đầu</a> ";
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['page'] - 1) . ">Back</a> ";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['p'] - 1) . ">Back</a> ";
             }
 
             for ($i = 1; $i <= $maxPage; $i++) {
-                if ($i == $_GET['page']) {
+                if ($i == $_GET['p']) {
                     echo '<b>' . $i . '</b> '; //trang hiện tại sẽ được bôi đậm
                 } else
                     echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . $i . ">" . $i . "</a> ";
             }
-            if ($_GET['page'] < $maxPage) {
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['page'] + 1) . ">Next</a>";
+            if ($_GET['p'] < $maxPage) {
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['p'] + 1) . ">Next</a>";
                 echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($maxPage) . ">Về cuối</a> ";
             }
             echo "</p>";
