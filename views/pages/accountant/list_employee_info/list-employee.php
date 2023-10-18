@@ -1,4 +1,4 @@
-<?php $this->layout('layout') ?>
+<?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
 
 <style>
