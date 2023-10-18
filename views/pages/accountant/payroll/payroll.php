@@ -1,4 +1,4 @@
-<?php $this->layout('layout') ?>
+<?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
     <!-- Card stats -->
 <div class="g-6 mb-6 w-100 search-container mt-5">

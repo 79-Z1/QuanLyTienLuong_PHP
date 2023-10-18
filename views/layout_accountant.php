@@ -2,7 +2,7 @@
 <?php $this->renderSection('header'); ?>
 <body>
     <div class="d-flex flex-column flex-lg-row h-lg-full bg-surface-secondary">
-        <?php $this->renderSection('navbar'); ?>
+        <?php $this->renderSection('navbar_accountant'); ?>
 
         <div class="h-screen flex-grow-1 overflow-y-lg-auto">
             <main class=" bg-surface-secondary">
