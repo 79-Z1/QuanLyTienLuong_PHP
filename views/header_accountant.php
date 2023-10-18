@@ -1,4 +1,4 @@
-<?php $this->section('header'); ?>
+<?php $this->section('header_accountant'); ?>
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />

@@ -8,19 +8,15 @@ $conn = mysqli_connect('localhost', 'root', '', 'quan_ly_tien_luong')
 
 $sqlUngLuong = 'select * from phieu_ung_luong';
 $rowsPerPage = 7; //số mẩu tin trên mỗi trang, giả sử là 5
-$pageNum = $_GET['p'];
-if (!isset($pageNum)) {
-	$pageNum = 1;
-} else {
-
-	$pageNum = $_GET['p'];
+if (!isset($_GET['p'])) {
+	$_GET['p'] = 1;
 }
 $sql = 'SELECT * FROM phieu_ung_luong  ';
 $resultUngLuong = mysqli_query($conn, $sql);
 
 $numRows = mysqli_num_rows($resultUngLuong);
 
-$offset = ($pageNum - 1) * $rowsPerPage;
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
 $sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
 $resultUngLuong = mysqli_query($conn, $sql);
 ?>
@@ -130,7 +126,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	// Gắn thêm nút Back
 
 
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($pageNum > 1 ? $pageNum - 1 : 1) . "><</a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 
 	for ($i = 1; $i <= $maxPage; $i++) {
 		if ($i == $_GET['p']) {
@@ -141,7 +137,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	}
 	// Gắn thêm nút Next
 
-			echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($pageNum < $maxPage ? $pageNum+ 1 : $maxPage) . ">></a> ";
+			echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] < $maxPage ? $_GET['p']+ 1 : $maxPage) . ">></a> ";
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
 	// gắn nút về trang đầu
 
