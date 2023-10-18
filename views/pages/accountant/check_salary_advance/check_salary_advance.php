@@ -1,10 +1,50 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
+
+<?php
+$conn = mysqli_connect('localhost', 'root', '', 'quan_ly_tien_luong')
+
+	or die('Could not connect to MySQL: ' . mysqli_connect_error());
+
+$sqlUngLuong = 'select * from phieu_ung_luong';
+$rowsPerPage = 7; //số mẩu tin trên mỗi trang, giả sử là 5
+$pageNum = $_GET['p'];
+if (!isset($pageNum)) {
+	$pageNum = 1;
+} else {
+
+	$pageNum = $_GET['p'];
+}
+$sql = 'SELECT * FROM phieu_ung_luong  ';
+$resultUngLuong = mysqli_query($conn, $sql);
+
+$numRows = mysqli_num_rows($resultUngLuong);
+
+$offset = ($pageNum - 1) * $rowsPerPage;
+$sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
+$resultUngLuong = mysqli_query($conn, $sql);
+?>
+<style>
+	.pagination-link {
+		display: inline-block;
+		padding: 5px 10px;
+		margin: 0 5px;
+		border: 1px solid #ccc;
+		text-decoration: none;
+		color: #333;
+	}
+
+	.pagination-link.active {
+		background-color: #333;
+		color: #fff;
+
+	}
+</style>
 <div class="card shadow border-0 mb-7 mt-5">
 	<div class="card-header">
 		<h5 class="mb-0">BẢNG ỨNG LƯƠNG</h5>
 	</div>
-	<div class="table-responsive">
+	<div class="table-responsive" style="height: 534px">
 		<table class="table table-hover table-nowrap">
 			<thead class="thead-light">
 				<tr>
@@ -17,26 +57,35 @@
 					<th></th>
 				</tr>
 			</thead>
-			<tbody> 
-				{{#each phieuUngLuong}}
+			<tbody>
 				<tr>
-					<td>{{this.MaPhieu}}</td>
-					<td>{{this.MaNV}}</td>
-					<td>{{this.NgayUng}}</td>
-					<td>{{this.LyDo}}</td>
-					<td>{{#toVND this.SoTien}}{{/toVND}}</td>
-					<td><button class="btn btn-sm btn-neutral js-btn-duyet" data-bs-toggle="modal" data-ma-phieu="{{this.MaPhieu}}" data-bs-target="#staticBackdrop">Duyệt</button></td>
-					<td class="text-end">
-                        <button type="button" class="btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover" data-ma-phieu="{{this.MaPhieu}}" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">
-							<i class="bi bi-trash"></i>
-						</button>
-					</td>
+					<?php
+					if (mysqli_num_rows($resultUngLuong) <> 0) {
+
+						while ($rows = mysqli_fetch_array($resultUngLuong)) {
+							echo "<tr>
+                        <td>{$rows['MaPhieu']}</td>
+                        <td>{$rows['MaNV']}</td>
+                        <td>{$rows['NgayUng']}</td>
+                        <td>{$rows['LyDo']}</td>
+                        <td>{$rows['SoTien']}</td>
+                        <td>{$rows['Duyet']}</td>
+						<td><button class='btn btn-sm btn-neutral js-btn-duyet' data-bs-toggle='modal' data-ma-phieu='{{this.MaPhieu}}' data-bs-target='#staticBackdrop' style='background-color:lime ;'>Duyệt</button></td>
+						<td class='text-end'>
+                        	<button style='background-color: red;' type='button' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover' data-ma-phieu='{{this.MaPhieu}}' data-bs-toggle='modal' data-bs-target='#staticBackdrop1'>
+								<i class='bi bi-trash' style='color:black'></i>
+							</button>
+						</td>
+                        </tr>";
+						}
+					}
+					?>
 				</tr>
-				{{/each}}
-                <!-- Modal1 -->
-					<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
+
+				<!-- Modal1 -->
+				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="staticBackdropLabel">Xác nhận</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -48,13 +97,13 @@
 								<button type="button" class="btnn " data-bs-dismiss="modal">Close</button>
 								<button type="button" class="btnn duyet-yes-btn" data-bs-dismiss="modal">Yes</button>
 							</div>
-							</div>
 						</div>
 					</div>
-                <!-- Modal2 -->
-					<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-						<div class="modal-dialog test-modal">
-							<div class="modal-content">
+				</div>
+				<!-- Modal2 -->
+				<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+					<div class="modal-dialog test-modal">
+						<div class="modal-content">
 							<div class="modal-header">
 								<h5 class="modal-title" id="staticBackdropLabel">Xác nhận</h5>
 								<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -66,33 +115,61 @@
 								<button type="button" class="btnn " data-bs-dismiss="modal">Close</button>
 								<button type="button" class="btnn xoa-yes-btn" data-bs-dismiss="modal">Yes</button>
 							</div>
-							</div>
 						</div>
 					</div>
+				</div>
 			</tbody>
 		</table>
 	</div>
+</div>
+<div align="center">
+	<?php
+	// Tổng số trang
+	$maxPage = floor($numRows / $rowsPerPage) + 1;
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . (1) . ">Đầu trang</a> ";
+	// Gắn thêm nút Back
+
+
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($pageNum > 1 ? $pageNum - 1 : 1) . "><</a> ";
+
+	for ($i = 1; $i <= $maxPage; $i++) {
+		if ($i == $_GET['p']) {
+			echo '<b><a class="pagination-link active" href=' . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . $i . ">" . $i . "</a></b> "; // Trang hiện tại sẽ được bôi đậm
+		} else {
+			echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . $i . ">" . $i . "</a> ";
+		}
+	}
+	// Gắn thêm nút Next
+
+			echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($pageNum < $maxPage ? $pageNum+ 1 : $maxPage) . ">></a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
+	// gắn nút về trang đầu
+
+
+
+
+	?>
 </div>
 
 <script>
 	let maPhieu = '';
 
-	$('.js-btn-duyet').on('click',async function() {
+	$('.js-btn-duyet').on('click', async function() {
 		maPhieu = $(this).data("ma-phieu");
 	})
 
-	$('.duyet-yes-btn').on('click',async function(e) {
+	$('.duyet-yes-btn').on('click', async function(e) {
 		await checkUngLuong(maPhieu, 1);
 		window.location.reload();
 	})
 
 
-	$('.btn-xoa').on('click',async function() {
+	$('.btn-xoa').on('click', async function() {
 		maPhieu = $(this).data("ma-phieu");
 		console.log(maPhieu)
 	})
 
-	$('.xoa-yes-btn').on('click',async function() {
+	$('.xoa-yes-btn').on('click', async function() {
 		await checkUngLuong(maPhieu, 0);
 		window.location.reload();
 	})
