@@ -1,11 +1,7 @@
 body {
-
-	display: flex;
-	justify-content: center;
 	background: #efefef;
 	color: #333;
 	width: 100%;
-
 }
 
 .profile .grid-header {

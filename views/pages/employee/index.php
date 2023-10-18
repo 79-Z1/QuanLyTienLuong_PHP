@@ -18,7 +18,7 @@ switch ($page) {
         echo $template->render('pages/employee/check_payroll/salary_advance', []);
         break;
     default:
-        echo $template->render('header_employee', ['css' => 'salary_advance.css', 'js' => 'salary_advance.js']);
+        echo $template->render('header_employee', []);
         echo $template->render('pages/employee/main/main', []);
         break;
 }
