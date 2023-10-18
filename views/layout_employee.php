@@ -1,6 +1,6 @@
 <html>
 <?php $this->renderSection('header_employee'); ?>
-
+<?php session_start(); ?>
 <body>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
         <div >
@@ -12,7 +12,7 @@
                             <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle" alt="">
                         </div>
                         <div>
-                            <h3>John Doe</h3>
+                            <h3><?= $_SESSION["MaNV"] ?></h3>
                             <p>@bootdey</p>
                             <p>Website Developer, Programmer</p>
                             <p>Bootdey City, NY, USA</p>
