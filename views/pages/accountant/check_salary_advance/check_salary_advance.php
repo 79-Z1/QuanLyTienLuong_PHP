@@ -1,4 +1,4 @@
-<?php $this->layout('layout') ?>
+<?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
 <div class="card shadow border-0 mb-7 mt-5">
 	<div class="card-header">

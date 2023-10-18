@@ -59,6 +59,8 @@ else $maNV = "";
 if (isset($_POST['hoTen']))
     $hoTen = trim($_POST['hoTen']);
 else $hoTen = "";
+
+
 $maPhong = $_POST['phong'];
 $maChucVu = $_POST['chucVu'];
 $gioiTinh = $_POST['radGT'];
