@@ -35,14 +35,17 @@
         font-size: 26px;
     }
 
+    a {
+        text-decoration: none;
+        color: blue;
+    }
+
     .search-btn {
         width: 100%;
     }
 </style>
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'quan_ly_tien_luong')
-
-    or die('Could not connect to MySQL: ' . mysqli_connect_error());
+include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php"); 
 
 $sqlChucVu = 'select MaChucVu, TenChucVu from chuc_vu';
 
@@ -52,40 +55,66 @@ $sqlPhong = 'select MaPhong, TenPhong from phong_ban';
 
 $resultPhong = mysqli_query($conn, $sqlPhong);
 
-if (isset($_POST['maNV']))
-    $maNV = trim($_POST['maNV']);
+if (isset($_GET['maNV']))
+    $maNV = trim($_GET['maNV']);
 else $maNV = "";
 
-if (isset($_POST['hoTen']))
-    $hoTen = trim($_POST['hoTen']);
+if (isset($_GET['hoTen']))
+    $hoTen = trim($_GET['hoTen']);
 else $hoTen = "";
 
+if (isset($_GET['phong']))
+    $maPhong = $_GET['phong'];
+else $maPhong = "";
 
-$maPhong = $_POST['phong'];
-$maChucVu = $_POST['chucVu'];
-$gioiTinh = $_POST['radGT'];
-if (isset($_POST['timkiem'])) {
-    $sqlTimKiem =
-        "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban
+if (isset($_GET['chucVu']))
+    $maChucVu = $_GET['chucVu'];
+else $maChucVu = "";
+
+if (isset($_GET['radGT']))
+    $gioiTinh = $_GET['radGT'];
+else $gioiTinh = "";
+
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+if (!isset($_GET['page'])) {
+    $_GET['page'] = 1;
+}
+//vị trí của mẩu tin đầu tiên trên mỗi trang
+$offset = ($_GET['page'] - 1) * $rowsPerPage;
+//lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
+
+$sqlTimKiem =
+    "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban
             where nhan_vien.MaPhong = phong_ban.MaPhong 
             and nhan_vien.MaChucVu = chuc_vu.MaChucVu
         ";
-        if($maNV!=""){
-            $sqlTimKiem .= "and MaNV = '$maNV'";
-        }
-        if($maPhong!=""){
-            $sqlTimKiem .= "and nhan_vien.MaPhong = '$maPhong'";
-        }
-        if($maChucVu!=""){
-            $sqlTimKiem .= "and nhan_vien.MaChucVu = '$maChucVu'";
-        }
-        if($gioiTinh!="-1"){
-            $sqlTimKiem .= "and GioiTinh = '$gioiTinh'";
-        }
 
-    $sqlTimKiem .= "order by MaNV";
+if (isset($_GET['timkiem'])) {
+    if ($maNV != "") {
+        $sqlTimKiem .= "and MaNV = '$maNV'";
+    }
+    if ($hoTen != "") {
+        $sqlTimKiem .= "and concat(HoNV,' ',TenNV) like '%$hoTen%'";
+    }
+    if ($maPhong != "") {
+        $sqlTimKiem .= "and nhan_vien.MaPhong = '$maPhong'";
+    }
+    if ($maChucVu != "") {
+        $sqlTimKiem .= "and nhan_vien.MaChucVu = '$maChucVu'";
+    }
+    if ($gioiTinh != "-1" && $gioiTinh != "") {
+        $sqlTimKiem .= "and GioiTinh = '$gioiTinh'";
+    }
+
+
+
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 }
+$sqlTimKiem .= "order by MaNV";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+$numRows = mysqli_num_rows($resultTimKiem);
+$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <!-- Card stats -->
@@ -93,7 +122,7 @@ if (isset($_POST['timkiem'])) {
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 d-flex">
             <nav class="navbar navbar-light bg-light d-flex ">
-                <form action="" method="post">
+                <form action="" method="get">
                     <table>
                         <thead>
                             <th colspan="12">
@@ -116,16 +145,16 @@ if (isset($_POST['timkiem'])) {
                                     if (mysqli_num_rows($resultPhong) <> 0) {
 
                                         while ($rows = mysqli_fetch_array($resultPhong)) {
-                                            echo '<option value="' . $rows['MaPhong'] . '">' . $rows['TenPhong'] . '</option>';
+                                            echo "<option value='$rows[MaPhong]'";
+                                            if (isset($_GET['phong']) && $_GET['phong'] == $rows['MaPhong']) echo "selected";
+                                            echo ">$rows[TenPhong]</option>";
                                         }
                                     }
                                     ?>
                                 </select>
                             </td>
                             <td align="center" rowspan="3">
-
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
-                                <input class="btn btn-outline-success search-btn" name="reset" type="reset" value="Reset" />
                             </td>
                         </tr>
                         <tr>
@@ -139,12 +168,13 @@ if (isset($_POST['timkiem'])) {
                             <td>
 
                                 <select name="chucVu" class="form-select search-option" id="inputGroupSelect02">
-                                <option value="">Trống</option>
+                                    <option value="">Trống</option>
                                     <?php
                                     if (mysqli_num_rows($resultChucVu) <> 0) {
-
                                         while ($rows = mysqli_fetch_array($resultChucVu)) {
-                                            echo '<option value="' . $rows['MaChucVu'] . '">' . $rows['TenChucVu'] . '</option>';
+                                            echo "<option value='$rows[MaChucVu]'";
+                                            if (isset($_GET['chucVu']) && $_GET['chucVu'] == $rows['MaChucVu']) echo "selected";
+                                            echo ">$rows[TenChucVu]</option>";
                                         }
                                     }
                                     ?>
@@ -157,13 +187,13 @@ if (isset($_POST['timkiem'])) {
                             <td align="center" colspan="4">
                                 <p style="display: inline-block">Giới tính</p>
                                 <label for="nam">
-                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == "1") echo "checked" ?>> <span class="larger-text">Nam</span>
+                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> <span class="larger-text">Nam</span>
                                 </label>
                                 <label for="nu">
-                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == "0") echo "checked" ?>> <span class="larger-text">Nữ</span>
+                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> <span class="larger-text">Nữ</span>
                                 </label>
                                 <label for="none">
-                                    <input type="radio" name="radGT" id="nam" value="-1" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == "-1") echo "checked" ?>> <span class="larger-text">Không</span>
+                                    <input type="radio" name="radGT" id="nam" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> <span class="larger-text">Không</span>
                                 </label>
                             </td>
 
@@ -180,63 +210,38 @@ if (isset($_POST['timkiem'])) {
     <div class="card-header">
         <h5 class="mb-0">THÔNG TIN NHÂN VIÊN</h5>
     </div>
-    <div class="table-responsive">
+    <div>
         <table class="table table-hover table-nowrap">
             <thead class="thead-light">
                 <tr>
                     <th scope="col">mã nhân viên</th>
                     <th scope="col">họ tên</th>
+                    <th scope="col">ảnh</th>
+                    <th scope="col">giới tính</th>
                     <th scope="col">chức vụ</th>
                     <th scope="col">phòng</th>
-                    <th scope="col">ngày sinh</th>
-                    <th scope="col">giới tính</th>
-                    <th scope="col">địa chỉ</th>
-                    <th scope="col">số tài khoản</th>
-                    <th scope="col">cccd</th>
-                    <th scope="col">số con</th>
-                    <th scope="col">hình đại diện</th>
-                    <th></th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
+
             <tbody>
-                <!-- <tr>
-                    <td>123456</td>
-                    <td>Nguyễn Duy Thiên</td>
-                    <td>Chủ tịch</td>
-                    <td>Chủ tịch</td>
-                    <td>Nam</td>
-                    <td>0906420744</td>
-                    <td>123456</td>
-                    <td>Nguyễn Duy Thiên</td>
-                    <td>Chủ tịch</td>
-                    <td>Chủ tịch</td>
-                    <td>Nam</td>
-            
-                    <td class="text-end">
-                        <a href="#" class="btn btn-sm btn-neutral">View</a>
-                        <button type="button" class="btn btn-sm btn-square btn-neutral text-danger-hover">
-                            <i class="bi bi-trash"></i>
-                        </button>
-                    </td>
-                </tr> -->
                 <?php
+
+                //tổng số trang
+                $maxPage = floor($numRows / $rowsPerPage) + 1;
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
 
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
-                        if($rows['GioiTinh']==0) $gt = "Nữ";
+                        if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
                         echo "<tr>
                         <td>{$rows['MaNV']}</td>
                         <td>{$rows['HoNV']} {$rows['TenNV']}</td>
+                        <td>{$rows['Hinh']}</td>
+                        <td>{$gt}</td>
                         <td>{$rows['TenChucVu']}</td>
                         <td>{$rows['TenPhong']}</td>
-                        <td>{$rows['NgaySinh']}</td>
-                        <td>{$gt}</td>
-                        <td>{$rows['DiaChi']}</td>
-                        <td>{$rows['STK']}</td>
-                        <td>{$rows['CCCD']}</td>
-                        <td>{$rows['SoCon']}</td>
-                        <td>{$rows['Hinh']}</td>
+                        <td><a href=''>Xem chi tiết</a></td>
                         </tr>";
                     }
                 }
@@ -245,4 +250,23 @@ if (isset($_POST['timkiem'])) {
         </table>
     </div>
 </div>
+<?php
+            echo '<p align="center">';
+            if ($_GET['page'] > 1) {
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . (1) . ">Về đầu</a> ";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['page'] - 1) . ">Back</a> ";
+            }
+
+            for ($i = 1; $i <= $maxPage; $i++) {
+                if ($i == $_GET['page']) {
+                    echo '<b>' . $i . '</b> '; //trang hiện tại sẽ được bôi đậm
+                } else
+                    echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . $i . ">" . $i . "</a> ";
+            }
+            if ($_GET['page'] < $maxPage) {
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['page'] + 1) . ">Next</a>";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($maxPage) . ">Về cuối</a> ";
+            }
+            echo "</p>";
+        ?>
 <?php $this->end(); ?>
