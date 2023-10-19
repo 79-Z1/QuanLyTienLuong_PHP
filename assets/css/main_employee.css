@@ -3,21 +3,22 @@ body {
 	color: #333;
 	width: 100%;
 }
-
 .profile .grid-header {
-	background: url('https://bootdey.com/img/Content/bg1.jpg') no-repeat center center;
+	/* background: url('https://bootdey.com/img/Content/bg1.jpg') no-repeat center center; */
 	background-size: cover;
+	background-color: #7f7f7f;
 }
 
 .profile img {
-	max-width: 90%;
+	width: 150px;
+	border-radius: 20px;
 }
 
 .profile .grid-header img {
-	margin: 2em 1em;
+	margin: 10px 100px;
 }
 
-.profile .grid-header h3 {
+.profile .grid-header h2,h1 {
 	color: #f5f5f5;
 	font-weight: 400;
 	margin: 30px 0 20px 0;
@@ -49,24 +50,19 @@ body {
 .grid .grid-header {
 	width: 100%;
 	display: grid;
-    grid-template-columns: 200px 1fr; 
     gap: 20px;
 
 }
 
 .grid .grid-body {
-	padding: 15px 20px 15px 25px;
+	padding: 15px 20px 0px 25px;
 	font-size: 0.9em;
 	line-height: 1.9em;
 	width: 100%;
 }
 
 
-h1 {
-	margin: 0;
-	font-family: 'Bree Serif', serif;
-	font-size: 36px;
-}
+
 p {
 	margin-top: 20px;
 	margin-bottom: 0;
@@ -118,7 +114,7 @@ p {
 	display: none;
 	padding: 20px 30px 30px;
 	background: #fff;
-	height: 100%;
+	height: 440px;
 	
 }
 @media (min-width: 600px) {
@@ -130,3 +126,7 @@ p {
 .input:checked + .label + .panel {
 	display: block;
 }
+.info{
+	margin-right: 100px;
+}
+
