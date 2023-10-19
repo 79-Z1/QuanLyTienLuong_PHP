@@ -19,7 +19,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         $ngaySinh = trim($_POST['ngaySinh']);
     else $ngaySinh = "";
 
-
     if (isset($_POST['cccd']))
         $cccd = trim($_POST['cccd']);
     else $cccd = "";
@@ -43,8 +42,11 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     if (isset($_POST['chucVu']))
         $chucVu = trim($_POST['chucVu']);
     else $chucVu = "";
+        
 
     $err = array();
+
+    $allowed = array('image/jpeg','image/png');
 
     // connect mysql
 
@@ -56,7 +58,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         $rows = mysqli_num_rows($result);
         return $rows > 99 ? 'NV' . $rows + 1 : 'NV0' . $rows + 1;
     }
-
     	
     $maNV = LayMaNhanVien($conn);
 
@@ -87,6 +88,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         //     $hinh
         // );
         // require('connect.php');
+
         if($stk == ""){
             $err[] = "Vui lòng nhập số tài khoản";
         }
@@ -108,10 +110,31 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         if($hoNV == ""){
             $err[] = "Vui lòng nhập họ nhân viên";
         }
-        if($hoNV != "" && $tenNV != "" && $ngaySinh != "" && $cccd != "" && $sdt != "" && $diaChi != "" && $stk != ""){
+
+        if($_FILES['imgnv']['name']== NULL ){
+            $err[] = "Vui long chon anh nhan vien";
+        }else if(!in_array($_FILES['imgnv']['type'],$allowed)){
+            $err[] = "Chon sai dinh dang anh";
+        }
+        
+        if($hoNV != "" && $tenNV != "" && $ngaySinh != "" && $cccd != "" && $sdt != "" && $diaChi != "" && $stk != "" && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed) ){
+
+            $hinh = explode(".",$_FILES['imgnv']['name']);
+            $tempname = $_FILES["imgnv"]["tmp_name"];
+            $hinh[0] = $maNV;
+            $newhinh = implode(".",$hinh);
+            $folder = "/Applications/XAMPP/xamppfiles/htdocs/QuanLyTienLuong_PHP/assets/images/imgnv/" . $newhinh;
+            move_uploaded_file($tempname, $folder);
+
+            $taoTKNV = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
+            values('$maNV','$cccd','NV','$maNV')";
+
+            mysqli_query($conn, $taoTKNV);
+
             $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT) 
-                values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','dsa',$sdt)";
-            $result = mysqli_query($conn, $insert);
+                values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','$newhinh','$sdt')";
+            mysqli_query($conn, $insert);
+            
             echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
         }
         else{
@@ -129,24 +152,24 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                 <h5 class="mb-0">THÊM NHÂN VIÊN</h5>
             </div>
             <div class="table-responsive">
-            <form align='center' action="" method="post">
+            <form align='center' action="" method="post" enctype="multipart/form-data">
                 <table class="table table-hover table-nowrap">
                     <tr>
                         <td>Mã nhân viên:</td>
-                        <td><input class="form-control form-control-sm" type="text" size="10" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled"/></td>
+                        <td><input type="text" size="20" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled"/></td>
                         <td>Số con:</td>
-                        <td class="required"><input class="form-control form-control-sm" type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
+                        <td class="<?php if($soCon == "") echo 'required'; ?>"><input type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
                     </tr>
                     <tr>
-                        <td>Họ :</td>
-                        <td class="required"><input class="form-control form-control-sm" type="text" size="10" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
+                        <td >Họ :</td>
+                        <td class="<?php if($hoNV == "") echo 'required'; ?>"><input  type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
                         <td>Tên:</td>
-                        <td class="required"><input class="form-control form-control-sm" type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
+                        <td class="<?php if($tenNV == "") echo 'required'; ?>"><input  type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
                     </tr>
                     <tr>
                         <td>Phòng:</td>
                         <td>
-                        <select class="form-control form-control-sm" name="phong">
+                        <select name="phong">
                             <?php
                                 if(mysqli_num_rows($resultPhongBan)<>0){
                                     while($rows=mysqli_fetch_array($resultPhongBan)){
@@ -160,7 +183,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                         </td>
                         <td>Chức Vụ:</td>
                         <td>
-                            <select class="form-control form-control-sm" name="chucVu">
+                            <select name="chucVu">
                                 <?php
                                     if(mysqli_num_rows($resultChucVu)<>0){
                                         while($rows=mysqli_fetch_array($resultChucVu)){
@@ -175,35 +198,35 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                     </tr>
                     <tr>
                         <td>Ngày sinh:</td>
-                        <td class="required"><input type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?> " /></td>
+                        <td class="<?php if($ngaySinh == "") echo 'required'; ?>"><input type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
                         <td>CCCD:</td>
-                        <td class="required"><input class="form-control form-control-sm" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
+                        <td class="<?php if($cccd == "") echo 'required'; ?>"><input type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
                     </tr>
                     <tr>
                         <td>Giới tính:</td>
                         <td>
-                            <input class="form-check-input" type="radio" name="radGT" value="1" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '1') echo 'checked="checked"'; ?> checked />
-                            <label class="form-check-label" >Nam</label>
-                            <input class="form-check-input" type="radio" name="radGT" value="0" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '0') echo 'checked="checked"'; ?> />
-                            <label class="form-check-label" >Nữ</label>
+                            <input type="radio" name="radGT" value="1" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '1') echo 'checked="checked"'; ?> checked />
+                            Nam
+                            <input type="radio" name="radGT" value="0" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '0') echo 'checked="checked"'; ?> />
+                            Nữ
                         </td>
                         <td>Số tài khoản</td>
-                        <td class="required"><input class="form-control form-control-sm" type="text" name="stk" value="<?php echo $stk; ?> " /></td>
+                        <td class="<?php if($stk == "") echo 'required'; ?>"><input type="text" name="stk" value="<?php echo $stk; ?> " /></td>
                     </tr>
                     <tr>
                         <td>Số điện thoại:</td>
-                        <td class="required">
-                            <input class="form-control form-control-sm" type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
+                        <td class="<?php if($sdt == "") echo 'required'; ?>">
+                            <input type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
                         </td>
                         <td>Địa chỉ:</td>
-                        <td class="required">
-                            <input class="form-control form-control-sm required" type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
+                        <td class="<?php if($diaChi == "") echo 'required'; ?>">
+                            <input type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" align="center" class="required">
+                        <td colspan="4" align="center" class="">
                         Ảnh nhân viên
-                        <input class="form-control-file" type="file" name="fileToUpload" id="fileToUpload">
+                        <input type="file" name="imgnv">
                         </td>
                     </tr>
                     <tr>
@@ -217,5 +240,4 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         </div>     
     </div>
 </div>
-
 <?php $this->end(); ?>

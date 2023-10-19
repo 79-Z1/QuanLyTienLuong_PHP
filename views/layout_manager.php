@@ -4,7 +4,6 @@
   .required::after {
     content:" *";
     color: red;
-    
   }
 </style>
 <body>
