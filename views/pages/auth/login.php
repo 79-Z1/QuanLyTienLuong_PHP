@@ -1,4 +1,5 @@
 <html>
+
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -13,7 +14,7 @@ $tentk = isset($_POST['tentk']) ? $_POST['tentk'] : '';
 $matkhau = isset($_POST['matkhau']) ? $_POST['matkhau'] : '';
 if (isset($_POST['submit'])) {
 	if (isset($_POST['tentk'], $_POST['matkhau'])) {
-		$sql = "select * from tai_khoan where TenTK = '$tentk' and MKTK = '$matkhau'";
+		$sql = "select * from tai_khoan where TenTK = '$tentk' and MatKhau = '$matkhau'";
 		$result = mysqli_query($conn, $sql);
 		if (mysqli_num_rows($result) <> 0) {
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
@@ -22,13 +23,13 @@ if (isset($_POST['submit'])) {
 				$_SESSION["LoaiTK"] = $row['LoaiTK'];
 				switch ($_SESSION["LoaiTK"]) {
 					case 'KT':
-						header('Location: ' . "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/accountant");
+						header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant");
 						break;
 					case 'QL':
-						header('Location: ' . "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager");
+						header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/human_manager");
 						break;
 					default:
-						header('Location: ' . "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/employee");
+						header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/employee");
 						break;
 				}
 			}
