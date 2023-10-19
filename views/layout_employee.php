@@ -1,29 +1,32 @@
 <html>
 <?php $this->renderSection('header_employee'); ?>
-<?php session_start(); ?>
+<?php
+if (!isset($_SESSION)) {
+    session_start();
+}
+?>
+
 <body>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-        <div >
-            <!-- BEGIN USER PROFILE -->
-            <div class="col-md-12">
-                <div class="grid profile">
-                    <div class="grid-header">
-                        <div class="">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle" alt="">
-                        </div>
+    <div>
+        <!-- BEGIN USER PROFILE -->
+        <div class="col-md-12">
+            <div class="grid profile">
+                <div class="grid-header">
+                    <div class="d-flex">
+                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle" alt="">
                         <div>
-                            <h3><?= $_SESSION["MaNV"] ?></h3>
-                            <p>@bootdey</p>
-                            <p>Website Developer, Programmer</p>
-                            <p>Bootdey City, NY, USA</p>
+                            <h1>PHÒNG KHÁM ĐA KHOA THIỆN TRANG</h1>
+                            <h2>TRẦN NGỌC TIẾN</h2>
                         </div>
-                    </div>
-                    <div class="grid-body">
-                    <?php $this->renderSection('content'); ?>
                     </div>
                 </div>
+                <div class="grid-body">
+                    <?php $this->renderSection('content'); ?>
+                </div>
             </div>
-            <!-- END USER PROFILE -->
+        </div>
+        <!-- END USER PROFILE -->
 </body>
 
 </html>
