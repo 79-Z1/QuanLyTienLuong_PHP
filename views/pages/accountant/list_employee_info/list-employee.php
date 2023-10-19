@@ -6,7 +6,12 @@
         border-collapse: collapse;
         width: 100%;
     }
-
+    table img{
+        width: 50px;
+        height: 50px;
+        border-radius: 5px;
+        border: 1.5px solid black;
+    }
     td {
         padding: 10px;
         font-size: 20px;
@@ -230,14 +235,14 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                 //tổng số trang
                 $maxPage = floor($numRows / $rowsPerPage) + 1;
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
-
+                    
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
                         echo "<tr>
                         <td>{$rows['MaNV']}</td>
                         <td>{$rows['HoNV']} {$rows['TenNV']}</td>
-                        <td>{$rows['Hinh']}</td>
+                        <td><img src='" . "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/assets/images/imgnv/$rows[Hinh]" ."' alt='Avatar'></td>
                         <td>{$gt}</td>
                         <td>{$rows['TenChucVu']}</td>
                         <td>{$rows['TenPhong']}</td>
@@ -253,19 +258,19 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 <?php
             echo '<p align="center">';
             if ($_GET['p'] > 1) {
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . (1) . ">Về đầu</a> ";
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['p'] - 1) . ">Back</a> ";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] - 1) . ">Back</a> ";
             }
 
             for ($i = 1; $i <= $maxPage; $i++) {
                 if ($i == $_GET['p']) {
                     echo '<b>' . $i . '</b> '; //trang hiện tại sẽ được bôi đậm
                 } else
-                    echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . $i . ">" . $i . "</a> ";
+                    echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . $i . ">" . $i . "</a> ";
             }
             if ($_GET['p'] < $maxPage) {
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($_GET['p'] + 1) . ">Next</a>";
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&page=" . ($maxPage) . ">Về cuối</a> ";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] + 1) . ">Next</a>";
+                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
             }
             echo "</p>";
         ?>

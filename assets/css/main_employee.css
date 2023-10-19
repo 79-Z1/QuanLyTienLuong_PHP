@@ -20,6 +20,8 @@ td{
 .profile img {
 	width: 150px;
 	border-radius: 20px;
+	height: 150px;
+
 }
 
 .profile .grid-header img {

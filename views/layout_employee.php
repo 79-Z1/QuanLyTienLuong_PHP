@@ -21,7 +21,7 @@ if (mysqli_num_rows($resultTT) > 0) {
             <div class="grid profile">
                 <div class="grid-header">
                     <div class="d-flex">
-                        <img src="https://bootdey.com/img/Content/avatar/avatar1.png" class="img-circle" alt="">
+                        <img src="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/assets/images/imgnv/$TT[Hinh]"?>" alt="Ảnh nhân viên">
                         <div>
                             <h1>PHÒNG KHÁM ĐA KHOA THIỆN TRANG</h1>
                             <h2><?= $TT["HoNV"] . " " . $TT["TenNV"] ?></h2>
