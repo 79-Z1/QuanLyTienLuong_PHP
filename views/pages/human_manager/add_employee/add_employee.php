@@ -69,7 +69,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
 
-
     if (isset($_POST['them'])) {
         $gt = $_POST['radGT'];
         // $nv = new NhanVien(
@@ -125,15 +124,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $newhinh = implode(".",$hinh);
             $folder = "/Applications/XAMPP/xamppfiles/htdocs/QuanLyTienLuong_PHP/assets/images/imgnv/" . $newhinh;
             move_uploaded_file($tempname, $folder);
-
-            $taoTKNV = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
-            values('$maNV','$cccd','NV','$maNV')";
-
-            mysqli_query($conn, $taoTKNV);
-
             $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT) 
                 values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','$newhinh','$sdt')";
             mysqli_query($conn, $insert);
+
+            $taoTaiKhoan = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
+                values('$maNV','$cccd','NV','$maNV')";
+
+            mysqli_query($conn, $taoTaiKhoan);
             
             echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
         }
