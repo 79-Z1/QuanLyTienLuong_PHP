@@ -2,23 +2,25 @@
 <?php $this->section('content'); ?>
 
 <style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    table img{
+    table img {
         width: 50px;
         height: 50px;
         border-radius: 5px;
         border: 1.5px solid black;
     }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
     td {
         padding: 10px;
         font-size: 20px;
     }
 
     p {
-        font-size: 20px;
+        font-size: 16px;
         font-weight: bold;
     }
 
@@ -35,22 +37,49 @@
         /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
     }
 
-    h3 {
-        font-weight: bold;
-        font-size: 26px;
+    .form-control {
+        height: 30px;
     }
 
     a {
         text-decoration: none;
         color: blue;
+        font-size: 16px;
     }
 
     .search-btn {
         width: 100%;
+
+    }
+
+    .search-btn span {
+        margin-right: 5px;
+    }
+
+    .pagination-link {
+        display: inline-block;
+        padding: 5px 8px;
+        margin: 0 3px;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+
+    }
+
+    .pagination-link.active {
+        background-color: #333;
+        color: #fff;
+    }
+
+    .pagination-link:not(.active) {
+        font-weight: 400;
+        font-size: 14px;
+        color: #666;
     }
 </style>
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php"); 
+include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
 $sqlChucVu = 'select MaChucVu, TenChucVu from chuc_vu';
 
@@ -80,7 +109,7 @@ if (isset($_GET['radGT']))
     $gioiTinh = $_GET['radGT'];
 else $gioiTinh = "";
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 4; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -129,11 +158,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
             <nav class="navbar navbar-light bg-light d-flex ">
                 <form action="" method="get">
                     <table>
-                        <thead>
-                            <th colspan="12">
-                                <h3>TÌM KIẾM NHÂN VIÊN</h3>
-                            </th>
-                        </thead>
                         <tr>
                             <td>
                                 <p>Mã nhân viên</p>
@@ -158,8 +182,17 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td align="center" rowspan="3">
-                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                            <td align="center" colspan="4">
+                                <p style="display: inline-block">Giới tính</p>
+                                <label for="nam">
+                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> <span class="larger-text">Nam</span>
+                                </label>
+                                <label for="nu">
+                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> <span class="larger-text">Nữ</span>
+                                </label>
+                                <label for="none">
+                                    <input type="radio" name="radGT" id="nam" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> <span class="larger-text">Không</span>
+                                </label>
                             </td>
                         </tr>
                         <tr>
@@ -185,23 +218,9 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-
-                        </tr>
-                        <tr>
-
-                            <td align="center" colspan="4">
-                                <p style="display: inline-block">Giới tính</p>
-                                <label for="nam">
-                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> <span class="larger-text">Nam</span>
-                                </label>
-                                <label for="nu">
-                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> <span class="larger-text">Nữ</span>
-                                </label>
-                                <label for="none">
-                                    <input type="radio" name="radGT" id="nam" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> <span class="larger-text">Không</span>
-                                </label>
+                            <td align="center" rowspan="3">
+                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
-
                         </tr>
                     </table>
 
@@ -209,7 +228,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
             </nav>
         </div>
     </div>
-
 </div>
 <div class="card shadow border-0 mb-7">
     <div class="card-header">
@@ -235,14 +253,14 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                 //tổng số trang
                 $maxPage = floor($numRows / $rowsPerPage) + 1;
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
-                    
+
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
                         echo "<tr>
                         <td>{$rows['MaNV']}</td>
                         <td>{$rows['HoNV']} {$rows['TenNV']}</td>
-                        <td><img src='" . "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/assets/images/imgnv/$rows[Hinh]" ."' alt='Avatar'></td>
+                        <td><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
                         <td>{$gt}</td>
                         <td>{$rows['TenChucVu']}</td>
                         <td>{$rows['TenPhong']}</td>
@@ -256,22 +274,17 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 <?php
-            echo '<p align="center">';
-            if ($_GET['p'] > 1) {
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] - 1) . ">Back</a> ";
-            }
-
-            for ($i = 1; $i <= $maxPage; $i++) {
-                if ($i == $_GET['p']) {
-                    echo '<b>' . $i . '</b> '; //trang hiện tại sẽ được bôi đậm
-                } else
-                    echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . $i . ">" . $i . "</a> ";
-            }
-            if ($_GET['p'] < $maxPage) {
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] + 1) . ">Next</a>";
-                echo "<a href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
-            }
-            echo "</p>";
-        ?>
+echo '<p align="center">';
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . ">Back</a> ";
+for ($i = 1; $i <= $maxPage; $i++) {
+    if ($i == $_GET['p']) {
+        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
+    } else
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . $i . ">" . $i . "</a> ";
+}
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">Next</a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "</p>";
+?>
 <?php $this->end(); ?>
