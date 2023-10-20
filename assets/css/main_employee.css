@@ -8,10 +8,20 @@ body {
 	background-size: cover;
 	background-color: #7f7f7f;
 }
-
+td{
+	
+	font-size: x-large;
+	padding: 10px;
+}
+.title{
+	width: 200px !important;
+	font-weight: bold;
+}
 .profile img {
 	width: 150px;
 	border-radius: 20px;
+	height: 150px;
+
 }
 
 .profile .grid-header img {
