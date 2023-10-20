@@ -56,6 +56,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         $result = mysqli_query($conn, $sql);
 
         $rows = mysqli_num_rows($result);
+
         return $rows > 99 ? 'NV' . $rows + 1 : 'NV0' . $rows + 1;
     }
     	
@@ -68,7 +69,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $getChucVu = "select MaChucVu, TenChucVu from chuc_vu";
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
-
 
     if (isset($_POST['them'])) {
         $gt = $_POST['radGT'];
@@ -87,19 +87,18 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         //     $sdt,
         //     $hinh
         // );
-        // require('connect.php');
 
-        if($stk == ""){
-            $err[] = "Vui lòng nhập số tài khoản";
+        if(!is_numeric($stk)){
+            $err[] = "Vui lòng nhập số tài khoản đúng định dạng số";
         }
         if($diaChi == ""){
             $err[] = "Vui lòng nhập địa chỉ";
         }
-        if($sdt == ""){
-            $err[] = "Vui lòng nhập số điện thoại";
+        if(!is_numeric($sdt)){
+            $err[] = "Vui lòng nhập số điện thoại đúng định dạng số";
         }
-        if($cccd == ""){
-            $err[] = "Vui lòng nhập căn cước công dân";
+        if(!is_numeric($cccd)){
+            $err[] = "Vui lòng nhập căn cước công dân đúng định dạng số";
         }
         if($ngaySinh == ""){
             $err[] = "Vui lòng chọn ngày sinh";
@@ -112,30 +111,53 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         }
 
         if($_FILES['imgnv']['name']== NULL ){
-            $err[] = "Vui long chon anh nhan vien";
+            $err[] = "Vui lòng chọn ảnh nhân viên";
         }else if(!in_array($_FILES['imgnv']['type'],$allowed)){
-            $err[] = "Chon sai dinh dang anh";
+            $err[] = "Vui lòng chọn đúng định dạng ảnh";
         }
-        
-        if($hoNV != "" && $tenNV != "" && $ngaySinh != "" && $cccd != "" && $sdt != "" && $diaChi != "" && $stk != "" && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed) ){
 
+        if($hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
+            && is_numeric($sdt) && $diaChi != "" && is_numeric($stk) 
+            && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed)){
             $hinh = explode(".",$_FILES['imgnv']['name']);
             $tempname = $_FILES["imgnv"]["tmp_name"];
             $hinh[0] = $maNV;
             $newhinh = implode(".",$hinh);
-            $folder = "/Applications/XAMPP/xamppfiles/htdocs/QuanLyTienLuong_PHP/assets/images/imgnv/" . $newhinh;
-            move_uploaded_file($tempname, $folder);
+            $folder = $_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/" . $newhinh;
 
-            $taoTKNV = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
-            values('$maNV','$cccd','NV','$maNV')";
-
-            mysqli_query($conn, $taoTKNV);
-
-            $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT) 
+            if(move_uploaded_file($tempname, $folder)){
+                $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT) 
                 values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','$newhinh','$sdt')";
-            mysqli_query($conn, $insert);
-            
-            echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
+                mysqli_query($conn, $insert);
+
+                $taoTaiKhoan = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
+                    values('$maNV','$cccd','NV','$maNV')";
+
+                mysqli_query($conn, $taoTaiKhoan);
+
+                $getMaNV = "select MaNV from nhan_vien";
+                $result = mysqli_query($conn, $getMaNV);
+
+                $soMaNV = mysqli_num_rows($result);
+
+                $newMaNV = "";
+
+                $soMaNV > 99 ? $newMaNV = 'NV' . $soMaNV + 1 : $newMaNV = 'NV0' . $soMaNV + 1;
+
+                $hoNV = "";
+                $tenNV = "";
+                $soCon = "0";
+                $ngaySinh = "";
+                $cccd = "";
+                $stk = "";
+                $sdt = "";
+                $diaChi = "";
+                $maNV = $newMaNV;
+                
+                echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
+            }else{
+                echo "<script type='text/javascript'>toastr.error('Tải lên ảnh không thành công'); toastr.options.timeOut = 3000;</script>";
+            }
         }
         else{
             foreach($err as $lois){
