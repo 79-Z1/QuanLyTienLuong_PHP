@@ -38,3 +38,6 @@ table td {
     color: #ffffff;
     background-color: 7b6bff;
 }
+.navbar-vertical.navbar-expand-lg.show {
+    max-width: 250px !important;
+}
