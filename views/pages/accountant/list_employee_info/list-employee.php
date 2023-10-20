@@ -23,11 +23,14 @@
         font-size: 16px;
         font-weight: bold;
     }
+    label{
+        margin-right: 5px;
+    }
 
     input[type="radio"] {
         transform: scale(1.6);
         margin-right: 5px;
-        margin-left: 10px;
+        margin-left: 5px;
     }
 
     .larger-text {
@@ -182,17 +185,22 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td align="center" colspan="4">
-                                <p style="display: inline-block">Giới tính</p>
-                                <label for="nam">
-                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> <span class="larger-text">Nam</span>
-                                </label>
-                                <label for="nu">
-                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> <span class="larger-text">Nữ</span>
-                                </label>
-                                <label for="none">
-                                    <input type="radio" name="radGT" id="nam" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> <span class="larger-text">Không</span>
-                                </label>
+                            <td  >
+                                <p>Giới tính</p>
+                                <div style="display: flex; justify-content:space-between; font-size: 18px;">
+                                    <input  type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> 
+                                    <label for="nam">
+                                        Nam
+                                    </label>
+                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> 
+                                    <label  for="nu">
+                                        Nữ
+                                    </label>
+                                    <input type="radio" name="radGT" id="none" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> 
+                                    <label  for="none">
+                                        Không
+                                    </label>
+                                </div>
                             </td>
                         </tr>
                         <tr>
