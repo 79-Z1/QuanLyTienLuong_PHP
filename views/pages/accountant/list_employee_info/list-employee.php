@@ -13,12 +13,19 @@
         border-collapse: collapse;
         width: 100%;
     }
-
-    td {
-        padding: 10px;
-        font-size: 20px;
+    td{
+        padding: 5px;
+        padding-right:20px;
+        
     }
+    .table-hover tbody td {
+        padding: 13px 10px 13px 25px;
 
+    }
+    .table-hover tbody td a i{
+        font-size:22px;
+        margin-right: 8px;
+    }
     p {
         font-size: 18px;
         font-weight: bold;
@@ -32,6 +39,13 @@
         transform: scale(1.6);
         margin-right: 5px;
         margin-left: 15px;
+    }
+    .form-select{
+        padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+    }
+    .card .navbar {
+        padding: 0;
+        border-radius: 10px;
     }
 
     .larger-text {
@@ -68,12 +82,13 @@
         text-decoration: none;
         color: #333;
         font-size: 14px;
-
+        border-radius: 15px;
     }
-
+   
     .pagination-link.active {
         background-color: #333;
         color: #fff;
+
     }
 
     .pagination-link:not(.active) {
@@ -113,7 +128,7 @@ if (isset($_GET['radGT']))
     $gioiTinh = $_GET['radGT'];
 else $gioiTinh = "";
 
-$rowsPerPage = 4; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -159,15 +174,15 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 <div class="g-6 mb-3 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 d-flex">
-            <nav class="navbar navbar-light bg-light d-flex ">
+            <nav  class="navbar navbar-light bg-light d-flex justify-content-center py-1">
                 <form action="" method="get">
                     <table>
                         <tr>
                             <td>
                                 <p>Mã nhân viên</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
-                            <td>
+                            <td ><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
+                            <td >
                                 <p>Phòng</p>
                             </td>
                             <td>
@@ -214,7 +229,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             </td>
                             <td>
 
-                                <select style="width:50%;" name="chucVu" class="form-select search-option" id="inputGroupSelect02">
+                                <select name="chucVu" class="form-select search-option" id="inputGroupSelect02">
                                     <option value="">Trống</option>
                                     <?php
                                     if (mysqli_num_rows($resultChucVu) <> 0) {
@@ -228,7 +243,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                 </select>
                             </td>
                             <td align="center" rowspan="3">
-                                <input style="width:120px;" class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
                     </table>
@@ -238,11 +253,11 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
         </div>
     </div>
 </div>
-<div class="card shadow border-0 mb-7">
+<div class="card shadow border-0 mb-3">
     <div class="card-header">
         <h5 class="mb-0">THÔNG TIN NHÂN VIÊN</h5>
     </div>
-    <div>
+    <div style="height: 435px">
         <table class="table table-hover table-nowrap">
             <thead class="thead-light">
                 <tr>
@@ -267,13 +282,13 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
                         echo "<tr  >
-                        <td style='height:20px;'>{$rows['MaNV']}</td>
-                        <td>{$rows['HoNV']} {$rows['TenNV']}</td>
-                        <td><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
-                        <td>{$gt}</td>
-                        <td>{$rows['TenChucVu']}</td>
-                        <td>{$rows['TenPhong']}</td>
-                        <td><a href=''>Xem chi tiết</a></td>
+                        <td >{$rows['MaNV']}</td>
+                        <td >{$rows['HoNV']} {$rows['TenNV']}</td>
+                        <td ><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
+                        <td >{$gt}</td>
+                        <td >{$rows['TenChucVu']}</td>
+                        <td >{$rows['TenPhong']}</td>
+                        <td ><a href=''><i style='green' class='bi bi-person-lines-fill'></i></a></td>
                         </tr>";
                     }
                 }
