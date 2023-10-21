@@ -20,8 +20,9 @@
     }
 
     p {
-        font-size: 16px;
+        font-size: 18px;
         font-weight: bold;
+        height: 30px;
     }
     label{
         margin-right: 5px;
@@ -30,7 +31,7 @@
     input[type="radio"] {
         transform: scale(1.6);
         margin-right: 5px;
-        margin-left: 5px;
+        margin-left: 15px;
     }
 
     .larger-text {
@@ -155,7 +156,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <!-- Card stats -->
-<div class="g-6 mb-6 w-100 search-container mt-5">
+<div class="g-6 mb-3 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 d-flex">
             <nav class="navbar navbar-light bg-light d-flex ">
@@ -213,7 +214,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             </td>
                             <td>
 
-                                <select name="chucVu" class="form-select search-option" id="inputGroupSelect02">
+                                <select style="width:50%;" name="chucVu" class="form-select search-option" id="inputGroupSelect02">
                                     <option value="">Trống</option>
                                     <?php
                                     if (mysqli_num_rows($resultChucVu) <> 0) {
@@ -227,7 +228,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                 </select>
                             </td>
                             <td align="center" rowspan="3">
-                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input style="width:120px;" class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
                     </table>
@@ -265,8 +266,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
-                        echo "<tr>
-                        <td>{$rows['MaNV']}</td>
+                        echo "<tr  >
+                        <td style='height:20px;'>{$rows['MaNV']}</td>
                         <td>{$rows['HoNV']} {$rows['TenNV']}</td>
                         <td><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
                         <td>{$gt}</td>
@@ -280,9 +281,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
             </tbody>
         </table>
     </div>
+    
 </div>
 <?php
-echo '<p align="center">';
+echo '<div align="center">';
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . ">Back</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
@@ -293,6 +295,7 @@ for ($i = 1; $i <= $maxPage; $i++) {
 }
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">Next</a>";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
-echo "</p>";
+echo "</div>";
 ?>
+
 <?php $this->end(); ?>
