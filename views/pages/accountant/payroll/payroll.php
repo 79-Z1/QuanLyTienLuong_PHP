@@ -1,118 +1,96 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
-    <!-- Card stats -->
-<div class="g-6 mb-6 w-100 search-container mt-5">
-	<div class="col-xl-12 col-sm-12 col-12">
-		<div class="card shadow border-0 d-flex">
-			<nav class="navbar navbar-light bg-light">
-				<div class="container-fluid">
-					<div class="d-flex">
-						<input 
-							class="form-control me-2 search-input" 
-							value=""
-							type="text" 
-							id="ma-input" 
-							placeholder="Nhập Mã..."
-						>						
-						<input class="cal" type="date" id="calendar" name="calendar" min="2022-12-01">
-						<select class="form-select search-option tinhluong-option" id="inputGroupSelect02">
-							<option value="" selected>--Chọn kiểu tính--</option>
-							<option value="nhanvien">Nhân viên</option>
-							<option value="phong">Phòng</option>
-							<option value="congty">Công ty</option>
-						</select>
-						<button class="btn  search-btn tinhluong-btn" type="submit" disabled>
-							Tính lương
-						</button>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</div>
-</div>
-<div class="card shadow border-0 mb-7">
-	<div class="card-header">
-		<h5 class="mb-0">BẢNG TÍNH LƯƠNG NHÂN VIÊN</h5>
-		<input type="month" id="start" name="start" min="2018-03" value="2022-12">
-	</div>
-	<div class="table-responsive">
-		<table class="table table-hover table-nowrap">
-			<thead class="thead-light">
-				<tr>
-					<th scope="col">mã nhân viên</th>
-					<th scope="col">họ tên</th>
-					<th scope="col">chức vụ</th>
-					<th scope="col">phòng</th>
-					<th scope="col">hệ số lương</th>
-					<th scope="col">ngày công</th>
-					<th scope="col">tăng ca</th>
-					<th scope="col">tiền tạm ứng</th>
-					<th scope="col">bảo hiểm</th>
-					<th scope="col">thuế</th>
-					<th scope="col">thực lĩnh</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-                    <td>{{#toUpperCase this.MaNV}}{{/toUpperCase}}</td>
-                    <td>{{this.HoTen}}</td>
-                    <td>{{this.TenChucVu}}</td>	
-					<td>{{this.TenPhong}}</td>				
-                    <td>{{this.HeSoLuong}}</td>					
-                    <td>{{this.SoNgayCong}}</td>
-                    <td>{{#toVND this.TangCa}}{{/toVND}}</td>
-					<td>{{#toVND this.TamUng}}{{/toVND}}</td>
-					<td>{{#toVND this.BaoHiem}}{{/toVND}}</td>
-					<td>{{#toVND this.Thue}}{{/toVND}}</td>
-					<td>{{#toVND this.ThucLinh}}{{/toVND}}</td>
-                </tr>
-					<tr>						
-						<td style="padding-left: 520px; font-size: 20px; " colspan="11" >Bảng tính lương đang rỗng</td>
-					</tr>
-			</tbody>
-		</table>
+<?php
+	include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php");
+
+	$rowsPerPage = 8; //số mẩu tin trên mỗi trang
 	
-	</div>
-</div>
-
-<script>
-	$('.search-btn').on('click',async function(e) {
-		searchValue = $('#search-input').val();		
-	})
-
-	$('input[type=search]').on('search', function () {
-    	window.location.replace("/admin/tinhluong");
-	});
-
-	async function search(value) {
-		await instance.get('/admin/search', {
-			params: {
-				searchValue: value
-			}
-		});
+	if (!isset($_GET['p'])) {
+		$_GET['p'] = 1;
 	}
 
-	const today = new Date().toLocaleDateString('en-CA');//en-US
-	$('#calendar').val(today);
+	$offset = ($_GET['p'] - 1) * $rowsPerPage;
 
-	$('#calendar').on('change', function() {
-		$(this).val()
-	})
+	$sqlTimKiem =
+    "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban 
+	where nhan_vien.MaPhong = phong_ban.MaPhong 
+	and nhan_vien.MaChucVu = chuc_vu.MaChucVu order by MaNV
+	";
+	$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+	$numRows = mysqli_num_rows($resultTimKiem);
+	$sqlTimKiem .= " limit $offset, $rowsPerPage";
+	$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
-	$('.tinhluong-option').on('change', function() {
-		$('.tinhluong-btn').removeAttr('disabled');
-	})
+	if (isset($_POST['submit'])) {
+		session_start();
+		$_SESSION["MaNV"] = $row['MaNV'];
+	}
+?>
+<div class="card shadow border-0 mb-7">
+    <div class="card-header">
+        <h5 class="mb-0">TÍNH LƯƠNG NHÂN VIÊN</h5>
+    </div>
+    <div>
+        <table class="table table-hover table-nowrap">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">mã nhân viên</th>
+                    <th scope="col">họ tên</th>
+                    <th scope="col">chức vụ</th>
+                    <th scope="col">phòng</th>
+                    <th scope="col">tình trạng</th>
+					<th scope="col">tính lương</th>
+                </tr>
+            </thead>
 
-	$('.tinhluong-btn').on('click',async function() {
-		await instance.get('/admin/thuc-hien-tinh-luong', {
-			params: {
-				type: $('.tinhluong-option').val(),
-				ma: $('#ma-input').val()
-			}
-		});
-		window.location.replace(`/admin/thuc-hien-tinh-luong?type=${$('.tinhluong-option').val()}&&ma=${$('#ma-input').val()}`);
-	})
+            <tbody>
+                <?php
+                //tổng số trang
+                $maxPage = floor($numRows / $rowsPerPage) + 1;
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
+                        echo "<tr>
+                        <td>{$rows['MaNV']}</td>
+                        <td>{$rows['HoNV']} {$rows['TenNV']}</td>
+                        <td>{$rows['TenChucVu']}</td>
+                        <td>{$rows['TenPhong']}</td>
+						<td> Đã Tính </td>
+                        <td>
+						<button name='submit' type='submit' class='btn btn-primary w-100' id='submit-btn'>
+							Tính lương
+						</button>
+						</td>
+                        </tr>";
+                    }
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
+<?php
+	echo "<p align = 'center'>";
+
+	if ($_GET['p'] > 1)
+	{
+		echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . (1) . "> << </a> ";
+		echo "<a href=" .$_SERVER['PHP_SELF']."?page=accountant-payroll&p=".($_GET['p']-1)."> < </a> "; 
+	}
 	
-	
-</script>
+	for ($i=1 ; $i<=$maxPage ; $i++)
+	{
+		if ($i == $_GET['p'])
+		{ 
+			echo '<b>'.$i.'</b> '; //trang hiện tại sẽ được bôi đậm
+		} 
+		else
+			echo "<a href=" .$_SERVER['PHP_SELF']. "?page=accountant-payroll&p=" .$i.">".$i."</a> ";
+	}
+	if ($_GET['p'] < $maxPage)
+	{ 
+		echo "<a href=". $_SERVER['PHP_SELF']."?page=accountant-payroll&p=".($_GET['p']+1)."> > </a>";
+		echo "<a href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($maxPage) . "> >> </a> ";
+	}
+	echo "</p>";
+?>
 <?php $this->end(); ?>
