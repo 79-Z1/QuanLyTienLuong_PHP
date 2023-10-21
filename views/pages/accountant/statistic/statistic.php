@@ -1,5 +1,7 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <div class="card shadow border-0 mb-7 mt-5">
 	<div class="card-header d-flex justify-content-center">
 		<h5 class="mb-0">BẢNG BÁO CÁO THỐNG KÊ LƯƠNG CÔNG TY THÁNG 12</h5>

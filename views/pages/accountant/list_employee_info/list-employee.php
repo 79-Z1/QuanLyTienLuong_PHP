@@ -185,7 +185,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td  >
+                            <td>
                                 <p>Giới tính</p>
                                 <div style="display: flex; justify-content:space-between; font-size: 18px;">
                                     <input  type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> 
