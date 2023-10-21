@@ -10,6 +10,10 @@
 </head>
 <?php
 require('./connect.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/services/jwt.php"); 
+include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/config/const.php"); 
+$jwt = (new JWT());
+
 $tentk = isset($_POST['tentk']) ? $_POST['tentk'] : '';
 $matkhau = isset($_POST['matkhau']) ? $_POST['matkhau'] : '';
 if (isset($_POST['submit'])) {
@@ -19,8 +23,16 @@ if (isset($_POST['submit'])) {
 		if (mysqli_num_rows($result) <> 0) {
 			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 				session_start();
+				$payload = [
+					'MaNV' => $row['MaNV'],
+					'LoaiTK' =>  $row['LoaiTK'],
+					'iss' => 'http://localhost/QuanLyTienLuong_PHP',
+					'aud' => 'dakhoathientrang.com'
+				];
+				$token = $jwt->generate($payload);
 				$_SESSION["MaNV"] = $row['MaNV'];
 				$_SESSION["LoaiTK"] = $row['LoaiTK'];
+				$_SESSION["Authorization"] = $token;
 				switch ($_SESSION["LoaiTK"]) {
 					case 'KT':
 						header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant");
