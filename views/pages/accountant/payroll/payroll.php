@@ -20,17 +20,13 @@
 	$numRows = mysqli_num_rows($resultTimKiem);
 	$sqlTimKiem .= " limit $offset, $rowsPerPage";
 	$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-
-	if (isset($_POST['submit'])) {
-		session_start();
-		$_SESSION["MaNV"] = $row['MaNV'];
-	}
 ?>
 <div class="card shadow border-0 mb-7">
     <div class="card-header">
         <h5 class="mb-0">TÍNH LƯƠNG NHÂN VIÊN</h5>
     </div>
     <div>
+	<form action="" method="post" enctype="multipart/form-data">
         <table class="table table-hover table-nowrap">
             <thead class="thead-light">
                 <tr>
@@ -56,9 +52,7 @@
                         <td>{$rows['TenPhong']}</td>
 						<td> Đã Tính </td>
                         <td>
-						<button name='submit' type='submit' class='btn btn-primary w-100' id='submit-btn'>
-							Tính lương
-						</button>
+						<a href ='payroll/payroll-info.php?MaNV=$rows[MaNV]'>Tính lương</a>
 						</td>
                         </tr>";
                     }
@@ -66,6 +60,7 @@
                 ?>
             </tbody>
         </table>
+	</form>
     </div>
 </div>
 <?php
