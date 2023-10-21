@@ -1,0 +1,3 @@
+<?php
+    const SECRET_KEY = "0036bd05d80e7f7d8c4fa0956e879e06d88f3b6d913364aca33e8c86f6e20455";
+?>
