@@ -19,7 +19,7 @@ switch ($page) {
         echo $template->render('pages/accountant/check_salary_advance/check_salary_advance', []);
         break;
     default:
-        echo $template->render('header_accountant', ['css' => 'list_employee_info.css', 'js' => 'list_employee_info.js']);
+        echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/list-employee', []);
         break;
 }
