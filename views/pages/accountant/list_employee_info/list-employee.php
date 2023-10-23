@@ -79,15 +79,15 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 <div class="g-6 mb-3 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 d-flex">
-            <nav  class="navbar navbar-light bg-light d-flex justify-content-center py-1">
+            <nav class="navbar navbar-light bg-light d-flex justify-content-center py-1">
                 <form action="" method="get">
                     <table>
                         <tr>
                             <td>
                                 <p>Mã nhân viên</p>
                             </td>
-                            <td ><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
-                            <td >
+                            <td><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
+                            <td>
                                 <p>Phòng</p>
                             </td>
                             <td>
@@ -106,19 +106,19 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td  >
+                            <td>
                                 <p>Giới tính</p>
                                 <div style="display: flex; justify-content:space-between; font-size: 18px;">
-                                    <input  type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> 
+                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>>
                                     <label for="nam">
                                         Nam
                                     </label>
-                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> 
-                                    <label  for="nu">
+                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>>
+                                    <label for="nu">
                                         Nữ
                                     </label>
-                                    <input type="radio" name="radGT" id="none" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> 
-                                    <label  for="none">
+                                    <input type="radio" name="radGT" id="none" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>>
+                                    <label for="none">
                                         Không
                                     </label>
                                 </div>
@@ -158,11 +158,12 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
         </div>
     </div>
 </div>
-<div class="card shadow border-0 mb-3">
-    <div class="card-header">
-        <h5 class="mb-0">THÔNG TIN NHÂN VIÊN</h5>
-    </div>
-    <div style="height: 435px">
+<div style="height:510px">
+
+    <div class="card shadow border-0 mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">THÔNG TIN NHÂN VIÊN</h5>
+        </div>
         <table class="table table-hover table-nowrap">
             <thead class="thead-light">
                 <tr>
@@ -187,21 +188,20 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
                         echo "<tr  >
-                        <td >{$rows['MaNV']}</td>
-                        <td >{$rows['HoNV']} {$rows['TenNV']}</td>
-                        <td ><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
-                        <td >{$gt}</td>
-                        <td >{$rows['TenChucVu']}</td>
-                        <td >{$rows['TenPhong']}</td>
-                        <td ><a href=''><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
-                        </tr>";
+                            <td >{$rows['MaNV']}</td>
+                            <td >{$rows['HoNV']} {$rows['TenNV']}</td>
+                            <td ><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
+                            <td >{$gt}</td>
+                            <td >{$rows['TenChucVu']}</td>
+                            <td >{$rows['TenPhong']}</td>
+                            <td ><a href=''><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            </tr>";
                     }
                 }
                 ?>
             </tbody>
         </table>
     </div>
-    
 </div>
 <?php
 echo '<div align="center">';

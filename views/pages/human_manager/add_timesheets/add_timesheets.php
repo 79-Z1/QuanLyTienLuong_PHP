@@ -87,16 +87,43 @@ if(isset($_POST["xacNhan"])){
         height: 200px;
         overflow-y: scroll;
     }
+    .button {
+            display: inline-block;
+            padding: 8px 20px;
+            font-size: 18px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            outline: none;
+            color: #fff;
+            background-color: #03C03C;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 9px #97ed8a;
+        }
+
+        .button:hover {
+            background-color: #157806;
+        }
+
+        .button:active {
+            background-color: #157806;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
 </style>
 <form action="" method="post">
-<div class=" d-flex flex-row-reverse ">
-    <input type="submit" name="xacNhan" value="Xác nhận" class="btn  color-btn p-2">
-</div>
+
 <div class="single-item ">
     <div class="card shadow border-0 mb-7 mt-5 ">
         <div class="card-header d-flex justify-content-between">
-            <h5 class="mb-0">BẢNG CHẤM CÔNG</h5>
-            <input type="date" name="ngay" value="<?= $_POST["ngay"] ?>">
+            <div class="mr-auto p-2">
+                <h5 >BẢNG CHẤM CÔNG</h5>
+            </div>
+            <div>
+                <input style="font-size: 20px; padding-right: 20px; width:49%" type="date" name="ngay" value="<?= $_POST["ngay"] ?>">
+                <input class="button p-2" style="margin-left: 20px;" type="submit" name="xacNhan" value="Xác nhận">
+            </div>
         </div>
         <div class="table-responsive">
             <table class="table table-hover table-nowrap">
