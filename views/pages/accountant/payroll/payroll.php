@@ -3,12 +3,17 @@
 <?php
 	include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php");
 
-	$rowsPerPage = 8; //số mẩu tin trên mỗi trang
+	$rowsPerPage = 7; //số mẩu tin trên mỗi trang
 	
 	if (!isset($_GET['p'])) {
 		$_GET['p'] = 1;
 	}
-
+	function CheckTinhTrang($maNV,$thang, $nam, $conn){
+		$sql = "select MaPhieuLuong from phieu_luong where MaNV = '$maNV' and Thang = $thang and Nam = $nam";
+		$result = mysqli_query($conn, $sql);
+		if (mysqli_num_rows($result) > 0) return true;
+		return false; 
+	}
 	$offset = ($_GET['p'] - 1) * $rowsPerPage;
 
 	$sqlTimKiem =
@@ -21,9 +26,31 @@
 	$sqlTimKiem .= " limit $offset, $rowsPerPage";
 	$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 ?>
-<div class="card shadow border-0 mb-7">
-    <div class="card-header">
+<style>
+	tbody td{
+		font-size: 16px !important;
+	}
+	#tren{
+		height: 631px;
+	}
+</style>
+<div id='tren'>
+<div class="card shadow border-0 mt-7 mb-7">
+    <div class="card-header d-flex justify-content-between">
         <h5 class="mb-0">TÍNH LƯƠNG NHÂN VIÊN</h5>
+		<h5> 
+			<?php
+				if(date('m') > 1){
+					$thang = date('m') - 1;
+					$nam = date('Y');
+				}
+				else{
+					$thang = 12;
+					$nam = date('Y') - 1;
+				} 
+				echo "Tháng $thang năm $nam";
+			?>
+		</h5>
     </div>
     <div>
 	<form action="" method="post" enctype="multipart/form-data">
@@ -49,12 +76,24 @@
                         <td>{$rows['MaNV']}</td>
                         <td>{$rows['HoNV']} {$rows['TenNV']}</td>
                         <td>{$rows['TenChucVu']}</td>
-                        <td>{$rows['TenPhong']}</td>
-						<td> Đã Tính </td>
-                        <td>
-						<a href ='payroll/payroll-info.php?MaNV=$rows[MaNV]'>Tính lương</a>
-						</td>
-                        </tr>";
+                        <td>{$rows['TenPhong']}</td>";
+						if(CheckTinhTrang($rows['MaNV'],$thang,$nam,$conn)){
+							echo "
+								<td style='color:green'> Đã Tính </td>
+								<td align='center' style='color:green; font-size:35px !important;'>
+									<i class='bi bi-check-circle-fill'></i>
+								</td>
+							";
+						}
+						else{
+							echo "
+							<td style='color:red'> Chưa tính </td>
+							<td>
+								<a class='btn btn-warning p-2' href ='payroll/payroll-info.php?MaNV=$rows[MaNV]'>Tính lương</a>
+							</td>
+							";
+						}
+                        echo "</tr>";
                     }
                 }
                 ?>
@@ -62,6 +101,7 @@
         </table>
 	</form>
     </div>
+</div>
 </div>
 <?php
 	echo "<p align = 'center'>";

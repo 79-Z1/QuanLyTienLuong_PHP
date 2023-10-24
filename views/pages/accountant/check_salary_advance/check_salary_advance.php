@@ -7,7 +7,7 @@ $conn = mysqli_connect('localhost', 'root', '', 'quan_ly_tien_luong')
 	or die('Could not connect to MySQL: ' . mysqli_connect_error());
 
 $sqlUngLuong = 'select * from phieu_ung_luong';
-$rowsPerPage = 7; //số mẩu tin trên mỗi trang, giả sử là 5
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 5
 if (!isset($_GET['p'])) {
 	$_GET['p'] = 1;
 }
@@ -20,27 +20,12 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
 $sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
 $resultUngLuong = mysqli_query($conn, $sql);
 ?>
-<style>
-	.pagination-link {
-		display: inline-block;
-		padding: 5px 10px;
-		margin: 0 5px;
-		border: 1px solid #ccc;
-		text-decoration: none;
-		color: #333;
-	}
 
-	.pagination-link.active {
-		background-color: #333;
-		color: #fff;
-
-	}
-</style>
-<div class="card shadow border-0 mb-7 mt-5">
-	<div class="card-header">
-		<h5 class="mb-0">BẢNG ỨNG LƯƠNG</h5>
-	</div>
-	<div class="table-responsive" style="height: 534px">
+<div style="height:630px">
+	<div class="card shadow border-0 mb-7 mt-5">
+		<div class="card-header">
+			<h5 class="mb-0">BẢNG ỨNG LƯƠNG</h5>
+		</div>
 		<table class="table table-hover table-nowrap">
 			<thead class="thead-light">
 				<tr>
@@ -51,6 +36,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 					<th scope="col">số tiền</th>
 					<th scope="col">xét duyệt</th>
 					<th></th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -60,19 +46,19 @@ $resultUngLuong = mysqli_query($conn, $sql);
 
 						while ($rows = mysqli_fetch_array($resultUngLuong)) {
 							echo "<tr>
-                        <td>{$rows['MaPhieu']}</td>
-                        <td>{$rows['MaNV']}</td>
-                        <td>{$rows['NgayUng']}</td>
-                        <td>{$rows['LyDo']}</td>
-                        <td>{$rows['SoTien']}</td>
-                        <td>{$rows['Duyet']}</td>
-						<td><button class='btn btn-sm btn-neutral js-btn-duyet' data-bs-toggle='modal' data-ma-phieu='{{this.MaPhieu}}' data-bs-target='#staticBackdrop' style='background-color:lime ;'>Duyệt</button></td>
-						<td class='text-end'>
-                        	<button style='background-color: red;' type='button' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover' data-ma-phieu='{{this.MaPhieu}}' data-bs-toggle='modal' data-bs-target='#staticBackdrop1'>
-								<i class='bi bi-trash' style='color:black'></i>
-							</button>
-						</td>
-                        </tr>";
+							<td>{$rows['MaPhieu']}</td>
+							<td>{$rows['MaNV']}</td>
+							<td>{$rows['NgayUng']}</td>
+							<td>{$rows['LyDo']}</td>
+							<td>{$rows['SoTien']}</td>
+							<td>{$rows['Duyet']}</td>
+							<td><button class='btn btn-sm btn-neutral js-btn-duyet' data-bs-toggle='modal' data-ma-phieu='{{this.MaPhieu}}' data-bs-target='#staticBackdrop' style='background-color:lime ;'>Duyệt</button></td>
+							<td class='text-end'>
+								<button style='background-color: red;' type='button' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover' data-ma-phieu='{{this.MaPhieu}}' data-bs-toggle='modal' data-bs-target='#staticBackdrop1'>
+									<i class='bi bi-trash' style='color:black'></i>
+								</button>
+							</td>
+							</tr>";
 						}
 					}
 					?>
@@ -116,7 +102,9 @@ $resultUngLuong = mysqli_query($conn, $sql);
 				</div>
 			</tbody>
 		</table>
+
 	</div>
+
 </div>
 <div align="center">
 	<?php
@@ -137,7 +125,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	}
 	// Gắn thêm nút Next
 
-			echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] < $maxPage ? $_GET['p']+ 1 : $maxPage) . ">></a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a> ";
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
 	// gắn nút về trang đầu
 

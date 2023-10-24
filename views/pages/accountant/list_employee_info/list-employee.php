@@ -1,86 +1,7 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
 
-<style>
-    table img {
-        width: 50px;
-        height: 50px;
-        border-radius: 5px;
-        border: 1.5px solid black;
-    }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    td {
-        padding: 10px;
-        font-size: 20px;
-    }
-
-    p {
-        font-size: 16px;
-        font-weight: bold;
-    }
-    label{
-        margin-right: 5px;
-    }
-
-    input[type="radio"] {
-        transform: scale(1.6);
-        margin-right: 5px;
-        margin-left: 5px;
-    }
-
-    .larger-text {
-        font-size: 20px;
-        /* Điều chỉnh kích thước chữ theo nhu cầu */
-        margin-right: 20px;
-        /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
-    }
-
-    .form-control {
-        height: 30px;
-    }
-
-    a {
-        text-decoration: none;
-        color: blue;
-        font-size: 16px;
-    }
-
-    .search-btn {
-        width: 100%;
-
-    }
-
-    .search-btn span {
-        margin-right: 5px;
-    }
-
-    .pagination-link {
-        display: inline-block;
-        padding: 5px 8px;
-        margin: 0 3px;
-        border: 1px solid #ccc;
-        text-decoration: none;
-        color: #333;
-        font-size: 14px;
-
-    }
-
-    .pagination-link.active {
-        background-color: #333;
-        color: #fff;
-    }
-
-    .pagination-link:not(.active) {
-        font-weight: 400;
-        font-size: 14px;
-        color: #666;
-    }
-</style>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
@@ -112,7 +33,7 @@ if (isset($_GET['radGT']))
     $gioiTinh = $_GET['radGT'];
 else $gioiTinh = "";
 
-$rowsPerPage = 4; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -155,10 +76,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <!-- Card stats -->
-<div class="g-6 mb-6 w-100 search-container mt-5">
+<div class="g-6 mb-3 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 d-flex">
-            <nav class="navbar navbar-light bg-light d-flex ">
+            <nav class="navbar navbar-light bg-light d-flex justify-content-center py-1">
                 <form action="" method="get">
                     <table>
                         <tr>
@@ -185,19 +106,19 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td  >
+                            <td>
                                 <p>Giới tính</p>
                                 <div style="display: flex; justify-content:space-between; font-size: 18px;">
-                                    <input  type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>> 
+                                    <input type="radio" name="radGT" id="nam" value="1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "1") echo "checked" ?>>
                                     <label for="nam">
                                         Nam
                                     </label>
-                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>> 
-                                    <label  for="nu">
+                                    <input type="radio" name="radGT" id="nu" value="0" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "0") echo "checked" ?>>
+                                    <label for="nu">
                                         Nữ
                                     </label>
-                                    <input type="radio" name="radGT" id="none" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>> 
-                                    <label  for="none">
+                                    <input type="radio" name="radGT" id="none" value="-1" <?php if (isset($_GET['radGT']) && $_GET['radGT'] == "-1") echo "checked" ?>>
+                                    <label for="none">
                                         Không
                                     </label>
                                 </div>
@@ -237,11 +158,12 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
         </div>
     </div>
 </div>
-<div class="card shadow border-0 mb-7">
-    <div class="card-header">
-        <h5 class="mb-0">THÔNG TIN NHÂN VIÊN</h5>
-    </div>
-    <div>
+<div style="height:510px">
+
+    <div class="card shadow border-0 mb-3">
+        <div class="card-header">
+            <h5 class="mb-0">THÔNG TIN NHÂN VIÊN</h5>
+        </div>
         <table class="table table-hover table-nowrap">
             <thead class="thead-light">
                 <tr>
@@ -265,15 +187,15 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         if ($rows['GioiTinh'] == 0) $gt = "Nữ";
                         else $gt = "Nam";
-                        echo "<tr>
-                        <td>{$rows['MaNV']}</td>
-                        <td>{$rows['HoNV']} {$rows['TenNV']}</td>
-                        <td><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
-                        <td>{$gt}</td>
-                        <td>{$rows['TenChucVu']}</td>
-                        <td>{$rows['TenPhong']}</td>
-                        <td><a href=''>Xem chi tiết</a></td>
-                        </tr>";
+                        echo "<tr  >
+                            <td >{$rows['MaNV']}</td>
+                            <td >{$rows['HoNV']} {$rows['TenNV']}</td>
+                            <td ><img src='" . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$rows[Hinh]" . "' alt='Avatar'></td>
+                            <td >{$gt}</td>
+                            <td >{$rows['TenChucVu']}</td>
+                            <td >{$rows['TenPhong']}</td>
+                            <td ><a href=''><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            </tr>";
                     }
                 }
                 ?>
@@ -282,7 +204,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 <?php
-echo '<p align="center">';
+echo '<div align="center">';
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . ">Back</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
@@ -293,6 +215,7 @@ for ($i = 1; $i <= $maxPage; $i++) {
 }
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">Next</a>";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
-echo "</p>";
+echo "</div>";
 ?>
+
 <?php $this->end(); ?>
