@@ -2,13 +2,9 @@
 function mail_format($token)
 {
     return <<< MAIL
-    <!doctype html>
     <html lang="en-US">
     
     <head>
-        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
-        <title>Reset Password Email Template</title>
-        <meta name="description" content="Reset Password Email Template.">
         <style type="text/css">
             a:hover {text-decoration: underline !important;}
         </style>
@@ -27,9 +23,7 @@ function mail_format($token)
                         </tr>
                         <tr>
                             <td style="text-align:center;">
-                              <a href="https://rakeshmandal.com" title="logo" target="_blank">
-                                <img width="60" src="https://i.ibb.co/hL4XZp2/android-chrome-192x192.png" title="logo" alt="logo">
-                              </a>
+                                <img width="200px" src="http://dakhoathientrang.com/images/logo.png" title="logo" alt="logo">
                             </td>
                         </tr>
                         <tr>
@@ -52,6 +46,9 @@ function mail_format($token)
                                                 We cannot simply send you your old password. A unique link to reset your
                                                 password has been generated for you. To reset your password, click the
                                                 following link and follow the instructions.
+                                            </p>
+                                            <p style="color:red;font-size:15px;line-height:24px;">
+                                                This link will expire within 30 minutes !!!
                                             </p>
                                             <a href="http://localhost/QuanLyTienLuong_PHP/views/pages/auth/new_pass.php?token={$token}">
                                                 Reset Password

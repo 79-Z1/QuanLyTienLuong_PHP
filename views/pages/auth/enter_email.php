@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Reset password</title>
+    <title>Đổi mật khẩu</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -16,11 +16,8 @@
 <body>
     <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
-    include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/vendor/autoload.php");
+    include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/services/mail.php");
     include_once("mail_format.php");
-
-    use PHPMailer\PHPMailer\PHPMailer;
-    use PHPMailer\PHPMailer\Exception;
 
     $email = isset($_POST['email']) ?  $_POST['email'] : '';
     $email = filter_var($email, FILTER_SANITIZE_EMAIL);
@@ -31,16 +28,9 @@
             $query = "SELECT Email FROM nhan_vien WHERE Email='$email'";
             $result = mysqli_query($conn, $query);
             if (mysqli_num_rows($result) <> 0) {
-                // generate a unique random token of length 100
-                $expFormat = mktime(
-                    date("H"),
-                    date("i"),
-                    date("s"),
-                    date("m"),
-                    date("d") + 1,
-                    date("Y")
-                );
-                $expDate = date("Y-m-d H:i:s", $expFormat);
+                date_default_timezone_set('Asia/Ho_Chi_Minh');
+                $startTime = date("Y-m-d H:i:s");
+                $expDate = date('Y-m-d H:i:s',strtotime('+30 minutes',strtotime($startTime)));
                 $key = md5($email);
                 $key .= md5(time() + 123456789 % rand(4000, 55000000));
                 $addKey = substr(md5(uniqid(rand(), 1)), 3, 10);
@@ -51,42 +41,7 @@
 
                 $body = mail_format($token);
                 $subject = "Password Recovery";
-                $mail = new PHPMailer(true);
-                try {
-                    $mail->SMTPDebug  = 0;
-                    $mail->CharSet = 'UTF-8';
-                    $mail->isSMTP(); // gửi mail SMTP
-                    $mail->SMTPOptions = array(
-                        'ssl' => array(
-                            'verify_peer' => false,
-                            'verify_peer_name' => false,
-                            'allow_self_signed' => true
-                        )
-                    );
-                    $mail->Host = 'smtp.gmail.com'; // Set the SMTP server to send through
-                    $mail->SMTPAuth = true; // Enable SMTP authentication
-                    $mail->Username = 'thientrangdakhoa@gmail.com'; // SMTP username
-                    $mail->Password = 'ehut thvg xdvi caux'; // SMTP password
-                    $mail->SMTPSecure = 'ssl'; //Phương thức mã hóa dữ liệu - ssl: 465 hoặc tls:587
-                    $mail->Port = 465; // TCP port to connect to
-
-                    //Recipients
-                    $mail->setFrom('thientrangdakhoa@gmail.com', 'Da khoa Thien Trang');
-                    $mail->addReplyTo('thientrangdakhoa@gmail.com',"Email Reply");
-                    $mail->addAddress("$email"); // Name is optional
-
-                    // Content
-                    $mail->Subject = $subject;
-                    // $mail->Body = "hmmmmm";
-                    $mail->MsgHTML($body);
-                    $mail->AltBody = "This is a plain-text message body";
-
-                    $mail->send();
-                    echo "<script type='text/javascript'>toastr.success('Hãy kiểm tra hộp thư của bạn')</script>";
-                } catch (Exception $e) {
-                    echo $e;
-                    echo "<script type='text/javascript'>toastr.error('Gửi mail không thành công')</script>";
-                }
+                send_mail($subject, $body, $email);
             } else echo "<script type='text/javascript'>toastr.error('Email không tồn tại trên hệ thống')</script>";
         } else echo "<script type='text/javascript'>toastr.error('Sai định dạng email')</script>";
     }
