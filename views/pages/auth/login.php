@@ -3,7 +3,7 @@
 <head>
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-	<link rel="stylesheet" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/css/login.css" ?>" type="text/css">
+	<link rel="stylesheet" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/css/auth/login.css" ?>" type="text/css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>>
 	<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
@@ -12,7 +12,6 @@
 require('./connect.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/services/jwt.php"); 
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/config/const.php"); 
-$jwt = (new JWT());
 
 $tentk = isset($_POST['tentk']) ? $_POST['tentk'] : '';
 $matkhau = isset($_POST['matkhau']) ? $_POST['matkhau'] : '';
@@ -68,7 +67,7 @@ if (isset($_POST['submit'])) {
 				<input name='matkhau' type="password" class="mb-3 w-100 form-control" id='matkhau' value="<?= $matkhau ?>" />
 			</div>
 			<div class='w-100'>
-				<a href="">Quên mật khẩu?</a>
+				<a href="/<?= explode('/', $_SERVER['PHP_SELF'])[1]."/views/pages/auth/enter_email.php"?>">Quên mật khẩu?</a>
 			</div>
 			<button name="submit" type='submit' class='btn btn-primary w-100' id='submit-btn'>
 				Login
