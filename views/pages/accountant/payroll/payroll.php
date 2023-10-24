@@ -89,7 +89,7 @@
 							echo "
 							<td style='color:red'> Chưa tính </td>
 							<td>
-								<a class='btn btn-warning p-2' href ='payroll/payroll-info.php?MaNV=$rows[MaNV]'>Tính lương</a>
+								<a class='btn btn-warning p-2' href ='index.php?page=payroll-info&MaNV=$rows[MaNV]&thang=$thang&nam=$nam'>Tính lương</a>
 							</td>
 							";
 						}
