@@ -3,6 +3,7 @@
         var $maNV;
         var $hoNV;
         var $tenNV;
+        var $email;
         var $gioiTinh;
         var $ngaySinh;
         var $diaChi;
@@ -15,10 +16,11 @@
         var $hinh;
 
 
-        function __construct($maNV, $hoNV, $tenNV, $gioiTinh, $ngaySinh, $diaChi, $stk, $cccd, $maPhong, $maChucVu, $soCon, $SDT, $Hinh){
+        function __construct($maNV, $hoNV, $tenNV,$email, $gioiTinh, $ngaySinh, $diaChi, $stk, $cccd, $maPhong, $maChucVu, $soCon, $SDT, $Hinh){
             $this->maNV = $maNV;
             $this->hoNV = $hoNV;
             $this->tenNV = $tenNV;
+            $this->email = $email;
             $this->gioiTinh = $gioiTinh;
             $this->ngaySinh = $ngaySinh;
             $this->diaChi = $diaChi;
