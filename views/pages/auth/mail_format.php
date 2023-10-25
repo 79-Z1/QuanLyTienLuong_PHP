@@ -50,8 +50,8 @@ function mail_format($token)
                                             <p style="color:red;font-size:15px;line-height:24px;">
                                                 This link will expire within 30 minutes !!!
                                             </p>
-                                            <a href="http://localhost/QuanLyTienLuong_PHP/views/pages/auth/new_pass.php?token={$token}">
-                                                Reset Password
+                                            <a style="font-size: 20px" href="http://localhost/QuanLyTienLuong_PHP/views/pages/auth/new_pass.php?token={$token}">
+                                                Reset Password Here
                                             </a>
                                         </td>
                                     </tr>
