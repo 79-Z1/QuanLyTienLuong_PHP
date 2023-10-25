@@ -35,7 +35,12 @@
             $mail->AltBody = "This is a plain-text message body";
     
             if($mail->send()) {
-                echo "<script type='text/javascript'>toastr.success('Hãy kiểm tra hộp thư của bạn')</script>";
+                echo "<script type='text/javascript'>
+                        toastr.success('Hãy kiểm tra hộp thư của bạn')
+                        setTimeout(function() {
+                            window.location.href = 'http://localhost/QuanLyTienLuong_PHP';
+                        }, 3000);
+                    </script>";
             }
         } catch (Exception $e) {
             echo $e;
