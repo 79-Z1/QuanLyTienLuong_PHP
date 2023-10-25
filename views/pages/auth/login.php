@@ -28,6 +28,7 @@ if (isset($_POST['submit'])) {
 					'iss' => 'http://localhost/QuanLyTienLuong_PHP',
 					'aud' => 'dakhoathientrang.com'
 				];
+				$jwt = new JWT();
 				$token = $jwt->generate($payload);
 				$_SESSION["MaNV"] = $row['MaNV'];
 				$_SESSION["LoaiTK"] = $row['LoaiTK'];
