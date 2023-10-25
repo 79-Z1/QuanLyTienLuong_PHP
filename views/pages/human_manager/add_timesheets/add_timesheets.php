@@ -65,7 +65,7 @@ if(isset($_POST["xacNhan"])){
 
 
         // kiểm tra nếu có chọn tăng ca thì gán thêm câu insert tăng ca vào 
-        if($_POST["tangCa$maNV"]!="-1"){
+        if(isset($_POST["tangCa$maNV"]) && $_POST["tangCa$maNV"]!="-1"){
             $sqlInsertTC = "INSERT INTO tang_ca(MaTC, MaNV, NgayTC, LoaiTC) 
             VALUES ('". TaoMaTangCa($i,$date) ."','$maNV','$_POST[ngay]','" . $_POST["tangCa$maNV"] . "');";
             $resultInsertTC = mysqli_query($conn, $sqlInsertTC);
@@ -144,28 +144,45 @@ if(isset($_POST["xacNhan"])){
 
                             while ($rows = mysqli_fetch_array($result)) {
                                 echo "
-                                    <tr>
+                                <tr>
                                     <td>$rows[MaNV]</td>
                                     <td>$rows[HoNV] $rows[TenNV]</td>
                                     <td>$rows[TenPhong]</td>
                                     <td>$rows[TenChucVu]</td>
                                     <td>
-                                        <select name='tinhTrang$rows[MaNV]' class='form-select search-option'>
+                                        <select id='tt$rows[MaNV]' name='tinhTrang$rows[MaNV]' class='form-select search-option'>
                                             <option value='1'>Đi làm</option>
                                             <option value='0'>Nghỉ</option>
                                         </select>
                                     </td>
                                     <td class='ct'>
-                                        <input name='nghiHL$rows[MaNV]' type='checkbox' class='xx-larger' value='1'>
+                                        <input id='nHL$rows[MaNV]' name='nghiHL$rows[MaNV]' type='checkbox' class='xx-larger' value='1'>
                                     </td>
                                     <td>
-                                        <select name='tangCa$rows[MaNV]' class='form-select search-option'>
+                                        <select id='tc$rows[MaNV]' name='tangCa$rows[MaNV]' class='form-select search-option'>
                                             <option value='-1'>Không Tăng Ca</option>
                                             <option value='0'>Ngày Thường</option>
                                             <option value='1'>Nghỉ Hằng Tuần</option>
                                             <option value='2'>Nghỉ Lễ</option>
                                         </select>
                                     </td>
+                                    <script type='text/javascript'>
+                                        $(document).ready(function() {
+                                            $('#nHL$rows[MaNV]').prop('disabled','disabled');
+                                            $('#tt$rows[MaNV]').click(function(){
+                                                if($('#tt$rows[MaNV]').val() == '1'){
+                                                    $('#nHL$rows[MaNV]').prop('checked',false);
+                                                    $('#nHL$rows[MaNV]').prop('disabled','disabled');
+                                                    $('#tc$rows[MaNV]').removeAttr('disabled');
+                                                }
+                                                else{
+                                                    $('#nHL$rows[MaNV]').removeAttr('disabled');
+                                                    $('#tc$rows[MaNV]').prop('disabled','disabled');
+                                                    $('#tc$rows[MaNV]').val('-1');
+                                                }
+                                            });
+                                        });
+                                    </script>
                                 </tr>
                                 ";
                             }
