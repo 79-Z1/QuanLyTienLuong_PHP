@@ -52,7 +52,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 							<td>{$rows['LyDo']}</td>
 							<td>{$rows['SoTien']}</td>
 							<td>{$rows['Duyet']}</td>
-							<td><button class='btn btn-sm btn-neutral js-btn-duyet' data-bs-toggle='modal' data-ma-phieu='{{this.MaPhieu}}' data-bs-target='#staticBackdrop' style='background-color:lime ;'>Duyệt</button></td>
+							<td><button class='btn btn-outline-purple ' data-bs-toggle='modal' data-ma-phieu='{{this.MaPhieu}}' data-bs-target='#staticBackdrop' >Duyệt</button></td>
 							<td class='text-end'>
 								<button style='background-color: red;' type='button' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover' data-ma-phieu='{{this.MaPhieu}}' data-bs-toggle='modal' data-bs-target='#staticBackdrop1'>
 									<i class='bi bi-trash' style='color:black'></i>

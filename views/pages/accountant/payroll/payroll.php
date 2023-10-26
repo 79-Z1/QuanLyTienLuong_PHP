@@ -80,7 +80,7 @@
 						if(CheckTinhTrang($rows['MaNV'],$thang,$nam,$conn)){
 							echo "
 								<td style='color:green'> Đã Tính </td>
-								<td align='center' style='color:green; font-size:35px !important;'>
+								<td ' style='color:green; font-size:35px !important; padding-left:50px'>
 									<i class='bi bi-check-circle-fill'></i>
 								</td>
 							";
@@ -89,7 +89,7 @@
 							echo "
 							<td style='color:red'> Chưa tính </td>
 							<td>
-								<a class='btn btn-warning p-2' href ='index.php?page=payroll-info&MaNV=$rows[MaNV]&thang=$thang&nam=$nam'>Tính lương</a>
+								<a class='btn btn-outline-purple p-2' href ='index.php?page=payroll-info&MaNV=$rows[MaNV]&thang=$thang&nam=$nam'>Tính lương</a>
 							</td>
 							";
 						}
