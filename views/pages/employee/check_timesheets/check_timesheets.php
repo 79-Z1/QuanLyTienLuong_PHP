@@ -38,6 +38,9 @@ function GetDayOfWeek($date)
     td,h2{
         text-align: center;
     }
+    td,th{
+        border: 1px solid #000;
+    }
 </style>
 <div class="card shadow border-0 mb-3">
     <div id="thang" class="carousel slide" data-bs-interval="false">
@@ -99,12 +102,12 @@ function GetDayOfWeek($date)
                                         $sqlChamCong = "SELECT TinhTrang FROM `cham_cong` WHERE MaNV = '$_SESSION[MaNV]' AND day(Ngay) = $j and month(Ngay) = $rowsThang[thangtrongnam]";
                                         $resultChamCong = mysqli_query($conn, $sqlChamCong);
                                         $chamCong = mysqli_fetch_array($resultChamCong);
-                                        $icon = '';
+                                        $bgcl = '';
                                         if ($chamCong['TinhTrang'] == 1)
-                                            $icon = '<i class="bi bi-check-lg" style="color: green"></i>';
-                                        else $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
+                                            $bgcl = '#0080086e';
+                                        else $bgcl = '#ff000091';
                                         ?>
-                                        <td><?= $j ?><br><?= $icon ?></td>
+                                        <td style="background-color: <?= $bgcl?>" ><?= $j ?></td>
                                     <?php
                                         $demngay++;
                                         $dem++;
