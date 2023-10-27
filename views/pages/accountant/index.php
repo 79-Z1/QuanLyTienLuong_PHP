@@ -18,6 +18,10 @@ switch ($page) {
         echo $template->render('header_accountant', ['css' => 'check_salary_advance.css', 'js' => 'check_salary_advance.js']);
         echo $template->render('pages/accountant/check_salary_advance/check_salary_advance', []);
         break;
+    case 'payroll-info':
+        echo $template->render('header_accountant', ['css' => 'payroll-info.css', 'js' => 'payroll-info.js']);
+        echo $template->render('pages/accountant/payroll/payroll-info', []);
+        break;
     default:
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/list-employee', []);
