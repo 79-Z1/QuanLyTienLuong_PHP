@@ -2,6 +2,9 @@
 require_once '../../template.php';
 $page = $_GET['page'] ?? '';
 $template = new Template('');
+if (!isset($_SESSION)) {
+    session_start();
+}
 
 switch ($page) {
     case 'employee-check-payroll':
