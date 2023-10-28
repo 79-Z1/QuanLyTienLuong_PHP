@@ -1,10 +1,13 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
-
+<?php 
+	function money_format($tien)
+	{
+		return number_format($tien, 0, ',', '.');
+	}
+?>
 <?php
-$conn = mysqli_connect('localhost', 'root', '', 'quan_ly_tien_luong')
-
-	or die('Could not connect to MySQL: ' . mysqli_connect_error());
+include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
 $sqlUngLuong = 'select * from phieu_ung_luong';
 $rowsPerPage = 6; //số mẩu tin trên mỗi trang, giả sử là 5
@@ -43,22 +46,33 @@ $resultUngLuong = mysqli_query($conn, $sql);
 				<tr>
 					<?php
 					if (mysqli_num_rows($resultUngLuong) <> 0) {
-
 						while ($rows = mysqli_fetch_array($resultUngLuong)) {
-							echo "<tr>
-							<td>{$rows['MaPhieu']}</td>
-							<td>{$rows['MaNV']}</td>
-							<td>{$rows['NgayUng']}</td>
-							<td>{$rows['LyDo']}</td>
-							<td>{$rows['SoTien']}</td>
-							<td>{$rows['Duyet']}</td>
-							<td><button class='btn btn-outline-purple ' data-bs-toggle='modal' data-ma-phieu='{{this.MaPhieu}}' data-bs-target='#staticBackdrop' >Duyệt</button></td>
+					?>
+						<tr data-maphieu="<?=$rows['MaPhieu']?>">
+							<td><?=$rows['MaPhieu']?></td>
+							<td><?=$rows['MaNV']?></td>
+							<td><?=$rows['NgayUng']?></td>
+							<td><?=$rows['LyDo']?></td>
+							<td><?=money_format($rows['SoTien'])?> đ</td>
+							<td><p class="duyet-p" style="color:<?=$rows['Duyet'] ? 'green' : 'red' ?>;">
+								<?=$rows['Duyet'] ? 'Đã duyệt' : 'Chưa duyệt'?>
+							</p></td>
+							<?php if($rows['Duyet']) : ?>
+								<td align="center">
+									<i style="font-size:35px !important;color:green;" class='bi bi-check-circle-fill'></i>
+								</td>
+							<?php else: ?>
+								<td align="center">
+									<button onclick='acceptPUL(this,"<?=$rows["MaPhieu"]?>")' class='btn btn-outline-purple'>Duyệt</button>
+								</td>
+							<?php endif; ?>
 							<td class='text-end'>
-								<button style='background-color: red;' type='button' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover' data-ma-phieu='{{this.MaPhieu}}' data-bs-toggle='modal' data-bs-target='#staticBackdrop1'>
+								<button onclick='deletePUL(this,"<?=$rows["MaPhieu"]?>")' style='background-color: red;' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover'>
 									<i class='bi bi-trash' style='color:black'></i>
 								</button>
 							</td>
-							</tr>";
+						</tr>
+					<?php 
 						}
 					}
 					?>
@@ -109,7 +123,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 <div align="center">
 	<?php
 	// Tổng số trang
-	$maxPage = floor($numRows / $rowsPerPage) + 1;
+	$maxPage = ceil($numRows / $rowsPerPage);
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . (1) . ">Đầu trang</a> ";
 	// Gắn thêm nút Back
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
@@ -122,43 +136,9 @@ $resultUngLuong = mysqli_query($conn, $sql);
 		}
 	}
 	// Gắn thêm nút Next
-
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a> ";
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
 	// gắn nút về trang đầu
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
 	?>
 </div>
-
-<script>
-	let maPhieu = '';
-
-	$('.js-btn-duyet').on('click', async function() {
-		maPhieu = $(this).data("ma-phieu");
-	})
-
-	$('.duyet-yes-btn').on('click', async function(e) {
-		await checkUngLuong(maPhieu, 1);
-		window.location.reload();
-	})
-
-
-	$('.btn-xoa').on('click', async function() {
-		maPhieu = $(this).data("ma-phieu");
-		console.log(maPhieu)
-	})
-
-	$('.xoa-yes-btn').on('click', async function() {
-		await checkUngLuong(maPhieu, 0);
-		window.location.reload();
-	})
-
-
-	async function checkUngLuong(maphieu, isduyet) {
-		const payload = {
-			maphieu: maphieu,
-			duyet: isduyet
-		}
-		return (await instance.put('/admin/ung-luong/check', payload)).data
-	}
-</script>
 <?php $this->end(); ?>
