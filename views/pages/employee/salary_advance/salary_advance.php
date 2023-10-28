@@ -12,6 +12,8 @@
     textarea {
         resize: none;
     }
+
+
 </style>
 <?php
 function money_format($tien)
@@ -82,12 +84,18 @@ if (isset($_POST['submit'])) {
 <div class="container d-flex justify-content-center h-100">
     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12 edit_information">
         <?php if ($ktraNgayUng == 0) { ?>
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <p style="font-size: 30px;">Bạn chỉ được phép ứng lương kể từ ngày 15 trở đi</p>
+            <div class=" d-flex w-100 justify-content-center align-items-center">
+                <div id="tb" class="d-flex w-75 justify-content-center align-items-center">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <b>Bạn chỉ được phép ứng lương kể từ ngày 15 trở đi</b>
+                </div>
             </div>
         <?php } elseif ($ktraNgayUng == -1) { ?>
-            <div class="d-flex justify-content-center align-items-center h-100">
-                <p style="font-size: 30px;">Bạn đã ứng lương tháng này rồi</p>
+            <div class=" d-flex w-100 justify-content-center align-items-center">
+                <div id="tb" class="d-flex w-75 justify-content-center align-items-center">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    <b>Bạn đã ứng lương tháng này rồi</b>
+                </div>
             </div>
         <?php } else { ?>
             <form action="" method="post">
