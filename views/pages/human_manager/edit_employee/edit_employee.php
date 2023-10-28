@@ -11,42 +11,25 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $resultNV = mysqli_query($conn, $getNV);
     $nv = mysqli_fetch_array($resultNV);
 
-    if (isset($_POST['maNV']))
-        $maNV = trim($_POST['maNV']);
-    else $maNV = $nv['MaNV'] ;
+    $maNV = $nv['MaNV'] ;
 
-    if (isset($_POST['hoNV']))
-        $hoNV = trim($_POST['hoNV']);
-    else $hoNV = $nv['HoNV'];
+    $hoNV = $nv['HoNV'];
 
-    if (isset($_POST['tenNV']))
-        $tenNV = trim($_POST['tenNV']);
-    else $tenNV = $nv['TenNV'];
+    $tenNV = $nv['TenNV'];
 
-    if (isset($_POST['soCon']))
-        $soCon = trim($_POST['soCon']);
-    else $soCon = $nv['SoCon'];
+    $soCon = $nv['SoCon'];
 
-    if (isset($_POST['ngaySinh']))
-        $ngaySinh = trim($_POST['ngaySinh']);
-    else $ngaySinh = $nv['NgaySinh'];
+    $ngaySinh = $nv['NgaySinh'];
 
-    if (isset($_POST['cccd']))
-        $cccd = trim($_POST['cccd']);
-    else $cccd = $nv['CCCD'];
+    $cccd = $nv['CCCD'];
 
-    if (isset($_POST['stk']))
-        $stk = trim($_POST['stk']);
-    else $stk = $nv['STK'];
+    $stk = $nv['STK'];
 
-    if (isset($_POST['soDienThoai']))
-        $sdt = trim($_POST['soDienThoai']);
-    else $sdt = $nv['STK'];
+    $sdt = $nv['SDT'];
 
-    if (isset($_POST['diaChi']))
-        $diaChi = trim($_POST['diaChi']);
-    else $diaChi = $nv['DiaChi'];
+    $diaChi = $nv['DiaChi'];
 
+    $Email = $nv['Email'];
 
 
     $err = array();
@@ -63,8 +46,53 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
 
-    if (isset($_POST['them'])) {
+    if (isset($_POST['chinhsua'])) {
+
+        if (isset($_POST['hoNV']))
+        $hoNV = trim($_POST['hoNV']);
+        else $hoNV = "";
+
+        if (isset($_POST['tenNV']))
+            $tenNV = trim($_POST['tenNV']);
+        else $tenNV = "";
+
+        if (isset($_POST['soCon']))
+            $soCon = trim($_POST['soCon']);
+        else $soCon = "0";
+
+        if (isset($_POST['ngaySinh']))
+            $ngaySinh = trim($_POST['ngaySinh']);
+        else $ngaySinh = "";
+
+        if (isset($_POST['cccd']))
+            $cccd = trim($_POST['cccd']);
+        else $cccd = "";
+
+        if (isset($_POST['stk']))
+            $stk = trim($_POST['stk']);
+        else $stk = "";
+
+        if (isset($_POST['soDienThoai']))
+            $sdt = trim($_POST['soDienThoai']);
+        else $sdt = "";
+
+        if (isset($_POST['diaChi']))
+            $diaChi = trim($_POST['diaChi']);
+        else $diaChi = "";
+
+        if (isset($_POST['email']))
+            $Email = trim($_POST['email']);
+        else $Email = "";
+        
+        $phong = trim($_POST['phong']);
+
+        $chucVu = trim($_POST['chucVu']);
+
         $gt = $_POST['radGT'];
+
+        if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
+            $err[] = "Vui lòng nhập đúng định dạng email";
+        }
 
         if(!is_numeric($stk)){
             $err[] = "Vui lòng nhập số tài khoản đúng định dạng số";
@@ -94,7 +122,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $err[] = "Vui lòng chọn đúng định dạng ảnh";
         }
 
-        if($hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
+        if(filter_var($Email,FILTER_VALIDATE_EMAIL) && $hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
             && is_numeric($sdt) && $diaChi != "" && is_numeric($stk) 
             && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed)){
             $hinh = explode(".",$_FILES['imgnv']['name']);
@@ -104,35 +132,16 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $folder = $_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/" . $newhinh;
 
             if(move_uploaded_file($tempname, $folder)){
-                $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT) 
-                values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','$newhinh','$sdt')";
-                mysqli_query($conn, $insert);
+                $update = "UPDATE `nhan_vien` 
+                SET `HoNV`='$hoNV',`TenNV`='$tenNV',`GioiTinh`=$gt,
+                `NgaySinh`='$ngaySinh',`DiaChi`='$diaChi',`MaPhong`='$phong',`STK`='$stk',
+                `CCCD`='$cccd',`MaChucVu`='$chucVu',`SoCon`='$soCon',
+                `Hinh`='$newhinh',`SDT`='$sdt',`Email`='$Email'
+                WHERE `MaNV` = '$maNVien'";
 
-                $taoTaiKhoan = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
-                    values('$maNV','$cccd','NV','$maNV')";
+                mysqli_query($conn, $update);
 
-                mysqli_query($conn, $taoTaiKhoan);
-
-                $getMaNV = "select MaNV from nhan_vien";
-                $result = mysqli_query($conn, $getMaNV);
-
-                $soMaNV = mysqli_num_rows($result);
-
-                $newMaNV = "";
-
-                $soMaNV > 99 ? $newMaNV = 'NV' . $soMaNV + 1 : $newMaNV = 'NV0' . $soMaNV + 1;
-
-                $hoNV = "";
-                $tenNV = "";
-                $soCon = "0";
-                $ngaySinh = "";
-                $cccd = "";
-                $stk = "";
-                $sdt = "";
-                $diaChi = "";
-                $maNV = $newMaNV;
-                
-                echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
+                echo "<script type='text/javascript'>toastr.success('Chỉnh sửa nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
             }else{
                 echo "<script type='text/javascript'>toastr.error('Tải lên ảnh không thành công'); toastr.options.timeOut = 3000;</script>";
             }
@@ -142,7 +151,6 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                 echo "<script type='text/javascript'>toastr.error('$lois'); toastr.options.timeOut = 3000;</script>";
             }
         }
-
     }
 ?>
 <style>
@@ -285,15 +293,18 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" align="center" class="">
+                        <td colspan="2" align="center" class="">
                         Ảnh nhân viên <br>
-                        <input class="form-control-img" type="file" id="formFile">
-                        
+                        <input class="form-control-img" type="file" id="formFile" name="imgnv">
+                        </td>
+                        <td>Email</td>
+                        <td class="<?php if($Email == "") echo 'required'; ?>">
+                            <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
                     <tr>
                         <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
+                        <input type="submit" value="Chỉnh sửa" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
                         </td>
                     </tr>
                 </table>
