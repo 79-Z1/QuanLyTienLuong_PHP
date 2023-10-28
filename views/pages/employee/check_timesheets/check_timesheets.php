@@ -128,10 +128,10 @@ function GetDayOfWeek($date)
             ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#thang" data-bs-slide="prev" style="left: -20px;">
-            <i style="color: black; font-size: 50px; position:fixed; top: 50%; left: 0" class="bi bi-caret-left-fill"></i>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#thang" data-bs-slide="next" style="right: -20px;">
-            <i style="color: black; font-size: 50px; position:fixed; top: 50%;right: 0" class="bi bi-caret-right-fill"></i>
-        </button>
+        <i style="color: black; font-size: 50px; position:fixed; top: 39%; left: 4%" class="bi bi-caret-left-fill"></i>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#thang" data-bs-slide="next" style="right: -20px;">
+        <i style="color: black; font-size: 50px; position:fixed; top: 39%;right: 3.5%" class="bi bi-caret-right-fill"></i>
+    </button>
     </div>
 </div>
