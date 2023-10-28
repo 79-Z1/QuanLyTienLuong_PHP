@@ -99,7 +99,7 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
                             </td>
                         </tr>
                         <tr>
-                            <td align="center" margin="5%" colspan="5" >
+                            <td align="center" rowspan="5">
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
@@ -144,7 +144,7 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
                 ?>
             </tbody>
             <tr>
-                <td id="no_color" colspan="5" align="center">
+                <td id="no_color" align="center">
                     <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
                 </td>
             </tr>
