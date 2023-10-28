@@ -149,8 +149,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     .form-control.form-select{
         padding-top: 0.3rem !important;
         padding-bottom: 0.3rem !important;
+        
     }
-    .form-control-nv-left{ 
+    /* .form-control-nv-left{ 
         width: 20%;
         padding-left: 20px;
     }
@@ -181,14 +182,21 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     .form-control-right{
         width: 30%;
         padding-left: 20px;
-    }
-    .form-select-right{
+    }*/.form-control{
         width: 75%;
         padding-left: 20px;
-    }
+    } 
+    .form-select{
+        width: 75%;
+        padding-left: 20px;
+    } 
     .form-date-control{
         text-align: center;
         width: 23%;
+    }
+    .form-control-img{
+        width: 50%;
+        
     }
     tbody{
         
@@ -208,21 +216,21 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             <form align='center' action="" method="post" enctype="multipart/form-data">
                 <table class="table table-hover table-nowrap">
                     <tr>
-                        <td style="width:10%">Mã nhân viên</td>
-                        <td style="width:40%"><input class="form-control-nv-left py-2" type="text" size="20" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled"/></td>
-                        <td style="width:10%">Số con</td>
-                        <td class="<?php if($soCon == "") echo 'required'; ?>"><input class="form-control-tt-right py-2"  type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
+                        <td>Mã nhân viên</td>
+                        <td><input class="form-control py-2" type="text" size="20" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled"/></td>
+                        <td>Số con</td>
+                        <td class="<?php if($soCon == "") echo 'required'; ?>"><input class="form-control py-2"  type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
                     </tr>
                     <tr>
                         <td >Họ </td>
-                        <td class="<?php if($hoNV == "") echo 'required'; ?>"><input class="form-control-left py-2" type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
+                        <td class="<?php if($hoNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
                         <td>Tên</td>
-                        <td class="<?php if($tenNV == "") echo 'required'; ?>"><input class="form-control-tt-right py-2" type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
+                        <td class="<?php if($tenNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
                     </tr>
                     <tr>
                         <td>Phòng</td>
                         <td>
-                        <select class="form-select-left py-2" name="phong">
+                        <select class="form-select py-2" name="phong">
                             <?php
                                 if(mysqli_num_rows($resultPhongBan)<>0){
                                     while($rows=mysqli_fetch_array($resultPhongBan)){
@@ -236,7 +244,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                         </td>
                         <td>Chức Vụ</td>
                         <td>
-                            <select class="form-select-cv-right py-2" name="chucVu">
+                            <select class="form-select py-2" name="chucVu">
                                 <?php
                                     if(mysqli_num_rows($resultChucVu)<>0){
                                         while($rows=mysqli_fetch_array($resultChucVu)){
@@ -253,7 +261,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                         <td>Ngày sinh</td>
                         <td class="<?php if($ngaySinh == "") echo 'required'; ?>"><input class="form-date-control py-2" type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
                         <td>CCCD</td>
-                        <td class="<?php if($cccd == "") echo 'required'; ?>"><input class="form-control-right py-2" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
+                        <td class="<?php if($cccd == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
                     </tr>
                     <tr>
                         <td>Giới tính</td>
@@ -264,22 +272,23 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             Nữ
                         </td>
                         <td>Số tài khoản</td>
-                        <td class="<?php if($stk == "") echo 'required'; ?>"><input class="form-control-right py-2" type="text" name="stk" value="<?php echo $stk; ?> " /></td>
+                        <td class="<?php if($stk == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="stk" value="<?php echo $stk; ?> " /></td>
                     </tr>
                     <tr>
                         <td>Số điện thoại</td>
                         <td class="<?php if($sdt == "") echo 'required'; ?>">
-                            <input class="form-control-sdt-left py-2" type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
+                            <input class="form-control py-2" type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
                         </td>
                         <td>Địa chỉ</td>
                         <td class="<?php if($diaChi == "") echo 'required'; ?>">
-                            <input class="form-control-dc-right py-2" type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
+                            <input class="form-control py-2" type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
                         </td>
                     </tr>
                     <tr>
                         <td colspan="4" align="center" class="">
-                        Ảnh nhân viên
-                        <input type="file" name="imgnv">
+                        Ảnh nhân viên <br>
+                        <input class="form-control-img" type="file" id="formFile">
+                        
                         </td>
                     </tr>
                     <tr>

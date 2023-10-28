@@ -1,35 +1,54 @@
 <html lang='en'>
 <style>
-    .profile-left-container{
-        margin-right:30px;
-    }
-    ul li span {
-        font-size: 30px !important;
-    }
-    img{
-        width: 100%;
-        height: 500px;
-    }
-    button, .btn {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-    .modal button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
+	.profile-left-container {
+		margin-right: 30px;
+	}
 
-.modal button:hover {
-    background-color: #0056b3;
-}
+	ul li span {
+		font-size: 30px !important;
+	}
 
+	img {
+		width: 100%;
+		height: 100%;
+	}
+
+	button,
+	.btn {
+		background-color: #007bff;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		cursor: pointer;
+	}
+
+	.modal button {
+		background-color: #007bff;
+		color: #fff;
+		padding: 10px 20px;
+		border: none;
+		cursor: pointer;
+	}
+
+	.modal button:hover {
+		background-color: #0056b3;
+	}
+
+	.card {
+		height: 615px;
+
+	}
+	h6{
+		font-size: 23px!important;
+	}
+	.hr{
+		border: 1px solid!important;
+		width: 100%;
+		opacity: 0.25;
+		margin: 15px 2px;
+	}
 </style>
+
 <head>
 	<meta charset='UTF-8' />
 	<meta http-equiv='X-UA-Compatible' content='IE=edge' />
@@ -54,102 +73,152 @@
 </head>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
-	$maNV = "NV001";
-	$sqlNhanVien = "select * from nhan_vien, phong_ban,chuc_vu
+$maNV = "NV001";
+$sqlNhanVien = "select * from nhan_vien, phong_ban,chuc_vu
 	where nhan_vien.MaChucVu = chuc_vu.MaChucVu and nhan_vien.MaPhong= phong_ban.MaPhong AND nhan_vien.MaNV='$maNV'	 ";
-	$resultNhanVien = mysqli_query($conn, $sqlNhanVien);
-	$ttNV = mysqli_fetch_array($resultNhanVien);	
-?>
-<body >
-	<section class="wrapper">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 mb-4 mb-sm-5">
-					<div class="card card-style1 border-0">
-						<div class="card-body p-1-9 p-sm-2-3 p-md-6 p-lg-7">
-							<div class="row align-items-center">
-								<div class="info-wrapper d-flex align-items-center">
-									<div class="col-lg-4 mb-4 mb-lg-0 profile-left-container">
-										<?php 
-										echo "
-										<div
-											class='bg-dark d-lg-inline-block py-1-9 px-1-9 px-sm-6 mb-1-9 rounded w-100'>
-											<h3 class='h2 text-white mb-0'> $ttNV[HoNV]   $ttNV[TenNV]</h3>
-											<h5 class='text-primary'>$ttNV[TenChucVu]</h5>
-											
-                                        <div >   
-                                        <img src='" .  '/' . explode('/', $_SERVER["PHP_SELF"])[1] . "/assets/images/imgnv/$ttNV[Hinh]" . "' alt='Avatar'>
-                                        </div>
-									</div>
+$resultNhanVien = mysqli_query($conn, $sqlNhanVien);
+$ttNV = mysqli_fetch_array($resultNhanVien);
 
-									<div class='col-lg-8 px-xl-10 profile-right-container; '>
-									<ul class='list-unstyled'>
-										<li class='mb-2 mb-xl-3 '>
-											<span class=' me-2 font-weight-600'>
-												<b>Mã nhân viên:</b> $ttNV[MaNV]</span>
-											
-										</li>
-										<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-                                                <b>Phòng:</b> $ttNV[TenPhong]</span>
-                                                    
-											</li>
-											<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-													<b>Giới tính:</b> $ttNV[GioiTinh]</span> 
-                                         	</li>
-											<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-													<b>Ngày sinh:</b> $ttNV[NgaySinh]</span>
-                                                    
-											</li>
-											<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-													<b>Địa chỉ:</b> $ttNV[DiaChi]</span> 
-                                                    
-											</li>
-											<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-													<b>Số tài khoản:</b> $ttNV[STK]</span> 
-                                                    
-											</li>
-											<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-													<b>CMND:</b> $ttNV[CCCD]</span>
-                                                    
-											</li>
-											<li class='mb-2 mb-xl-3 '>
-												<span class=' me-2 font-weight-600'>
-													<b>Số điện thoại:</b> $ttNV[SDT]</span> 
-											</li>
-										</ul>
-									</div>
-									</div>
-									<div class='option-buttons d-flex '>			
-									<button type='button' class='btnn ms-auto' id='exit'>QUAY LẠI</button>
+if ($ttNV['GioiTinh'] == 0) $gt = "Nữ";
+else $gt = "Nam";
+?>
+
+<body>
+	<div class="container">
+		<div class="main-body">
+			<nav aria-label="breadcrumb" class="main-breadcrumb p-2">
+				<div class='option-buttons d-flex justify-content-end'>
+					<button type='button' class="btn btn-info " id='exit'>QUAY LẠI</button>
+				</div>
+			</nav>
+
+			<div class="row gutters-sm">
+				<div class="col-md-4 mb-3">
+					<div class="card">
+						<div class="card-body">
+							<div class="d-flex flex-column align-items-center text-center ">
+								<img <?php echo "src='" .  '/' . explode('/', $_SERVER["PHP_SELF"])[1] . "/assets/images/imgnv/$ttNV[Hinh]" . "' alt='Avatar' " ?> class="rounded-circle" width="150">
+								<div class="mt-3 p-2">
+									<h1><?php echo "$ttNV[HoNV]     $ttNV[TenNV]"  ?></h1>
+									<h3 class="text-secondary mb-1"><?php echo "$ttNV[TenChucVu]" ?></h3>
 								</div>
-										";
-										?>
-											
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8">
+					<div class="card mb-3">
+						<div class="card-body">
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Mã nhân viên</h6>
 								</div>
-                               
+								<div class="col-sm-9 text-secondary " style="font-size: 18px;">
+									<?php echo "$ttNV[MaNV]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Phòng</h6>
+								</div>
+								<div class="col-sm-9 text-secondary " style="font-size: 18px;">
+									<?php echo "$ttNV[TenPhong]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Giới Tính</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								
+									<?php echo "$gt " ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Ngày Sinh</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[NgaySinh]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Địa Chỉ</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[DiaChi]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Số Tài Khoản</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[STK]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">CMND</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[CCCD]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Số điện thoại</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[SDT]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Số con</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[SoCon]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
+									<h6 class="mb-0">Hệ số lương</h6>
+								</div>
+								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+									<?php echo "$ttNV[HeSoLuong]" ?>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
+
+	</div>
+	</div>
 </body>
 
 </html>
 
 <script>
-	$('#exit').on('click', function () {
+	$('#exit').on('click', function() {
 		instance.deleteAllCookie();
 		window.location.replace('/auth/login')
 	})
 
-	$('.ungluong-xacnhan').on('click', async function () {
-		if(Number($('.ungluong-sotien').val()) > 5000000) {
+	$('.ungluong-xacnhan').on('click', async function() {
+		if (Number($('.ungluong-sotien').val()) > 5000000) {
 			alert('Số tiền phải nhỏ hơn 5.000.000 VNĐ');
 			return;
 		}
@@ -157,7 +226,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 		alert('thành công!!!');
 	})
 
-	$('.khieunai-xacnhan').on('click', async function () {
+	$('.khieunai-xacnhan').on('click', async function() {
 		await KhieuNai();
 		alert('thành công!!!');
 	});

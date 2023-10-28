@@ -139,21 +139,6 @@ if (isset($_POST['tinh'])) {
     } else $thue = 0;
     $thucLinh = $tongThuNhap - $thue - $tienTamUng;
 }
-if (isset($_POST['luu'])) {
-    if($ghiChu!=""){
-        $sqlInsertPL = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`,
-                                             `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) 
-                                    VALUES ('$maPL','$ttNV[MaNV]','$thang','$nam','$soNgayCong','$soNgayVang','$luongTC','$tienTamUng',
-                                            '$thue','$truBH','$troCap','$tienThuong','$tienPhat','$tienLuong','$tongThuNhap','$thucLinh','$ghiChu')";
-    }
-    else{
-        $sqlInsertPL = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`,
-                                             `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) 
-                                    VALUES ('$maPL','$ttNV[MaNV]','$thang','$nam','$soNgayCong','$soNgayVang','$luongTC','$tienTamUng',
-                                            '$thue','$truBH','$troCap','$tienThuong','$tienPhat','$tienLuong','$tongThuNhap','$thucLinh',null)";
-    }
-    $resultInsertPL = mysqli_query($conn,$sqlInsertPL);
-}
 
 ?>
 <div class="g-6 mb-6 w-100 search-container mt-5">
@@ -223,18 +208,16 @@ if (isset($_POST['luu'])) {
                         </tr>
                         <tr>
                             <td>Ghi chú:</td>
-                            <td id="no_color" colspan="3">
+                            <td id="no_color">
                                 <div class="input-group input-group-lg">
                                     <input type="text" name="ghiChu" value="<?php echo $ghiChu;?>" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
                                 </div>
                             </td>
-                        </tr>
-                        <tr>
-                            <td id="no_color" colspan="2" align="center">
-                                <input type="submit" value="Tính lương" name="tinh" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
+                            <td id="no_color" align="center">
+                                <input type="submit" value="Tính lương" id='tinh' name="tinh" class="btn btn-outline-purple themnhanvien-btn w-60" />
                             </td>
-                            <td id="no_color" colspan="2" align="center">
-                                <input type="submit" value="Lưu phiếu lương" name="luu" class="btn btn-outline-purple themnhanvien-btn mb-5 w-30" />
+                            <td id="no_color" align="center">
+                                <input type="submit" value="Lưu phiếu lương" id='luu' name="luu" class="btn btn-outline-purple themnhanvien-btn w-30" />
                             </td>
                         </tr>
                     </table>
@@ -243,4 +226,29 @@ if (isset($_POST['luu'])) {
         </div>
     </div>
 </div>
+<?php 
+    if (isset($_POST['luu'])) {
+        if($ghiChu!=""){
+            $sqlInsertPL = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`,
+                                                 `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) 
+                                        VALUES ('$maPL','$ttNV[MaNV]','$thang','$nam','$soNgayCong','$soNgayVang','$luongTC','$tienTamUng',
+                                                '$thue','$truBH','$troCap','$tienThuong','$tienPhat','$tienLuong','$tongThuNhap','$thucLinh','$ghiChu')";
+        }
+        else{
+            $sqlInsertPL = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`,
+                                                 `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) 
+                                        VALUES ('$maPL','$ttNV[MaNV]','$thang','$nam','$soNgayCong','$soNgayVang','$luongTC','$tienTamUng',
+                                                '$thue','$truBH','$troCap','$tienThuong','$tienPhat','$tienLuong','$tongThuNhap','$thucLinh',null)";
+        }
+        $resultInsertPL = mysqli_query($conn,$sqlInsertPL);
+        echo "<script type='text/javascript'>
+                $('#tinh').prop('disabled','disabled');
+                $('#luu').prop('disabled','disabled');
+                toastr.success('Phiếu lương tháng $thang năm $nam <br> Nhân viên $ttNV[HoNV] $ttNV[TenNV] <br> Đã được lưu thành công!');
+                setTimeout(function() {
+                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/accountant?page=accountant-payroll" . "';
+                }, 3000);
+            </script>";
+    }
+?>
 <?php $this->end(); ?>
