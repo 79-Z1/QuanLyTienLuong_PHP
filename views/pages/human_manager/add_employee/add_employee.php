@@ -3,6 +3,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/models/NhanVien.php");
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php"); 
+
     if (isset($_POST['hoNV']))
         $hoNV = trim($_POST['hoNV']);
     else $hoNV = "";
@@ -42,6 +43,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     if (isset($_POST['chucVu']))
         $chucVu = trim($_POST['chucVu']);
     else $chucVu = "";
+
+    if (isset($_POST['email']))
+        $Email = trim($_POST['email']);
+    else $Email = "";
         
 
     $err = array();
@@ -87,6 +92,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         //     $sdt,
         //     $hinh
         // );
+        if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
+            $err[] = "Vui lòng nhập đúng định dạng email";
+        }
 
         if(!is_numeric($stk)){
             $err[] = "Vui lòng nhập số tài khoản đúng định dạng số";
@@ -116,7 +124,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $err[] = "Vui lòng chọn đúng định dạng ảnh";
         }
 
-        if($hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
+        if(filter_var($Email,FILTER_VALIDATE_EMAIL) && $hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
             && is_numeric($sdt) && $diaChi != "" && is_numeric($stk) 
             && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed)){
             $hinh = explode(".",$_FILES['imgnv']['name']);
@@ -126,8 +134,8 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $folder = $_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/" . $newhinh;
 
             if(move_uploaded_file($tempname, $folder)){
-                $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT) 
-                values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','$newhinh','$sdt')";
+                $insert = "insert into nhan_vien(MaNV, HoNV, TenNV, GioiTinh, NgaySinh, DiaChi, MaPhong, STK, CCCD, MaChucVu, SoCon, Hinh, SDT, Email) 
+                values('$maNV','$hoNV','$tenNV',$gt,'$ngaySinh','$diaChi','$phong','$stk','$cccd','$chucVu','$soCon','$newhinh','$sdt','$Email')";
                 mysqli_query($conn, $insert);
 
                 $taoTaiKhoan = "insert into tai_khoan(TenTK, MatKhau, LoaiTK, MaNV)
@@ -152,6 +160,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                 $stk = "";
                 $sdt = "";
                 $diaChi = "";
+                $Email = "";
                 $maNV = $newMaNV;
                 
                 echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
@@ -167,6 +176,37 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
     }
 ?>
+<style>
+    .form-control.form-select{
+        padding-top: 0.3rem !important;
+        padding-bottom: 0.3rem !important;
+        
+    }
+
+    .form-control{
+        width: 75%;
+        padding-left: 20px;
+    } 
+    .form-select{
+        width: 75%;
+        padding-left: 20px;
+    } 
+    .form-date-control{
+        text-align: center;
+        width: 23%;
+    }
+    .form-control-img{
+        width: 50%;
+        
+    }
+    tbody{
+        
+        font-weight: bold;
+        height: 597px;
+    }
+
+
+</style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
@@ -177,21 +217,21 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             <form align='center' action="" method="post" enctype="multipart/form-data">
                 <table class="table table-hover table-nowrap">
                     <tr>
-                        <td>Mã nhân viên:</td>
-                        <td><input type="text" size="20" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled"/></td>
-                        <td>Số con:</td>
-                        <td class="<?php if($soCon == "") echo 'required'; ?>"><input type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
+                        <td>Mã nhân viên</td>
+                        <td><input class="form-control py-2" type="text" size="20" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled"/></td>
+                        <td>Số con</td>
+                        <td class="<?php if($soCon == "") echo 'required'; ?>"><input class="form-control py-2"  type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
                     </tr>
                     <tr>
-                        <td >Họ :</td>
-                        <td class="<?php if($hoNV == "") echo 'required'; ?>"><input  type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
-                        <td>Tên:</td>
-                        <td class="<?php if($tenNV == "") echo 'required'; ?>"><input  type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
+                        <td >Họ </td>
+                        <td class="<?php if($hoNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
+                        <td>Tên</td>
+                        <td class="<?php if($tenNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
                     </tr>
                     <tr>
-                        <td>Phòng:</td>
+                        <td>Phòng</td>
                         <td>
-                        <select name="phong">
+                        <select class="form-select py-2" name="phong">
                             <?php
                                 if(mysqli_num_rows($resultPhongBan)<>0){
                                     while($rows=mysqli_fetch_array($resultPhongBan)){
@@ -203,9 +243,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             ?>
                         </select>
                         </td>
-                        <td>Chức Vụ:</td>
+                        <td>Chức Vụ</td>
                         <td>
-                            <select name="chucVu">
+                            <select class="form-select py-2" name="chucVu">
                                 <?php
                                     if(mysqli_num_rows($resultChucVu)<>0){
                                         while($rows=mysqli_fetch_array($resultChucVu)){
@@ -219,13 +259,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                         </td>
                     </tr>
                     <tr>
-                        <td>Ngày sinh:</td>
-                        <td class="<?php if($ngaySinh == "") echo 'required'; ?>"><input type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
-                        <td>CCCD:</td>
-                        <td class="<?php if($cccd == "") echo 'required'; ?>"><input type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
+                        <td>Ngày sinh</td>
+                        <td class="<?php if($ngaySinh == "") echo 'required'; ?>"><input class="form-date-control py-2" type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
+                        <td>CCCD</td>
+                        <td class="<?php if($cccd == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
                     </tr>
                     <tr>
-                        <td>Giới tính:</td>
+                        <td>Giới tính</td>
                         <td>
                             <input type="radio" name="radGT" value="1" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '1') echo 'checked="checked"'; ?> checked />
                             Nam
@@ -233,22 +273,26 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             Nữ
                         </td>
                         <td>Số tài khoản</td>
-                        <td class="<?php if($stk == "") echo 'required'; ?>"><input type="text" name="stk" value="<?php echo $stk; ?> " /></td>
+                        <td class="<?php if($stk == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="stk" value="<?php echo $stk; ?> " /></td>
                     </tr>
                     <tr>
-                        <td>Số điện thoại:</td>
+                        <td>Số điện thoại</td>
                         <td class="<?php if($sdt == "") echo 'required'; ?>">
-                            <input type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
+                            <input class="form-control py-2" type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
                         </td>
-                        <td>Địa chỉ:</td>
+                        <td>Địa chỉ</td>
                         <td class="<?php if($diaChi == "") echo 'required'; ?>">
-                            <input type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
+                            <input class="form-control py-2" type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
                         </td>
                     </tr>
                     <tr>
-                        <td colspan="4" align="center" class="">
-                        Ảnh nhân viên
-                        <input type="file" name="imgnv">
+                        <td colspan="2" align="center" class="">
+                        Ảnh nhân viên <br>
+                        <input class="form-control-img" type="file" id="formFile" name="imgnv">
+                        </td>
+                        <td>Email</td>
+                        <td class="<?php if($Email == "") echo 'required'; ?>">
+                            <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
                     <tr>
