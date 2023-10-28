@@ -18,6 +18,14 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/department/department', []);
         break;
+    case 'admin-department-edit':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/department/edit_department', []);
+        break;
+    case 'admin-department-delete':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/department/delete_department', []);
+        break;    
     case 'admin-overtime':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/overtime/overtime', []);
