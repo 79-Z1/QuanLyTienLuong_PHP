@@ -58,7 +58,7 @@ function checkValid(): bool
                 } else echo "<script type='text/javascript'>toastr.error('Mật khẩu không khớp')</script>";
             } else echo "<script type='text/javascript'>toastr.error('Vui lòng điền đầy đủ thông tin')</script>";
         }
-    } else  header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1]);
+    } else header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1]);
     ?>
     <div class="mainDiv">
         <div class="cardStyle">
