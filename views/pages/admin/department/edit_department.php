@@ -3,12 +3,15 @@
 <?php 
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
+        $conn = mysqli_connect ('localhost', 'root', '', 'quan_ly_tien_luong') 
+		OR die ('Could not connect to MySQL: ' . mysqli_connect_error() );
     $maP = $_GET["MaPhong"];
-    $getPh= "select * from phong_ban
+    $getPhongBan = "select MaPhong, TenPhong from phong_ban
     where MaPhong='$maP'";   
-    $resultPh = mysqli_query($conn, $getPh);
-    $ph = mysqli_fetch_array($resultPh);
-
+    $resultPhongBan = mysqli_query($conn, $getPhongBan );
+    $row = mysqli_fetch_array($resultPhongBan, MYSQLI_ASSOC);
+    $ph = mysqli_fetch_array($resultPhongBan );
+    
 
     $err = array();
 
@@ -16,8 +19,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
     // connect mysql
 
-    $getPhongBan = "select MaPhong, TenPhong from phong_ban";
-
+    $getPhongBan = "select * from phong_ban";
     $resultPhongBan = mysqli_query($conn, $getPhongBan);
 ?>
 <style>
@@ -28,7 +30,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     }
     .form-select{
         width: 100%;
-        padding-left: 20px;
+        padding-left: 50px;
     } 
     /* tbody{
         
@@ -36,51 +38,44 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         height: 597px;
     } */
 </style>
+<?php
+    if (isset($_POST['name']))
+    $name = trim($_POST['name']);
+    else $name = $ph['TenPhong'];
+
+    if (isset($_POST['capnhat'])) {
+        if($name != ''&& $stt != ''){
+            $sqlupdate = "UPDATE `phong_ban` SET `MaPhong`='$stt',`TenPhong`='$name' WHERE phong_ban='$_GET[maP]'";
+            $resultupdate = mysqli_query($conn, $sqlupdate);
+        }
+    }
+?>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">THÊM NHÂN VIÊN</h5>
+                <h5 class="mb-0">CHỈNH SỬA PHÒNG BAN</h5>
             </div>
             <div class="table-responsive">
             <form align='center' action="" method="post" enctype="multipart/form-data">
                 <table class="table table-hover table-nowrap">
                     <tr>
-                    <td>Mã Phòng</td>
+                        <td>Mã Phòng</td>
+                    <td>
                         <td>
-                            <select class="form-select py-2" name="chucVu">
-                                <?php
-                                    if(mysqli_num_rows($resultPhongBan)<>0){
-                                        while($rows=mysqli_fetch_array($resultPhongBan)){
-                                            echo "<option value='$rows[MaPhong]'";
-                                            if(isset($_POST['chucVu'])&& $_POST['phong']==$rows['MaPhong'] || $rows['MaPhong']==$ph['MaPhong']) echo 'selected';
-                                            echo ">$rows[MaPhong]</option>";
-                                        }
-                                    }
-                                ?>
-                            </select>
+                        <input class="form-control py-2" type="text" size="20" name="maP" value="<?php echo $row["MaPhong"]; ?> "disabled/></td>
                         </td>
-
-                        <td>Phòng</td>
-                        <td>
-                        <select class="form-select py-2" name="phong">
-                            <?php
-                                if(mysqli_num_rows($resultPhongBan)<>0){
-                                    while($rows=mysqli_fetch_array($resultPhongBan)){
-                                        echo "<option value='$rows[TenPhong]'";
-                                        if(isset($_POST['phong'])&& $_POST['phong']==$rows['MaPhong'] || $rows['TenPhong']==$ph['TenPhong']) echo 'selected';
-                                        echo ">$rows[TenPhong]</option>";
-                                    }
-                                }
-                            ?>
-                        </select>
-                        </td>
+                    </td>
+                    <td>Phòng</td>
+                    <td>
+                        <input class="form-control py-2" type="text" size="20" name="TenPhong" value="<?php echo $row["TenPhong"]; ?> " /></td>
+                    </td>
                         
                     </tr>
                    
                     <tr>
-                        <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
+                        <td id="no_color" colspan="5" align="center">
+                        <input type="submit" value="Chỉnh sửa" name="edit" class="btn btn-outline-purple editDepartmen-btn mb-5 w-25"/>
                         </td>
                     </tr>
                 </table>
