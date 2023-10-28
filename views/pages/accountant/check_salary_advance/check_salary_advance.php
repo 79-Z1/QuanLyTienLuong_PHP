@@ -7,7 +7,7 @@ $conn = mysqli_connect('localhost', 'root', '', 'quan_ly_tien_luong')
 	or die('Could not connect to MySQL: ' . mysqli_connect_error());
 
 $sqlUngLuong = 'select * from phieu_ung_luong';
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 5
+$rowsPerPage = 6; //số mẩu tin trên mỗi trang, giả sử là 5
 if (!isset($_GET['p'])) {
 	$_GET['p'] = 1;
 }
@@ -21,7 +21,7 @@ $sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
 $resultUngLuong = mysqli_query($conn, $sql);
 ?>
 
-<div style="height:630px">
+<div style="height:620px">
 	<div class="card shadow border-0 mb-7 mt-5">
 		<div class="card-header">
 			<h5 class="mb-0">BẢNG ỨNG LƯƠNG</h5>
@@ -112,8 +112,6 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	$maxPage = floor($numRows / $rowsPerPage) + 1;
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . (1) . ">Đầu trang</a> ";
 	// Gắn thêm nút Back
-
-
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 
 	for ($i = 1; $i <= $maxPage; $i++) {
@@ -128,10 +126,6 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a> ";
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
 	// gắn nút về trang đầu
-
-
-
-
 	?>
 </div>
 
