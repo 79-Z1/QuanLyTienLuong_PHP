@@ -112,7 +112,6 @@ $result = mysqli_query($conn, $sql);
                             <td >{$rows['TenChucVu']}</td>
                             <td >{$rows['HeSoLuong']}</td>
                             <td >
-                                <a href=''><i style='color:green' class='bi bi-person-lines-fill '></i></a>
                                 <a href='index.php?page=admin-position-edit-position&maCV={$rows['MaChucVu']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                                 <a href='index.php?page=admin-position-delete-position&maCV={$rows['MaChucVu']}'><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
