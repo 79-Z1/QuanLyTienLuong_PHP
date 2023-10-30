@@ -293,7 +293,7 @@ a {
                             <td >{$rows['TenChucVu']}</td>
                             <td >{$rows['TenPhong']}</td>
                             <td >
-                                <a href=''><i style='color:green' class='bi bi-person-lines-fill '></i></a>
+                                <a href='index.php?page=detail-staff&MaNV={$rows['MaNV']}'><i style='color:green' class='bi bi-person-lines-fill '></i></a>
                                 <a href='index.php?page=edit-staff&MaNV={$rows['MaNV']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                                 <a href=''><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
