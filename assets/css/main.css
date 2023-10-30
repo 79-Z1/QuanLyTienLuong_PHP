@@ -43,10 +43,10 @@ table td {
     cursor: pointer;
 }
 
-.active {
+.navbar-nav .active {
     background-color: #f5f9fc;
 }
 
-.active a {
+.navbar-nav .active a {
     color: blueviolet !important;
 }
