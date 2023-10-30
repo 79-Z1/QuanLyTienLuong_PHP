@@ -38,7 +38,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         $sqldelete = "delete from phong_ban 
         where MaPhong = '$_GET[MaPhong]'";
         mysqli_query($conn, $sqldelete);
-        echo $sqldelete;
     }
     
 ?>

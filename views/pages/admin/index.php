@@ -10,6 +10,18 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/timekeeping/timekeeping', []);
         break;
+    case 'admin-timekeeping-add':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/timekeeping/add_timekeeping', []);
+        break;
+    case 'admin-timekeeping-edit':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/timekeeping/edit_timekeeping', []);
+        break;
+    case 'admin-timekeeping-delete':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/timekeeping/delete_timekeeping', []);
+        break;
     case 'admin-account':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/account/account', []);
