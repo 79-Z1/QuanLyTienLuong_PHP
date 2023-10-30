@@ -294,7 +294,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td >{$gt}</td>
                             <td >{$rows['TenChucVu']}</td>
                             <td >{$rows['TenPhong']}</td>
-                            <td ><a href=''><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            <td ><a href='index.php?page=employee-detail&MaNV={$rows['MaNV']}'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
                             </tr>";
                     }
                 }

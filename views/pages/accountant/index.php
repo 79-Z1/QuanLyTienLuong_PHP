@@ -22,6 +22,10 @@ switch ($page) {
         echo $template->render('header_accountant', ['css' => 'payroll-info.css', 'js' => 'payroll-info.js']);
         echo $template->render('pages/accountant/payroll/payroll-info', []);
         break;
+    case 'employee-detail':
+        echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
+        echo $template->render('pages/accountant/list_employee_info/employee-detail', []);
+        break;
     default:
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/list-employee', []);
