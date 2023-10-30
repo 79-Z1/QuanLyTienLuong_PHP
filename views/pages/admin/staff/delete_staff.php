@@ -182,6 +182,9 @@ else $gt = "Nam";
 					</div>
 				</div>
 			</div>
+            <div class='option-buttons d-flex justify-content-end'>
+                <button type='button' class="btn btn-info " id='exit'>XOÁ</button>
+            </div>
 		</div>
 	</div>
 </body>

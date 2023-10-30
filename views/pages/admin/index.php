@@ -46,6 +46,10 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/staff/detail_staff', []);
         break;
+    case 'delete-staff':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/staff/delete_staff', []);
+        break;
     default:
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/paycheck/paycheck', []);
