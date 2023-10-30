@@ -28,10 +28,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 // } else $TruBH = 0;
 
 
-
-
-
-
 $err = array();
 
 $sql = "select MaNV, HoNV, TenNV, GioiTinh, SoCon, TenPhong, TenChucVu, HeSoLuong from nhan_vien, phong_ban, chuc_vu 
@@ -152,65 +148,66 @@ if (isset($_POST['tinh'])) {
                 <form action="" method="post" enctype="multipart/form-data">
                     <table class="table table-hover table-nowrap">
                         <tr>
-                            <td>Mã phiếu lương:</td>
-                            <td><input type="text" size="20" name="maPL" value="<?php echo $maPL; ?>" disabled /></td>
-                            <td>Mã nhân viên:</td>
-                            <td><input type="text" name="soCon" value="<?php echo $ttNV['MaNV']; ?> " disabled="disabled" /></td>
+                            <td>Mã phiếu lương</td>
+                            <td><input class="form-control py-2" type="text" size="20" name="maPL" value="<?php echo $maPL; ?>" disabled /></td>
+                            <td>Mã nhân viên</td>
+                            <td><input class="form-control-left p-2" type="text" name="soCon" value="<?php echo $ttNV['MaNV']; ?> " disabled="disabled" /></td>
                         </tr>
                         <tr>
-                            <td>Họ và tên:</td>
-                            <td><input type="text" size="20" name="hoTen" value="<?php echo $ttNV["HoNV"] . " " . $ttNV["TenNV"]; ?>" disabled="disabled" /></td>
-                            <td>Hệ số lương:</td>
-                            <td><input type="text" disabled size="20" name="HeSoLuong" value="<?php echo $ttNV["HeSoLuong"]; ?>" /></td>
+                            <td>Họ và tên</td>
+                            <td><input class="form-control-name py-2" type="text" size="20" name="hoTen" value="<?php echo $ttNV["HoNV"] . " " . $ttNV["TenNV"]; ?>" disabled="disabled" /></td>
+                            <td>Hệ số lương</td>
+                            <td><input class="form-control-salary p-2" type="text" disabled size="20" name="HeSoLuong" value="<?php echo $ttNV["HeSoLuong"]; ?>" /></td>
                         </tr>
                         <tr>
-                            <td>Phòng:</td>
-                            <td><input type="text" name="Phong" value="<?php echo $ttNV["TenPhong"]; ?> " disabled="disabled" /></td>
+                            <td>Phòng</td>
+                            <td><input class="form-control-room py-2"  type="text" name="Phong" value="<?php echo $ttNV["TenPhong"]; ?> " disabled="disabled" /></td>
                             <td>Chức vụ</td>
-                            <td><input type="text" size="20" name="ChucVu" value="<?php echo $ttNV["TenChucVu"]; ?>" disabled="disabled" /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="ChucVu" value="<?php echo $ttNV["TenChucVu"]; ?>" disabled="disabled" /></td>
                         </tr>
                         <tr>
                             <td>Số ngày công</td>
-                            <td><input type="text" disabled size="5" name="SoNgayCong" value="<?php echo $soNgayCong; ?>" /></td>
+                            <td><input class="form-control-date py-2" type="text" disabled size="5" name="SoNgayCong" value="<?php echo $soNgayCong; ?>" /></td>
                             <td>Số ngày vắng</td>
-                            <td><input type="text" disabled size="5" name="SoNgayVang" value="<?php echo $soNgayVang; ?>" /></td>
+                            <td><input class="form-control-date py-2" type="text" disabled size="5" name="SoNgayVang" value="<?php echo $soNgayVang; ?>" /></td>
                         </tr>
                         <tr>
-                            <td>Lương tăng ca:</td>
-                            <td><input type="text" size="20" disabled name="luongTC" value="<?php echo MoneyFormat($luongTC); ?>" />VNĐ</td>
-                            <td>Tiền tạm ứng:</td>
-                            <td><input type="text" size="20" disabled name="tienTamUng" value="<?php echo MoneyFormat($tienTamUng); ?>" />VNĐ</td>
+                            <td>Lương tăng ca</td>
+                            <td><input class="td-control p-2" type="text" size="20" disabled name="luongTC" value="<?php echo MoneyFormat($luongTC); ?>" />VNĐ</td>
+                            <td>Tiền tạm ứng</td>
+                            <td><input class="td-control p-2" type="text" size="20" disabled name="tienTamUng" value="<?php echo MoneyFormat($tienTamUng); ?>" />VNĐ</td>
                         </tr>
                         <tr>
-                            <td>Trợ cấp:</td>
-                            <td><input type="text" size="20" name="troCap" value="<?php echo MoneyFormat($troCap); ?>" disabled />VNĐ</td>
-                            <td>Trừ bảo hiểm:</td>
-                            <td><input type="text" size="20" disabled name="truBh" value="<?php echo MoneyFormat($truBH); ?>" />VNĐ</td>
+                            <td>Trợ cấp</td>
+                            <td><input class="td-control p-2" type="text" size="20" name="troCap" value="<?php echo MoneyFormat($troCap); ?>" disabled />VNĐ</td>
+                            <td>Trừ bảo hiểm</td>
+                            <td><input class="td-control p-2" type="text" size="20" disabled name="truBh" value="<?php echo MoneyFormat($truBH); ?>" />VNĐ</td>
                         </tr>
                         <tr>
-                            <td>Phạt:</td>
-                            <td><input type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
-                            <td>Thưởng:</td>
-                            <td><input type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
+                            <td>Phạt</td>
+                            <td><input class="td-control p-2" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
+                            <td>Thưởng</td>
+                            <td><input class="td-control p-2" style="background-color: #FFF;" type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
                         </tr>
                         <tr>
-                            <td>Tiền lương tháng:</td>
-                            <td><input type="text" size="20" name="tienLuong" value="<?php echo MoneyFormat($tienLuong); ?>" disabled />VNĐ</td>
-                            <td>Tổng thu nhập:</td>
-                            <td><input type="text" size="20" name="tongThuNhap" value="<?php echo MoneyFormat($tongThuNhap); ?>" disabled />VNĐ</td>
+                            <td>Tiền lương tháng</td>
+                            <td><input class="td-control p-2" type="text" size="20" name="tienLuong" value="<?php echo MoneyFormat($tienLuong); ?>" disabled />VNĐ</td>
+                            <td>Tổng thu nhập</td>
+                            <td><input class="td-control p-2" type="text" size="20" name="tongThuNhap" value="<?php echo MoneyFormat($tongThuNhap); ?>" disabled />VNĐ</td>
                         </tr>
                         <tr>
-                            <td>Thuế:</td>
-                            <td><input type="text" size="20" disabled name="thue" value="<?php echo MoneyFormat($thue); ?>" />VNĐ</td>
+                            <td>Thuế</td>
+                            <td><input class="td-control p-2" type="text" size="20" disabled name="thue" value="<?php echo MoneyFormat($thue); ?>" />VNĐ</td>
 
-                            <td>Thực lĩnh:</td>
-                            <td><input type="text" size="20" name="thucLinh" value="<?php echo MoneyFormat($thucLinh); ?>" disabled />VNĐ</td>
+                            <td>Thực lĩnh</td>
+                            <td><input class="td-control p-2" type="text" size="20" name="thucLinh" value="<?php echo MoneyFormat($thucLinh); ?>" disabled />VNĐ</td>
                         </tr>
                         <tr>
-                            <td>Ghi chú:</td>
-                            <td id="no_color">
+                            <td>Ghi chú</td>
+                            <td id="no_colo"r>
                                 <div class="input-group input-group-lg">
-                                    <input type="text" name="ghiChu" value="<?php echo $ghiChu;?>" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm">
+                                    
+                                 <textarea class="form-control" name="ghiChu"  rows="3" maxlength="300" > <?php echo $ghiChu;?></textarea>
                                 </div>
                             </td>
                             <td id="no_color" align="center">
