@@ -25,6 +25,18 @@ if (!isset($_GET['p'])) {
 }
 $sqlChucVu = 'select * from chuc_vu ORDER BY HeSoLuong DESC';
 $resultChucVu = mysqli_query($conn, $sqlChucVu);
+$dsCV=[];
+if (mysqli_num_rows($resultChucVu) <> 0) {
+
+    while ($row = mysqli_fetch_array($resultChucVu)) {
+       $dsCV=array(
+        'MaChucVu'=> $row['MaChucVu'],
+        'TenChucVu'=> $row['TenChucVu'],
+        'HeSoLuong'=> $row['HeSoLuong']
+       );
+    }
+}
+
 $numRows = mysqli_num_rows($resultChucVu);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
@@ -101,8 +113,8 @@ $result = mysqli_query($conn, $sql);
                             <td >{$rows['HeSoLuong']}</td>
                             <td >
                                 <a href=''><i style='color:green' class='bi bi-person-lines-fill '></i></a>
-                                <a href='index.php?page=admin-position-edit-position&MaNV={$rows['MaChucVu']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
-                                <a href=''><i style='color:red' class='bi bi-person-x'></i></a>
+                                <a href='index.php?page=admin-position-edit-position&maCV={$rows['MaChucVu']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
+                                <a href='index.php?page=admin-position-delete-position&maCV={$rows['MaChucVu']}'><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
                             </tr>";
                     }

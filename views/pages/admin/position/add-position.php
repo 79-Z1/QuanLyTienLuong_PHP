@@ -69,38 +69,7 @@ if (isset($_POST['them'])) {
         padding-bottom: 0.3rem !important;
         
     }
-    /* .form-control-nv-left{ 
-        width: 20%;
-        padding-left: 20px;
-    }
-    .form-control-sdt-left{ 
-        width: 30%;
-        padding-left: 20px;
-    }
-    .form-control-left{ 
-        width: 40%;
-        padding-left: 20px;
-    }
-    .form-select-left{ 
-        width: 70%;
-        padding-left: 20px;
-    }
-    .form-control-tt-right{
-        width: 15%;
-        padding-left: 20px;
-    }
-    .form-select-cv-right{
-        width: 35%;
-        padding-left: 20px;
-    }
-    .form-control-dc-right{
-        width: 75%;
-        padding-left: 20px;
-    }
-    .form-control-right{
-        width: 30%;
-        padding-left: 20px;
-    }*/.form-control{
+    .form-control{
         width: 100%;
         height: 40px;
         padding-left: 20px;
@@ -137,7 +106,7 @@ if (isset($_POST['them'])) {
                             <td>Mã chức vụ</td>
                             <td><input class="form-control py-2" type="text" size="20" name="maCV" value="<?php echo $maCV; ?> " /></td>
                             <td>Hệ số lương</td>
-                            <td class="<?php if ($soCon == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="HSL" value="<?php echo $HSL; ?> " /></td>
+                            <td ><input class="form-control py-2" type="text" name="HSL" value="<?php echo $HSL; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Tên chức vụ </td>
