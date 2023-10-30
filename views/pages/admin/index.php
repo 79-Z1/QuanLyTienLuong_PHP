@@ -18,6 +18,18 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/department/department', []);
         break;
+    case 'admin-department-add':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/department/add_department', []);
+        break;    
+    case 'admin-department-edit':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/department/edit_department', []);
+        break;
+    case 'admin-department-delete':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/department/delete_department', []);
+        break;    
     case 'admin-overtime':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/overtime/overtime', []);
@@ -27,9 +39,21 @@ switch ($page) {
         echo $template->render('pages/admin/salary-slip/salary-slip', []);
         break;
     case 'admin-position':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'position/position.css']);
         echo $template->render('pages/admin/position/position', []);
         break;
+    case 'admin-position-add-position':
+        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('pages/admin/position/add-position', []);
+        break;
+    case 'admin-position-edit-position':
+        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('pages/admin/position/edit-position', []);
+        break;
+        case 'admin-position-delete-position':
+            echo $template->render('header_admin', ['css' => 'position/position.css']);
+            echo $template->render('pages/admin/position/delete-position', []);
+            break;
     case 'admin-staff':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/staff/staff', []);
