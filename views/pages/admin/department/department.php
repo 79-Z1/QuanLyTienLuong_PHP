@@ -7,22 +7,9 @@ if (isset($_GET['maNV']))
     $maNV = trim($_GET['maNV']);
 else $maNV = "";
 
-if (isset($_GET['hoTen']))
-    $hoTen = trim($_GET['hoTen']);
-else $hoTen = "";
-
 if (isset($_GET['phong']))
     $maPhong = $_GET['phong'];
 else $maPhong = "";
-
-if (isset($_GET['chucVu']))
-    $maChucVu = $_GET['chucVu'];
-else $maChucVu = "";
-
-if (isset($_GET['radGT']))
-    $gioiTinh = $_GET['radGT'];
-else $gioiTinh = "";
-
 
 
 $rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
@@ -103,6 +90,8 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
+                        
+                        
                     </table>
 
                 </form>
@@ -143,11 +132,14 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
 
                 ?>
             </tbody>
-            <tr>
-                <td id="no_color" colspan="5" align="center">
-                    <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
-                </td>
-            </tr>
+                    <tr>
+                        <td id="no_color" colspan="5" align="center">
+                            
+                            <a href="index.php?page=admin-department-add"> 
+                                <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
+                            </a>
+                        </td>
+                    </tr>
         </table>
     </div>
 </div>

@@ -8,17 +8,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     where MaPhong='$maP'";   
     $resultPhongBan = mysqli_query($conn, $getPhongBan );
     $row = mysqli_fetch_array($resultPhongBan, MYSQLI_ASSOC);
-    $ph = mysqli_fetch_array($resultPhongBan );
+    $TenPhong = $row["TenPhong"];
     
 
     $err = array();
 
     $allowed = array('image/jpeg','image/png');
 
-    // connect mysql
-
-    $getPhongBan = "select * from phong_ban";
-    $resultPhongBan = mysqli_query($conn, $getPhongBan);
 ?>
 <style>
     .form-control.form-select{
@@ -37,7 +33,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     } */
 </style>
 <?php
-    if (isset($_POST['xoa'])) {
+
+    if (isset($_POST['delete'])) {
         $sqldelete = "delete from phong_ban 
         where MaPhong = '$_GET[MaPhong]'";
         mysqli_query($conn, $sqldelete);
@@ -62,7 +59,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     </td>
                     <td>Phòng</td>
                     <td>
-                        <input class="form-control py-2" type="text" size="20" name="maP" value="<?php echo $maP; ?> " disabled="disabled"/></td>
+                        <input class="form-control py-2" type="text" size="20" name="TenPhong" value="<?php echo $TenPhong; ?> " disabled="disabled"/></td>
                     </td>
                         
                     </tr>
