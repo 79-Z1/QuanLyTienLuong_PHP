@@ -18,7 +18,7 @@ if (isset($_GET['heSoLuong']))
 else $heSoLuong = "";
 
 
-$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -72,15 +72,13 @@ $result = mysqli_query($conn, $sql);
                                 <p>Hệ số lương</p>
                             </td>
                             <td><input class="form-control me-2 search-input" type="text" name="heSoLuong" value="<?php echo $heSoLuong; ?>"></td>
+                        </tr>
+                        <tr > 
+                            <td align="center" colspan="4">
+                                <input class="btn btn-outline-success search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <a href="index.php?page=admin-position-add-position" class="btn btn-outline-success search-btn w-25">Thêm</a>
+                            </td>
 
-                            <td align="end" rowspan="3">
-                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
-                            </td>
-                            <td align="end" rowspan="3">
-                                    <a href="index.php?page=admin-position-add-position">
-                                        <i class="btn btn-outline-success search-btn">Thêm</i>
-                                    </a>
-                            </td>
                         </tr>
                     </table>
                 </form>
@@ -89,7 +87,7 @@ $result = mysqli_query($conn, $sql);
     </div>
 </div>
 
-<div style="height: 520px">
+<div style="height: 450px">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
@@ -112,7 +110,6 @@ $result = mysqli_query($conn, $sql);
                             <td >{$rows['TenChucVu']}</td>
                             <td >{$rows['HeSoLuong']}</td>
                             <td >
-                                <a href=''><i style='color:green' class='bi bi-person-lines-fill '></i></a>
                                 <a href='index.php?page=admin-position-edit-position&maCV={$rows['MaChucVu']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                                 <a href='index.php?page=admin-position-delete-position&maCV={$rows['MaChucVu']}'><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>

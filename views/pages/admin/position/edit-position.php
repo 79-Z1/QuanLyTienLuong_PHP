@@ -35,15 +35,11 @@ if (isset($_POST['edit'])) {
         $resultupdate = mysqli_query($conn, $sqlupdate);
         $tenCV = $_POST['tenCV'];
         $HSL = $_POST['HSL'];
-        echo "<script>";
-        echo "alert('Chỉnh sữa chức vụ thành công');";
-        echo "</script>";
+        echo "<div class='alert alert-success'>Sửa tăng ca thành công</div>";
     } else {
-        echo "<script>";
         foreach ($err as $error) {
-            echo "alert('$error');";
+            echo "<div class='alert alert-danger'>$error</div>";
         }
-        echo "</script>";
     }
 }
 ?>
@@ -63,12 +59,12 @@ if (isset($_POST['edit'])) {
                                     value="<?php echo $row["MaChucVu"]; ?> " disabled /></td>
                             <td>Hệ số lương</td>
                             <td><input class="form-control py-2" type="text" name="HSL"
-                                    value="<?php echo $HSL; ?> " /></td>
+                                    value="<?php echo $HSL; ?>" /></td>
                         </tr>
                         <tr class="tr">
                             <td>Tên chức vụ </td>
                             <td><input class="form-control py-2" type="text" size="20" name="tenCV"
-                                    value="<?php echo $tenCV; ?> " /></td>
+                                    value="<?php echo $tenCV; ?>" /></td>
                             <td id="no_color" colspan="2">
                                 <input type="submit" value="Lưu" name="edit"
                                     class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
