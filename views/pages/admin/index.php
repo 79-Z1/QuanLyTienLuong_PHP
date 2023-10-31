@@ -21,7 +21,7 @@ switch ($page) {
     case 'admin-department-add':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/department/add_department', []);
-        break;    
+        break;
     case 'admin-department-edit':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/department/edit_department', []);
@@ -29,10 +29,22 @@ switch ($page) {
     case 'admin-department-delete':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/department/delete_department', []);
-        break;    
+        break;
     case 'admin-overtime':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
         echo $template->render('pages/admin/overtime/overtime', []);
+        break;
+    case 'admin-overtime-add-overtime':
+        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('pages/admin/overtime/add-overtime', []);
+        break;
+    case 'admin-overtime-edit-overtime':
+        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('pages/admin/overtime/edit-overtime', []);
+        break;
+    case 'admin-overtime-delete-overtime':
+        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('pages/admin/overtime/delete-overtime', []);
         break;
     case 'admin-salary-slip':
         echo $template->render('header_admin', []);
@@ -50,10 +62,10 @@ switch ($page) {
         echo $template->render('header_admin', ['css' => 'position/position.css']);
         echo $template->render('pages/admin/position/edit-position', []);
         break;
-        case 'admin-position-delete-position':
-            echo $template->render('header_admin', ['css' => 'position/position.css']);
-            echo $template->render('pages/admin/position/delete-position', []);
-            break;
+    case 'admin-position-delete-position':
+        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('pages/admin/position/delete-position', []);
+        break;
     case 'admin-staff':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/staff/staff', []);
