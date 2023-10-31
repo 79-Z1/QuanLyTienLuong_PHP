@@ -50,6 +50,18 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/salary-slip/salary-slip', []);
         break;
+    case 'admin-salary-slip-add':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/salary-slip/add_salary-slip', []);
+        break;
+    case 'admin-salary-slip-edit':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/salary-slip/edit_salary-slip', []);
+        break;
+    case 'admin-salary-slip_delete':
+        echo $template->render('header_admin', []);
+        echo $template->render('pages/admin/salary-slip/delete_salary-slip', []);
+        break;
     case 'admin-position':
         echo $template->render('header_admin', ['css' => 'position/position.css']);
         echo $template->render('pages/admin/position/position', []);
