@@ -10,6 +10,45 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     $resultPhongBan = mysqli_query($conn, $getPhongBan);
     $row = mysqli_fetch_array($resultPhongBan, MYSQLI_ASSOC);
     $TenPhong = $row["TenPhong"];
+
+    // if (isset($_POST['edit'])) {
+    //     $err = array();
+        
+    //     if (empty($MaNV)) {
+    //         $err[] = "Vui lòng nhập tên chức vụ";
+    //     }
+    //     if (empty($ngayUng)) {
+    //         $err[] = "Vui lòng nhập tên chức vụ";
+    //     }
+    //     if (empty($lyDo)) {
+    //         $err[] = "Vui lòng nhập tên chức vụ";
+    //     }
+    //     if (empty($soTien)) {
+    //         $err[] = "Vui lòng nhập hệ số lương";
+    //     } elseif (!is_numeric($duyet)) {
+    //         $err[] = "Hệ số lương phải là một số";
+    //     }
+    
+    //     if (empty($err)) {
+    //         $sqlupdate = "UPDATE `phieu_ung_luong` SET `MaNV`='$MaNV',`NgayUng`='$ngayUng',`LyDo`='$lyDo', `SoTien`=$soTien ,`Duyet`='$duyet'
+    //         WHERE MaPhieu='$maPhieu'";
+    //         $resultupdate = mysqli_query($conn, $sqlupdate);
+    //         $MaNV = $_POST['MaNV'];
+    //         $ngayUng = $_POST['ngayUng'];
+    //         $lyDo = $_POST['lyDo'];
+    //         $soTien = $_POST['soTien'];
+    //         $duyet = $_POST['duyet'];
+    //         echo "<script>";
+    //         echo "alert('Chỉnh sữa chức vụ thành công');";
+    //         echo "</script>";
+    //     } else {
+    //         echo "<script>";
+    //         foreach ($err as $error) {
+    //             echo "alert('$error');";
+    //         }
+    //         echo "</script>";
+    //     }
+    // }
 ?>
 <style>
     .form-control.form-select{

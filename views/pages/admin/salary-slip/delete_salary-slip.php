@@ -14,12 +14,33 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     order by MaNV";
     $resultmanv = mysqli_query($conn, $getmanv);
 
+
+    if (isset($_POST['ngayUng']))
+    $ngayUng = trim($_POST['ngayUng']);
+    else $ngayUng = $row['NgayUng'];
+
+    if (isset($_POST['lyDo']))
+    $lyDo = trim($_POST['lyDo']);
+    else $lyDo = $row['LyDo'];
+
+    if (isset($_POST['soTien']))
+    $soTien = trim($_POST['soTien']);
+    else $soTien = $row['SoTien'];
+
+    if (isset($_POST['duyet']))
+    $duyet = trim($_POST['duyet']);
+    else $duyet = $row['Duyet'];
+
     if (isset($_POST['delete'])) {
         $sqldelete = "delete from phieu_ung_luong
         where MaPhieu = '$_GET[MaPhieu]'";
-        mysqli_query($conn, $sqldelete);
+        $deleteResult = mysqli_query($conn, $sqldelete);
+        if ($deleteResult) {
+            echo '<div class="alert alert-success">Xóa thành công!</div>';
+        } else {
+            echo '<div class="alert alert-danger">Xóa thất bại!</div>';
+        }
     }
-
 
 ?>
 <style>
@@ -56,19 +77,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     </td>
                     <td>Mã Nhân Viên</td>
                     <td>            
-                        <select name="MaNV" class="form-select search-option">
-                                <option value="">Trống</option>
-                                <?php
-                                if (mysqli_num_rows($resultmanv ) <> 0) {
-
-                                    while ($rows = mysqli_fetch_array($resultmanv )) {
-                                        echo "<option value='$rows[MaNV]'";
-                                        if (isset($_POST['MaNV']) && $_POST['MaNV'] == $rows['MaNV'] || $rows['MaNV']==$row['MaNV'] ) echo "selected";
-                                        echo ">$rows[MaNV]</option>";
-                                    }
-                                }
-                                ?>
-                            </select>
+                        <input class="form-control py-2" type="text" size="20" name="MaNV" value="<?php echo $row["MaNV"]; ?> "disabled/></td>
                     </td>
                         
                     </tr>
@@ -77,32 +86,34 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                                 <p>Số tiền</p>
                             </td>
                             <td class="<?php if($soTien == "") echo 'required'; ?>">
-                            <input class="td-control py-2" type="text" size="20" name="soTien" value="<?php echo $soTien; ?>">VND</td>
+                            <input class="td-control py-2" type="text" size="20" name="soTien" value="<?php echo $soTien; ?>"disabled>VND</td>
                             
                             
                             <td>
                                 <p>Duyệt</p>
                             </td>
                             <td class="<?php if($duyet == "") echo 'required'; ?>">
-                            <input class="form-control me-2 search-input" type="text" name="duyet" value="<?php echo $duyet; ?>"></td>
+                            <input class="form-control me-2 search-input" type="text" name="duyet" value="<?php echo $duyet; ?>"disabled></td>
                         </tr>
 
                         <tr>
                             <td>Lý do</td>
                             <td id="no_color">
                                 <div class="input-group input-group-lg">
-                                 <textarea class="form-control" name="lyDo"  rows="2" maxlength="300" > <?php echo $lyDo;?></textarea>
+                                 <textarea class="form-control" name="lyDo"  rows="2" maxlength="300" disabled> <?php echo $lyDo;?></textarea>
                                 </div>
                             </td>
 
                             <td>Ngày ứng</td>
                             <td class="<?php if($ngayUng == "") echo 'required'; ?>">
-                            <input class="form-date-control py-2" type="date" name="ngayUng" value="<?php echo $ngayUng; ?>" /></td>
+                            <input class="form-date-control py-2" type="date" name="ngayUng" value="<?php echo $ngayUng; ?>"disabled /></td>
                         </tr>
                     <tr>
                     
                         <td id="no_color" colspan="5" align="center">
-                        <input type="submit" value="Chỉnh sửa" name="edit" class="btn btn-outline-purple editSalarySlip-btn mb-5 w-25"/>
+                            <input type="submit" value="Xóa" name="delete" class="btn btn-outline-purple deleteSalarySlip-btn mb-5 w-25"/>
+                            <a class="btn btn-outline-purple deleteSalarySlip-btn mb-5 w-25"
+                                        href="index.php?page=admin-salary-slip"> Quay Lại</a>
                         </td>
                     </tr>
                 </table>

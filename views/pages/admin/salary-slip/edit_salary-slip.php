@@ -39,14 +39,43 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     else $duyet = $row['Duyet'];
 
     if (isset($_POST['edit'])) {
-        if($maPhieu != ''){
+        $err = array();
+        
+        if (empty($MaNV)) {
+            $err[] = "Vui lòng nhập tên chức vụ";
+        }
+        if (empty($ngayUng)) {
+            $err[] = "Vui lòng nhập tên chức vụ";
+        }
+        if (empty($lyDo)) {
+            $err[] = "Vui lòng nhập tên chức vụ";
+        }
+        if (empty($soTien)) {
+            $err[] = "Vui lòng nhập hệ số lương";
+        } elseif (!is_numeric($duyet)) {
+            $err[] = "Hệ số lương phải là một số";
+        }
+    
+        if (empty($err)) {
             $sqlupdate = "UPDATE `phieu_ung_luong` SET `MaNV`='$MaNV',`NgayUng`='$ngayUng',`LyDo`='$lyDo', `SoTien`=$soTien ,`Duyet`='$duyet'
             WHERE MaPhieu='$maPhieu'";
             $resultupdate = mysqli_query($conn, $sqlupdate);
-            echo "$sqlupdate";
+            $MaNV = $_POST['MaNV'];
+            $ngayUng = $_POST['ngayUng'];
+            $lyDo = $_POST['lyDo'];
+            $soTien = $_POST['soTien'];
+            $duyet = $_POST['duyet'];
+            echo "<script>";
+            echo "alert('Chỉnh sữa chức vụ thành công');";
+            echo "</script>";
+        } else {
+            echo "<script>";
+            foreach ($err as $error) {
+                echo "alert('$error');";
+            }
+            echo "</script>";
         }
     }
-
 ?>
 <style>
     .form-control.form-select{
@@ -129,6 +158,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Chỉnh sửa" name="edit" class="btn btn-outline-purple editSalarySlip-btn mb-5 w-25"/>
+                        <a class="btn btn-outline-purple editSalarySlip-btn mb-5 w-25"
+                                    href="index.php?page=admin-salary-slip"> Quay Lại</a>
                         </td>
                     </tr>
                 </table>

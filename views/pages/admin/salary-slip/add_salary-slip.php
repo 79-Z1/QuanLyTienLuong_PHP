@@ -9,6 +9,7 @@ $getmanv = "SELECT MaNV FROM `nhan_vien`
 order by MaNV";
 $resultmanv = mysqli_query($conn, $getmanv);
 
+
 if (isset($_POST['maPhieu']))
     $maPhieu = trim($_POST['maPhieu']);
 else $maPhieu = "";
@@ -21,16 +22,16 @@ if (isset($_POST['ngayUng']))
     $ngayUng = trim($_POST['ngayUng']);
 else $ngayUng = "";
 
-if (isset($_GET['lyDo']))
-    $lyDo = trim($_GET['lyDo']);
+if (isset($_POST['lyDo']))
+    $lyDo = trim($_POST['lyDo']);
 else $lyDo = "";
 
-if (isset($_GET['soTien']))
-    $soTien = trim($_GET['soTien']);
+if (isset($_POST['soTien']))
+    $soTien = trim($_POST['soTien']);
 else $soTien = "";
 
-if (isset($_GET['duyet']))
-    $duyet = trim($_GET['duyet']);
+if (isset($_POST['duyet']))
+    $duyet = trim($_POST['duyet']);
 else $duyet = "";
 
 
@@ -38,26 +39,35 @@ if (isset($_POST['them'])) {
 
     $err = array();
 
-    // if (empty($maCong)) {
-    //     $err[] = "Vui lòng nhập mã phòng ban";
-    // }
-    // if (empty($maNV)) {
-    //     $err[] = "Vui lòng nhập mã nhân viên";
-    // }
-    // if (empty($tinhTrang)) {
-    //     $err[] = "Vui lòng nhập tình trạng";
-    // }
-    // if (empty($ngay)) {
-    //     $err[] = "Vui lòng nhập ngày";
-    // }
-    // if (empty($nghiHL)) {
-    //     $err[] = "Vui lòng nhập nghỉ hưởng lương";
-    // }
+    if (empty($maPhieu)) {
+        $err[] = "Vui lòng nhập mã phiếu ứng lương";
+    }
+    if (empty($maNV)) {
+        $err[] = "Vui lòng nhập mã nhân viên";
+    }
+    if (empty($ngayUng)) {
+        $err[] = "Vui lòng nhập ngày ứng lương";
+    }
+    if (empty($lyDo)) {
+        $err[] = "Vui lòng nhập lý do muốn ứng";
+    }
+    if (empty($soTien)) {
+        $err[] = "Vui lòng nhập số tiền";
+    }
+    if (empty($duyet)) {
+        $err[] = "Vui lòng nhập số 1 để nghỉ hưởng lương";
+    }
 
     if (empty($err)) {
-        $sqlInsert = "INSERT INTO `phieu_ung_luong`(`MaPhieu`, `MaNV`, `NgayUng`, `LyDo`, `SoTien`, `Duyet`) VALUES ('$maPhieu','$maNV','$ngayUng','$lyDo',$soTien,' $duyet')";
+        $sqlInsert = "INSERT INTO `phieu_ung_luong`(`MaPhieu`, `MaNV`, `NgayUng`, `LyDo`, `SoTien`, `Duyet`) VALUES ('$maPhieu','$maNV','$ngayUng','$lyDo',$soTien,'$duyet')";
         $resultInsert = mysqli_query($conn, $sqlInsert);
-
+        // echo $maPhieu;
+        // echo $maNV;
+        // echo $ngayUng;
+        // echo $lyDo;
+        // echo $soTien;
+        // echo $duyet;
+    
         if ($resultInsert) {
             echo "<script>";
             echo "alert('Thêm chấm công thành công')";
@@ -166,7 +176,9 @@ if (isset($_POST['them'])) {
                    
                     <tr>
                         <td id="no_color" colspan="5" align="center">
-                        <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"/>
+                            <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"/>
+                            <a class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"
+                                        href="index.php?page=admin-salary-slip"> Quay Lại</a>
                         </td>
                     </tr>
                 </table>
