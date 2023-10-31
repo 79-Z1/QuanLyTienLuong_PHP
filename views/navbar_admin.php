@@ -7,7 +7,7 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item" data-active="1">
-                    <a class="nav-link" id="xemtt" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/admin?page=admin-paycheck"?> > <i class="bi bi-person-lines-fill"></i> Phiếu lương </a>
+                    <a class="nav-link" id="xemtt" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/admin?page=admin-salary-slip"?> > <i class="bi bi-person-lines-fill"></i> Phiếu lương </a>
                 </li>
                 <li class="nav-item" data-active="2">
                     <a class="nav-link" id="xemtt" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/admin?page=admin-staff"?> > <i class="bi bi-person-lines-fill"></i> Nhân viên </a>

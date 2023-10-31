@@ -24,6 +24,7 @@ if (isset($_POST["loaiTC"])) {
     $loaiTC = $_POST['loaiTC'];
 }
 if (!isset($_POST["ngayTC"])) {
+    // $ngayTC = $_POST['ngayTC']; 
     $_POST['ngayTC'] = $ngayTC;
  }
 
@@ -37,7 +38,9 @@ if (isset($_POST['edit'])) {
     if (empty($ngayTC)) {
         $err[] = "Vui lòng nhập ngày tháng";
     }
-     if ($loaiTC > 2) {
+    if (empty($loaiTC)) {
+        $err[] = "Vui lòng nhập loại tăng ca";
+    } else if ($loaiTC > 2) {
         $err[] = "Loại tăng ca không quá 2";
     }
 
@@ -47,7 +50,7 @@ if (isset($_POST['edit'])) {
         $resultupdate = mysqli_query($conn, $sqlupdate);
         $maNV = $_POST['MaNV'];
         $ngayTC = $_POST['ngayTC'];
-        $loaiTC = $_POST['loaiTC'];
+        $loaiTC = $_POST['loaiTC'];;
         echo "<div class='alert alert-success'>Sửa tăng ca thành công</div>";
 
     } else {
@@ -76,7 +79,7 @@ if (isset($_POST['edit'])) {
                                     if (mysqli_num_rows($resultNhanVien) <> 0) {
                                         while ($rows = mysqli_fetch_array($resultNhanVien)) {
                                             echo "<option value='$rows[MaNV]'";
-                                            if (isset($_POST['MaNV']) && $_POST['MaNV'] == $rows['MaNV'] || $rows['MaNV'] == $row['MaNV']) echo "selected";
+                                            if (isset($_POST['MaNV']) && $_POST['MaNV'] == $rows['MaNV']) echo "selected";
                                             echo ">$rows[MaNV]</option>";
                                         }
                                     }
