@@ -194,7 +194,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td >{$rows['TenPhong']}</td>
                             <td >
                                 <a href=''><i style='color:green' class='bi bi-person-lines-fill '></i></a>
-                                <a href='index.php?page=edit_employee&MaNV={$rows['MaNV']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
+                                <a href='index.php?page=human-manager-edit-employee&MaNV={$rows['MaNV']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                                 <a href=''><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
                             </tr>";

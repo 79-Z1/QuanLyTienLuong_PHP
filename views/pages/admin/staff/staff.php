@@ -295,7 +295,7 @@ a {
                             <td >
                                 <a href='index.php?page=detail-staff&MaNV={$rows['MaNV']}'><i style='color:green' class='bi bi-person-lines-fill '></i></a>
                                 <a href='index.php?page=edit-staff&MaNV={$rows['MaNV']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
-                                <a href=''><i style='color:red' class='bi bi-person-x'></i></a>
+                                <a href='index.php?page=delete-staff&MaNV={$rows['MaNV']}'><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
                             </tr>";
                     }
