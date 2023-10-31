@@ -20,7 +20,20 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         where MaCong = '$_GET[MaCong]'";
         mysqli_query($conn, $sqldelete);
     }
+    if(isset($_POST["tinhTrang"])) {
+        $tinhTrang = trim($_POST['tinhTrang']) ;
+    
+    }
+    else $tinhTrang = $row['TinhTrang'];
 
+    if(isset($_POST["nghiHL"])) {
+        $nghiHL = trim($_POST['nghiHL']);
+    }
+    else $nghiHL = $row['NghiHL'];
+    if(isset($_POST["ngay"])) {
+        $ngay = $_POST['ngay'];
+    }
+    else $ngay = $row['Ngay'];
 ?>
 <style>
     .form-control.form-select{
