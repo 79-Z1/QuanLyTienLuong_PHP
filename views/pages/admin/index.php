@@ -62,6 +62,26 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/salary-slip/salary-slip', []);
         break;
+    case 'admin-paycheck':
+        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('pages/admin/paycheck/paycheck', []);
+        break;
+    case 'admin-paycheck-add-paycheck':
+        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('pages/admin/paycheck/add-paycheck', []);
+        break;
+    case 'admin-paycheck-edit-paycheck':
+        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('pages/admin/paycheck/edit-paycheck', []);
+        break;
+    case 'admin-paycheck-delete-paycheck':
+        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('pages/admin/paycheck/delete-paycheck', []);
+        break;
+    case 'admin-paycheck-info-paycheck':
+        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('pages/admin/paycheck/info-paycheck', []);
+        break;
     case 'admin-position':
         echo $template->render('header_admin', ['css' => 'position/position.css']);
         echo $template->render('pages/admin/position/position', []);
