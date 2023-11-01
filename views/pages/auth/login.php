@@ -31,7 +31,11 @@ if (isset($_POST['submit'])) {
 				$jwt = new JWT();
 				$token = $jwt->generate($payload);
 				$_SESSION["MaNV"] = $row['MaNV'];
+				$_SESSION["TaiKhoan"] = $tentk;
 				$_SESSION["LoaiTK"] = $row['LoaiTK'];
+				setcookie("MaNV", $row['MaNV']);
+				setcookie("TaiKhoan", $tentk);
+				setcookie("LoaiTK", $row['LoaiTK']);
 				$_SESSION["Authorization"] = $token;
 				switch ($_SESSION["LoaiTK"]) {
 					case 'KT':

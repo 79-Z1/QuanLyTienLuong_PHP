@@ -26,6 +26,10 @@ switch ($page) {
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/employee-detail', []);
         break;
+    case 'notification':
+        echo $template->render('header_accountant', []);
+        echo $template->render('pages/shared/notification/notification', []);
+        break;
     default:
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/list-employee', []);

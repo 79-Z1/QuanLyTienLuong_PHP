@@ -21,9 +21,13 @@ const acceptPUL = async (el, maphieu) => {
         maphieu
     }
     const { message, status } = await postData(url, data);
+    const nguoigui = TAIKHOAN;
+    const nguoinhan = 'KT001';
+    const noidung = `Phiếu ứng lương của bạn đẫ được duyệt`;
+    sendMessage('KT', nguoigui, nguoinhan, noidung);
     if (status) {
         tdChange.html(`<i style="font-size:35px !important;color:green;" class='bi bi-check-circle-fill'></i>`);
-        pChange.css({"color":"green"});
+        pChange.css({ "color": "green" });
         pChange.html("Đã duyệt");
         toastr.success('Duyệt thành công');
     }
