@@ -12,7 +12,7 @@ const deletePUL = async (el, maphieu) => {
     }
 }
 
-const acceptPUL = async (el, maphieu) => {
+const acceptPUL = async (el, maphieu, nguoinhan) => {
     const tdChange = $(el).closest("td");
     const pChange = $(el).closest("tr").find('.duyet-p');
     const url = "http://localhost/QuanLyTienLuong_PHP/views/pages/accountant/check_salary_advance/api_check_salary_advance.php";
@@ -21,10 +21,9 @@ const acceptPUL = async (el, maphieu) => {
         maphieu
     }
     const { message, status } = await postData(url, data);
-    const nguoigui = TAIKHOAN;
-    const nguoinhan = 'KT001';
+    const nguoigui = MANV;
     const noidung = `Phiếu ứng lương của bạn đẫ được duyệt`;
-    sendMessage('KT', nguoigui, nguoinhan, noidung);
+    sendMessage('NV', nguoigui, nguoinhan, noidung);
     if (status) {
         tdChange.html(`<i style="font-size:35px !important;color:green;" class='bi bi-check-circle-fill'></i>`);
         pChange.css({ "color": "green" });

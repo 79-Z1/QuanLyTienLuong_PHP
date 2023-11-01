@@ -30,13 +30,14 @@ conn.onmessage = async function (e) {
     const data = JSON.parse(e.data);
     const NguoiNhan = data?.NguoiNhan;
     const loaiTK = data?.LoaiTK;
+    const noiDung = data?.NoiDung;
     if (NguoiNhan === MANV && loaiTK === LOAITK) {
+        console.log('nội dung: ',noiDung);
         const url = "http://localhost/QuanLyTienLuong_PHP/api/api-countnew-notification.php";
         const data = {
             NguoiNhan: NguoiNhan
         }
         const { message, status, newNotiNumber } = await postData(url, data);
-        console.log(newNotiNumber);
         if (status && newNotiNumber > 0) {
             $('#num-noti').css({ 'background-color': 'red' })
             $('#num-noti').text(`${newNotiNumber}`);
