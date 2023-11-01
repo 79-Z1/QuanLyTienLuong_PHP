@@ -7,6 +7,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $getNV= "select * from nhan_vien
     where MaNV='$maNVien'";   
     $resultNV = mysqli_query($conn, $getNV);
+    
     $nv = mysqli_fetch_array($resultNV);
 
     $maNV = $nv['MaNV'] ;
@@ -270,13 +271,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                         </td>
                     </tr>
                 </table>
-                <div class="option-buttons d-flex justify-content-between">
-                <a style="margin-top:20px; margin-left:20px" href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
-                <input style="margin-top:20px; margin-right:20px" type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
-                </div>
+                <input style="margin-top:20px" type="submit" value="Xác nhận" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
                 </form>
             </div>
         </div>     
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+        </div>
     </div>
 </div>
 <?php $this->end(); ?>
