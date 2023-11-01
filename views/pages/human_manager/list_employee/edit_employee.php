@@ -218,7 +218,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">THÊM NHÂN VIÊN</h5>
+                <h5 class="mb-0">CHỈNH SỬA NHÂN VIÊN</h5>
             </div>
             <div class="table-responsive">
             <form align='center' action="" method="post" enctype="multipart/form-data">
@@ -310,7 +310,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                 </table>
                 </form>
             </div>
-        </div>     
+        </div>
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+        </div> 
     </div>
 </div>
 <?php $this->end(); ?>

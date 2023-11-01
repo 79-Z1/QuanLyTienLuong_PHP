@@ -1,4 +1,4 @@
-<?php $this->layout('layout_accountant') ?>
+<?php $this->layout('layout_manager') ?>
 <?php $this->section('content'); ?>
 <style>
 	.profile-left-container {
