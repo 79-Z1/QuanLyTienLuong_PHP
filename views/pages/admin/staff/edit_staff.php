@@ -7,6 +7,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $getNV= "select * from nhan_vien
     where MaNV='$maNVien'";   
     $resultNV = mysqli_query($conn, $getNV);
+    
     $nv = mysqli_fetch_array($resultNV);
 
     $maNV = $nv['MaNV'] ;
@@ -269,15 +270,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
-                    <tr>
-                        <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Chỉnh sửa" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
-                        </td>
-                    </tr>
                 </table>
+                <input style="margin-top:20px" type="submit" value="Xác nhận" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
                 </form>
             </div>
         </div>     
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+        </div>
     </div>
 </div>
 <?php $this->end(); ?>

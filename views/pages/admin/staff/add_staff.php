@@ -204,7 +204,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         font-weight: bold;
         height: 597px;
     }
-
+    .themnhanvien-btn{
+        margin-top: 20px;
+        margin-right: 20px;
+    }
 
 </style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
@@ -295,14 +298,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
-                    <tr>
-                        <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
-                        </td>
-                    </tr>
                 </table>
+                <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
                 </form>
             </div>
+        </div>
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
         </div>     
     </div>
 </div>
