@@ -9,8 +9,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 try {
     $data = json_decode(file_get_contents("php://input"));
     $nguoinhan = $data->NguoiNhan;
+    $loaitknn = $data->LoaiTKNguoiNhan;
 
-    $sql = "SELECT * FROM `thong_bao` WHERE NguoiNhan = '$nguoinhan' AND TinhTrang = '0'";
+    $sql = "SELECT * FROM `thong_bao` WHERE NguoiNhan = '$nguoinhan' AND LoaiTKNguoiNhan = '$loaitknn' AND TinhTrang = '0'";
     $results = mysqli_query($conn, $sql);
     http_response_code(200);
     $num = mysqli_num_rows($results);

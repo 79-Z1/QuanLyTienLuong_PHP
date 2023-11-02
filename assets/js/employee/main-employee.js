@@ -10,6 +10,7 @@ async function submitUL() {
             const data = {
                 NguoiGui: nguoigui,
                 NguoiNhan: nguoinhan,
+                LoaiTKNguoiNhan: 'KT',
                 NoiDung: noidung
             }
             const { message, status } = await postData(url, data);

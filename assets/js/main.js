@@ -1,5 +1,4 @@
 const MANV = getCookie('MaNV');
-const TAIKHOAN = getCookie('TaiKhoan');
 const LOAITK = getCookie('LoaiTK');
 
 //# HELPER FUNCTION

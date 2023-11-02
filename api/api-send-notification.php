@@ -10,9 +10,10 @@ try {
     $data = json_decode(file_get_contents("php://input"));
     $nguoigui = $data->NguoiGui;
     $nguoinhan = $data->NguoiNhan;
+    $loaitknn = $data->LoaiTKNguoiNhan;
     $noidung = $data->NoiDung;
 
-    $sql = "INSERT INTO `thong_bao`(`NguoiGui`, `NguoiNhan`, `NoiDung`) VALUES ('$nguoigui','$nguoinhan','$noidung')";
+    $sql = "INSERT INTO `thong_bao`(`NguoiGui`, `NguoiNhan`, `LoaiTKNguoiNhan`, `NoiDung`) VALUES ('$nguoigui','$nguoinhan','$loaitknn','$noidung')";
     $results = mysqli_query($conn, $sql);
     http_response_code(200);
     echo json_encode(

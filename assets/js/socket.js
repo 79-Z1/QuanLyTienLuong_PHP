@@ -28,14 +28,14 @@ function waitForSocketConnection(socket, callback) {
 
 conn.onmessage = async function (e) {
     const data = JSON.parse(e.data);
-    const NguoiNhan = data?.NguoiNhan;
+    const nguoiNhan = data?.NguoiNhan;
     const loaiTK = data?.LoaiTK;
     const noiDung = data?.NoiDung;
-    if (NguoiNhan === MANV && loaiTK === LOAITK) {
-        console.log('nội dung: ',noiDung);
+    if (nguoiNhan === MANV && loaiTK === LOAITK) {
         const url = "http://localhost/QuanLyTienLuong_PHP/api/api-countnew-notification.php";
         const data = {
-            NguoiNhan: NguoiNhan
+            NguoiNhan: nguoiNhan,
+            LoaiTKNguoiNhan: LOAITK
         }
         const { message, status, newNotiNumber } = await postData(url, data);
         if (status && newNotiNumber > 0) {

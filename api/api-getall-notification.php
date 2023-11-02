@@ -9,8 +9,9 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 try {
     $data = json_decode(file_get_contents("php://input"));
     $nguoinhan = $data->NguoiNhan;
+    $loaitknn = $data->LoaiTKNguoiNhan;
 
-    $sql = "SELECT * FROM `thong_bao` WHERE NguoiNhan = '$nguoinhan' ORDER BY ThoiGianGui DESC";
+    $sql = "SELECT * FROM `thong_bao` WHERE NguoiNhan = '$nguoinhan' AND LoaiTKNguoiNhan = '$loaitknn' ORDER BY ThoiGianGui DESC";
     $results = mysqli_query($conn, $sql);
     $notiList = array();
     if (mysqli_num_rows($results) <> 0) {
@@ -19,6 +20,7 @@ try {
                 'MaTB' => $row['MaTB'],
                 'NguoiGui' => $row['NguoiGui'],
                 'NguoiNhan' => $row['NguoiNhan'],
+                'LoaiTKNguoiNhan' => $row['LoaiTKNguoiNhan'],
                 'NoiDung' => $row['NoiDung'],
                 'TinhTrang' => $row['TinhTrang'],
                 'ThoiGianGui' => $row['ThoiGianGui']

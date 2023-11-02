@@ -1,46 +1,19 @@
-.row {
-	margin: auto;
-	padding: 30px;
-	width: 80%;
-	display: flex;
-	flex-flow: column;
-}
-
-.card {
+.notification-container .card {
 	width: 100%;
 	margin-bottom: 5px;
 	display: block;
 	transition: opacity 0.3s;
 }
 
-.card-body {
+.notification-container .card-body {
 	padding: 0.5rem;
 }
 
-table {
-	width: 100%;
-}
-
-tr {
-	display: flex;
-	align-items: center;
-}
-
-td a.btn {
-	font-size: 16px;
-	padding: 3px;
-}
-
-td:nth-child(2) {
-	text-align: right;
-	justify-content: space-around;
-}
-
-.card-title {
+.notification-container .card-title {
 	margin-bottom: 0;
 }
 
-.card-title:before {
+.notification-container .card-title:before {
 	display: inline-block;
 	font-family: 'Font Awesome\ 5 Free';
 	font-weight: 900;
@@ -54,11 +27,15 @@ td:nth-child(2) {
 	margin-right: 10px;
 }
 
-.card.display-none {
+.notification-container .card.display-none {
 	display: none;
 	transition: opacity 2s;
 }
 
 .readed {
 	opacity: 0.5;
+}
+
+.notification-container .dismiss-notification {
+	padding: 5px 10px !important;
 }

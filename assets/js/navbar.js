@@ -26,9 +26,9 @@ $(document).ready(async function () {
     } else {
         const url = "http://localhost/QuanLyTienLuong_PHP/api/api-countnew-notification.php";
         const data = {
-            NguoiNhan: MANV
+            NguoiNhan: MANV,
+            LoaiTKNguoiNhan: LOAITK
         }
-  
         const { message, status, newNotiNumber } = await postData(url, data);
         if (status && newNotiNumber > 0) {
             $('#num-noti').css({ 'background-color': 'red' })
