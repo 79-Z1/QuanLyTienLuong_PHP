@@ -298,18 +298,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
-                    <!-- <tr>
-                        <td id="no_color" colspan="4" align="center">
-                        
-                        </td>
-                    </tr> -->
                 </table>
-                <div class="option-buttons d-flex justify-content-between">
-                <a style="margin-top:20px; margin-left:20px" href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
                 <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
-                </div>
                 </form>
             </div>
+        </div>
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
         </div>     
     </div>
 </div>

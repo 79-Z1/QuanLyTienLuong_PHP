@@ -20,9 +20,20 @@ switch ($page) {
         break;
     case 'human-manager-edit-employee':
         echo $template->render('header_manager', ['css' => '/human_manager/check_timesheets/check_timesheets.css', 'js' => '/human_manager/check_timesheets/check_timesheets.js']);
-        echo $template->render('pages/human_manager/edit_employee/edit_employee', []);
+        echo $template->render('pages/human_manager/list_employee/edit_employee', []);
         break;
-
+    case 'human-manager-delete-employee':
+        echo $template->render('header_manager', ['css' => '/human_manager/check_timesheets/check_timesheets.css', 'js' => '/human_manager/check_timesheets/check_timesheets.js']);
+        echo $template->render('pages/human_manager/list_employee/delete_employee', []);
+        break;
+    case 'human-manager-detail-employee':
+        echo $template->render('header_manager', ['css' => '/human_manager/check_timesheets/check_timesheets.css', 'js' => '/human_manager/check_timesheets/check_timesheets.js']);
+        echo $template->render('pages/human_manager/list_employee/detail_employee', []);
+        break;
+    case 'human-manager-edit-timesheet':
+        echo $template->render('header_manager', ['css' => '/human_manager/check_timesheets/check_timesheets.css', 'js' => '/human_manager/check_timesheets/check_timesheets.js']);
+        echo $template->render('pages/human_manager/check_timesheets/edit_timesheet', []);
+        break;
     default:
         echo $template->render('header_manager', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/human_manager/list_employee/list_employee', []);
