@@ -27,48 +27,138 @@ else $nghiHL = "";
 $sqlChamCong = "SELECT * FROM `cham_cong`";
 $resultChamCong = mysqli_query($conn, $sqlChamCong);
 
-// $sqlTimKiem =
-//     "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban
-//             where nhan_vien.MaPhong = phong_ban.MaPhong 
-//             and nhan_vien.MaChucVu = chuc_vu.MaChucVu
-//         ";
+$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
+}
 
-// if (isset($_GET['timkiem'])) {
-//     if ($maCong != "") {
-//         $sqlTimKiem .= "and MaCong = '$maCong'";
-//     }
-//     if ($maNV != "") {
-//         $sqlTimKiem .= "and concat(HoNV,' ',TenNV) like '%$hoTen%'";
-//     }
-//     if ($maPhong != "") {
-//         $sqlTimKiem .= "and nhan_vien.MaPhong = '$maPhong'";
-//     }
-//     if ($maChucVu != "") {
-//         $sqlTimKiem .= "and nhan_vien.MaChucVu = '$maChucVu'";
-//     }
-//     if ($gioiTinh != "-1" && $gioiTinh != "") {
-//         $sqlTimKiem .= "and GioiTinh = '$gioiTinh'";
-//     }
+$numRows = mysqli_num_rows($resultChamCong)
+;
+//vị trí của mẩu tin đầu tiên trên mỗi trang
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
+//lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
+$sqlTimKiem =
+    "select *, MaCong, MaNV from nhan_vien, cham_cong
+            where nhan_vien.MaNV = cham_cong.MaNV 
+        ";
 
+if (isset($_GET['timkiem'])) {
+    if ($maCong != "") {
+        $sqlTimKiem .= "and MaCong = '$maCong'";
+    }
+    if ($maNV != "") {
+        $sqlTimKiem .= "and concat(HoNV,' ',MaNV) like '%$maNV%'";
+    }
+    if ($tinhTrang != "") {
+        $sqlTimKiem .= "and concat = '$tinhTrang'";
+    }
+    if ($ngay != "") {
+        $sqlTimKiem .= "and concat = '$ngay'";
+    }
+    if ($nghiHL !=  "") {
+        $sqlTimKiem .= "and NghiHL = '$nghiHL'";
+    }
 
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+$sqlTimKiem .= "order by MaNV";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
-//     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-// }
-// $sqlTimKiem .= "order by MaNV";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-// $numRows = mysqli_num_rows($resultTimKiem);
-// $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <style>
-    .form-control{
-     
-        padding-left: 50px;
-    }
-    td{
-        padding: 5px;
-    }
+    table img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1.5px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    padding: 5px;
+    padding-right:20px;
+    
+}
+.table-hover tbody td {
+    padding: 13px 10px 13px 25px;
+
+}
+.table-hover tbody td a i{
+    font-size:22px;
+    margin-right: 8px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+}
+label{
+    margin-right: 5px;
+}
+
+input[type="radio"] {
+    transform: scale(1.6);
+    margin-right: 5px;
+    margin-left: 15px;
+}
+.form-select{
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+.card .navbar {
+    padding: 0;
+    border-radius: 10px;
+}
+
+.larger-text {
+    font-size: 20px;
+    /* Điều chỉnh kích thước chữ theo nhu cầu */
+    margin-right: 20px;
+    /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
+}
+
+.form-control {
+    height: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+    font-size: 16px;
+}   
+
+.search-btn span {
+    margin-right: 5px;
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 1PX ;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+
+}
+
+.pagination-link:not(.active) {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+}
 </style>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
@@ -177,4 +267,32 @@ $resultChamCong = mysqli_query($conn, $sqlChamCong);
     </div>
 </div>
 </div>
+<?php
+echo '<div align="center">';
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+for ($i = 1; $i <= $maxPage; $i++) {
+    if ($i == $_GET['p']) {
+        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
+    } else
+        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . $i . ">" . $i . "</a> ";
+}
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "</div>";
+
+echo '<div align="center">';
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=1>Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+for ($i = 1; $i <= $maxPage; $i++) {
+    if ($i == $_GET['p']) {
+        echo '<a class="pagination-link active">' . $i . '</a>';
+    } else {
+        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $i . ">" . $i . "</a> ";
+    }
+}
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $maxPage . ">Về cuối</a> ";
+?>
+
 <?php $this->end(); ?>
