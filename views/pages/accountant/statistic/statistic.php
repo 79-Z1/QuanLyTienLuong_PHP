@@ -172,12 +172,12 @@ if (mysqli_num_rows($resultPhong) > 0) {
 				$spreadsheet = new Spreadsheet();
 				$sheet = $spreadsheet->getActiveSheet();
 
-				$sheet->mergeCells("H1:M1");
-				$sheet->setCellValue('H1', 'PHÒNG KHÁM ĐA KHOA THIỆN TRANG');
-				$sheet->getColumnDimension('H1')->setAutoSize(true);
-				$sheet->getStyle('H1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('0070C0');
-				$sheet->getStyle('H1')->getFont()->setBold(true)->setName('Times New Roman')->setSize(20)->getColor()->setRGB('FFFFFF');
-				$sheet->getStyle('H1')->getAlignment()->setHorizontal('center');
+				$sheet->mergeCells("G1:M1");
+				$sheet->setCellValue('G1', 'PHÒNG KHÁM ĐA KHOA THIỆN TRANG');
+				$sheet->getColumnDimension('G1')->setAutoSize(true);
+				$sheet->getStyle('G1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('0070C0');
+				$sheet->getStyle('G1')->getFont()->setBold(true)->setName('Times New Roman')->setSize(20)->getColor()->setRGB('FFFFFF');
+				$sheet->getStyle('G1')->getAlignment()->setHorizontal('center');
 
 				$sheet->mergeCells("A2:T2");
 				$sheet->setCellValue('A2', 'BẢNG BÁO CÁO LƯƠNG');
@@ -224,6 +224,8 @@ if (mysqli_num_rows($resultPhong) > 0) {
 				$sheet->setCellValue('R5', 'Thuế TNCN');
 				$sheet->setCellValue('S5', 'Thực lĩnh');
 				$sheet->setCellValue('T5', 'Ghi chú');
+				$sheet->getColumnDimension('T5')->setAutoSize(false)->setWidth(28);
+
 
 				$numRow = 6;
 				$stt = 	1;
@@ -264,6 +266,7 @@ if (mysqli_num_rows($resultPhong) > 0) {
 					$sheet->setCellValue('R' . $numRow, MoneyFormat($rows['Thue']));
 					$sheet->setCellValue('S' . $numRow, MoneyFormat($rows['ThucLinh']));
 					$sheet->setCellValue('T' . $numRow, $rows['GhiChu']);
+					$sheet->getColumnDimension('T' . $numRow)->setAutoSize(false)->setWidth(28);
 
 					$numRow++;
 					$stt++;
