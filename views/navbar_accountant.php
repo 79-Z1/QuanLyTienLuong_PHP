@@ -17,9 +17,12 @@
                     <a class="nav-link" id="tinhluong" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-payroll" ?>"> <i class="bi bi-calculator"></i> Tính lương </a>
                 </li>
                 <li class="nav-item" data-active="4">
-                    <a class="nav-link" id="thongke" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-statistic" ?>"><i class="bi bi-clipboard-data"></i>Báo cáo thống kê </a>
+                    <a class="nav-link" id="phieuluong" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-check-salary-slip" ?>"> <i class="bi bi-cash-stack"></i> Xem phiếu lương </a>
                 </li>
                 <li class="nav-item" data-active="5">
+                    <a class="nav-link" id="thongke" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-statistic" ?>"><i class="bi bi-clipboard-data"></i>Báo cáo thống kê </a>
+                </li>
+                <li class="nav-item" data-active="6">
                     <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Logout </a>
                 </li>
             </ul> <!-- Divider -->
