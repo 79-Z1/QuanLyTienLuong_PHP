@@ -26,6 +26,18 @@ switch ($page) {
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/employee-detail', []);
         break;
+    case 'accountant-check-paycheck':
+        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('pages/accountant/check_paycheck/check_paycheck', []);
+        break;
+    case 'accountant-detail-paycheck':
+        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('pages/accountant/check_paycheck/detail_paycheck', []);
+        break;
+    case 'accountant-edit-paycheck':
+        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('pages/accountant/check_paycheck/edit_paycheck', []);
+        break;
     default:
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/list-employee', []);
