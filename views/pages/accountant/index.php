@@ -26,17 +26,17 @@ switch ($page) {
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/employee-detail', []);
         break;
-    case 'accountant-check-salary-slip':
-        echo $template->render('header_accountant', ['css' => 'check_salary_slip.css', 'js' => 'check_salary_slip.js']);
-        echo $template->render('pages/accountant/check_salary_slip/check_salary_slip', []);
+    case 'accountant-check-paycheck':
+        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('pages/accountant/check_paycheck/check_paycheck', []);
         break;
-    case 'accountant-detail-salary-slip':
-        echo $template->render('header_accountant', ['css' => 'check_salary_slip.css', 'js' => 'check_salary_slip.js']);
-        echo $template->render('pages/accountant/check_salary_slip/detail_salary_slip', []);
+    case 'accountant-detail-paycheck':
+        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('pages/accountant/check_paycheck/detail_paycheck', []);
         break;
-    case 'accountant-edit-salary-slip':
-        echo $template->render('header_accountant', ['css' => 'check_salary_slip.css', 'js' => 'check_salary_slip.js']);
-        echo $template->render('pages/accountant/check_salary_slip/edit_salary_slip', []);
+    case 'accountant-edit-paycheck':
+        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('pages/accountant/check_paycheck/edit_paycheck', []);
         break;
     default:
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
