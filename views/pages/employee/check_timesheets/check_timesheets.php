@@ -47,7 +47,7 @@ function GetDayOfWeek($date)
     }
 </style>
 <div class="card shadow border-0 mb-3">
-    <div id="thangchamcong" class="carousel slide" data-bs-ride="carousel">
+    <div id="thangchamcong" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
             <?php
             $counter = 1;
