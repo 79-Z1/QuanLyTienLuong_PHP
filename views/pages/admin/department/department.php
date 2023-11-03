@@ -11,48 +11,50 @@ if (isset($_GET['phong']))
     $maPhong = $_GET['phong'];
 else $maPhong = "";
 
-
-$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
-//vị trí của mẩu tin đầu tiên trên mỗi trang
-$offset = ($_GET['p'] - 1) * $rowsPerPage;
-//lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
-
-// $sqlTimKiem =
-//     "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban
-//             where nhan_vien.MaPhong = phong_ban.MaPhong 
-//             and nhan_vien.MaChucVu = chuc_vu.MaChucVu
-//         ";
-
-// if (isset($_GET['timkiem'])) {
-
-//     if ($maPhong != "") {
-//         $sqlTimKiem .= "and phong_ban.MaPhong = '$maPhong'";
-//     }
-//     if ($tenPhong != "") {
-//         $sqlTimKiem .= "and phong_ban.TenPhong = '$tenPhong'";
-//     }
-
-
-
-
-//     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-// }
-// $sqlTimKiem .= "order by MaNV";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-// $numRows = mysqli_num_rows($resultTimKiem);
-// $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-
 $sqlPhong = 'select * from phong_ban';
 $resultPhong = mysqli_query($conn, $sqlPhong);
 
-$sqlPhongBan = "SELECT * FROM phong_ban";
-$resultPhongBan = mysqli_query($conn, $sqlPhongBan);
-?>
+// $sqlPhongBan = 'SELECT * FROM phong_ban';
+// $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
 
+
+//vị trí của mẩu tin đầu tiên trên mỗi trang
+$numRows = mysqli_num_rows($resultPhong);
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
+
+$sql = 'SELECT * FROM phong_ban LIMIT ' . $offset . ',' . $rowsPerPage;
+$result = mysqli_query($conn, $sql);
+
+
+?>
+<style>
+.pagination-link {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 1PX ;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+
+}
+
+.pagination-link:not(.active) {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+}
+</style>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
@@ -70,7 +72,7 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
                             </td>
                             <td>
 
-                                <select name="phong" class="form-select search-option" id="inputGroupSelect02">
+                                <!-- <select name="phong" class="form-select search-option" id="inputGroupSelect02">
                                     <option value="">Trống</option>
                                     <?php
                                     if (mysqli_num_rows($resultPhong) <> 0) {
@@ -82,18 +84,16 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
                                         }
                                     }
                                     ?>
-                                </select>
+                                </select> -->
                             </td>
                         </tr>
-                        <tr>
-                            <td align="center" margin="5%" colspan="5" >
-                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
-                            </td>
+                        <tr  >
+                            <td colspan="4"  align="center"  >
+                                <input class="btn btn-outline-success search-btn me-3" name="timkiem" type="submit" value="Tìm kiếm" /> 
+                                <a href="index.php?page=admin-department-add" class="btn btn-outline-purple themnhanvien-btn w-60">Thêm</a>
+                                </td>
                         </tr>
-                        
-                        
                     </table>
-
                 </form>
             </nav>
         </div>
@@ -115,10 +115,10 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
                 <?php
 
                 //tổng số trang
-                // $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($resultPhongBan) <> 0) {
+                $maxPage = floor($numRows / $rowsPerPage) + 1;
+                if (mysqli_num_rows($result) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($resultPhongBan)) {
+                    while ($rows = mysqli_fetch_array($result)) {
                         echo "<tr>
                             <td >{$rows['MaPhong']}</td>
                             <td >{$rows['TenPhong']} </td>
@@ -132,30 +132,22 @@ $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
 
                 ?>
             </tbody>
-                    <tr>
-                        <td id="no_color" colspan="5" align="center">
-                            
-                            <a href="index.php?page=admin-department-add"> 
-                                <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
-                            </a>
-                        </td>
-                    </tr>
         </table>
     </div>
 </div>
 </div>
 <?php
-// echo '<div align="center">';
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
-// for ($i = 1; $i <= $maxPage; $i++) {
-//     if ($i == $_GET['p']) {
-//         echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
-//     } else
-//         echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . $i . ">" . $i . "</a> ";
-// }
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
-// echo "</div>";
+echo '<div align="center">';
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=1 >Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+for ($i = 1; $i <= $maxPage; $i++) {
+    if ($i == $_GET['p']) {
+        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
+    } else
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . $i . ">" . $i . "</a> ";
+}
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "</div>";
 ?>
 <?php $this->end(); ?>
