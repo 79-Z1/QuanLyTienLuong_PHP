@@ -37,7 +37,7 @@ $ghiChu = $row["GhiChu"];
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h3 class="mb-0">THÊM CHỨC VỤ</h3>
+                <h3 class="mb-0">THÔNG TIN PHIẾU LƯƠNG</h3>
             </div>
             <div class="table-responsive">
                 <form align='center' action="" method="post" enctype="multipart/form-data">
