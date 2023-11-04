@@ -103,10 +103,7 @@ function GetDayOfWeek($date)
                                         <?php
                                         $sqlgetTen = "SELECT MaNV, TenNV, HoNV from nhan_vien";
                                         $resultgetTen = mysqli_query($conn, $sqlgetTen);
-                                        $icon = '';
                                         while ($rowTen = mysqli_fetch_array($resultgetTen)) {
-                                            $sqlgetCC = "SELECT TinhTrang from cham_cong where MaNV = '$rowTen[MaNV]' and month(Ngay) = $rowsThang[thangtrongnam]";
-                                            $resultgetCC = mysqli_query($conn, $sqlgetCC);
                                         ?>
                                             <td><?= $rowTen['MaNV'] ?></td>
                                             <td>
@@ -126,26 +123,19 @@ function GetDayOfWeek($date)
                                     <thead class="thead-light">
                                         <tr>
                                             <?php
-                                            $sqlgetNgay = "SELECT day(Ngay) as ngaytrongthang, Ngay from cham_cong 
-                                            where year(Ngay) = $yearnow
-                                            and month(Ngay) = $rowsThang[thangtrongnam]
-                                            GROUP BY day(Ngay);";
-                                            $resultgetNgay = mysqli_query($conn, $sqlgetNgay);
-                                            while ($rowNgay = mysqli_fetch_array($resultgetNgay)) {
-                                                $day = GetDayOfWeek($rowNgay['Ngay']);
+                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
+                                            for ($i = 1; $i <= $ngaytrongthang; $i++) {
+                                                $ngayTrongTuan = $i . '-' . $rowsThang['thangtrongnam'] . '-' . $yearnow;
+                                                $day = GetDayOfWeek($ngayTrongTuan);
                                                 echo "<th>$day</th>";
                                             }
                                             ?>
                                         </tr>
                                         <tr>
                                             <?php
-                                            $sqlgetNgay = "SELECT day(Ngay) as ngaytrongthang, Ngay from cham_cong 
-                                                where year(Ngay) = $yearnow
-                                                and month(Ngay) = $rowsThang[thangtrongnam]
-                                                GROUP BY day(Ngay);";
-                                            $resultgetNgay = mysqli_query($conn, $sqlgetNgay);
-                                            while ($rowNgay = mysqli_fetch_array($resultgetNgay)) {
-                                                echo "<th>$rowNgay[ngaytrongthang]</th>";
+                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
+                                            for ($i = 1; $i <= $ngaytrongthang; $i++) {
+                                                echo "<th>$i</th>";
                                             }
                                             ?>
                                         </tr>
@@ -156,17 +146,22 @@ function GetDayOfWeek($date)
                                             $sqlgetTen = "SELECT MaNV, TenNV, HoNV from nhan_vien";
                                             $resultgetTen = mysqli_query($conn, $sqlgetTen);
                                             $icon = '';
+                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
                                             while ($rowTen = mysqli_fetch_array($resultgetTen)) {
-                                                $sqlgetCC = "SELECT TinhTrang, day(Ngay) as ngay from cham_cong where MaNV = '$rowTen[MaNV]' and month(Ngay) = $rowsThang[thangtrongnam]";
-                                                $resultgetCC = mysqli_query($conn, $sqlgetCC);
-                                            ?>
-                                                <?php
-                                                while ($rowCC = mysqli_fetch_array($resultgetCC)) {
-                                                    if ($rowCC['TinhTrang'] == 1) {
+                                                for ($i = 1; $i <= $ngaytrongthang; $i++) {
+                                                    $sqlgetCC = "SELECT TinhTrang, day(Ngay) as ngay from cham_cong where MaNV = '$rowTen[MaNV]' and day(Ngay) = $i and month(Ngay) = $rowsThang[thangtrongnam]";
+                                                    $resultgetCC = mysqli_query($conn, $sqlgetCC);
+                                                    $rowCC = mysqli_fetch_array($resultgetCC);
+                                                    $numCC = mysqli_num_rows($resultgetCC);
+                                                    if ($rowCC['TinhTrang'] == 1 && $numCC == 1) {
                                                         $icon = '<i class="bi bi-check-lg" style="color: green"></i>';
-                                                    } else $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
-                                                ?>
-                                                    <td><a href='index.php?page=human-manager-edit-timesheet&MaNV=<?=$rowTen['MaNV']?>&Ngay=<?=$rowCC['ngay']?>&Thang=<?=$rowsThang['thangtrongnam']?>&Nam=<?php echo $yearnow?>'><?= $icon ?></a></td>
+                                                    } else if ($rowCC['TinhTrang'] == 0 && $numCC == 1) {
+                                                        $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
+                                                    } else {
+                                                        $icon = 'Trống';
+                                                    }
+                                            ?>
+                                                    <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $yearnow ?>'><?= $icon ?></a></td>
                                                 <?php } ?>
                                         </tr>
                                     <?php } ?>
