@@ -138,6 +138,8 @@ if (isset($_POST['them'])) {
                     <tr>
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"/>
+                        <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"
+                                    href="index.php?page=admin-timekeeping"> Quay Lại</a>
                         </td>
                     </tr>
                 </table>
