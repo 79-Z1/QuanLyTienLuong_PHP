@@ -22,7 +22,7 @@ switch ($page) {
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/timekeeping/delete_timekeeping', []);
         break;
-        
+
     case 'admin-account':
         echo $template->render('header_admin', []);
         echo $template->render('pages/admin/account/account', []);
@@ -143,6 +143,22 @@ switch ($page) {
     case 'admin-paycheck-info-paycheck':
         echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
         echo $template->render('pages/admin/paycheck/info-paycheck', []);
+        break;
+    case 'admin-parameter':
+        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('pages/admin/parameter/parameter', []);
+        break;
+    case 'add-parameter':
+        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('pages/admin/parameter/add-parameter', []);
+        break;
+    case 'edit-parameter':
+        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('pages/admin/parameter/edit-parameter', []);
+        break;
+    case 'delete-parameter':
+        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('pages/admin/parameter/delete-parameter', []);
         break;
     default:
         echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);

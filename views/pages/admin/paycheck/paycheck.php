@@ -80,31 +80,31 @@ if (!isset($_GET['p'])) {
 }
 $sqlPhieuLuong = 'select * from phieu_luong ';
 $resultPhieuLuong = mysqli_query($conn, $sqlPhieuLuong);
-$dsPL=[];
-if (mysqli_num_rows($resultPhieuLuong) <> 0) {
+// $dsPL=[];
+// if (mysqli_num_rows($resultPhieuLuong) <> 0) {
 
-    while ($row = mysqli_fetch_array($resultPhieuLuong)) {
-       $dsCV=array(
-        'MaPhieuLuong'=> $row['MaPhieuLuong'],
-        'MaNV'=> $row['MaNV'],
-        'Thang'=> $row['Thang'],
-        'Nam'=> $row['Nam'],
-        'SoNgayCong'=> $row['SoNgayCong'],
-        'SoNgayVang'=> $row['SoNgayVang'],
-        'LuongTangCa'=> $row['LuongTangCa'],
-        'TienTamUng'=> $row['TienTamUng'],
-        'Thue'=> $row['Thue'],
-        'TruBaoHiem'=> $row['TruBaoHiem'],
-        'TroCap'=> $row['TroCap'],
-        'Thuong'=> $row['Thuong'],
-        'Phat'=> $row['Phat'],
-        'TienLuongThang'=> $row['TienLuongThang'],
-        'TongThuNhap'=> $row['TongThuNhap'],
-        'ThucLinh'=> $row['ThucLinh'],
-        'GhiChu'=> $row['GhiChu']
-       );
-    }
-}
+//     while ($row = mysqli_fetch_array($resultPhieuLuong)) {
+//        $dsCV=array(
+//         'MaPhieuLuong'=> $row['MaPhieuLuong'],
+//         'MaNV'=> $row['MaNV'],
+//         'Thang'=> $row['Thang'],
+//         'Nam'=> $row['Nam'],
+//         'SoNgayCong'=> $row['SoNgayCong'],
+//         'SoNgayVang'=> $row['SoNgayVang'],
+//         'LuongTangCa'=> $row['LuongTangCa'],
+//         'TienTamUng'=> $row['TienTamUng'],
+//         'Thue'=> $row['Thue'],
+//         'TruBaoHiem'=> $row['TruBaoHiem'],
+//         'TroCap'=> $row['TroCap'],
+//         'Thuong'=> $row['Thuong'],
+//         'Phat'=> $row['Phat'],
+//         'TienLuongThang'=> $row['TienLuongThang'],
+//         'TongThuNhap'=> $row['TongThuNhap'],
+//         'ThucLinh'=> $row['ThucLinh'],
+//         'GhiChu'=> $row['GhiChu']
+//        );
+//     }
+// }
 
 $numRows = mysqli_num_rows($resultPhieuLuong);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
