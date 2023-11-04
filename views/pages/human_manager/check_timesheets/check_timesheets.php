@@ -158,7 +158,7 @@ function GetDayOfWeek($date)
                                                     } else if ($rowCC['TinhTrang'] == 0 && $numCC == 1) {
                                                         $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
                                                     } else {
-                                                        $icon = 'Trống';
+                                                        $icon = '<i class="bi bi-ban"></i>';
                                                     }
                                             ?>
                                                     <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $yearnow ?>'><?= $icon ?></a></td>
