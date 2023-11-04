@@ -23,51 +23,50 @@ if (isset($_GET['nghiHL']))
     $nghiHL = $_GET['nghiHL'];
 else $nghiHL = "";
 
-
-$sqlChamCong = "SELECT * FROM `cham_cong`";
-$resultChamCong = mysqli_query($conn, $sqlChamCong);
-
-// $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
-// if (!isset($_GET['p'])) {
-//     $_GET['p'] = 1;
-// }
-
-// $numRows = mysqli_num_rows($resultChamCong);
-// //vị trí của mẩu tin đầu tiên trên mỗi trang
-// $offset = ($_GET['p'] - 1) * $rowsPerPage;
-// //lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
-// $sql = 'SELECT * FROM cham_cong LIMIT ' . $offset . ', ' . $rowsPerPage;
-// $result = mysqli_query($conn, $sql);
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
+}
+//vị trí của mẩu tin đầu tiên trên mỗi trang
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
 
 $sqlTimKiem =
-    "select *, MaCong, MaNV from nhan_vien, cham_cong
-            where nhan_vien.MaNV = cham_cong.MaNV 
-        ";
-
-
-if (isset($_GET['timkiem'])) {
-    if ($maCong != "") {
+    "select * from cham_cong
+    where  1
+    ";
+    
+    
+    if (isset($_GET['timkiem'])) {
+        if ($maCong != "") {
         $sqlTimKiem .= "and MaCong = '$maCong'";
     }
     if ($maNV != "") {
-        $sqlTimKiem .= "and concat(HoNV,' ',MaNV) like '%$maNV%'";
+        $sqlTimKiem .= "and MaNV = '$maNV'";
     }
     if ($tinhTrang != "") {
-        $sqlTimKiem .= "and concat = '$tinhTrang'";
+        $sqlTimKiem .= "and TinhTrang = '$tinhTrang'";
     }
     if ($ngay != "") {
-        $sqlTimKiem .= "and concat = '$ngay'";
+        $sqlTimKiem .= "and Ngay = '$ngay'";
     }
     if ($nghiHL !=  "") {
         $sqlTimKiem .= "and NghiHL = '$nghiHL'";
     }
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-}
-$sqlTimKiem .= "order by MaNV";
-$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    $sqlTimKiem .= "order by MaCong";
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    $numRows = mysqli_num_rows($resultTimKiem);
+    $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
-// $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+       //tổng số trang
+                $maxPage = ceil($numRows / $rowsPerPage);
+}else{
+    $sqlTimKiem;
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+
+
 
 ?>
 <style>
@@ -197,13 +196,14 @@ a {
                             <td >
                                 <p>Ngày</p> 
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="ngay" value="<?php echo $ngay; ?>"></td>
+                            <td><input class="form-control me-2 search-input" type="date" name="ngay" value="<?php echo $ngay; ?>"></td>
                         </tr>
                            
                
                         <tr>
                             <td align="center" margin="5%" colspan="5" >
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-timekeeping" style="display: none">
                             </td>
                         </tr>
                         
@@ -213,6 +213,7 @@ a {
                             <!-- <a href="index.php?page=admin-department-add"> 
                                 <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
                             </a> -->
+                           
                             <a class="btn" href="index.php?page=admin-timekeeping-add">Thêm</a>
                         </td>
                     </tr>
@@ -243,11 +244,10 @@ a {
             <tbody>
                 <?php
 
-                //tổng số trang
-                // $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($resultChamCong) <> 0) {
+             
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($resultChamCong)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
                             <td >{$rows['MaCong']}</td>
                             <td >{$rows['MaNV']} </td>
@@ -270,18 +270,17 @@ a {
 </div>
 </div>
 <?php
-// echo '<div align="center">';
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=1>Về đầu</a> ";
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
-// for ($i = 1; $i <= $maxPage; $i++) {
-//     if ($i == $_GET['p']) {
-//         echo '<a class="pagination-link active">' . $i . '</a>';
-//     } else {
-//         echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
-//     }
-// }
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . $maxPage . ">Về cuối</a> ";
+echo '<div align="center">';
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+for ($i = 1; $i <= $maxPage; $i++) {
+    if ($i == $_GET['p']) {
+        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
+    } else
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
+}
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "</div>";
 ?>
-
 <?php $this->end(); ?>
