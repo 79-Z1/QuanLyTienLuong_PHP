@@ -27,20 +27,23 @@ else $nghiHL = "";
 $sqlChamCong = "SELECT * FROM `cham_cong`";
 $resultChamCong = mysqli_query($conn, $sqlChamCong);
 
-$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
-if (!isset($_GET['p'])) {
-    $_GET['p'] = 1;
-}
+// $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+// if (!isset($_GET['p'])) {
+//     $_GET['p'] = 1;
+// }
 
-$numRows = mysqli_num_rows($resultChamCong)
-;
-//vị trí của mẩu tin đầu tiên trên mỗi trang
-$offset = ($_GET['p'] - 1) * $rowsPerPage;
-//lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
+// $numRows = mysqli_num_rows($resultChamCong);
+// //vị trí của mẩu tin đầu tiên trên mỗi trang
+// $offset = ($_GET['p'] - 1) * $rowsPerPage;
+// //lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
+// $sql = 'SELECT * FROM cham_cong LIMIT ' . $offset . ', ' . $rowsPerPage;
+// $result = mysqli_query($conn, $sql);
+
 $sqlTimKiem =
     "select *, MaCong, MaNV from nhan_vien, cham_cong
             where nhan_vien.MaNV = cham_cong.MaNV 
         ";
+
 
 if (isset($_GET['timkiem'])) {
     if ($maCong != "") {
@@ -58,14 +61,13 @@ if (isset($_GET['timkiem'])) {
     if ($nghiHL !=  "") {
         $sqlTimKiem .= "and NghiHL = '$nghiHL'";
     }
-
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 }
 $sqlTimKiem .= "order by MaNV";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
-$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
-$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+// $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <style>
@@ -268,31 +270,18 @@ a {
 </div>
 </div>
 <?php
-echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . (1) . ">Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
-for ($i = 1; $i <= $maxPage; $i++) {
-    if ($i == $_GET['p']) {
-        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
-    } else
-        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . $i . ">" . $i . "</a> ";
-}
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maCong&timkiem=Tìm+kiếm&hoTen=$tinhTrang&chucVu=$ngay&radGT=$nghiHL&p=" . ($maxPage) . ">Về cuối</a> ";
-echo "</div>";
-
-echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=1>Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
-for ($i = 1; $i <= $maxPage; $i++) {
-    if ($i == $_GET['p']) {
-        echo '<a class="pagination-link active">' . $i . '</a>';
-    } else {
-        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $i . ">" . $i . "</a> ";
-    }
-}
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $maxPage . ">Về cuối</a> ";
+// echo '<div align="center">';
+// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=1>Về đầu</a> ";
+// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+// for ($i = 1; $i <= $maxPage; $i++) {
+//     if ($i == $_GET['p']) {
+//         echo '<a class="pagination-link active">' . $i . '</a>';
+//     } else {
+//         echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
+//     }
+// }
+// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+// echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . $maxPage . ">Về cuối</a> ";
 ?>
 
 <?php $this->end(); ?>
