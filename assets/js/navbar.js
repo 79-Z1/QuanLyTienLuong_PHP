@@ -21,7 +21,7 @@ $(document).ready(async function () {
         localStorage.setItem('pre-active-item', preActiveIndex);
     });
 
-    if (currActiveIndex == '5') {
+    if (currActiveIndex == '6') {
         $('#num-noti').text('');
     } else {
         const url = "http://localhost/QuanLyTienLuong_PHP/api/api-countnew-notification.php";
