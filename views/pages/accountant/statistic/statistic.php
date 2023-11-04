@@ -84,15 +84,15 @@ if (mysqli_num_rows($resultPhong) > 0) {
 		padding: .375rem 2.25rem .375rem .75rem !important;
 	}
 
-	tbody {
+	/* tbody {
 		height: 200px;
 		overflow-y: scroll;
-	}
+	} */
 
 	.button {
 		display: inline-block;
 		padding: 8px 20px;
-		font-size: 18px;
+		font-size: 16px;
 		cursor: pointer;
 		text-align: center;
 		text-decoration: none;
@@ -142,25 +142,81 @@ if (mysqli_num_rows($resultPhong) > 0) {
 		color: red;
 		font-size: 32px;
 	}
+
+	h3 {
+		padding-top: 6px;
+	}
+
+	.form1 {
+		font-size: 18px;
+	}
+
+	.form1 input[type='radio'] {
+		margin-left: 7px;
+	}
+
+	.form1 input[type='number'] {
+		padding-left: 10px;
+		width: 63px;
+		background-color: #b9dbc2;
+		border-radius: 5px;
+	}
+
+	.form1 input[type='submit'] {
+		margin-left: 10px;
+	}
+
+	i {
+		font-size: 16px;
+		padding: 2px;
+	}
+
+	#thangIP {
+		width: 47px;
+	}
+
+	#titleRad {
+		margin-right: 5px;
+	}
+
+	#bieuDo {
+		padding-top: 30px;
+		padding-left: 10px;
+		padding-right: 10px;
+		width: 100%;
+		height: 577px;
+		overflow: scroll
+	}
+
+	.contai {
+		width: 100%;
+		height: 442px;
+	}
+
+	#bangDuLieu {
+		overflow: scroll;
+		width: 100%;
+		height: 577px;
+	}
 </style>
-<form action="" method="post">
+<form id="form1" action="" method="post">
 	<div class="card shadow border-0 mb-7 mt-5">
 		<div class="card-header d-flex justify-content-between">
 			<div>
 				<h3>BÁO CÁO THỐNG KÊ LƯƠNG</h3>
 			</div>
-			<div>
-				<b style="font-size:20px;">Tháng</b>
-				<input style="font-size:20px; padding-left:20px" type="number" min="8" max="<?= $thang ?>" name="thang" value="<?= $thangChon ?>">
-				<b style="font-size:20px;">Năm</b>
-				<input style="font-size:20px; padding-left:20px" type="number" min="2023" max="<?= $nam ?>" size="4" type="text" name="nam" value="<?= $namChon ?>">
-				<b style="font-size:20px;">Chế độ xem</b>
+			<div class="form1">
+				<b>Tháng</b>
+				<input class="" id="thangIP" type="number" min="8" max="<?= $thang ?>" name="thang" value="<?= $thangChon ?>">
+				<b>Năm</b>
+				<input type="number" min="2023" max="<?= $nam ?>" size="4" type="text" name="nam" value="<?= $namChon ?>">
+				<b id="titleRad">Chế độ xem</b>
 				<input type="radio" name="radCD" value="1" <?php if (isset($_POST['radCD']) && $_POST['radCD'] == '1') echo 'checked="checked"'; ?> checked />
-				Bảng dữ liệu
+				<span>Bảng dữ liệu</span>
 				<input type="radio" name="radCD" value="0" <?php if (isset($_POST['radCD']) && $_POST['radCD'] == '0') echo 'checked="checked"'; ?> />
-				Biểu đồ
-				<input id="xacNhan" class="button p-2" style="margin-left: 20px;" type="submit" name="xacNhan" value="Xác nhận">
-				<input id="xuat" class="button p-2" style="margin-left: 20px;" type="submit" name="xuat" value="Xuất Excel">
+				<span>Biểu đồ</span>
+				<input id="xacNhan" class="button p-2" type="submit" name="xacNhan" value="Xác nhận">
+				<button type="submit" class="button p-2" name="xuat" form="form1"><i class="bi bi-file-earmark-excel-fill"></i></button>
 			</div>
 		</div>
 		<?php
@@ -272,45 +328,45 @@ if (mysqli_num_rows($resultPhong) > 0) {
 					$stt++;
 				}
 
-				$sheet->mergeCells("S" . $numRow +1 . ":T" . $numRow +1 );
-				$sheet->setCellValue("S" . $numRow +1, "Nha Trang, ngày $dN tháng $mN năm $yN");
-				$sheet->getColumnDimension("S" . $numRow +1)->setAutoSize(true);
-				$sheet->getStyle("S" . $numRow +1)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("S" . $numRow +1)->getAlignment()->setHorizontal('center');
+				$sheet->mergeCells("S" . $numRow + 1 . ":T" . $numRow + 1);
+				$sheet->setCellValue("S" . $numRow + 1, "Nha Trang, ngày $dN tháng $mN năm $yN");
+				$sheet->getColumnDimension("S" . $numRow + 1)->setAutoSize(true);
+				$sheet->getStyle("S" . $numRow + 1)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("S" . $numRow + 1)->getAlignment()->setHorizontal('center');
 
-				$sheet->mergeCells("S" . $numRow +2 . ":T" . $numRow +2 );
-				$sheet->setCellValue("S" . $numRow +2, "Giám đốc Công ty");
-				$sheet->getColumnDimension("S" . $numRow +2)->setAutoSize(true);
-				$sheet->getStyle("S" . $numRow +2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("S" . $numRow +2)->getAlignment()->setHorizontal('center');
+				$sheet->mergeCells("S" . $numRow + 2 . ":T" . $numRow + 2);
+				$sheet->setCellValue("S" . $numRow + 2, "Giám đốc Công ty");
+				$sheet->getColumnDimension("S" . $numRow + 2)->setAutoSize(true);
+				$sheet->getStyle("S" . $numRow + 2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("S" . $numRow + 2)->getAlignment()->setHorizontal('center');
 
-				$sheet->mergeCells("S" . $numRow +3 . ":T" . $numRow +3 );
-				$sheet->setCellValue("S" . $numRow +3, "(Ký, họ tên, đóng dấu)");
-				$sheet->getColumnDimension("S" . $numRow +3)->setAutoSize(true);
-				$sheet->getStyle("S" . $numRow +3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("S" . $numRow +3)->getAlignment()->setHorizontal('center');
+				$sheet->mergeCells("S" . $numRow + 3 . ":T" . $numRow + 3);
+				$sheet->setCellValue("S" . $numRow + 3, "(Ký, họ tên, đóng dấu)");
+				$sheet->getColumnDimension("S" . $numRow + 3)->setAutoSize(true);
+				$sheet->getStyle("S" . $numRow + 3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("S" . $numRow + 3)->getAlignment()->setHorizontal('center');
 
-				$sheet->setCellValue("Q" . $numRow +2, "Kế toán trưởng");
-				$sheet->getColumnDimension("Q" . $numRow +2)->setAutoSize(true);
-				$sheet->getStyle("Q" . $numRow +2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("Q" . $numRow +2)->getAlignment()->setHorizontal('center');
+				$sheet->setCellValue("Q" . $numRow + 2, "Kế toán trưởng");
+				$sheet->getColumnDimension("Q" . $numRow + 2)->setAutoSize(true);
+				$sheet->getStyle("Q" . $numRow + 2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("Q" . $numRow + 2)->getAlignment()->setHorizontal('center');
 
-				$sheet->setCellValue("Q" . $numRow +3, "(Ký, họ tên)");
-				$sheet->getColumnDimension("Q" . $numRow +3)->setAutoSize(true);
-				$sheet->getStyle("Q" . $numRow +3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("Q" . $numRow +3)->getAlignment()->setHorizontal('center');
+				$sheet->setCellValue("Q" . $numRow + 3, "(Ký, họ tên)");
+				$sheet->getColumnDimension("Q" . $numRow + 3)->setAutoSize(true);
+				$sheet->getStyle("Q" . $numRow + 3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("Q" . $numRow + 3)->getAlignment()->setHorizontal('center');
 
-				$sheet->mergeCells("N" . $numRow +2 . ":O" . $numRow +2 );
-				$sheet->setCellValue("N" . $numRow +2, "Người lập báo cáo");
-				$sheet->getColumnDimension("N" . $numRow +2)->setAutoSize(true);
-				$sheet->getStyle("N" . $numRow +2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("N" . $numRow +2)->getAlignment()->setHorizontal('center');
+				$sheet->mergeCells("N" . $numRow + 2 . ":O" . $numRow + 2);
+				$sheet->setCellValue("N" . $numRow + 2, "Người lập báo cáo");
+				$sheet->getColumnDimension("N" . $numRow + 2)->setAutoSize(true);
+				$sheet->getStyle("N" . $numRow + 2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("N" . $numRow + 2)->getAlignment()->setHorizontal('center');
 
-				$sheet->mergeCells("N" . $numRow +3 . ":O" . $numRow +3 );
-				$sheet->setCellValue("N" . $numRow +3, "(Ký, họ tên)");
-				$sheet->getColumnDimension("N" . $numRow +3)->setAutoSize(true);
-				$sheet->getStyle("N" . $numRow +3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
-				$sheet->getStyle("N" . $numRow +3)->getAlignment()->setHorizontal('center');
+				$sheet->mergeCells("N" . $numRow + 3 . ":O" . $numRow + 3);
+				$sheet->setCellValue("N" . $numRow + 3, "(Ký, họ tên)");
+				$sheet->getColumnDimension("N" . $numRow + 3)->setAutoSize(true);
+				$sheet->getStyle("N" . $numRow + 3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+				$sheet->getStyle("N" . $numRow + 3)->getAlignment()->setHorizontal('center');
 
 				$sheet->getStyle('A1:T' . $numRow - 1)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('000000'));
 				$writer = new Xlsx($spreadsheet);
@@ -326,7 +382,7 @@ if (mysqli_num_rows($resultPhong) > 0) {
 			if ($_POST['radCD'] == "1") {
 				if (mysqli_num_rows($resultPhieuLuong) <> 0) {
 		?>
-					<div style="overflow:scroll; width:100%; height:574px;">
+					<div id="bangDuLieu">
 
 						<div class="card shadow border-0 mb-3">
 							<table class="table table-hover table-nowrap">
@@ -476,11 +532,11 @@ if (mysqli_num_rows($resultPhong) > 0) {
 
 					}
 				</script>
-				<div style="padding-top:20px; padding-left: 10px; padding-right:10px;">
-					<div style="margin-bottom:50px;">
-						<div id="chartContainer1" style="height: 442px; width: 100%;"></div>
+				<div id="bieuDo">
+					<div style="margin-bottom:110px;">
+						<div class="contai" id="chartContainer1"></div>
 					</div>
-					<div id="chartContainer2" style="height: 442px; width: 100%;"></div>
+					<div class="contai" id="chartContainer2"></div>
 				</div>
 
 
