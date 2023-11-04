@@ -23,7 +23,7 @@
         <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/employee/salary_advance/salary_advance.php");  ?>
     </div>
     <input class="input" name="tabs" type="radio" value="tab-5" id="tab-5" />
-    <label class="label" for="tab-5">Thông báo <span style="background-color: red;" id="num-noti" align="center">1</span></label>
+    <label class="label" for="tab-5">Thông báo <span style="display: none;" id="num-noti" align="center"></span></label>
     <div class="panel">
         <?php include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/shared/notification/notification.php");  ?>
     </div>

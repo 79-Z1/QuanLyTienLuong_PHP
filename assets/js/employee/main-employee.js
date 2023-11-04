@@ -1,3 +1,26 @@
+$(document).ready(async function () {
+    const url = "http://localhost/QuanLyTienLuong_PHP/api/api-countnew-notification.php";
+    const data = {
+        NguoiNhan: MANV,
+        LoaiTKNguoiNhan: LOAITK
+    }
+    const { message, status, newNotiNumber } = await postData(url, data);
+    if (status && newNotiNumber > 0) {
+        $('#num-noti').css({ 
+            'background-color': 'red',
+            'display': 'block'
+        })
+        $('#num-noti').text(`${newNotiNumber}`);
+    } else {
+        $('#num-noti').css({ 'display': 'none' })
+    }
+    $('input[type=radio][name=tabs]').change(async function () {
+        if ($('#tab-5').is(':checked')) {
+            $('#num-noti').css({ 'display': 'none' })
+        }
+    });
+})
+
 async function submitUL() {
     if ($.trim($('#sotien').val()) && $.trim($('#lydo').val())) {
         const max = $("#sotien").attr("max");
@@ -16,7 +39,7 @@ async function submitUL() {
             const { message, status } = await postData(url, data);
             if (status) return true;
             else return false;
-                
+
         } toastr.error(`Số tiền ứng tối đa là ${max} đ`); return false;
     } else {
         toastr.error('Vui lòng điền đầy đủ thông tin');

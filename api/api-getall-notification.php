@@ -10,8 +10,19 @@ try {
     $data = json_decode(file_get_contents("php://input"));
     $nguoinhan = $data->NguoiNhan;
     $loaitknn = $data->LoaiTKNguoiNhan;
-
-    $sql = "SELECT * FROM `thong_bao` WHERE NguoiNhan = '$nguoinhan' AND LoaiTKNguoiNhan = '$loaitknn' ORDER BY ThoiGianGui DESC";
+    $type = $data->Type;
+    
+    if($type == 'all')
+        $sql = "SELECT * FROM `thong_bao` 
+        WHERE NguoiNhan = '$nguoinhan' 
+        AND LoaiTKNguoiNhan = '$loaitknn' 
+        ORDER BY ThoiGianGui DESC";
+    else if($type == 'new')
+        $sql = "SELECT * FROM `thong_bao` 
+        WHERE NguoiNhan = '$nguoinhan' 
+        AND LoaiTKNguoiNhan = '$loaitknn' 
+        AND TinhTrang = 0
+        ORDER BY ThoiGianGui DESC";
     $results = mysqli_query($conn, $sql);
     $notiList = array();
     if (mysqli_num_rows($results) <> 0) {

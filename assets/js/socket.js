@@ -39,7 +39,10 @@ conn.onmessage = async function (e) {
         }
         const { message, status, newNotiNumber } = await postData(url, data);
         if (status && newNotiNumber > 0) {
-            $('#num-noti').css({ 'background-color': 'red' })
+            $('#num-noti').css({ 
+                'background-color': 'red',
+                'display': 'block'
+            })
             $('#num-noti').text(`${newNotiNumber}`);
         }
     }

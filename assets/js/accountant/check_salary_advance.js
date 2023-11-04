@@ -20,7 +20,7 @@ const acceptPUL = async (el, maphieu, nguoinhan) => {
         type: 'accept',
         maphieu
     }
-    let resultUL = await postData(url, data);
+    const resultUL = await postData(url, data);
     const urlTB = "http://localhost/QuanLyTienLuong_PHP/api/api-send-notification.php";
     const nguoigui = MANV;
     const noidung = `Phiếu ứng lương của bạn đã được duyệt`;

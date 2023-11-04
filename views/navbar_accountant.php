@@ -23,7 +23,7 @@
                     <a class="nav-link d-flex justify-content-between" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=notification" ?>">
                         <span><i class="bi bi-clipboard-data me-4"></i>Thông báo</span>
                         <span id="num-noti" align="center"></span>
-                </a>
+                    </a>
                 </li>
                 <li class="nav-item" data-active="6">
                     <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Logout </a>

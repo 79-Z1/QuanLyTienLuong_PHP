@@ -140,11 +140,6 @@ p {
 li {
 	list-style: none;
 }
-
-table {
-	/* text-align: center !important;*/
-}
-
 table th {
 	font-weight: 700 !important;
 	font-size: 15px !important;
@@ -175,7 +170,8 @@ table td {
 	border-radius: 100%;
 	margin-left: 10px;
 }
-label {
+
+.label {
 	display: flex;
 	justify-content: center;
 	align-items: center;
