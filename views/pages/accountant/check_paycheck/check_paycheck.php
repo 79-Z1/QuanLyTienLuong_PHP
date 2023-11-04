@@ -237,8 +237,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         </tr>
                         <tr>
                             <td align="center" colspan="6">
-                                <!-- <button type="submit" name="timkiem">timkiem</button> -->
-                                <input type="text" name="page" value="accountant-check-salary-slip" style="display: none"> 
+                                <input type="text" name="page" value="accountant-check-paycheck" style="display: none"> 
                                 <input style="width:150" class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
@@ -280,8 +279,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td >{$rows['TenPhong']}</td>
                             <td >{$rows['SoNgayCong']}</td>
                             <td >{$rows['SoNgayVang']}</td>
-                            <td ><a href='index.php?page=accountant-detail-paycheck'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
-                            <td ><a href='index.php?page=accountant-edit-paycheck'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
+                            <td ><a href='index.php?page=accountant-detail-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            <td ><a href='index.php?page=accountant-edit-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
                             </tr>";
                     }
                 }
@@ -292,16 +291,16 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-slip&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . (1) . ">Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-slip&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
     } else
-        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-slip&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . $i . ">" . $i . "</a> ";
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-slip&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-slip&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($maxPage) . ">Về cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>
