@@ -63,11 +63,11 @@ $resultUngLuong = mysqli_query($conn, $sql);
 								</td>
 							<?php else: ?>
 								<td align="center">
-									<button onclick='acceptPUL(this,"<?=$rows["MaPhieu"]?>")' class='btn btn-outline-purple'>Duyệt</button>
+									<button onclick='acceptPUL(this,"<?=$rows["MaPhieu"]?>","<?=$rows["MaNV"]?>")' class='btn btn-outline-purple'>Duyệt</button>
 								</td>
 							<?php endif; ?>
 							<td class='text-end'>
-								<button onclick='deletePUL(this,"<?=$rows["MaPhieu"]?>")' style='background-color: red;' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover'>
+								<button onclick='deletePUL(this,"<?=$rows["MaPhieu"]?>","<?=$rows["MaNV"]?>")' style='background-color: red;' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover'>
 									<i class='bi bi-trash' style='color:black'></i>
 								</button>
 							</td>
