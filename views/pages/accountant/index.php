@@ -31,11 +31,11 @@ switch ($page) {
         echo $template->render('pages/accountant/check_paycheck/check_paycheck', []);
         break;
     case 'accountant-detail-paycheck':
-        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('header_accountant', ['css' => 'detail_paycheck.css', 'js' => 'detail_paycheck.js']);
         echo $template->render('pages/accountant/check_paycheck/detail_paycheck', []);
         break;
     case 'accountant-edit-paycheck':
-        echo $template->render('header_accountant', ['css' => 'check_paycheck.css', 'js' => 'check_paycheck.js']);
+        echo $template->render('header_accountant', ['css' => 'edit_paycheck.css', 'js' => 'edit_paycheck.js']);
         echo $template->render('pages/accountant/check_paycheck/edit_paycheck', []);
         break;
     default:
