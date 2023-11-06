@@ -1,43 +1,5 @@
 <style>
-    table {
-        width: 1366px !important;
-        height: 350px !important;
-        margin-bottom: 0 !important;
-    }
-
-    .left {
-        padding-left: 50px !important;
-    }
-
-    .right {
-        width: 226px !important;
-    }
-
-    table td {
-        font-size: 20px !important;
-    }
-
-    .title {
-        text-align: end;
-        width: 226px !important;
-    }
-
-    #tb {
-        height: 350px;
-        flex-direction: column;
-    }
-
-    #tb i {
-        color: red;
-        font-size: 200px;
-        margin-bottom: 10px;
-
-    }
-
-    #tb b {
-        color: red;
-        font-size: 32px;
-    }
+    
 </style>
 <div id="thang" class="carousel slide" data-bs-interval="false">
     <div class="carousel-inner">
@@ -79,7 +41,7 @@
                                 $ttLuong = mysqli_fetch_array($resultLuong);
                             ?>
                                 <div class="table-responsive">
-                                    <table class="table table-hover table-nowrap">
+                                    <table id="payroll" class="table table-hover table-nowrap">
                                         <tr>
                                             <td class="title left">Số ngày công:</td>
                                             <td><?= $ttLuong['SoNgayCong'] ?></td>

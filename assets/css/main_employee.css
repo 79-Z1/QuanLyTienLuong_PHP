@@ -1,3 +1,41 @@
+table {
+	width: 1366px !important;
+	height: 350px !important;
+	margin-bottom: 0 !important;
+}
+
+.left {
+	padding-left: 50px !important;
+}
+.right {
+	width: 226px !important;
+}
+
+table td {
+	font-size: 20px !important;
+}
+
+.title {
+	text-align: end;
+	width: 226px !important;
+}
+
+#tb {
+	height: 350px;
+	flex-direction: column;
+}
+
+#tb i {
+	color: red;
+	font-size: 200px;
+	margin-bottom: 10px;
+
+}
+
+#tb b {
+	color: red;
+	font-size: 32px;
+}
 #profile-container {
 	background: #efefef;
 	color: #333;
@@ -9,16 +47,18 @@
 }
 
 .profile .grid-header {
-	background-size: cover;
+	background-repeat: no-repeat;
 	/* background-color: #9addef; */
-	background-color: #b4e0ed;
+	/* background-color: #e6d2e8; */
+	background-image: linear-gradient(rgba(16, 70, 125, 0.7), rgba(43, 102, 100, 0.8)), url(../../assets/images/background-employee.jpg);
+	background-size: cover;
 }
 td{
 	font-size: x-large;
 	padding: 10px;
 }
 .title{
-	width: 200px !important;
+	
 	font-weight: bold;
 }
 .profile img {
@@ -29,12 +69,12 @@ td{
 }
 
 .profile .grid-header img {
-	margin: 10px 100px;
+	margin: 10px 70px;
 }
 
 .profile .grid-header h2,h1 {
-	color: black;
-	font-weight: 400;
+	color: white;
+	font-weight: 400px;
 	margin: 30px 0 20px 0;
 	
 }
@@ -98,7 +138,6 @@ p {
 	font-weight: bold;
 	font-size: 18px;
 	color: #7f7f7f;
-	color: #b9dbc2;
 	transition: background 0.1s, color 0.1s;
 }
 .label:hover {
@@ -147,13 +186,9 @@ li {
 
 table th {
     font-weight: 700!important;
-    font-size: 15px !important;
     color: #000;
 }
-table td {
 
-    font-size: 14px !important;
-}
 
 .btn-outline-purple{
 
@@ -180,14 +215,24 @@ img {
 	width: 100%;
 	height: 100%;
 }
+.btn-outline-purple {
+	border: 1px solid #7b6bff;
+	color: #7b6bff;
+}
 
-button,
+.btn-outline-purple:hover {
+	border: 1px solid #7b6bff;
+	color: #ffffff;
+	background-color: 7b6bff;
+}
+/* button,
 .btn {
-	color: #fff;
+	color: black;
 	padding: 10px 20px;
 	border: none;
 	cursor: pointer;
-}
+
+} */
 
 .modal button {
 	background-color: #007bff;
@@ -233,4 +278,41 @@ h6 {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+}
+
+#info tr td{
+	border: none !important;
+}
+#timeSheets{
+	width: 1366px !important;
+	height: 350px !important;
+}
+#timeSheets th {
+	width: 14.3%;
+	text-align: center;
+}
+
+#timeSheets td,
+h4 {
+	text-align: center;
+}
+#timeSheets td,
+#timeSheets th {
+	border: 1px solid #000;
+	height: 42px;
+	line-height: 42px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+textarea {
+	resize: none;
 }
