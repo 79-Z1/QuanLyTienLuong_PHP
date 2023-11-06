@@ -45,6 +45,12 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
 
+    $tuoiNamToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS027'"))['GiaTri'];
+    $tuoiNamToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS029'"))['GiaTri'];
+
+    $tuoiNuToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS028'"))['GiaTri'];
+    $tuoiNuToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS030'"))['GiaTri'];
+
     if (isset($_POST['chinhsua'])) {
 
         if (isset($_POST['hoNV']))
@@ -88,6 +94,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         $chucVu = trim($_POST['chucVu']);
 
         $gt = $_POST['radGT'];
+
+        if($gt == 1){
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }else{
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }
 
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
             $err[] = "Vui lòng nhập đúng định dạng email";
