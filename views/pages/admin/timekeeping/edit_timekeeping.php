@@ -26,9 +26,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
     if(isset($_POST["tinhTrang"])) {
         $tinhTrang = trim($_POST['tinhTrang']) ;
-    
     }
     else $tinhTrang = $row['TinhTrang'];
+    
 
     if(isset($_POST["nghiHL"])) {
         $nghiHL = trim($_POST['nghiHL']);
@@ -41,13 +41,42 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     else $ngay = $row['Ngay'];
 
     if (isset($_POST['edit'])) {
+        $err = array();
+        if (empty($macong)) {
+            $err[] = "Vui lòng nhập tên tham số";
+        }
+        if (empty($MaNV)) {
+            $err[] = "Vui lòng nhập đơn vị tính";
+        }
+        if (empty($giaTri)) {
+            $err[] = "Vui lòng nhập giá trị";
+        }
+        if($tinhTrang != 1 && $tinhTrang != 0 ){
+            $err[] = "Tình trạng chỉ có 0 và 1";
+        }
+        if($tinhTrang > 1 ){
+            $err[] = "Tình trạng chỉ có 0 và 1";
+        }
+        if(empty($nghiHL)) {
+            $err[] = "Vui lòng nhập giá trị";
+        }
+        if(empty($ngay)) {
+            $err[] = "Vui lòng nhập giá trị";
+        } 
+
         if($macong != ''){
             $sqlupdate = "UPDATE `cham_cong` SET `MaCong`='$macong',`MaNV`='$MaNV',`TinhTrang`=$tinhTrang,`NghiHL`=$nghiHL,`Ngay`='$ngay' 
             WHERE MaCong='$macong'";
             $resultupdate = mysqli_query($conn, $sqlupdate);
-            
+            echo "<script type='text/javascript'>toastr.success('sửa tài khoản thành công'); toastr.options.timeOut = 3000;</script>";
         }
+        else {
+            foreach ($err as $error) {
+                echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
+            }
     }
+}
+
 
 ?>
 <style>

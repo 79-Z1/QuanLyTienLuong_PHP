@@ -34,6 +34,22 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         $ngay = $_POST['ngay'];
     }
     else $ngay = $row['Ngay'];
+
+    if (isset($_POST['delete'])) {
+        $sqldelete = "delete from cham_cong where tenTK = '$tenTK'";
+        $deleteResult = mysqli_query($conn, $sqldelete);
+        if ($deleteResult) {
+            echo "<script type='text/javascript'>
+                $('#delete').prop('disabled','disabled');
+                toastr.success('Xoá thành công');
+                setTimeout(function() {
+                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-timekeeping" . "';
+                }, 1500);
+                </script>";
+        } else {
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 1000;</script>";
+        }
+    }
 ?>
 <style>
     .form-control.form-select{
