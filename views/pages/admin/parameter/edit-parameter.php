@@ -48,11 +48,11 @@ if (isset($_POST['edit'])) {
         $sqlupdate = "UPDATE `tham_so` SET `MaTS`='$maTS',`TenTS`='$tenTS',`DVT`='$DVT',`GiaTri`='$giaTri',`TinhTrang`=$tinhTrang WHERE MaTS = '$maTS'";
 
         $resultupdate = mysqli_query($conn, $sqlupdate);
-        echo "<div class='alert alert-success'>Sửa tham số thành công</div>";
+        echo "<script type='text/javascript'>toastr.success('Sửa thành công'); toastr.options.timeOut = 3000;</script>";
 
     } else {
         foreach ($err as $error) {
-            echo "<div class='alert alert-danger'>$error</div>";
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
     }
 }
