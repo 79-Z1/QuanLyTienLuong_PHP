@@ -38,11 +38,9 @@ function GetDayOfWeek($date)
         <div class="carousel-inner">
             <?php
             $counter = 1;
-            $yearnow = date('Y');
 
-            $sqlgetThang = "SELECT month(Ngay) as thangtrongnam from cham_cong
-            where year(Ngay) = $yearnow 
-            and MaNV = '$_SESSION[MaNV]' 
+            $sqlgetThang = "SELECT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong
+            where MaNV = '$_SESSION[MaNV]' 
             GROUP BY month(Ngay) 
             ORDER BY month(Ngay)";
 
@@ -56,7 +54,7 @@ function GetDayOfWeek($date)
             ?>
                 <div class="carousel-item <?= $actives; ?>">
                     <div class="card-header">
-                        <h4 class="mb-0">BẢNG CHẤM CÔNG THÁNG <?= $rowsThang['thangtrongnam'] ?></h4>
+                        <h4  class="mb-1 mt-1">BẢNG CHẤM CÔNG THÁNG <?= $rowsThang['thangtrongnam'] ?> NĂM <?= $rowsThang['nam'] ?></h4>
                     </div>
                     <table id="timeSheets" class="table table-hover table-nowrap">
                         <thead class="thead-light">
@@ -74,8 +72,8 @@ function GetDayOfWeek($date)
                             <?php
                             $dem = 0;
                             $demngay = 1;
-                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
-                            $day = 1 . '-' . $rowsThang['thangtrongnam'] . '-' . $yearnow;
+                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $rowsThang['nam']);
+                            $day = 1 . '-' . $rowsThang['thangtrongnam'] . '-' . $rowsThang['nam'];
                             for ($i = 0; $i < 6; $i++) {
                             ?>
                                 <tr>
