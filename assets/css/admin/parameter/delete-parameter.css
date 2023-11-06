@@ -1,0 +1,10 @@
+.form-control.form-select {
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+
+}
+
+.form-select {
+    width: 100%;
+    padding-left: 20px;
+}

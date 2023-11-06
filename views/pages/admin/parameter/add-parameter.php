@@ -54,9 +54,9 @@ if (isset($_POST['add'])) {
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
-            echo "<script type='text/javascript'>toastr.success('Thêm phiếu lương thành công'); toastr.options.timeOut = 3000;</script>";
+            echo "<script type='text/javascript'>toastr.success('Thêm thành công'); toastr.options.timeOut = 3000;</script>";
         } else {
-            echo "<script type='text/javascript'>toastr.error('Thêm phiếu lương không thành công'); toastr.options.timeOut = 3000;</script>";
+            echo "<script type='text/javascript'>toastr.error('Thêm không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else {
         foreach ($err as $error) {
