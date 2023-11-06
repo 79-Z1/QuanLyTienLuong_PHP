@@ -92,9 +92,11 @@ function GetDayOfWeek($date)
                                             $resultChamCong = mysqli_query($conn, $sqlChamCong);
                                             $chamCong = mysqli_fetch_array($resultChamCong);
                                             $bgcl = '';
-                                            if ($chamCong['TinhTrang'] == 1)
-                                                $bgcl = '#0080086e';
-                                            else $bgcl = '#ff000091';
+                                            if(!is_null($chamCong)){
+                                                if ($chamCong['TinhTrang'] == 1)
+                                                    $bgcl = '#0080086e';
+                                                else $bgcl = '#ff000091';
+                                            }
                                             ?>
                                             <td style="background-color: <?= $bgcl ?>"><?= $j ?></td>
                                         <?php
