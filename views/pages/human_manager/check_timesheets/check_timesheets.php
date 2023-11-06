@@ -3,19 +3,19 @@
 <style>
     [class*=" bi-"]::before,
     [class^=bi-]::before {
-        height: 16.5px;
+        height: 18.40px;
     }
 
     .date-board {
-        overflow: scroll;
+        overflow-x: scroll;
     }
 
     .table-split1 {
-        width: 35%;
+        width: 31%;
     }
 
     .table-split2 {
-        width: 65%;
+        width: 69%;
     }
 
     .table-split2 .date-board table thead,
@@ -32,9 +32,40 @@
     td i {
         font-size: larger;
     }
+    .pagination-link {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 1px ;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+
+}
+
+.pagination-link:not(.active) {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+}
+.phanTrang{
+    margin-top: 13px;
+}
 </style>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang
+
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
+}
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
 
 function GetDayOfWeek($date)
 {
@@ -65,7 +96,7 @@ function GetDayOfWeek($date)
     return $day;
 }
 ?>
-<div class="card shadow border-0 mb-3">
+<div class="card shadow mt-1 border-0 mb-3" style="height:652px">
     <div id="thang" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
             <?php
@@ -84,28 +115,33 @@ function GetDayOfWeek($date)
                 }
             ?>
                 <div class="carousel-item <?= $actives; ?>">
-                    <div style='display:flex'>
+                    <div style='display:flex; height:652px'>
                         <div class='table-split1'>
                             <div class="card-header">
-                                <h3 class="mb-0">Bảng chấm công</h3>
+                                <h3 style="padding-left: 30px;">BẢNG CHẤM CÔNG</h3>
                             </div>
                             <table class="table table-hover table-nowrap">
                                 <thead class="thead-light">
                                     <tr>
                                         <th style="padding-top: 32.5px;padding-bottom: 32.5px;">Mã <br> nhân viên</th>
-                                        <th>Họ và tên</th>
+                                        <th>
+                                            <p align="start">HỌ VÀ TÊN</p>
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
                                         <?php
-                                        $sqlgetTen = "SELECT MaNV, TenNV, HoNV from nhan_vien";
+                                        $sqlgetTen = "SELECT MaNV, HoNV, TenNV from nhan_vien";
+                                        $resultgetTen = mysqli_query($conn, $sqlgetTen);
+                                        $numRows = mysqli_num_rows($resultgetTen);
+                                        $sqlgetTen .= " limit $offset, $rowsPerPage";
                                         $resultgetTen = mysqli_query($conn, $sqlgetTen);
                                         while ($rowTen = mysqli_fetch_array($resultgetTen)) {
                                         ?>
                                             <td><?= $rowTen['MaNV'] ?></td>
                                             <td>
-                                                <p><?= $rowTen['HoNV'] . ' ' . $rowTen['TenNV'] ?></p>
+                                                <p align="start"><?= $rowTen['HoNV'] . ' ' . $rowTen['TenNV'] ?></p>
                                             </td>
                                     </tr>
                                 <?php } ?>
@@ -114,7 +150,7 @@ function GetDayOfWeek($date)
                         </div>
                         <div class='table-split2'>
                             <div class="card-header">
-                                <h3 class="mb-0">Tháng <?= $rowsThang['thangtrongnam'] ?> năm <?= $rowsThang['nam'] ?></h3>
+                                <h3 class="mb-0">THÁNG <?= $rowsThang['thangtrongnam'] ?> NĂM <?= $rowsThang['nam'] ?></h3>
                             </div>
                             <div class='date-board'>
                                 <table class="table table-hover table-nowrap">
@@ -141,7 +177,9 @@ function GetDayOfWeek($date)
                                     <tbody>
                                         <tr>
                                             <?php
-                                            $sqlgetTen = "SELECT MaNV, TenNV, HoNV from nhan_vien";
+                                            $sqlgetTen = "SELECT MaNV, HoNV, TenNV from nhan_vien";
+                                            $resultgetTen = mysqli_query($conn, $sqlgetTen);
+                                            $sqlgetTen .= " limit $offset, $rowsPerPage";
                                             $resultgetTen = mysqli_query($conn, $sqlgetTen);
                                             $icon = '';
                                             $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $rowsThang['nam']);
@@ -151,13 +189,13 @@ function GetDayOfWeek($date)
                                                     $resultgetCC = mysqli_query($conn, $sqlgetCC);
                                                     $rowCC = mysqli_fetch_array($resultgetCC);
                                                     $numCC = mysqli_num_rows($resultgetCC);
-                                                    if(!is_null($rowCC)){
+                                                    if (!is_null($rowCC)) {
                                                         if ($rowCC['TinhTrang'] == 1 && $numCC == 1) {
                                                             $icon = '<i class="bi bi-check-lg" style="color: green"></i>';
                                                         } else if ($rowCC['TinhTrang'] == 0 && $numCC == 1) {
                                                             $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
                                                         }
-                                                    }else $icon = '<i class="bi bi-ban"></i>';
+                                                    } else $icon = '<i class="bi bi-ban"></i>';
                                             ?>
                                                     <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $rowsThang['nam'] ?>'><?= $icon ?></a></td>
                                                 <?php } ?>
@@ -168,6 +206,27 @@ function GetDayOfWeek($date)
                             </div>
                         </div>
                     </div>
+                    <div class="phanTrang" align="center">
+                        <?php
+                        $maxPage = ceil($numRows / $rowsPerPage);
+                        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . (1) . "> Đầu trang </a> ";
+                        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "> < </a> ";
+
+
+                        for ($i = 1; $i <= $maxPage; $i++) {
+                            if ($i == $_GET['p']) {
+                                echo '<b><a class="pagination-link active" href=' . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . $i . ">" . $i . "</a></b> "; // Trang hiện tại sẽ được bôi đậm
+                            } else {
+                                echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . $i . ">" . $i . "</a> ";
+                            }
+                        }
+
+                        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . "> > </a>";
+                        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($maxPage) . "> Cuối trang </a> ";
+
+                        echo "</p>";
+                        ?>
+                    </div>
                 </div>
             <?php
                 $counter++;
@@ -175,10 +234,10 @@ function GetDayOfWeek($date)
             ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#thang" data-bs-slide="prev" style="left: -20px;">
-            <i style="color: black; font-size: 50px; position:fixed; top: 50%; left: 20%" class="bi bi-caret-left-fill"></i>
+            <i style="color: black; font-size: 50px; position:fixed; top: 10px; left: 18.5%" class="bi bi-caret-left-fill"></i>
         </button>
         <button class="carousel-control-next" type="button" data-bs-target="#thang" data-bs-slide="next" style="right: -20px;">
-            <i style="color: black; font-size: 50px; position:fixed; top: 50%;right: 0" class="bi bi-caret-right-fill"></i>
+            <i style="color: black; font-size: 50px; position:fixed; top: 10px; right: 2.5%" class="bi bi-caret-right-fill"></i>
         </button>
     </div>
 </div>

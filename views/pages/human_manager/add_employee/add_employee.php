@@ -83,13 +83,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
     if (isset($_POST['them'])) {
         $gt = $_POST['radGT'];
-
+        $tuoi = date('Y') - date('Y',strtotime($ngaySinh));
         if($gt == 1){
-            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
-            $err[] = "Vui lòng chọn lại ngày sinh";
+            if($tuoi < $tuoiNamToiThieu || $tuoi > $tuoiNamToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh <br> Tuổi nhân viên nam phải <br> từ 20 đến 60 tuổi";
         }else{
-            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
-            $err[] = "Vui lòng chọn lại ngày sinh";
+            if($tuoi < $tuoiNuToiThieu || $tuoi > $tuoiNuToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh <br> Tuổi nhân viên nữ phải <br> từ 18 đến 55 tuổi";
         }
 
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
