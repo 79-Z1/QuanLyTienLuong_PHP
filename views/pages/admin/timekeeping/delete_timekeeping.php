@@ -18,7 +18,14 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     if (isset($_POST['delete'])) {
         $sqldelete = "delete from cham_cong 
         where MaCong = '$_GET[MaCong]'";
-        mysqli_query($conn, $sqldelete);
+        $deleteResult = mysqli_query($conn, $sqldelete);
+        echo "<script type='text/javascript'>
+        $('#delete').prop('disabled','disabled');
+        toastr.success('Xoá thành công');
+        setTimeout(function() {
+            window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-timekeeping" . "';
+        }, 1500);
+        </script>";
     }
     if(isset($_POST["tinhTrang"])) {
         $tinhTrang = trim($_POST['tinhTrang']) ;
@@ -35,21 +42,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     }
     else $ngay = $row['Ngay'];
 
-    if (isset($_POST['delete'])) {
-        $sqldelete = "delete from cham_cong where tenTK = '$tenTK'";
-        $deleteResult = mysqli_query($conn, $sqldelete);
-        if ($deleteResult) {
-            echo "<script type='text/javascript'>
-                $('#delete').prop('disabled','disabled');
-                toastr.success('Xoá thành công');
-                setTimeout(function() {
-                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-timekeeping" . "';
-                }, 1500);
-                </script>";
-        } else {
-            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 1000;</script>";
-        }
-    }
 ?>
 <style>
     .form-control.form-select{
@@ -73,7 +65,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">CHỈNH SỬA CHẤM CÔNG</h5>
+                <h5 class="mb-0">XÓA CHẤM CÔNG</h5>
             </div>
             <div class="table-responsive">
             <form align='center' action="" method="post" enctype="multipart/form-data">
