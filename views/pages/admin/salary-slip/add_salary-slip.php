@@ -54,6 +54,9 @@ if (isset($_POST['them'])) {
     if (empty($soTien)) {
         $err[] = "Vui lòng nhập số tiền";
     }
+    if (!is_numeric($soTien)) {
+        $err[] = "Số tiền phải là số";
+    } 
     if (empty($duyet)) {
         $err[] = "Vui lòng nhập số 1 để nghỉ hưởng lương";
     }
@@ -69,22 +72,21 @@ if (isset($_POST['them'])) {
         // echo $duyet;
     
         if ($resultInsert) {
-            echo "<script>";
-            echo "alert('Thêm chấm công thành công')";
-            echo "</script>";
+            echo "<script type='text/javascript'>toastr.success('Thêm phiếu ứng lương thành công'); toastr.options.timeOut = 3000;</script>";
+
             // làm mới giá trị
-            $maP = "";
-            $tenP = "";
+            // $maP = "";
+            // $tenP = "";
         } else {
-            echo "Lỗi: " . mysqli_error($conn);
+            echo "<script type='text/javascript'>toastr.error('Thêm phiếu ứng lương không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else{
 
         echo "<script>";
         foreach ($err as $error) {
-            echo "alert('$error');";
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
+
         }
-        echo "</script>";
     }
 }
 ?>

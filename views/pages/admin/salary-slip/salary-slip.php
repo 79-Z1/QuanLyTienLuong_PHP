@@ -115,21 +115,18 @@
                         </tr>
                            
                
-                        <tr>
-                            <td align="center" margin="5%" colspan="5" >
-                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                
+                        
+                        <tr align="center" colspan="4">
+                            <td align="end" colspan="2">
+                                <input class="btn btn-outline-success search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-parameter" style="display: none">
+
+                            </td>
+                            <td align="start" colspan="2">
+                                <a href="index.php?page=add-parameter" class="btn btn-outline-purple search-btn w-50">Thêm</a>
                             </td>
                         </tr>
-                        
-                        <tr>
-                        <td id="no_color" colspan="5" align="center">
-                            
-                            <!-- <a href="index.php?page=admin-department-add"> 
-                                <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
-                            </a> -->
-                            <a class="btn" href="index.php?page=admin-salary-slip-add">Thêm</a>
-                        </td>
-                    </tr>
                         
                     </table>
 
