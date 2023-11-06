@@ -38,6 +38,10 @@ switch ($page) {
         echo $template->render('header_accountant', ['css' => 'edit_paycheck.css', 'js' => 'edit_paycheck.js']);
         echo $template->render('pages/accountant/check_paycheck/edit_paycheck', []);
         break;
+    case 'notification':
+        echo $template->render('header_accountant', []);
+        echo $template->render('pages/shared/notification/notification', []);
+        break;
     default:
         echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
         echo $template->render('pages/accountant/list_employee_info/list-employee', []);

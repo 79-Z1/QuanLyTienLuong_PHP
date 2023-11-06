@@ -1,16 +1,19 @@
-body {
+#profile-container {
 	background: #efefef;
 	color: #333;
-	width: 100%;
+	height: 100%;
 }
+
+.profile {
+	height: 100%;
+}
+
 .profile .grid-header {
-	/* background: url('https://bootdey.com/img/Content/bg1.jpg') no-repeat center center; */
 	background-size: cover;
 	/* background-color: #9addef; */
 	background-color: #b4e0ed;
 }
 td{
-	
 	font-size: x-large;
 	padding: 10px;
 }
@@ -51,7 +54,6 @@ td{
 .grid {
 	position: relative;
 	width: 100%;
-	height: 100%;
 	background: #fff;
 	color: #666666;
 	border-radius: 2px;
@@ -62,7 +64,6 @@ td{
 	width: 100%;
 	display: grid;
     gap: 20px;
-
 }
 
 .grid .grid-body {
@@ -71,8 +72,6 @@ td{
 	line-height: 1.9em;
 	width: 100%;
 }
-
-
 
 p {
 	margin-top: 20px;
@@ -86,7 +85,6 @@ p {
 	flex-wrap: wrap;
 	background: #e5e5e5;
 	box-shadow: 0 48px 80px -32px rgba(0, 0, 0, 0.3);
-	
 }
 .input {
 	position: absolute;
@@ -142,25 +140,10 @@ p {
 .info{
 	margin-right: 100px;
 }
-@import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-body {
-    margin: 0 auto ;
-}
 
 li {
     list-style: none;
 }
-
-table {
-    /* text-align: center !important;*/
-} 
 
 table th {
     font-weight: 700!important;
@@ -200,13 +183,10 @@ img {
 
 button,
 .btn {
-	background-color: #5ab6c0;
 	color: #fff;
 	padding: 10px 20px;
 	border: none;
 	cursor: pointer;
-	margin-top: 20px;
-	margin-right: 20px;
 }
 
 .modal button {
@@ -221,10 +201,9 @@ button,
 	background-color: #0056b3;
 }
 
-.card {
+/* .card {
 	height: 615px;
-
-}
+} */
 
 h6 {
 	font-size: 23px !important;
@@ -240,3 +219,18 @@ h6 {
 	margin-bottom: 20px;
 	margin-top: 5px;
 } 
+
+#num-noti {
+	line-height: 20px;
+	color: white;
+	width: 20px;
+	height: 20px;
+	border-radius: 100%;
+	margin-left: 10px;
+}
+
+.label {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

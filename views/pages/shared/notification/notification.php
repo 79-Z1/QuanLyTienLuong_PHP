@@ -24,8 +24,8 @@
     <?php $this->end(); ?>
 <?php elseif (strpos($_SERVER['REQUEST_URI'], "employee") !== false) : ?>
     <div class="row notification-container">
-        <div class="d-flex justify-content-center" style="height: fit-content;">
-            <button class="btn btn-danger" id="dismiss-all">Xóa tất cả</button>
+        <div class="d-flex justify-content-end" style="height: fit-content;">
+            <button class="btn btn-danger me-3" id="dismiss-all">Xóa tất cả</button>
         </div>
         <div id="thongbao-container" class="mt-3" style="height: 345px; overflow-y: scroll;">
         </div>
