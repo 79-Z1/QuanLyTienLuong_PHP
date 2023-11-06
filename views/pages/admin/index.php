@@ -62,15 +62,15 @@ switch ($page) {
         echo $template->render('pages/admin/overtime/overtime', []);
         break;
     case 'admin-overtime-add-overtime':
-        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('header_admin', ['css' => 'overtime/add-overtime.css']);
         echo $template->render('pages/admin/overtime/add-overtime', []);
         break;
     case 'admin-overtime-edit-overtime':
-        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('header_admin', ['css' => 'overtime/edit-overtime.css']);
         echo $template->render('pages/admin/overtime/edit-overtime', []);
         break;
     case 'admin-overtime-delete-overtime':
-        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('header_admin', ['css' => 'overtime/delete-overtime.css']);
         echo $template->render('pages/admin/overtime/delete-overtime', []);
         break;
 
