@@ -129,15 +129,15 @@ switch ($page) {
         echo $template->render('pages/admin/staff/delete_staff', []);
         break;
     case 'admin-paycheck-add-paycheck':
-        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('header_admin', ['css' => 'paycheck/add-paycheck.css']);
         echo $template->render('pages/admin/paycheck/add-paycheck', []);
         break;
     case 'admin-paycheck-edit-paycheck':
-        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('header_admin', ['css' => 'paycheck/edit-paycheck.css']);
         echo $template->render('pages/admin/paycheck/edit-paycheck', []);
         break;
     case 'admin-paycheck-delete-paycheck':
-        echo $template->render('header_admin', ['css' => 'paycheck/paycheck.css']);
+        echo $template->render('header_admin', ['css' => 'paycheck/delete-paycheck.css']);
         echo $template->render('pages/admin/paycheck/delete-paycheck', []);
         break;
     case 'admin-paycheck-info-paycheck':

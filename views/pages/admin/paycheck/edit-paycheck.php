@@ -36,66 +36,41 @@ if (isset($_POST["MaNV"])) {
 }
 
 if (!isset($_POST['thang']))
-    $_POST['thang'] = $thang;
-else $thang = "";
-
+    $_POST['thang'] = $thang ;
 if (!isset($_POST['nam']))
-    $_POST['nam'] = $nam;
-else $nam = "";
-
+     $_POST['nam'] = $nam ;
 if (isset($_POST['soNgayCong']))
     $soNgayCong = trim($_POST['soNgayCong']);
-else $soNgayCong = "";
-
 if (isset($_POST['soNgayVang']))
     $soNgayVang = $_POST['soNgayVang'];
-else $soNgayVang = "";
 if (isset($_POST['luongTangCa']))
     $luongTangCa = trim($_POST['luongTangCa']);
-else $luongTangCa = "";
-
 if (isset($_POST['luongTamUng']))
-    $luongTamUng = trim($_POST['luongTamUng']);
-else $luongTamUng = "";
-
-if (isset($_POST['thue']))
-    $thue = $_POST['thue'];
-else $thue = "";
+    if (isset($_POST['thue']))
+        $thue = $_POST['thue'];
 if (isset($_POST['truBaoHiem']))
     $truBaoHiem = trim($_POST['truBaoHiem']);
-else $truBaoHiem = "";
-
 if (isset($_POST['troCap']))
     $troCap = trim($_POST['troCap']);
-else $troCap = "";
-
 if (isset($_POST['thuong']))
     $thuong = $_POST['thuong'];
-else $thuong = "";
 if (isset($_POST['phat']))
     $phat = trim($_POST['phat']);
-else $phat = "";
-
 if (isset($_POST['tienLuongThang']))
     $tienLuongThang = trim($_POST['tienLuongThang']);
-else $tienLuongThang = "";
-
 if (isset($_POST['tongThuNhap']))
     $tongThuNhap = $_POST['tongThuNhap'];
-else $tongThuNhap = "";
 if (isset($_POST['thucLinh']))
     $thucLinh = trim($_POST['thucLinh']);
-else $thucLinh = "";
-
 if (isset($_POST['ghiChu']))
     $ghiChu = trim($_POST['ghiChu']);
-else $ghiChu = "";
+
 
 if (isset($_POST['edit'])) {
 
     $err = array();
-    
-    
+
+
     if (empty($_POST['thang'])) {
         $err[] = "Tháng không được để trống";
     }
@@ -145,33 +120,17 @@ if (isset($_POST['edit'])) {
     }
     if (empty($thucLinh)) {
         $err[] = "Thực lĩnh không được để trống";
-    }elseif (!is_numeric($_POST["thucLinh"])) {
+    } elseif (!is_numeric($_POST["thucLinh"])) {
         $err[] = "Thực lĩnh phải là số";
     }
 
     if (empty($err)) {
         $sqlupdate = "UPDATE `phieu_luong` SET `MaPhieuLuong`='$maPL',`MaNV`='$maNV',`Thang`='$_POST[thang]',`Nam`='$_POST[nam]',`SoNgayCong`='$soNgayCong',`SoNgayVang`='$soNgayVang',`LuongTangCa`='$luongTangCa',`TienTamUng`='$luongTamUng',`Thue`='$thue',`TruBaoHiem`='$truBaoHiem',`TroCap`='$troCap',`Thuong`='$thuong',`Phat`='$phat',`TienLuongThang`='$tienLuongThang',`TongThuNhap`='$tongThuNhap',`ThucLinh`='$thucLinh',`GhiChu`='$ghiChu' WHERE MaPhieuLuong= '$maPL'";
         $resultupdate = mysqli_query($conn, $sqlupdate);
-        $maNV = $_POST['MaNV'];
-        $thang = $_POST["thang"];
-        $nam = $_POST["nam"];
-        $soNgayCong = $_POST["soNgayCong"];
-        $soNgayVang = $_POST["soNgayVang"];
-        $luongTangCa = $_POST["luongTangCa"];
-        $luongTamUng = $_POST["luongTamUng"];
-        $thue = $_POST["thue"];
-        $truBaoHiem = $_POST["truBaoHiem"];
-        $troCap = $_POST["troCap"];
-        $thuong = $_POST["thuong"];
-        $phat = $_POST["phat"];
-        $tienLuongThang = $_POST["tienLuongThang"];
-        $tongThuNhap = $_POST["tongThuNhap"];
-        $thucLinh = $_POST["thucLinh"];
-        $ghiChu = $_POST["ghiChu"];
-        echo "<div class='alert alert-success'>Sửa phiếu lương thành công</div>";
+        echo "<script type='text/javascript'>toastr.success('Sửa thành công'); toastr.options.timeOut = 3000;</script>";
     } else {
         foreach ($err as $error) {
-            echo "<div class='alert alert-danger'>$error</div>";
+            echo "<script type='text/javascript'>toastr.error(' $error'); toastr.options.timeOut = 3000;</script>";
         }
     }
 }
@@ -213,45 +172,45 @@ if (isset($_POST['edit'])) {
                         </tr>
                         <tr class="tr">
                             <td>Số ngày công</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="soNgayCong" value="<?php echo $row['SoNgayCong']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="soNgayCong" value="<?php echo $soNgayCong; ?> " /></td>
                             <td>Số ngày vắng</td>
-                            <td><input class="form-control py-2" type="text" name="soNgayVang" value="<?php echo $row['SoNgayVang']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="soNgayVang" value="<?php echo $soNgayVang; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Lương tăng ca</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="luongTangCa" value="<?php echo $row['LuongTangCa']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="luongTangCa" value="<?php echo $luongTangCa; ?> " /></td>
                             <td>Lương tạm ứng</td>
-                            <td><input class="form-control py-2" type="text" name="luongTamUng" value="<?php echo $row['TienTamUng']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="luongTamUng" value="<?php echo $luongTamUng; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Thuế</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="thue" value="<?php echo $row['Thue']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="thue" value="<?php echo $thue; ?> " /></td>
                             <td>Trừ bảo hiểm</td>
-                            <td><input class="form-control py-2" type="text" name="truBaoHiem" value="<?php echo $row['TruBaoHiem']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="truBaoHiem" value="<?php echo $truBaoHiem; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Trợ cấp</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="troCap" value="<?php echo $row['TroCap']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="troCap" value="<?php echo $troCap; ?> " /></td>
                             <td>Thưởng</td>
-                            <td><input class="form-control py-2" type="text" name="thuong" value="<?php echo $row['Thuong']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="thuong" value="<?php echo $thuong; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Phạt</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="phat" value="<?php echo $row['Phat']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="phat" value="<?php echo $phat; ?> " /></td>
                             <td>Tiền lương tháng</td>
-                            <td><input class="form-control py-2" type="text" name="tienLuongThang" value="<?php echo $row['TienLuongThang']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="tienLuongThang" value="<?php echo $tienLuongThang; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Tổng thu nhập</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="tongThuNhap" value="<?php echo $row['TongThuNhap']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="tongThuNhap" value="<?php echo $tongThuNhap; ?> " /></td>
                             <td>Thực Lĩnh</td>
-                            <td><input class="form-control py-2" type="text" name="thucLinh" value="<?php echo $row['ThucLinh']; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="thucLinh" value="<?php echo $thucLinh; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Ghi chú</td>
                             <td id="no_colo" r>
                                 <div class="input-group input-group-lg">
-                                    <textarea class="form-control" name="ghiChu" rows="3" maxlength="300"> <?php echo $row['GhiChu']; ?></textarea>
+                                    <textarea class="form-control" name="ghiChu" rows="3" maxlength="300"> <?php echo $ghiChu; ?></textarea>
                                 </div>
                             </td>
                             <td align="center" id="no_color" colspan="2">
