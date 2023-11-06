@@ -32,9 +32,40 @@
     td i {
         font-size: larger;
     }
+    .pagination-link {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 1px ;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+
+}
+
+.pagination-link:not(.active) {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+}
+.phanTrang{
+    margin-top: 13px;
+}
 </style>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang
+
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
+}
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
 
 function GetDayOfWeek($date)
 {
@@ -64,16 +95,8 @@ function GetDayOfWeek($date)
     }
     return $day;
 }
-
-$rowsPerPage = 9;
-
-if (!isset($_GET['p'])) {
-    $_GET['p'] = 1;
-}
-$offset = ($_GET['p'] - 1) * $rowsPerPage;
-
 ?>
-<div class="card shadow border-0 mb-3">
+<div class="card shadow mt-1 border-0 mb-3" style="height:652px">
     <div id="thang" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
             <?php
@@ -92,7 +115,7 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
                 }
             ?>
                 <div class="carousel-item <?= $actives; ?>">
-                    <div style='display:flex'>
+                    <div style='display:flex; height:652px'>
                         <div class='table-split1'>
                             <div class="card-header">
                                 <h3 style="padding-left: 30px;">BẢNG CHẤM CÔNG</h3>
@@ -109,10 +132,10 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
                                 <tbody>
                                     <tr>
                                         <?php
-                                        $sqlgetTen = "SELECT MaNV, TenNV, HoNV from nhan_vien";
-                                        // $resultgetTen = mysqli_query($conn, $sqlgetTen);
-                                        // $numRows = mysqli_num_rows($resultgetTen);
-                                        // $sqlgetTen .= " limit $offset, $rowsPerPage";
+                                        $sqlgetTen = "SELECT MaNV, HoNV, TenNV from nhan_vien";
+                                        $resultgetTen = mysqli_query($conn, $sqlgetTen);
+                                        $numRows = mysqli_num_rows($resultgetTen);
+                                        $sqlgetTen .= " limit $offset, $rowsPerPage";
                                         $resultgetTen = mysqli_query($conn, $sqlgetTen);
                                         while ($rowTen = mysqli_fetch_array($resultgetTen)) {
                                         ?>
@@ -154,12 +177,10 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
                                     <tbody>
                                         <tr>
                                             <?php
-                                            $sqlgetTen = "SELECT MaNV from nhan_vien";
+                                            $sqlgetTen = "SELECT MaNV, HoNV, TenNV from nhan_vien";
                                             $resultgetTen = mysqli_query($conn, $sqlgetTen);
-                                            // // $numRows = mysqli_num_rows($resultgetTen);
-                                            // // $sqlgetTen .= " limit $offset, $rowsPerPage";
-                                            // // $resultgetTen = mysqli_query($conn, $sqlgetTen);
-                                            // $maxPage = ceil($numRows / $rowsPerPage) + 1;
+                                            $sqlgetTen .= " limit $offset, $rowsPerPage";
+                                            $resultgetTen = mysqli_query($conn, $sqlgetTen);
                                             $icon = '';
                                             $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $rowsThang['nam']);
                                             while ($rowTen = mysqli_fetch_array($resultgetTen)) {
@@ -185,9 +206,9 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
                             </div>
                         </div>
                     </div>
-                    <!-- <div align="center">
+                    <div class="phanTrang" align="center">
                         <?php
-                        $maxPage = floor($numRows / $rowsPerPage) + 1;
+                        $maxPage = ceil($numRows / $rowsPerPage);
                         echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . (1) . "> Đầu trang </a> ";
                         echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "> < </a> ";
 
@@ -205,7 +226,7 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
                         echo "</p>";
                         ?>
-                    </div> -->
+                    </div>
                 </div>
             <?php
                 $counter++;

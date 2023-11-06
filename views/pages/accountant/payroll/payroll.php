@@ -105,7 +105,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <div align="center">
 	<?php
-	$maxPage = floor($numRows / $rowsPerPage) + 1;
+	$maxPage = ceil($numRows / $rowsPerPage);
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . (1) . "> Đầu trang </a> ";
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "> < </a> ";
 
