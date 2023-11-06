@@ -3,9 +3,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-$sqlNhanVien = 'select * from nhan_vien ';
-$resultNhanVien = mysqli_query($conn, $sqlNhanVien);
-
 $maTC = $_GET["maTC"];
 $getTangCa = "select * from tang_ca where MaTC='$maTC'";
 $resultTangCa = mysqli_query($conn, $getTangCa);

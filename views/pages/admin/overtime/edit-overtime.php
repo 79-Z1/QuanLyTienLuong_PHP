@@ -42,12 +42,10 @@ if (isset($_POST['edit'])) {
     }
 
     if (empty($err)) {
-        $sqlupdate = "UPDATE `tang_ca` SET `MaTC`='$maTC',`MaNV`='$maNV',`NgayTC`='$ngayTC',`LoaiTC`='$loaiTC' WHERE MaTC ='$maTC'";
+        $sqlupdate = "UPDATE `tang_ca` SET `MaTC`='$maTC',`MaNV`='$maNV',`NgayTC`='$_POST[ngayTC]',`LoaiTC`='$loaiTC' WHERE MaTC ='$maTC'";
 
         $resultupdate = mysqli_query($conn, $sqlupdate);
-        $maNV = $_POST['MaNV'];
-        $ngayTC = $_POST['ngayTC'];
-        $loaiTC = $_POST['loaiTC'];
+
         echo "<div class='alert alert-success'>Sửa tăng ca thành công</div>";
 
     } else {

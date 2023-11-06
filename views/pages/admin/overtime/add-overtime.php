@@ -54,12 +54,7 @@ if (isset($_POST['add'])) {
 
         if ($resultInsert) {
             echo "<div class='alert alert-success'>Thêm tăng ca thành công</div>";
-            // làm mới giá trị
-            // $maCV = "";
-            // $tenCV = "";
-            // $HSL = "";
         } else {
-            // echo "Lỗi: " . mysqli_error($conn);
             echo "<div class='alert alert-danger'>Thêm tăng ca không thành công</div>";
         }
     } else {
