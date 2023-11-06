@@ -9,7 +9,6 @@ else $maTC = "";
 if (isset($_GET['maNV']))
     $maNV = trim($_GET['maNV']);
 else $maNV = "";
-
 if (isset($_GET['ngayTC']))
     $ngayTC = trim($_GET['ngayTC']);
 else $ngayTC = "";
@@ -24,30 +23,39 @@ $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
-$sqlTangCa = 'select * from tang_ca ORDER BY MaTC ASC';
-$resultTangCa = mysqli_query($conn, $sqlTangCa);
 
 $sqlNhanVien = 'select * from nhan_vien';
 $resultNhanVien = mysqli_query($conn, $sqlNhanVien);
 
-$dsTC = [];
-if (mysqli_num_rows($resultTangCa) <> 0) {
-
-    while ($row = mysqli_fetch_array($resultTangCa)) {
-        $dsTC = array(
-            'MaTC' => $row['MaTC'],
-            'MaNV' => $row['MaNV'],
-            'NgayTC' => $row['NgayTC'],
-            'LoaiTC' => $row['LoaiTC']
-        );
-    }
-}
-
-$numRows = mysqli_num_rows($resultTangCa);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
-$sql = 'SELECT * FROM tang_ca LIMIT ' . $offset . ', ' . $rowsPerPage;
-$result = mysqli_query($conn, $sql);
+$sqlTimKiem =
+    "select * from tang_ca where 1 ";
+
+if (isset($_GET['timkiem'])) {
+    if ($maTC != "") {
+        $sqlTimKiem .= "and MaTC = '$maTC' ";
+    }
+    if ($maNV != "") {
+        $sqlTimKiem .= "and MaNV = '$maNV' ";
+    }
+    if ($ngayTC != "") {
+        $sqlTimKiem .= "and NgayTC = '$ngayTC' ";
+    }
+    if ($loaiTC != "") {
+        $sqlTimKiem .= "and LoaiTC = '$loaiTC' ";
+    }
+
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+
+$sqlTimKiem .= " order by MaTC";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+
+$numRows = mysqli_num_rows($resultTimKiem);
+
+$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <!-- Card stats -->
@@ -68,29 +76,37 @@ $result = mysqli_query($conn, $sql);
                             <td>
                                 <select name="maNV" class="form-select search-option">
                                     <option value="">Trống</option>
+                                    <?php
+                                    if (mysqli_num_rows($resultNhanVien) <> 0) {
+
+                                        while ($rows = mysqli_fetch_array($resultNhanVien)) {
+                                            echo "<option";
+                                            if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
+                                            echo ">$rows[MaNV]</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </td>
-
-
-
                         </tr>
                         <tr>
                             <td>
                                 <p>Ngày tăng ca</p>
                             </td>
                             <td>
-                                <input class="form-control me-2 search-input" type="date" name="maNV" value="<?php echo $ngayTC; ?>">
+                                <input class="form-control me-2 search-input" type="date" name="ngayTC" value="<?php echo $ngayTC; ?>">
                             </td>
                             <td>
                                 <p>Loại tăng ca</p>
                             </td>
                             <td>
-                                <input class="form-control me-2 search-input" type="text" name="ngayTC" value="<?php echo $ngayTC; ?>">
+                                <input class="form-control me-2 search-input" type="text" name="loaiTC" value="<?php echo $loaiTC; ?>">
                             </td>
                         </tr>
                         <tr align="center" colspan="4">
                             <td align="end" colspan="2">
                                 <input class="btn btn-outline-success search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-overtime" style="display: none">
                             </td>
                             <td align="start" colspan="2">
                                 <a href="index.php?page=admin-overtime-add-overtime" class="btn btn-outline-success search-btn w-50">Thêm</a>
@@ -118,10 +134,10 @@ $result = mysqli_query($conn, $sql);
             <tbody>
                 <?php
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($result) <> 0) {
+                $maxPage = ceil($numRows / $rowsPerPage);
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($result)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
                             <td >{$rows['MaTC']}</td>
                             <td >{$rows['MaNV']}</td>
@@ -142,17 +158,17 @@ $result = mysqli_query($conn, $sql);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&p=1>Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&maTC=$maTC&maNV=$maNV&ngayTC=$ngayTC&loaiTC=$loaiTC&timkiem=Tìm+kiếm&p=1>Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&maTC=$maTC&maNV=$maNV&ngayTC=$ngayTC&loaiTC=$loaiTC&timkiem=Tìm+kiếm&page=admin-overtime=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>';
     } else {
-        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&maTC=$maTC&maNV=$maNV&ngayTC=$ngayTC&loaiTC=$loaiTC&timkiem=Tìm+kiếm&p=" . $i . ">" . $i . "</a> ";
     }
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&p=" . $maxPage . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&maTC=$maTC&maNV=$maNV&ngayTC=$ngayTC&loaiTC=$loaiTC&timkiem=Tìm+kiếm&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-overtime&maTC=$maTC&maNV=$maNV&ngayTC=$ngayTC&loaiTC=$loaiTC&timkiem=Tìm+kiếm&p=" . $maxPage . ">Về cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>

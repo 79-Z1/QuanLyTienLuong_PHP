@@ -15,27 +15,21 @@ $err = array();
 
 
 ?>
-<style>
-    .form-control.form-select {
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-
-    }
-
-    .form-select {
-        width: 100%;
-        padding-left: 20px;
-    }
-</style>
 <?php
 
 if (isset($_POST['delete'])) {
     $sqldelete = "delete from tang_ca where MaTC = '$maTC'";
     $deleteResult = mysqli_query($conn, $sqldelete);
     if ($deleteResult) {
-        echo '<div class="alert alert-success">Xóa thành công!</div>';
+        echo "<script type='text/javascript'>
+        $('#delete').prop('disabled','disabled');
+        toastr.success('Xoá thành công');
+        setTimeout(function() {
+            window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-overtime" . "';
+        }, 1000);
+        </script>";
     } else {
-        echo '<div class="alert alert-danger">Xóa thất bại!</div>';
+        echo "<script type='text/javascript'>toastr.error('Xóa không thành công'); toastr.options.timeOut = 3000;</script>";
     }
 }
 

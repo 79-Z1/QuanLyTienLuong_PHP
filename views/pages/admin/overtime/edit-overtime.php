@@ -46,11 +46,11 @@ if (isset($_POST['edit'])) {
 
         $resultupdate = mysqli_query($conn, $sqlupdate);
 
-        echo "<div class='alert alert-success'>Sửa tăng ca thành công</div>";
+        echo "<script type='text/javascript'>toastr.success('Sửa thành công'); toastr.options.timeOut = 3000;</script>";
 
     } else {
         foreach ($err as $error) {
-            echo "<div class='alert alert-danger'>$error</div>";
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
     }
 }
