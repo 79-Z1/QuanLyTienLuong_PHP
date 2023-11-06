@@ -252,10 +252,10 @@ if (isset($_POST['tinh'])) {
                                 </div>
                             </td>
                             <td id="no_color" align="center">
-                                <input type="submit" value="Tính lương" id='tinh' name="tinh" class="btn btn-outline-purple themnhanvien-btn w-60" />
+                                <input type="submit" value="Tính lương" id='tinhluong' name="tinh" class="btn btn-outline-purple themnhanvien-btn w-60" />
                             </td>
                             <td id="no_color" align="center">
-                                <input type="submit" value="Lưu phiếu lương" id='luu' name="luu" class="btn btn-outline-purple themnhanvien-btn w-30" />
+                                <input type="submit" value="Lưu phiếu lương" id='luupl' onclick="thongBao('<?=$_GET['thang']?>','<?=$_GET['MaNV']?>')" name="luu" class="btn btn-outline-purple themnhanvien-btn w-30" />
                             </td>
                         </tr>
                     </table>

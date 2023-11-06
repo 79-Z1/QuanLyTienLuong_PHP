@@ -39,25 +39,25 @@ $titleNewPass = "<b>Mật khẩu mới</b>";
 $titleReNewPass = "<b>Nhập lại mật khẩu mới</b>";
 
 if (isset($_POST["change"])) {
-    if (CheckOldPassword($conn, $TT['MaNV'], $oldPass) && $oldPass !="" && $newPass != "" && $reNewPass != "") {
-        mysqli_query($conn,"UPDATE `tai_khoan` SET `MatKhau`= '$newPass' WHERE TenTK = '$TT[MaNV]'");
+    if (CheckOldPassword($conn, $TT['MaNV'], $oldPass) && $oldPass != "" && $newPass != "" && $reNewPass != "") {
+        mysqli_query($conn, "UPDATE `tai_khoan` SET `MatKhau`= '$newPass' WHERE TenTK = '$TT[MaNV]'");
         echo "<script type='text/javascript'>
                 toastr.success('Đổi mật khẩu thành công!');
             </script>";
     }
-    if(!CheckOldPassword($conn, $TT['MaNV'], $oldPass)){
+    if (!CheckOldPassword($conn, $TT['MaNV'], $oldPass)) {
         $titleOldPass = "<b style='color:red;'>*Mật khẩu cũ không đúng</b>";
     }
-    if($oldPass == ""){
+    if ($oldPass == "") {
         $titleOldPass = "<b style='color:red;'>*Mật khẩu cũ không được để trống</b>";
     }
-    if($newPass == ""){
+    if ($newPass == "") {
         $titleNewPass = "<b style='color:red;'>*Mật khẩu mới không được để trống</b>";
     }
-    if($reNewPass == ""){
+    if ($reNewPass == "") {
         $titleReNewPass = "<b style='color:red;'>*Nhập lại mật khẩu không được để trống</b>";
     }
-    if($newPass != $reNewPass){
+    if ($newPass != $reNewPass) {
         $titleReNewPass = "<b style='color:red;'>*Nhập lại mật khẩu không đúng</b>";
     }
 }
@@ -65,7 +65,7 @@ if (isset($_POST["change"])) {
 
 <body>
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-    <div>
+    <div id="profile-container">
         <form action="" method="post">
             <div class="modal fade" id="doimatkhau" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -94,31 +94,29 @@ if (isset($_POST["change"])) {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                            <input id="change" class="btn btn-danger" type="submit" value="Đổi mật khẩu" name="change"/>
+                            <input id="change" class="btn btn-danger" type="submit" value="Đổi mật khẩu" name="change" />
                         </div>
                     </div>
                 </div>
             </div>
         </form>
         <!-- BEGIN USER PROFILE -->
-        <div class="col-md-12">
-            <div class="grid profile">
-                <div class="grid-header">
-                    <div class="d-flex justify-content-between">
-                        <img src="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$TT[Hinh]" ?>" alt="Ảnh nhân viên">
-                        <div>
-                            <h1>PHÒNG KHÁM ĐA KHOA THIỆN TRANG</h1>
-                            <h2><?= $TT["HoNV"] . " " . $TT["TenNV"] ?></h2>
-                        </div>
-                        <div class='option-buttons'>
-                            <!-- <a href="index.php"><input class="btn btn-info" type="submit" value="Quay lại" /></a> -->
-                            <input class="btn" type="submit" value="Đổi mật khẩu" data-bs-toggle="modal" data-bs-target="#doimatkhau" />
-                        </div>
+        <div class="grid profile">
+            <div class="grid-header">
+                <div class="d-flex justify-content-between">
+                    <img src="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$TT[Hinh]" ?>" alt="Ảnh nhân viên">
+                    <div>
+                        <h1>PHÒNG KHÁM ĐA KHOA THIỆN TRANG</h1>
+                        <h2><?= $TT["HoNV"] . " " . $TT["TenNV"] ?></h2>
+                    </div>
+                    <div class='option-buttons'>
+                        <!-- <a href="index.php"><input class="btn btn-info" type="submit" value="Quay lại" /></a> -->
+                        <input class="btn" type="submit" value="Đổi mật khẩu" data-bs-toggle="modal" data-bs-target="#doimatkhau" />
                     </div>
                 </div>
-                <div class="grid-body">
-                    <?php $this->renderSection('content'); ?>
-                </div>
+            </div>
+            <div class="grid-body">
+                <?php $this->renderSection('content'); ?>
             </div>
         </div>
         <!-- END USER PROFILE -->
