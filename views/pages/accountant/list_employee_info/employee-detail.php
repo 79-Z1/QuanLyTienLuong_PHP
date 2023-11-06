@@ -65,12 +65,6 @@ else $gt = "Nam";
 <body>
 	<div class="container">
 		<div class="main-body">
-			<nav aria-label="breadcrumb" class="main-breadcrumb p-2">
-				<div class='option-buttons d-flex justify-content-end'>
-					<button type='button' class="btn btn-info " id='exit'>QUAY LẠI</button>
-				</div>
-			</nav>
-
 			<div class="row gutters-sm">
 				<div class="col-md-4 mb-3">
 					<div class="card">
@@ -182,9 +176,10 @@ else $gt = "Nam";
 					</div>
 				</div>
 			</div>
+            <div class='option-buttons d-flex justify-content-start'>
+                <a href="index.php"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+            </div>
 		</div>
-
-	</div>
 	</div>
 </body>
 <?php $this->end(); ?>

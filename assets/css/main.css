@@ -1,52 +1,59 @@
 @import url(https://unpkg.com/@webpixels/css@1.1.5/dist/index.css);
-@import url("https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css");
+@import url('https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.4.0/font/bootstrap-icons.min.css');
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
 }
 
 body {
-    margin: 0 auto ;
+	margin: 0 auto;
 }
 
 li {
-    list-style: none;
+	list-style: none;
 }
 
 table th {
-    font-weight: 700!important;
-    font-size: 15px !important;
-    color: #000;
+	font-weight: 700 !important;
+	font-size: 15px !important;
+	color: #000;
 }
 table td {
-    font-size: 14px !important;
+	font-size: 14px !important;
 }
 
-.btn-outline-purple{
-
-    border: 1px solid #7b6bff;
-    color: #7b6bff; 
+.btn-outline-purple {
+	border: 1px solid #7b6bff;
+	color: #7b6bff;
 }
 
-.btn-outline-purple:hover{
-    border: 1px solid #7b6bff;
-    color: #ffffff;
-    background-color: 7b6bff;
+.btn-outline-purple:hover {
+	border: 1px solid #7b6bff;
+	color: #ffffff;
+	background-color: 7b6bff;
 }
 
 .navbar-vertical.navbar-expand-lg.show {
-    max-width: 250px !important;
+	max-width: 250px !important;
 }
 
 .nav-item {
-    cursor: pointer;
+	cursor: pointer;
+	height: 47px;
 }
 
 .navbar-nav .active {
-    background-color: #f5f9fc;
+	background-color: #f5f9fc;
 }
 
 .navbar-nav .active a {
-    color: blueviolet !important;
+	color: blueviolet !important;
+}
+#num-noti {
+	line-height: 25px;
+	color: white;
+	width: 25px;
+	height: 25px;
+	border-radius: 100%;
 }

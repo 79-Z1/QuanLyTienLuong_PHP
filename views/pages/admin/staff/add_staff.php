@@ -1,7 +1,6 @@
 <?php $this->layout('layout_admin') ?>
 <?php $this->section('content'); ?>
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/models/NhanVien.php");
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php"); 
 
     if (isset($_POST['hoNV']))
@@ -75,23 +74,23 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
 
+    $tuoiNamToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS027'"))['GiaTri'];
+    $tuoiNamToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS029'"))['GiaTri'];
+
+    $tuoiNuToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS028'"))['GiaTri'];
+    $tuoiNuToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS030'"))['GiaTri'];
+
     if (isset($_POST['them'])) {
         $gt = $_POST['radGT'];
-        // $nv = new NhanVien(
-        //     $maNV,
-        //     $hoNV,
-        //     $tenNV,
-        //     $gt,
-        //     $ngaySinh,
-        //     $diaChi,
-        //     $stk,
-        //     $cccd,
-        //     $soCon,
-        //     $phong,
-        //     $chucVu,
-        //     $sdt,
-        //     $hinh
-        // );
+
+        if($gt == 1){
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }else{
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }
+
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
             $err[] = "Vui lòng nhập đúng định dạng email";
         }
@@ -124,9 +123,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $err[] = "Vui lòng chọn đúng định dạng ảnh";
         }
 
-        if(filter_var($Email,FILTER_VALIDATE_EMAIL) && $hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
-            && is_numeric($sdt) && $diaChi != "" && is_numeric($stk) 
-            && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed)){
+        if(empty($err)){
             $hinh = explode(".",$_FILES['imgnv']['name']);
             $tempname = $_FILES["imgnv"]["tmp_name"];
             $hinh[0] = $maNV;
@@ -204,7 +201,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         font-weight: bold;
         height: 597px;
     }
-
+    .themnhanvien-btn{
+        margin-top: 20px;
+        margin-right: 20px;
+    }
 
 </style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
@@ -295,14 +295,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
-                    <tr>
-                        <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
-                        </td>
-                    </tr>
                 </table>
+                <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
                 </form>
             </div>
+        </div>
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
         </div>     
     </div>
 </div>

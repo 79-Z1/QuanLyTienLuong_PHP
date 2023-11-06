@@ -249,6 +249,7 @@ a {
                                 </select>
                             </td>
                             <td align="center" rowspan="3">
+                                <input type="text" name="page" value="admin-staff" style="display: none"> 
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
@@ -295,7 +296,7 @@ a {
                             <td >
                                 <a href='index.php?page=detail-staff&MaNV={$rows['MaNV']}'><i style='color:green' class='bi bi-person-lines-fill '></i></a>
                                 <a href='index.php?page=edit-staff&MaNV={$rows['MaNV']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
-                                <a href=''><i style='color:red' class='bi bi-person-x'></i></a>
+                                <a href='index.php?page=delete-staff&MaNV={$rows['MaNV']}'><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
                             </tr>";
                     }

@@ -12,8 +12,6 @@
     textarea {
         resize: none;
     }
-
-
 </style>
 <?php
 function money_format($tien)
@@ -56,29 +54,21 @@ if (mysqli_num_rows($result) <> 0) {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $tienUngToiDa = floor(($row['HeSoLuong'] * 4_160_000 / 2) / 100_000) * 100_000;
     $today = date("Y-m-d");
-    $ktraNgayUng = date('d') >= 15 ? 1 : 0;
+    $ktraNgayUng = 1;
 }
 ?>
 <?php
 if (isset($_POST['submit'])) {
-    if (checkValid('sotien') && checkValid('lydo')) {
-        $maul = tao_ma_ul($MaNV);
-        $sotienung =  $_POST['sotien'];
-        $lydo = $_POST['lydo'];
-        if ($sotienung > 0) {
-            if ($sotienung <= $tienUngToiDa) {
-                $sqlInsert = "INSERT INTO `phieu_ung_luong`(`MaPhieu`, `MaNV`, `NgayUng`, `LyDo`, `SoTien`) 
-                VALUES ('$maul','$MaNV','$today','$lydo','$sotienung')";
-                $result = mysqli_query($conn, $sqlInsert);
-                echo "<script type='text/javascript'>
-                        toastr.success('Gửi thành công');
-                        setTimeout(function() {
-                            window.location.href = 'http://localhost/QuanLyTienLuong_PHP/views/pages/employee';
-                        }, 3000);
-                </script>";
-            } else echo "<script type='text/javascript'>toastr.error('Số tiền ứng tối đa là $tienUngToiDa đ')</script>";
-        } else echo "<script type='text/javascript'>toastr.error('Số tiền ứng phải lớn hơn 0')</script>";
-    } else echo "<script type='text/javascript'>toastr.error('Vui lòng điền đầy đủ thông tin')</script>";
+    $maul = tao_ma_ul($MaNV);
+    $sotienung =  trim($_POST['sotien']);
+    $lydo = trim($_POST['lydo']);
+    $sqlInsert = "INSERT INTO `phieu_ung_luong`(`MaPhieu`, `MaNV`, `NgayUng`, `LyDo`, `SoTien`) 
+    VALUES ('$maul','$MaNV','$today','$lydo','$sotienung')";
+    $result = mysqli_query($conn, $sqlInsert);
+    echo "<script type='text/javascript'>
+            toastr.success('Gửi thành công');
+            window.location.href = 'http://localhost/QuanLyTienLuong_PHP/views/pages/employee';
+        </script>";
 }
 ?>
 <div class="container d-flex justify-content-center h-100">
@@ -98,7 +88,7 @@ if (isset($_POST['submit'])) {
                 </div>
             </div>
         <?php } else { ?>
-            <form action="" method="post">
+            <form action="" method="post" id="form-ul">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
@@ -109,7 +99,7 @@ if (isset($_POST['submit'])) {
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
                             <label>Số tiền (không vượt quá <?= money_format($tienUngToiDa) ?> đ):</label>
-                            <input type="number" name="sotien" class="form-control" min="0" max="<?= $tienUngToiDa ?>" value="">
+                            <input type="number" id="sotien" name="sotien" class="form-control" min="0" max="<?= $tienUngToiDa ?>" value="">
                         </div>
                     </div>
                 </div>
@@ -117,7 +107,7 @@ if (isset($_POST['submit'])) {
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label>Lý do (tối đa 300 kí tự):</label>
-                            <textarea class="form-control" name="lydo" rows="3" maxlength="300"></textarea>
+                            <textarea class="form-control" id="lydo" name="lydo" rows="3" maxlength="300"></textarea>
                         </div>
                     </div>
                 </div>
@@ -125,7 +115,7 @@ if (isset($_POST['submit'])) {
                 <div class="row mt-3">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-success" value="Submit">
+                            <input type="submit" name="submit" onclick="return submitUL()" class="btn btn-success" value="Submit">
                         </div>
                     </div>
                 </div>

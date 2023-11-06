@@ -43,77 +43,80 @@ if (isset($_POST['them'])) {
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
-            echo "<script>";
-            echo "alert('Thêm chức vụ thành công')";
-            echo "</script>";
+            echo "<div class='alert alert-success'>Thêm chức vụ thành công</div>";
+            // echo "<script>";
+            // echo "alert('Thêm chức vụ thành công')";
+            // echo "</script>";
             // làm mới giá trị
             $maCV = "";
             $tenCV = "";
             $HSL = "";
         } else {
-            echo "Lỗi: " . mysqli_error($conn);
+            // echo "Lỗi: " . mysqli_error($conn);
+            echo "<div class='alert alert-danger'>Thêm không thành công, đã có lỗi xảy ra</div>";
         }
     } else {
-
-        echo "<script>";
         foreach ($err as $error) {
-            echo "alert('$error');";
+            echo "<div class='alert alert-danger'>$error</div>";
         }
-        echo "</script>";
     }
 }
 ?>
 <style>
-    .form-control.form-select{
+    .form-control.form-select {
         padding-top: 0.3rem !important;
         padding-bottom: 0.3rem !important;
-        
+
     }
-    .form-control{
+
+    .form-control {
         width: 100%;
         height: 40px;
         padding-left: 20px;
-    } 
-    .form-select{
+    }
+
+    .form-select {
         width: 75%;
         padding-left: 20px;
-    } 
-    .form-date-control{
+    }
+
+    .form-date-control {
         text-align: center;
         width: 23%;
     }
-    .form-control-img{
+
+    .form-control-img {
         width: 50%;
-        
-    }
-    .tr td{
-        font-size: 20px!important;
-        height: 20%!important;
-        font-weight: bold;
+
     }
 
+    .tr td {
+        font-size: 20px !important;
+        height: 20% !important;
+        font-weight: bold;
+    }
 </style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">THÊM NHÂN VIÊN</h5>
+                <h5 class="mb-0">THÊM CHỨC VỤ</h5>
             </div>
             <div class="table-responsive">
                 <form align='center' action="" method="post" enctype="multipart/form-data">
-                    <table  class="table table-hover table-nowrap">
+                    <table class="table table-hover table-nowrap">
                         <tr class="tr">
                             <td>Mã chức vụ</td>
                             <td><input class="form-control py-2" type="text" size="20" name="maCV" value="<?php echo $maCV; ?> " /></td>
                             <td>Hệ số lương</td>
-                            <td ><input class="form-control py-2" type="text" name="HSL" value="<?php echo $HSL; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" name="HSL" value="<?php echo $HSL; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Tên chức vụ </td>
-                            <td ><input class="form-control py-2" type="text" size="20" name="tenCV" value="<?php echo $tenCV; ?> " /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="tenCV" value="<?php echo $tenCV; ?> " /></td>
                             <td id="no_color" colspan="2">
                                 <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
-                                <a  class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-position"> Quay Lại</a>
+                                <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-position"> Quay Lại</a>
                             </td>
                         </tr>
                     </table>

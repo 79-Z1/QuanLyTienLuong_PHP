@@ -7,6 +7,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $getNV= "select * from nhan_vien
     where MaNV='$maNVien'";   
     $resultNV = mysqli_query($conn, $getNV);
+    
     $nv = mysqli_fetch_array($resultNV);
 
     $maNV = $nv['MaNV'] ;
@@ -43,6 +44,12 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $getChucVu = "select MaChucVu, TenChucVu from chuc_vu";
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
+
+    $tuoiNamToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS027'"))['GiaTri'];
+    $tuoiNamToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS029'"))['GiaTri'];
+
+    $tuoiNuToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS028'"))['GiaTri'];
+    $tuoiNuToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS030'"))['GiaTri'];
 
     if (isset($_POST['chinhsua'])) {
 
@@ -87,6 +94,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         $chucVu = trim($_POST['chucVu']);
 
         $gt = $_POST['radGT'];
+
+        if($gt == 1){
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }else{
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }
 
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
             $err[] = "Vui lòng nhập đúng định dạng email";
@@ -269,15 +284,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                             <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                         </td>
                     </tr>
-                    <tr>
-                        <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Chỉnh sửa" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
-                        </td>
-                    </tr>
                 </table>
+                <input style="margin-top:20px" type="submit" value="Xác nhận" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
                 </form>
             </div>
         </div>     
+        <div class="option-buttons d-flex justify-content-between">
+            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+        </div>
     </div>
 </div>
 <?php $this->end(); ?>
