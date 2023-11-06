@@ -31,22 +31,20 @@ if (isset($_POST['them'])) {
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
-            echo "<script>";
-            echo "alert('Thêm phòng ban thành công')";
-            echo "</script>";
+            echo "<script type='text/javascript'>toastr.success('Thêm phòng ban thành công'); toastr.options.timeOut = 3000;</script>";
             // làm mới giá trị
             $maP = "";
             $tenP = "";
         } else {
-            echo "Lỗi: " . mysqli_error($conn);
+            echo "<script type='text/javascript'>toastr.error('Thêm phòng ban không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else{
 
         echo "<script>";
         foreach ($err as $error) {
-            echo "alert('$error');";
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
-        echo "</script>";
+   
     }
 }
 ?>
@@ -75,6 +73,7 @@ if (isset($_POST['them'])) {
                     <tr>
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"/>
+                        <a class="btn btn-outline-purple addDepartmen-btn mb-5 w-25" href="index.php?page=admin-department">Quay Lại</a>
                         </td>
                     </tr>
                 </table>

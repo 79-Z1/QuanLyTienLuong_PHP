@@ -11,44 +11,35 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     $row = mysqli_fetch_array($resultPhongBan, MYSQLI_ASSOC);
     $TenPhong = $row["TenPhong"];
 
-    // if (isset($_POST['edit'])) {
-    //     $err = array();
+
+
+
+    if (isset($_POST['edit'])) {
+        $err = array();
         
-    //     if (empty($MaNV)) {
-    //         $err[] = "Vui lòng nhập tên chức vụ";
-    //     }
-    //     if (empty($ngayUng)) {
-    //         $err[] = "Vui lòng nhập tên chức vụ";
-    //     }
-    //     if (empty($lyDo)) {
-    //         $err[] = "Vui lòng nhập tên chức vụ";
-    //     }
-    //     if (empty($soTien)) {
-    //         $err[] = "Vui lòng nhập hệ số lương";
-    //     } elseif (!is_numeric($duyet)) {
-    //         $err[] = "Hệ số lương phải là một số";
-    //     }
+        if (empty($maP)) {
+            $err[] = "Vui lòng nhập mã phòng";
+        }
+        if (empty($TenPhong)) {
+            $err[] = "Vui lòng nhập tên phòng";
+        }
+
     
-    //     if (empty($err)) {
-    //         $sqlupdate = "UPDATE `phieu_ung_luong` SET `MaNV`='$MaNV',`NgayUng`='$ngayUng',`LyDo`='$lyDo', `SoTien`=$soTien ,`Duyet`='$duyet'
-    //         WHERE MaPhieu='$maPhieu'";
-    //         $resultupdate = mysqli_query($conn, $sqlupdate);
-    //         $MaNV = $_POST['MaNV'];
-    //         $ngayUng = $_POST['ngayUng'];
-    //         $lyDo = $_POST['lyDo'];
-    //         $soTien = $_POST['soTien'];
-    //         $duyet = $_POST['duyet'];
-    //         echo "<script>";
-    //         echo "alert('Chỉnh sữa chức vụ thành công');";
-    //         echo "</script>";
-    //     } else {
-    //         echo "<script>";
-    //         foreach ($err as $error) {
-    //             echo "alert('$error');";
-    //         }
-    //         echo "</script>";
-    //     }
-    // }
+        if (empty($err)) {
+            $sqlupdate = "UPDATE `phong_ban` SET `MaPhong`='$maP',`TenPhong`='$TenPhong'
+            WHERE MaPhong='$maP'";
+            $resultupdate = mysqli_query($conn, $sqlupdate);
+            $maP = $_GET['MaPhong'];
+            $TenPhong = $_POST['TenPhong'];
+
+            echo "<script type='text/javascript'>toastr.success('Sửa thành công'); toastr.options.timeOut = 3000;</script>";
+        } else {
+            echo "<script>";
+            foreach ($err as $error) {
+                echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
+            }
+        }
+    }
 ?>
 <style>
     .form-control.form-select{
@@ -105,6 +96,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Chỉnh sửa" name="edit" class="btn btn-outline-purple editDepartmen-btn mb-5 w-25"/>
+                        <a class="btn btn-outline-purple editDepartmen-btn mb-5 w-25" href="index.php?page=admin-parameter">Quay Lại</a>
                         </td>
                     </tr>
                 </table>

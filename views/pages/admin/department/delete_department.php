@@ -12,8 +12,22 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     
 
     $err = array();
+?>
+<?php
 
-    $allowed = array('image/jpeg','image/png');
+if (isset($_POST['delete'])) {
+    $sqldelete = "delete from phong_ban where MaPhong = '$maP'";
+    $deleteResult = mysqli_query($conn, $sqldelete);
+    if ($deleteResult) {
+        echo "<script type='text/javascript'>
+        $('#delete').prop('disabled','disabled');
+        toastr.success('Xoá phòng ban thành công');
+        setTimeout(function() {
+            window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-department" . "';
+        }, 1500);
+        </script>";
+    } 
+}
 
 ?>
 <style>
@@ -66,6 +80,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     <tr>
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Xóa" name="delete" class="btn btn-outline-purple deleteDepartmen-btn mb-5 w-25"/>
+                        <a class="btn btn-outline-purple editDepartmen-btn mb-5 w-25" href="index.php?page=admin-parameter">Quay Lại</a>
                         </td>
                     </tr>
                 </table>
