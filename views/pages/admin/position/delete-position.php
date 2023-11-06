@@ -14,26 +14,21 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
 
 ?>
-<style>
-    .form-control.form-select{
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-        
-    }
-    .form-select{
-        width: 100%;
-        padding-left: 20px;
-    } 
-</style>
 <?php
 
 if (isset($_POST['delete'])) {
     $sqldelete = "delete from chuc_vu where MaChucVu = '$maCV'";
     $deleteResult = mysqli_query($conn, $sqldelete);
     if ($deleteResult) {
-        echo '<div class="alert alert-success">Xóa thành công!</div>';
+        echo "<script type='text/javascript'>
+        $('#delete').prop('disabled','disabled');
+        toastr.success('Xoá thành công');
+        setTimeout(function() {
+            window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-position" . "';
+        }, 1000);
+        </script>";
     } else {
-        echo '<div class="alert alert-danger">Xóa thất bại!</div>';
+        echo "<script type='text/javascript'>toastr.error('Xóa không thành công'); toastr.options.timeOut = 3000;</script>";
     }
 }
     
@@ -60,7 +55,7 @@ if (isset($_POST['delete'])) {
                             <td><input class="form-control py-2" type="text" size="20" name="tenCV"
                                     value="<?php echo $tenCV; ?>" disabled="disabled" /></td>
                             <td id="no_color" colspan="2">
-                                <input type="submit" value="delete" name="delete"
+                                <input type="submit" value="Xóa" name="delete"
                                     class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"
                                     href="index.php?page=admin-position"> Quay Lại</a>
