@@ -23,9 +23,10 @@ $resultTC = mysqli_query($conn, $sqlTangCa);
 
 $numrow = mysqli_num_rows($resultTC);
 
-$tc = mysqli_fetch_array($resultTC);
-
-$loaiTC = $tc['LoaiTC'];
+if($numrow == 1){
+    $tc = mysqli_fetch_array($resultTC);
+    $loaiTC = $tc['LoaiTC'];
+}
 
 $hoten = $nv['HoNV'] . ' ' . $nv['TenNV'];
 $phong = $nv['TenPhong'];
