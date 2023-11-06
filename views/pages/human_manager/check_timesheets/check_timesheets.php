@@ -70,10 +70,8 @@ function GetDayOfWeek($date)
         <div class="carousel-inner">
             <?php
             $counter = 1;
-            $yearnow = date('Y');
 
             $sqlgetThang = "SELECT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong 
-            where year(Ngay) = $yearnow
             GROUP BY month(Ngay)
             ORDER BY month(Ngay) ";
 
@@ -123,9 +121,9 @@ function GetDayOfWeek($date)
                                     <thead class="thead-light">
                                         <tr>
                                             <?php
-                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
+                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $rowsThang['nam']);
                                             for ($i = 1; $i <= $ngaytrongthang; $i++) {
-                                                $ngayTrongTuan = $i . '-' . $rowsThang['thangtrongnam'] . '-' . $yearnow;
+                                                $ngayTrongTuan = $i . '-' . $rowsThang['thangtrongnam'] . '-' . $rowsThang['nam'];
                                                 $day = GetDayOfWeek($ngayTrongTuan);
                                                 echo "<th>$day</th>";
                                             }
@@ -133,7 +131,7 @@ function GetDayOfWeek($date)
                                         </tr>
                                         <tr>
                                             <?php
-                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
+                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $rowsThang['nam']);
                                             for ($i = 1; $i <= $ngaytrongthang; $i++) {
                                                 echo "<th>$i</th>";
                                             }
@@ -146,7 +144,7 @@ function GetDayOfWeek($date)
                                             $sqlgetTen = "SELECT MaNV, TenNV, HoNV from nhan_vien";
                                             $resultgetTen = mysqli_query($conn, $sqlgetTen);
                                             $icon = '';
-                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $yearnow);
+                                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $rowsThang['thangtrongnam'], $rowsThang['nam']);
                                             while ($rowTen = mysqli_fetch_array($resultgetTen)) {
                                                 for ($i = 1; $i <= $ngaytrongthang; $i++) {
                                                     $sqlgetCC = "SELECT TinhTrang, day(Ngay) as ngay from cham_cong where MaNV = '$rowTen[MaNV]' and day(Ngay) = $i and month(Ngay) = $rowsThang[thangtrongnam]";
@@ -161,7 +159,7 @@ function GetDayOfWeek($date)
                                                         $icon = '<i class="bi bi-ban"></i>';
                                                     }
                                             ?>
-                                                    <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $yearnow ?>'><?= $icon ?></a></td>
+                                                    <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $rowsThang['nam'] ?>'><?= $icon ?></a></td>
                                                 <?php } ?>
                                         </tr>
                                     <?php } ?>
