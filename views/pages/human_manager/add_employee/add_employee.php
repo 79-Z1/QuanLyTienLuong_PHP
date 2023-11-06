@@ -87,6 +87,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         if($gt == 1){
             if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
             $err[] = "Vui lòng nhập lại năm sinh";
+        }else{
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
+            $err[] = "Vui lòng nhập lại năm sinh";
         }
 
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
@@ -121,9 +124,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $err[] = "Vui lòng chọn đúng định dạng ảnh";
         }
 
-        if(filter_var($Email,FILTER_VALIDATE_EMAIL) && $hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
-            && is_numeric($sdt) && $diaChi != "" && is_numeric($stk) 
-            && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed)){
+        if(empty($err)){
             $hinh = explode(".",$_FILES['imgnv']['name']);
             $tempname = $_FILES["imgnv"]["tmp_name"];
             $hinh[0] = $maNV;
