@@ -86,10 +86,10 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
         if($gt == 1){
             if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
-            $err[] = "Vui lòng nhập lại năm sinh";
+            $err[] = "Vui lòng chọn lại ngày sinh";
         }else{
             if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
-            $err[] = "Vui lòng nhập lại năm sinh";
+            $err[] = "Vui lòng chọn lại ngày sinh";
         }
 
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
