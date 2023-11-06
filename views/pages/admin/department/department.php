@@ -3,32 +3,39 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-if (isset($_GET['maNV']))
-    $maNV = trim($_GET['maNV']);
-else $maNV = "";
-
-if (isset($_GET['phong']))
-    $maPhong = $_GET['phong'];
+if (isset($_GET['maPhong']))
+    $maPhong = trim($_GET['maPhong']);
 else $maPhong = "";
+
+if (isset($_GET['TenPhong']))
+    $TenPhong = $_GET['TenPhong'];
+else $TenPhong = "";
 
 $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
-$sqlPhong = 'select * from phong_ban';
-$resultPhong = mysqli_query($conn, $sqlPhong);
-
-// $sqlPhongBan = 'SELECT * FROM phong_ban';
-// $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
-
-
-//vị trí của mẩu tin đầu tiên trên mỗi trang
-$numRows = mysqli_num_rows($resultPhong);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
+$sqlTimKiem =
+    "select * from phong_ban
+            where 1
+        ";
 
-$sql = 'SELECT * FROM phong_ban LIMIT ' . $offset . ',' . $rowsPerPage;
-$result = mysqli_query($conn, $sql);
+if (isset($_GET['timkiem'])) {
+    if ($maPhong != "") {
+        $sqlTimKiem .= "and MaPhong = '$maPhong'";
+    }
+    if ($TenPhong != "") {
+        $sqlTimKiem .= "and TenPhong = '$TenPhong'";
+    }
 
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+$sqlTimKiem .= "order by MaPhong";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+$numRows = mysqli_num_rows($resultTimKiem);
+$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <style>
@@ -66,30 +73,22 @@ $result = mysqli_query($conn, $sql);
                             <td>
                                 <p>Mã phòng</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
+                            <td><input class="form-control me-2 search-input" type="text" name="maPhong" value="<?php echo $maPhong; ?>"></td>
                             <td>
                                 <p>Phòng</p>
                             </td>
                             <td>
-
+                            <td><input class="form-control me-2 search-input" type="text" name="TenPhong" value="<?php echo $TenPhong; ?>"></td>
                                 <!-- <select name="phong" class="form-select search-option" id="inputGroupSelect02">
                                     <option value="">Trống</option>
-                                    <?php
-                                    if (mysqli_num_rows($resultPhong) <> 0) {
-
-                                        while ($rows = mysqli_fetch_array($resultPhong)) {
-                                            echo "<option value='$rows[MaPhong]'";
-                                            if (isset($_GET['phong']) && $_GET['phong'] == $rows['MaPhong']) echo "selected";
-                                            echo ">$rows[TenPhong]</option>";
-                                        }
-                                    }
-                                    ?>
+                                    
                                 </select> -->
                             </td>
                         </tr>
                         <tr  >
                             <td colspan="4"  align="center"  >
                                 <input class="btn btn-outline-success search-btn me-3" name="timkiem" type="submit" value="Tìm kiếm" /> 
+                                <input type="text" name="page" value="admin-department" style="display: none">
                                 <a href="index.php?page=admin-department-add" class="btn btn-outline-purple themnhanvien-btn w-60">Thêm</a>
                                 </td>
                         </tr>
@@ -115,10 +114,10 @@ $result = mysqli_query($conn, $sql);
                 <?php
 
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($result) <> 0) {
+                $maxPage = ceil($numRows / $rowsPerPage);
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($result)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
                             <td >{$rows['MaPhong']}</td>
                             <td >{$rows['TenPhong']} </td>
@@ -138,16 +137,16 @@ $result = mysqli_query($conn, $sql);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=1 >Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=1 >Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
     } else
-        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . $i . ">" . $i . "</a> ";
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . ($maxPage) . ">Về cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>
