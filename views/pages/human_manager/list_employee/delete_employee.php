@@ -64,10 +64,48 @@ else $gt = "Nam";
 
 
 if (isset($_POST['xoa'])) {
-    $sqlTK = "DELETE FROM `tai_khoan` WHERE MaNV = '$ttNV[MaNV]'";
-    mysqli_query($conn,$sqlTK);
-    $sqlNV = "DELETE FROM `nhan_vien` WHERE MaNV = '$ttNV[MaNV]'";
+
+    $sqldeleteTK = "DELETE FROM `tai_khoan` WHERE MaNV = '$maNV'";
+    mysqli_query($conn,$sqldeleteTK);
+
+    $sqlSelectCC = "SELECT * FROM `cham_cong` WHERE MaNV = '$maNV'";
+    //nếu tồn tại $maNV ở bảng chấm công thì sẽ xoá tất cả bản ghi có $maNV
+    if(mysqli_num_rows(mysqli_query($conn,$sqlSelectCC)) > 0){
+        $sqldeleteCC = "DELETE FROM `cham_cong` WHERE MaNV = '$maNV'";
+        mysqli_query($conn,$sqldeleteCC);
+    }
+
+    $sqlSelectPL = "SELECT * FROM `phieu_luong` WHERE MaNV = '$maNV'";
+    //nếu tồn tại $maNV ở bảng phiếu lương thì sẽ xoá tất cả bản ghi có $maNV
+    if(mysqli_num_rows(mysqli_query($conn,$sqlSelectPL)) > 0){
+        $sqldeletePL = "DELETE FROM `phieu_luong` WHERE MaNV = '$maNV'";
+        mysqli_query($conn,$sqldeletePL);
+    }
+    
+    $sqlSelectPUL = "SELECT * FROM `phieu_ung_luong` WHERE MaNV = '$maNV'";
+    //nếu tồn tại $maNV ở bảng phiếu ứng lương thì sẽ xoá tất cả bản ghi có $maNV
+    if(mysqli_num_rows(mysqli_query($conn,$sqlSelectPUL)) > 0){
+        $sqldeletePUL = "DELETE FROM `phieu_ung_luong` WHERE MaNV = '$maNV'";
+        mysqli_query($conn,$sqldeletePUL);
+    }
+
+    $sqlSelectTC = "SELECT * FROM `tang_ca` WHERE MaNV = '$maNV'";
+    //nếu tồn tại $maNV ở bảng tăng ca thì sẽ xoá tất cả bản ghi có $maNV
+    if(mysqli_num_rows(mysqli_query($conn,$sqlSelectTC)) > 0){
+        $sqldeleteTC = "DELETE FROM `tang_ca` WHERE MaNV = '$maNV'";
+        mysqli_query($conn,$sqldeleteTC);
+    }
+    
+    $sqlSelectTB = "SELECT * FROM `thong_bao` WHERE NguoiGui = '$maNV'";
+    //nếu tồn tại $maNV ở bảng thông báo thì sẽ xoá tất cả bản ghi có $maNV
+    if(mysqli_num_rows(mysqli_query($conn,$sqlSelectTB)) > 0){
+        $sqldeleteTB = "DELETE FROM `thong_bao` WHERE NguoiGui = '$maNV'";
+        mysqli_query($conn,$sqldeleteTB);
+    }
+
+    $sqlNV = "DELETE FROM `nhan_vien` WHERE MaNV = '$maNV'";
     mysqli_query($conn,$sqlNV);
+
     echo "<script type='text/javascript'>
     $('#xoa').prop('disabled','disabled');
     toastr.success('Xoá thành công');
