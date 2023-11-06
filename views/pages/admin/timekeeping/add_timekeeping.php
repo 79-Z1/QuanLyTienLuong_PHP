@@ -21,12 +21,12 @@ if (isset($_POST['tinhTrang']))
     $tinhTrang = trim($_POST['tinhTrang']);
 else $tinhTrang = "";
 
-if (isset($_GET['ngay']))
-    $ngay = $_GET['ngay'];
+if (isset($_POST['ngay']))
+    $ngay = $_POST['ngay'];
 else $ngay = "";
 
-if (isset($_GET['nghiHL']))
-    $nghiHL = $_GET['nghiHL'];
+if (isset($_POST['nghiHL']))
+    $nghiHL = $_POST['nghiHL'];
 else $nghiHL = "";
 
 
@@ -34,43 +34,46 @@ if (isset($_POST['them'])) {
 
     $err = array();
 
-    // if (empty($maCong)) {
-    //     $err[] = "Vui lòng nhập mã phòng ban";
-    // }
-    // if (empty($maNV)) {
-    //     $err[] = "Vui lòng nhập mã nhân viên";
-    // }
-    // if (empty($tinhTrang)) {
-    //     $err[] = "Vui lòng nhập tình trạng";
-    // }
-    // if (empty($ngay)) {
-    //     $err[] = "Vui lòng nhập ngày";
-    // }
-    // if (empty($nghiHL)) {
-    //     $err[] = "Vui lòng nhập nghỉ hưởng lương";
-    // }
+    if (empty($maCong)) {
+        $err[] = "Vui lòng nhập mã phòng ban";
+    }
+    if (empty($maNV)) {
+        $err[] = "Vui lòng nhập mã nhân viên";
+    }
+    if (!is_numeric($tinhTrang)) {
+        $err[] = "Vui lòng nhập tình trạng";
+    } 
+    if($tinhTrang > 1 ){
+        $err[] = "Tình trạng chỉ có 0 và 1";
+    }
+    if (empty($ngay)) {
+        $err[] = "Vui lòng nhập ngày";
+    }
+    if (empty($nghiHL)) {
+        $err[] = "Vui lòng nhập nghỉ hưởng lương";
+    }
 
     if (empty($err)) {
         $sqlInsert = "INSERT INTO `cham_cong`(`MaCong`, `MaNV`, `TinhTrang`, `Ngay`, `NghiHL`) VALUES ('$maCong','$maNV','$tinhTrang','$ngay','$nghiHL')";
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
-            echo "<script>";
-            echo "alert('Thêm chấm công thành công')";
-            echo "</script>";
+            echo "<script type='text/javascript'>toastr.success('thêm thành công'); toastr.options.timeOut = 3000;</script>";
             // làm mới giá trị
-            $maP = "";
-            $tenP = "";
+            $maCong = "";
+            $maNV = ""; 
+            $tinhTrang = "";
+            $ngay = "";
+            $nghiHL = "";
+           
         } else {
-            echo "Lỗi: " . mysqli_error($conn);
+            // echo "Lỗi: " . mysqli_error($conn);
+            echo "<script type='text/javascript'>toastr.error('thêm không thành công'); toastr.options.timeOut = 3000;</script>";
         }
-    } else{
-
-        echo "<script>";
+    } else {
         foreach ($err as $error) {
-            echo "alert('$error');";
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
-        echo "</script>";
     }
 }
 ?>
