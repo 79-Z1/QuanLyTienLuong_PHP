@@ -53,10 +53,7 @@ if (isset($_POST['them'])) {
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
-            echo "<div class='alert alert-success'>Thêm chức vụ thành công</div>";
-            echo "<script>";
-            echo "alert('Thêm chức vụ thành công')";
-            echo "</script>";
+            echo "<script type='text/javascript'>toastr.success('thêm thành công'); toastr.options.timeOut = 3000;</script>";
             // làm mới giá trị
             $tenTK = "";
             $matKhau = ""; 
@@ -65,11 +62,11 @@ if (isset($_POST['them'])) {
            
         } else {
             // echo "Lỗi: " . mysqli_error($conn);
-            echo "<div class='alert alert-danger'>Thêm không thành công, đã có lỗi xảy ra</div>";
+            echo "<script type='text/javascript'>toastr.error('thêm không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else {
         foreach ($err as $error) {
-            echo "<div class='alert alert-danger'>$error</div>";
+            echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
     }
 }

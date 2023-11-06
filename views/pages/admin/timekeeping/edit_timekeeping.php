@@ -22,16 +22,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     if(isset($_POST["MaNV"])) {
         $MaNV = $_POST['MaNV'];
     }
-   
 
     if(isset($_POST["tinhTrang"])) {
-        $tinhTrang = trim($_POST['tinhTrang']) ;
-    
+        $tinhTrang = $_POST['tinhTrang'] ;
     }
     else $tinhTrang = $row['TinhTrang'];
+    
 
     if(isset($_POST["nghiHL"])) {
-        $nghiHL = trim($_POST['nghiHL']);
+        $nghiHL = $_POST['nghiHL'];
     }
     else $nghiHL = $row['NghiHL'];
 
@@ -41,13 +40,37 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     else $ngay = $row['Ngay'];
 
     if (isset($_POST['edit'])) {
-        if($macong != ''){
+        $err = array();
+        if (empty($macong)) {
+            $err[] = "Vui lòng nhập tên tham số";
+        }
+        if (empty($MaNV)) {
+            $err[] = "Vui lòng nhập đơn vị tính";
+        }
+        if($tinhTrang != 1 && $tinhTrang != 0 ){
+            $err[] = "Tình trạng chỉ có 0 và 1";
+        }
+        if($nghiHL != 1 && $nghiHL != 0 ){
+            $err[] = "Tình trạng chỉ có 0 và 1";
+        }
+        if(empty($ngay)) {
+            $err[] = "Vui lòng nhập ngày";
+        } 
+        
+        if(empty($err)) {
             $sqlupdate = "UPDATE `cham_cong` SET `MaCong`='$macong',`MaNV`='$MaNV',`TinhTrang`=$tinhTrang,`NghiHL`=$nghiHL,`Ngay`='$ngay' 
             WHERE MaCong='$macong'";
             $resultupdate = mysqli_query($conn, $sqlupdate);
-            
+            echo "<script type='text/javascript'>toastr.success('sửa tài khoản thành công'); toastr.options.timeOut = 3000;</script>";
+            echo $sqlupdate;
         }
+        else {
+            foreach ($err as $error) {
+                echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
+            }
     }
+}
+
 
 ?>
 <style>
@@ -104,7 +127,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                             <td>
                                 <p>Tình trạng</p>
                             </td>
-                            <td class="<?php if($tinhTrang == "") echo 'required'; ?>"><input class="form-control me-2 search-input" type="text" name="tinhTrang" value="<?php echo $tinhTrang; ?>"></td>
+                            <td class="<?php if($tinhTrang == "") echo 'required'; ?>">
+                            <input class="form-control me-2 search-input" type="text" name="tinhTrang" value="<?php echo $tinhTrang; ?>"></td>
                             
                             <td>
                                 <p>Nghỉ hưởng lương</p>

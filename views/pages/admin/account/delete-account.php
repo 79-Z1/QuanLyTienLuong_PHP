@@ -24,9 +24,15 @@ if (isset($_POST['delete'])) {
     $sqldelete = "delete from tai_khoan where TenTK = '$tenTK'";
     $deleteResult = mysqli_query($conn, $sqldelete);
     if ($deleteResult) {
-        echo '<div class="alert alert-success">Xóa thành công!</div>';
+        echo "<script type='text/javascript'>
+            $('#delete').prop('disabled','disabled');
+            toastr.success('Xoá thành công');
+            setTimeout(function() {
+                window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-account" . "';
+            }, 1500);
+            </script>";
     } else {
-        echo '<div class="alert alert-danger">Xóa thất bại!</div>';
+        echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 1000;</script>";
     }
 }
     

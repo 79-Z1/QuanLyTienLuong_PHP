@@ -62,15 +62,15 @@ switch ($page) {
         echo $template->render('pages/admin/overtime/overtime', []);
         break;
     case 'admin-overtime-add-overtime':
-        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('header_admin', ['css' => 'overtime/add-overtime.css']);
         echo $template->render('pages/admin/overtime/add-overtime', []);
         break;
     case 'admin-overtime-edit-overtime':
-        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('header_admin', ['css' => 'overtime/edit-overtime.css']);
         echo $template->render('pages/admin/overtime/edit-overtime', []);
         break;
     case 'admin-overtime-delete-overtime':
-        echo $template->render('header_admin', ['css' => 'overtime/overtime.css']);
+        echo $template->render('header_admin', ['css' => 'overtime/delete-overtime.css']);
         echo $template->render('pages/admin/overtime/delete-overtime', []);
         break;
 
@@ -96,15 +96,15 @@ switch ($page) {
         echo $template->render('pages/admin/position/position', []);
         break;
     case 'admin-position-add-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/add-position.css']);
         echo $template->render('pages/admin/position/add-position', []);
         break;
     case 'admin-position-edit-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/edit-position.css']);
         echo $template->render('pages/admin/position/edit-position', []);
         break;
     case 'admin-position-delete-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/delete-position.css']);
         echo $template->render('pages/admin/position/delete-position', []);
         break;
 
