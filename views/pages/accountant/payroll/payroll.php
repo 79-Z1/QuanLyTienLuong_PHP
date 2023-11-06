@@ -89,7 +89,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 									echo "
 							<td style='color:red'> Chưa tính </td>
 							<td>
-								<a class='btn btn-outline-purple p-2' href ='index.php?page=payroll-info&MaNV=$rows[MaNV]&thang=$thang&nam=$nam'>Tính lương</a>
+								<a class='btn btn-outline-purple p-2' href ='index.php?page=payroll-info&MaNV=$rows[MaNV]&thang=$thang&nam=$nam&p=$_GET[p]'>Tính lương</a>
 							</td>
 							";
 								}
