@@ -151,13 +151,13 @@ function GetDayOfWeek($date)
                                                     $resultgetCC = mysqli_query($conn, $sqlgetCC);
                                                     $rowCC = mysqli_fetch_array($resultgetCC);
                                                     $numCC = mysqli_num_rows($resultgetCC);
-                                                    if ($rowCC['TinhTrang'] == 1 && $numCC == 1) {
-                                                        $icon = '<i class="bi bi-check-lg" style="color: green"></i>';
-                                                    } else if ($rowCC['TinhTrang'] == 0 && $numCC == 1) {
-                                                        $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
-                                                    } else {
-                                                        $icon = '<i class="bi bi-ban"></i>';
-                                                    }
+                                                    if(!is_null($rowCC)){
+                                                        if ($rowCC['TinhTrang'] == 1 && $numCC == 1) {
+                                                            $icon = '<i class="bi bi-check-lg" style="color: green"></i>';
+                                                        } else if ($rowCC['TinhTrang'] == 0 && $numCC == 1) {
+                                                            $icon = '<i class="bi bi-x-lg" style="color: red"></i>';
+                                                        }
+                                                    }else $icon = '<i class="bi bi-ban"></i>';
                                             ?>
                                                     <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $rowsThang['nam'] ?>'><?= $icon ?></a></td>
                                                 <?php } ?>
