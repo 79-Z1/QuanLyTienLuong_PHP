@@ -46,12 +46,8 @@ function getCookie(name) {
 }
 
 function clearAllCookie() {
-    var all_cookies = document.cookie.split(";");
-
-    for (var i = 0; i < all_cookies.length; i++) {
-        var single_cookie = all_cookies[i];
-        var cookie_index = single_cookie.indexOf("=");
-        var cookie_name = cookie_index > -1 ? all_cookies.substr(0, cookie_index) : single_cookie;
-        document.cookie = cookie_name + "=;expires=" + new Date().toUTCString();
-    }
+    document.cookie.split(";").forEach(function (c) { 
+        document.cookie = c.replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/QuanLyTienLuong_PHP"); 
+    });
 }

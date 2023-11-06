@@ -19,6 +19,13 @@ $(document).ready(async function () {
             $('#num-noti').css({ 'display': 'none' })
         }
     });
+
+    $('#btn-logout').on('click', () => {
+        sessionStorage.clear();
+        localStorage.clear();
+        clearAllCookie();
+        location.href = 'http://localhost/QuanLyTienLuong_PHP'
+    })
 })
 
 async function submitUL() {

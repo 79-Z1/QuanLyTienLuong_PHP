@@ -100,6 +100,10 @@ else $gt = "Nữ";
 <div class="table-responsive">
     <div class='d-flex justify-content-end'>
         <input class="btn btn-outline-purple" type="submit" value="Đổi mật khẩu" data-bs-toggle="modal" data-bs-target="#doimatkhau" />
+        <button class="btn btn-outline-danger ms-3" id="btn-logout">
+            <i class="bi bi-box-arrow-right"></i>
+            Đăng xuất
+        </button>
     </div>
     <table id="info" class="table table-hover table-nowrap">
         <tr>

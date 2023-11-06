@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) <> 0) {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $tienUngToiDa = floor(($row['HeSoLuong'] * 4_160_000 / 2) / 100_000) * 100_000;
     $today = date("Y-m-d");
-    $ktraNgayUng = 1;
+    $ktraNgayUng = date('d') >= 15 ? 1 : 0;
 }
 ?>
 <?php
@@ -99,8 +99,11 @@ if (isset($_POST['submit'])) {
 
                 <div class="row mt-3">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <div class="form-group">
-                            <input type="submit" name="submit" onclick="return submitUL()" class="btn btn-success" value="Gửi">
+                        <div class="form-group d-flex justify-content-center">
+                            <button style="width: 100px;" type="submit" name="submit" onclick="return submitUL()" class="btn btn-outline-purple">
+                                <i class="bi bi-send"></i>
+                                Gửi
+                            </button>
                         </div>
                     </div>
                 </div>
