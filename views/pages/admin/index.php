@@ -149,15 +149,15 @@ switch ($page) {
         echo $template->render('pages/admin/parameter/parameter', []);
         break;
     case 'add-parameter':
-        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('header_admin', ['css' => 'parameter/add-parameter.css']);
         echo $template->render('pages/admin/parameter/add-parameter', []);
         break;
     case 'edit-parameter':
-        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('header_admin', ['css' => 'parameter/edit-parameter.css']);
         echo $template->render('pages/admin/parameter/edit-parameter', []);
         break;
     case 'delete-parameter':
-        echo $template->render('header_admin', ['css' => 'parameter/parameter.css']);
+        echo $template->render('header_admin', ['css' => 'parameter/delete-parameter.css']);
         echo $template->render('pages/admin/parameter/delete-parameter', []);
         break;
     default:
