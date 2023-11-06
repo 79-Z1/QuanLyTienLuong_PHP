@@ -21,31 +21,41 @@ if (isset($_GET['maNV']))
     $maNV = $_GET['maNV'];
 else $maNV = "";
 
-
+$sqlNV = 'select * from nhan_vien';
+$resultNV = mysqli_query($conn, $sqlNV);
 $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
-$sqlTaiKhoan = 'select * from tai_khoan ORDER BY MaNV ';
-$resultTaiKhoan = mysqli_query($conn, $sqlTaiKhoan);
-// $dsCV=[];
-// if (mysqli_num_rows($resultChucVu) <> 0) {
-
-//     while ($row = mysqli_fetch_array($resultChucVu)) {
-//        $dsCV=array(
-//         'MaChucVu'=> $row['MaChucVu'],
-//         'TenChucVu'=> $row['TenChucVu'],
-//         'HeSoLuong'=> $row['HeSoLuong']
-//        );
-//     }
-// }
-
-$numRows = mysqli_num_rows($resultTaiKhoan);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
-$sql = 'SELECT * FROM chuc_vu LIMIT ' . $offset . ', ' . $rowsPerPage;
-$result = mysqli_query($conn, $sql);
+$sqlTimKiem =
+    "select * from tai_khoan
+            where 1";
+
+if (isset($_GET['timkiem'])) {
+    if ($tenTK != "") {
+        $sqlTimKiem .= " and TenTK = '$tenTK'";
+    }
+    if ($matKhau != "") {
+        $sqlTimKiem .= " and MatKhau = '$matKhau'";
+    }
+    if ($loaiTK != "") {
+        $sqlTimKiem .= " and LoaiTK = '$loaiTK'";
+    }
+    if ($maNV != "") {
+        $sqlTimKiem .= " and MaNV = '$maNV'";
+    }
+
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+
+$sqlTimKiem .= " order by TenTK";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+$numRows = mysqli_num_rows($resultTimKiem);
+$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <style>
@@ -150,7 +160,7 @@ a {
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 d-flex">
             <nav class="navbar navbar-light bg-light d-flex justify-content-center py-1">
-                <form action="" method="post">
+                <form action="" method="get">
                     <table>
                         <tr>
                             <td>
@@ -161,8 +171,18 @@ a {
                                 <p>Mã nhân viên</p>
                             </td>
                             <td>
-                                <select name="MaNV" class="form-select search-option" id="inputGroupSelect02">
+                                <select name="maNV" class="form-select search-option" id="inputGroupSelect02">
                                     <option value="">Trống</option>
+                                    <?php
+                                    if (mysqli_num_rows($resultNV) <> 0) {
+
+                                        while ($rows = mysqli_fetch_array($resultNV)) {
+                                            echo "<option ";
+                                            if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
+                                            echo ">$rows[MaNV]</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </td>
 
@@ -181,7 +201,9 @@ a {
                         <tr > 
                             <td align="center" colspan="4">
                                 <input class="btn btn-outline-success search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-account" style="display: none">
                                 <a href="index.php?page=admin-account-add" class="btn btn-outline-success search-btn w-25">Thêm</a>
+                                
                             </td>
 
                         </tr>
@@ -207,10 +229,10 @@ a {
             <tbody>
                 <?php
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($resultTaiKhoan) <> 0) {
+                $maxPage = ceil($numRows / $rowsPerPage);
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($resultTaiKhoan)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
                             <td >{$rows['TenTK']}</td>
                             <td >{$rows['MatKhau']}</td>
@@ -231,17 +253,17 @@ a {
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=1>Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-account&tenTK=$tenTK&matKhau=$matKhau&loaiTK=$loaiTK&maNV=$maNV&p=1>Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-account&tenTK=$tenTK&matKhau=$matKhau&loaiTK=$loaiTK&maNV=$maNV&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>';
     } else {
-        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-account&tenTK=$tenTK&matKhau=$matKhau&loaiTK=$loaiTK&maNV=$maNV&p=" . $i . ">" . $i . "</a> ";
     }
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $maxPage . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-account&tenTK=$tenTK&matKhau=$matKhau&loaiTK=$loaiTK&maNV=$maNV&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-account&tenTK=$tenTK&matKhau=$matKhau&loaiTK=$loaiTK&maNV=$maNV&p=" . $maxPage . ">Về cuối</a> ";
 echo "</div>";
 ?>
 
