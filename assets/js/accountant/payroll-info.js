@@ -10,3 +10,12 @@ async function thongBao(thang, nguoinhan) {
      }
      await postData(urlTB, dataTB);
 }
+
+const button = document.getElementById('luupl');
+function handleChange(e){
+    if(e.value != 0){
+        button.setAttribute('disabled','')
+        return
+    }
+    button.removeAttribute('disabled')
+}

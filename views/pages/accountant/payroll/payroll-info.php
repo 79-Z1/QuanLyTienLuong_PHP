@@ -107,16 +107,6 @@ function Thue($thuNhap, $conn)
 
 $maPL = TaoMaPhieuLuong($ttNV['MaNV'], $date);
 
-if (isset($_POST['ghiChu'])) {
-    $ghiChu = trim($_POST['ghiChu']);
-}else $ghiChu = '';
-
-if (isset($_POST['tienPhat'])) {
-    $tienPhat = str_replace(".", "", $_POST['tienPhat']);
-}
-if (isset($_POST['tienThuong'])) {
-    $tienThuong = str_replace(".", "", $_POST['tienThuong']);
-}else $tienThuong = 0;
 
 $luongToiThieuVung = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS001'"))['GiaTri'];
 $troCapXang = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS002'"))['GiaTri'];
@@ -143,38 +133,60 @@ $tienPhat = $soNgayVang > $dinhMucVang ? ($soNgayVang - $dinhMucVang) * $donGiaP
 $luongTC = LuongTangCa($conn, $ttNV['MaNV'], $thang, $nam, $luongTheoGio);
 $tienTamUng = TienTamUng($conn, $ttNV['MaNV'], $thang, $nam);
 
+if (isset($_POST['ghiChu'])) {
+    $ghiChu = trim($_POST['ghiChu']);
+}else $ghiChu = '';
+
+
+
+if (isset($_POST['tienPhat'])) {
+    if(!is_numeric($_POST['tienPhat'])){
+        $tienPhat = 0;
+        $err[] = "Vui lòng nhập tiền phạt đúng định dạng số";
+    }else $tienPhat = str_replace(".", "", $_POST['tienPhat']);
+
+}
+
+if (isset($_POST['tienThuong'])) {
+    if(!is_numeric($_POST['tienThuong'])){
+        $tienThuong = 0;
+        $err[] = "Vui lòng nhập tiền thưởng đúng định dạng số";
+    }
+    else $tienThuong = str_replace(".", "", $_POST['tienThuong']);
+}
+else $tienThuong = 0;
+
+
+
 $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
+
 if ($tongThuNhap > $mucLuongThue) {
     $thue = Thue($tongThuNhap - $mucLuongThue, $conn);
 } else $thue = 0;
 $thucLinh = $tongThuNhap - $thue - $tienTamUng;
 
 if (isset($_POST['tinh'])) {
-    // if (!is_numeric($SoNgayCong)) {
-    //     $err[] = "Vui lòng nhập số ngày công đúng định dạng số";
-    // } else if ($SoNgayCong < 1 || $SoNgayCong > 31) {
-    //     $err[] = "Số ngày công phải lớn hơn 1 và bé hơn 31";
-    // }
-    // if (!is_numeric($HeSoLuong)) {
-    //     $err[] = "Vui lòng nhập hệ số lương đúng định dạng số";
-    // }
-    // if (!is_numeric($LuongTC)) {
-    //     $err[] = "Vui lòng nhập số lương tăng ca đúng định dạng số";
-    // }
-    // if (!is_numeric($TienTamUng)) {
-    //     $err[] = "Vui lòng nhập số tiền tạm ứng đúng định dạng số";
-    // }
-    // if (!is_numeric($Thue)) {
-    //     $err[] = "Vui lòng nhập số tiền thuế đúng định dạng số";
-    // }
-    // if (!is_numeric($TruBH)) {
-    //     $err[] = "Vui lòng nhập tiền bảo hiểm đúng định dạng số";
-    // }
-    $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
-    if ($tongThuNhap > $mucLuongThue) {
-        $thue = Thue($tongThuNhap - $mucLuongThue, $conn);
-    } else $thue = 0;
-    $thucLinh = $tongThuNhap - $thue - $tienTamUng;
+
+    if($tienPhat < 0 ){
+        $err[] = "Vui lòng nhập tiền phạt lớn hơn 0";
+    }
+    if($tienThuong < 0 ){
+        $err[] = "Vui lòng nhập tiền thưởng lớn hơn 0";
+    }
+
+    if(empty($err)){
+        $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
+        if ($tongThuNhap > $mucLuongThue) {
+            $thue = Thue($tongThuNhap - $mucLuongThue, $conn);
+        } else $thue = 0;
+        $thucLinh = $tongThuNhap - $thue - $tienTamUng;
+    }else {
+        foreach($err as $lois){
+            echo "<script type='text/javascript'>toastr.error('$lois');</script>";
+        }
+        
+    }
+    
 }
 
 ?>
@@ -226,9 +238,9 @@ if (isset($_POST['tinh'])) {
                         </tr>
                         <tr>
                             <td>Phạt</td>
-                            <td><input class="td-control p-2" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
+                            <td><input class="td-control p-2" onchange="handleChange(this);" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
                             <td>Thưởng</td>
-                            <td><input class="td-control p-2" style="background-color: #FFF;" type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
+                            <td><input class="td-control p-2" onchange="handleChange(this);"  style="background-color: #FFF;" type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
                         </tr>
                         <tr>
                             <td>Tiền lương tháng</td>
@@ -247,7 +259,6 @@ if (isset($_POST['tinh'])) {
                             <td>Ghi chú</td>
                             <td id="no_colo" r>
                                 <div class="input-group input-group-lg">
-
                                     <textarea class="form-control" name="ghiChu" rows="3" maxlength="300"> <?php echo $ghiChu; ?></textarea>
                                 </div>
                             </td>
