@@ -15,7 +15,7 @@ if ($TT["GioiTinh"] == 1) $gt = "Nam";
 else $gt = "Nữ";
 ?>
 <div class="table-responsive">
-    <table class="table table-hover table-nowrap">
+    <table id="info" class="table table-hover table-nowrap">
         <tr>
             <td class="title left">Mã nhân viên:</td>
             <td><?= $TT["MaNV"] ?></td>

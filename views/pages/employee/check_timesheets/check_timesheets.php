@@ -31,20 +31,7 @@ function GetDayOfWeek($date)
 }
 ?>
 <style>
-    th {
-        width: 14.3%;
-        text-align: center;
-    }
-
-    td,
-    h2 {
-        text-align: center;
-    }
-
-    td,
-    th {
-        border: 1px solid #000;
-    }
+   
 </style>
 <div class="card shadow border-0 mb-3">
     <div id="thangchamcong" class="carousel slide" data-bs-interval="false">
@@ -69,9 +56,9 @@ function GetDayOfWeek($date)
             ?>
                 <div class="carousel-item <?= $actives; ?>">
                     <div class="card-header">
-                        <h2 class="mb-0">Bảng chấm công tháng <?= $rowsThang['thangtrongnam'] ?></h3>
+                        <h4 class="mb-0">BẢNG CHẤM CÔNG THÁNG <?= $rowsThang['thangtrongnam'] ?></h4>
                     </div>
-                    <table class="table table-hover table-nowrap">
+                    <table id="timeSheets" class="table table-hover table-nowrap">
                         <thead class="thead-light">
                             <tr>
                                 <th>Thứ 2</th>
