@@ -30,22 +30,6 @@ function GetDayOfWeek($date)
     return $day;
 }
 ?>
-<style>
-    th {
-        width: 14.3%;
-        text-align: center;
-    }
-
-    td,
-    h2 {
-        text-align: center;
-    }
-
-    td,
-    th {
-        border: 1px solid #000;
-    }
-</style>
 <div class="card shadow border-0 mb-3">
     <div id="thangchamcong" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
@@ -70,9 +54,9 @@ function GetDayOfWeek($date)
             ?>
                     <div class="carousel-item <?= $actives; ?>">
                         <div class="card-header">
-                            <h2 class="mb-0">Bảng chấm công tháng <?= $rowsThang['thangtrongnam'] ?> năm <?= $rowsThang['nam'] ?></h3>
+                            <h4 class="mb-1 mt-1">BẢNG CHẤM CÔNG THÁNG <?= $rowsThang['thangtrongnam'] ?> NĂM <?= $rowsThang['nam'] ?></h4>
                         </div>
-                        <table class="table table-hover table-nowrap">
+                        <table id="timeSheets" class="table table-hover table-nowrap">
                             <thead class="thead-light">
                                 <tr>
                                     <th>Thứ 2</th>
@@ -108,9 +92,11 @@ function GetDayOfWeek($date)
                                             $resultChamCong = mysqli_query($conn, $sqlChamCong);
                                             $chamCong = mysqli_fetch_array($resultChamCong);
                                             $bgcl = '';
-                                            if ($chamCong['TinhTrang'] == 1)
-                                                $bgcl = '#0080086e';
-                                            else $bgcl = '#ff000091';
+                                            if(!is_null($chamCong)){
+                                                if ($chamCong['TinhTrang'] == 1)
+                                                    $bgcl = '#0080086e';
+                                                else $bgcl = '#ff000091';
+                                            }
                                             ?>
                                             <td style="background-color: <?= $bgcl ?>"><?= $j ?></td>
                                         <?php

@@ -96,15 +96,15 @@ switch ($page) {
         echo $template->render('pages/admin/position/position', []);
         break;
     case 'admin-position-add-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/add-position.css']);
         echo $template->render('pages/admin/position/add-position', []);
         break;
     case 'admin-position-edit-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/edit-position.css']);
         echo $template->render('pages/admin/position/edit-position', []);
         break;
     case 'admin-position-delete-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/delete-position.css']);
         echo $template->render('pages/admin/position/delete-position', []);
         break;
 

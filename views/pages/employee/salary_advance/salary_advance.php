@@ -1,18 +1,3 @@
-<style>
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    input[type=number] {
-        -moz-appearance: textfield;
-    }
-
-    textarea {
-        resize: none;
-    }
-</style>
 <?php
 function money_format($tien)
 {
@@ -115,7 +100,7 @@ if (isset($_POST['submit'])) {
                 <div class="row mt-3">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <input type="submit" name="submit" onclick="return submitUL()" class="btn btn-success" value="Submit">
+                            <input type="submit" name="submit" onclick="return submitUL()" class="btn btn-success" value="Gửi">
                         </div>
                     </div>
                 </div>
