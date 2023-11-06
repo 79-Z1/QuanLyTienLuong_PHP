@@ -43,59 +43,20 @@ if (isset($_POST['them'])) {
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
-            echo "<div class='alert alert-success'>Thêm chức vụ thành công</div>";
-            // echo "<script>";
-            // echo "alert('Thêm chức vụ thành công')";
-            // echo "</script>";
-            // làm mới giá trị
+            echo "<script type='text/javascript'>toastr.success('Thêm thành công'); toastr.options.timeOut = 3000;</script>";
             $maCV = "";
             $tenCV = "";
             $HSL = "";
         } else {
-            // echo "Lỗi: " . mysqli_error($conn);
-            echo "<div class='alert alert-danger'>Thêm không thành công, đã có lỗi xảy ra</div>";
+            echo "<script type='text/javascript'>toastr.error('Thêm không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else {
         foreach ($err as $error) {
-            echo "<div class='alert alert-danger'>$error</div>";
+            echo "<script type='text/javascript'>toastr.error(' $error'); toastr.options.timeOut = 3000;</script>";
         }
     }
 }
 ?>
-<style>
-    .form-control.form-select {
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-
-    }
-
-    .form-control {
-        width: 100%;
-        height: 40px;
-        padding-left: 20px;
-    }
-
-    .form-select {
-        width: 75%;
-        padding-left: 20px;
-    }
-
-    .form-date-control {
-        text-align: center;
-        width: 23%;
-    }
-
-    .form-control-img {
-        width: 50%;
-
-    }
-
-    .tr td {
-        font-size: 20px !important;
-        height: 20% !important;
-        font-weight: bold;
-    }
-</style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">

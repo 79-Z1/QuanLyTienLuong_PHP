@@ -5,16 +5,19 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-if (isset($_GET['maCV']))
+if (isset($_GET['maCV'])){
     $maCV = trim($_GET['maCV']);
+} 
 else $maCV = "";
 
-if (isset($_GET['tenChucVu']))
+if (isset($_GET['tenChucVu'])){
     $tenChucVu = trim($_GET['tenChucVu']);
+}   
 else $tenChucVu = "";
 
-if (isset($_GET['heSoLuong']))
+if (isset($_GET['heSoLuong'])){
     $heSoLuong = $_GET['heSoLuong'];
+}
 else $heSoLuong = "";
 
 
@@ -23,25 +26,37 @@ $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
-$sqlChucVu = 'select * from chuc_vu ORDER BY HeSoLuong DESC';
+
+$sqlChucVu = 'select * from chuc_vu';
 $resultChucVu = mysqli_query($conn, $sqlChucVu);
-$dsCV=[];
-if (mysqli_num_rows($resultChucVu) <> 0) {
 
-    while ($row = mysqli_fetch_array($resultChucVu)) {
-       $dsCV=array(
-        'MaChucVu'=> $row['MaChucVu'],
-        'TenChucVu'=> $row['TenChucVu'],
-        'HeSoLuong'=> $row['HeSoLuong']
-       );
-    }
-}
-
-$numRows = mysqli_num_rows($resultChucVu);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
-$sql = 'SELECT * FROM chuc_vu LIMIT ' . $offset . ', ' . $rowsPerPage;
-$result = mysqli_query($conn, $sql);
+$sqlTimKiem =
+    "select * from chuc_vu where 1 ";
+
+if (isset($_GET['timkiem'])) {
+    if ($maCV != "") {
+        $sqlTimKiem .= "and MaChucVu = '$maCV' ";
+    }
+    if ($tenChucVu != "") {
+        $sqlTimKiem .= "and TenChucVu = '$tenChucVu' ";
+    }
+    if ($heSoLuong != "") {
+        $sqlTimKiem .= "and HeSoLuong like '%$heSoLuong%' ";
+    }
+
+
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+
+$sqlTimKiem .= " order by MaChucVu";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+
+$numRows = mysqli_num_rows($resultTimKiem);
+
+$sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+$resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <!-- Card stats -->
@@ -60,9 +75,18 @@ $result = mysqli_query($conn, $sql);
                                 <p>Tên chức vụ</p>
                             </td>
                             <td>
-
-                                <select name="chucVu" class="form-select search-option" id="inputGroupSelect02">
+                                <select name="tenChucVu" class="form-select search-option">
                                     <option value="">Trống</option>
+                                    <?php
+                                    if (mysqli_num_rows($resultChucVu) <> 0) {
+
+                                        while ($rows = mysqli_fetch_array($resultChucVu)) {
+                                            echo "<option";
+                                            if (isset($_GET['tenChucVu']) && $_GET['tenChucVu'] == $rows['TenChucVu']) echo "selected";
+                                            echo ">$rows[TenChucVu]</option>";
+                                        }
+                                    }
+                                    ?>
                                 </select>
                             </td>
 
@@ -73,9 +97,10 @@ $result = mysqli_query($conn, $sql);
                             </td>
                             <td><input class="form-control me-2 search-input" type="text" name="heSoLuong" value="<?php echo $heSoLuong; ?>"></td>
                         </tr>
-                        <tr > 
+                        <tr>
                             <td align="center" colspan="4">
                                 <input class="btn btn-outline-success search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-position" style="display: none">
                                 <a href="index.php?page=admin-position-add-position" class="btn btn-outline-success search-btn w-25">Thêm</a>
                             </td>
 
@@ -101,10 +126,10 @@ $result = mysqli_query($conn, $sql);
             <tbody>
                 <?php
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($result) <> 0) {
+                $maxPage = ceil($numRows / $rowsPerPage);
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($result)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
                             <td >{$rows['MaChucVu']}</td>
                             <td >{$rows['TenChucVu']}</td>
@@ -124,17 +149,17 @@ $result = mysqli_query($conn, $sql);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=1>Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&maCV=$maCV&tenChucVu=$tenChucVu&heSoLuong=$heSoLuong&timkiem=Tìm+kiếm&p=1>Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&maCV=$maCV&tenChucVu=$tenChucVu&heSoLuong=$heSoLuong&timkiem=Tìm+kiếm&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>';
     } else {
-        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&maCV=$maCV&tenChucVu=$tenChucVu&heSoLuong=$heSoLuong&timkiem=Tìm+kiếm&p=" . $i . ">" . $i . "</a> ";
     }
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&p=" . $maxPage . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&maCV=$maCV&tenChucVu=$tenChucVu&heSoLuong=$heSoLuong&timkiem=Tìm+kiếm&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-position&maCV=$maCV&tenChucVu=$tenChucVu&heSoLuong=$heSoLuong&timkiem=Tìm+kiếm&p=" . $maxPage . ">Về cuối</a> ";
 echo "</div>";
 ?>
 
