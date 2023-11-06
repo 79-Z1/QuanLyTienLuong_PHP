@@ -283,7 +283,7 @@ if (isset($_POST['luu'])) {
                 $('#luu').prop('disabled','disabled');
                 toastr.success('Phiếu lương tháng $thang năm $nam <br> Nhân viên $ttNV[HoNV] $ttNV[TenNV] <br> Đã được lưu thành công!');
                 setTimeout(function() {
-                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-payroll" . "';
+                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-payroll&p=$_GET[p]" . "';
                 }, 3000);
             </script>";
 }
