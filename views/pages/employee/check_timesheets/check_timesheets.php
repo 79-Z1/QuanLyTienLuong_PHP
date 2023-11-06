@@ -31,26 +31,30 @@ function GetDayOfWeek($date)
 }
 ?>
 <style>
-    th{
+    th {
         width: 14.3%;
         text-align: center;
     }
-    td,h2{
+
+    td,
+    h2 {
         text-align: center;
     }
-    td,th{
+
+    td,
+    th {
         border: 1px solid #000;
     }
 </style>
 <div class="card shadow border-0 mb-3">
-    <div id="thang" class="carousel slide" data-bs-interval="false">
+    <div id="thangchamcong" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
             <?php
             $counter = 1;
             $yearnow = date('Y');
 
             $sqlgetThang = "SELECT month(Ngay) as thangtrongnam from cham_cong
-            where year(Ngay) = 2023 
+            where year(Ngay) = $yearnow 
             and MaNV = '$_SESSION[MaNV]' 
             GROUP BY month(Ngay) 
             ORDER BY month(Ngay)";
@@ -107,7 +111,7 @@ function GetDayOfWeek($date)
                                             $bgcl = '#0080086e';
                                         else $bgcl = '#ff000091';
                                         ?>
-                                        <td style="background-color: <?= $bgcl?>" ><?= $j ?></td>
+                                        <td style="background-color: <?= $bgcl ?>"><?= $j ?></td>
                                     <?php
                                         $demngay++;
                                         $dem++;
@@ -127,11 +131,11 @@ function GetDayOfWeek($date)
             }
             ?>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#thang" data-bs-slide="prev" style="left: -20px;">
-        <i style="color: black; font-size: 50px; position:fixed; top: 39%; left: 4%" class="bi bi-caret-left-fill"></i>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#thang" data-bs-slide="next" style="right: -20px;">
-        <i style="color: black; font-size: 50px; position:fixed; top: 39%;right: 3.5%" class="bi bi-caret-right-fill"></i>
-    </button>
+        <button class="carousel-control-prev" type="button" data-bs-target="#thangchamcong" data-bs-slide="prev" style="left: -20px;">
+            <i style="color: black; font-size: 50px; position:fixed; top: 39%; left: 4%" class="bi bi-caret-left-fill"></i>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#thangchamcong" data-bs-slide="next" style="right: -20px;">
+            <i style="color: black; font-size: 50px; position:fixed; top: 39%;right: 3.5%" class="bi bi-caret-right-fill"></i>
+        </button>
     </div>
 </div>

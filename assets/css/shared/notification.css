@@ -1,0 +1,64 @@
+.notification-container .card-body {
+	padding: 0.5rem;
+}
+
+.notification-container .card-title {
+	margin-bottom: 0;
+}
+
+.notification-container .card-title:before {
+	display: inline-block;
+	font-family: 'Font Awesome\ 5 Free';
+	font-weight: 900;
+	font-size: 1.1rem;
+	text-align: center;
+	border: 2px solid grey;
+	border-radius: 100px;
+	width: 30px;
+	height: 30px;
+	padding-bottom: 3px;
+	margin-right: 10px;
+}
+
+.notification-container .card.display-none {
+	display: none;
+	transition: opacity 2s;
+}
+
+.readed {
+	opacity: 0.5;
+}
+
+.notification-container .dismiss-notification {
+	padding: 5px 15px !important;
+	font-weight: 600;
+	text-decoration: none;
+}
+
+.notification-container .dismiss-notification:hover {
+	opacity: 0.75;
+}
+
+.notification-card {
+	height: fit-content !important;
+	display: flex !important;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #eceef3;
+    border-radius: 15px;
+	padding: 5px 10px;
+	font-size: 16px;
+	margin-bottom: 10px;
+}
+
+.noti-link {
+	text-decoration: none;
+	color: black;
+	cursor: pointer;
+}
+
+.noti-link:hover {
+	color: black;
+}

@@ -252,10 +252,10 @@ if (isset($_POST['tinh'])) {
                                 </div>
                             </td>
                             <td id="no_color" align="center">
-                                <input type="submit" value="Tính lương" id='tinh' name="tinh" class="btn btn-outline-purple themnhanvien-btn w-60" />
+                                <input type="submit" value="Tính lương" id='tinhluong' name="tinh" class="btn btn-outline-purple themnhanvien-btn w-60" />
                             </td>
                             <td id="no_color" align="center">
-                                <input type="submit" value="Lưu phiếu lương" id='luu' name="luu" class="btn btn-outline-purple themnhanvien-btn w-30" />
+                                <input type="submit" value="Lưu phiếu lương" id='luupl' onclick="thongBao('<?=$_GET['thang']?>','<?=$_GET['MaNV']?>')" name="luu" class="btn btn-outline-purple themnhanvien-btn w-30" />
                             </td>
                         </tr>
                     </table>
@@ -283,7 +283,7 @@ if (isset($_POST['luu'])) {
                 $('#luu').prop('disabled','disabled');
                 toastr.success('Phiếu lương tháng $thang năm $nam <br> Nhân viên $ttNV[HoNV] $ttNV[TenNV] <br> Đã được lưu thành công!');
                 setTimeout(function() {
-                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-payroll" . "';
+                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-payroll&p=$_GET[p]" . "';
                 }, 3000);
             </script>";
 }

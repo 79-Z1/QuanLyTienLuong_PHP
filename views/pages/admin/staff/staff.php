@@ -249,6 +249,7 @@ a {
                                 </select>
                             </td>
                             <td align="center" rowspan="3">
+                                <input type="text" name="page" value="admin-staff" style="display: none"> 
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>

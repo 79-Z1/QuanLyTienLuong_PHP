@@ -23,52 +23,143 @@ if (isset($_GET['nghiHL']))
     $nghiHL = $_GET['nghiHL'];
 else $nghiHL = "";
 
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
+}
+//vị trí của mẩu tin đầu tiên trên mỗi trang
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
 
-$sqlChamCong = "SELECT * FROM `cham_cong`";
-$resultChamCong = mysqli_query($conn, $sqlChamCong);
+$sqlTimKiem =
+    "select * from cham_cong
+    where  1
+    ";
+    
+    
+    if (isset($_GET['timkiem'])) {
+        if ($maCong != "") {
+        $sqlTimKiem .= "and MaCong = '$maCong'";
+    }
+    if ($maNV != "") {
+        $sqlTimKiem .= "and MaNV = '$maNV'";
+    }
+    if ($tinhTrang != "") {
+        $sqlTimKiem .= "and TinhTrang = '$tinhTrang'";
+    }
+    if ($ngay != "") {
+        $sqlTimKiem .= "and Ngay = '$ngay'";
+    }
+    if ($nghiHL !=  "") {
+        $sqlTimKiem .= "and NghiHL = '$nghiHL'";
+    }
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    $sqlTimKiem .= "order by MaCong";
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    $numRows = mysqli_num_rows($resultTimKiem);
+    $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
-// $sqlTimKiem =
-//     "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban
-//             where nhan_vien.MaPhong = phong_ban.MaPhong 
-//             and nhan_vien.MaChucVu = chuc_vu.MaChucVu
-//         ";
-
-// if (isset($_GET['timkiem'])) {
-//     if ($maCong != "") {
-//         $sqlTimKiem .= "and MaCong = '$maCong'";
-//     }
-//     if ($maNV != "") {
-//         $sqlTimKiem .= "and concat(HoNV,' ',TenNV) like '%$hoTen%'";
-//     }
-//     if ($maPhong != "") {
-//         $sqlTimKiem .= "and nhan_vien.MaPhong = '$maPhong'";
-//     }
-//     if ($maChucVu != "") {
-//         $sqlTimKiem .= "and nhan_vien.MaChucVu = '$maChucVu'";
-//     }
-//     if ($gioiTinh != "-1" && $gioiTinh != "") {
-//         $sqlTimKiem .= "and GioiTinh = '$gioiTinh'";
-//     }
+       //tổng số trang
+                $maxPage = ceil($numRows / $rowsPerPage);
+}else{
+    $sqlTimKiem;
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
 
 
-
-//     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-// }
-// $sqlTimKiem .= "order by MaNV";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-// $numRows = mysqli_num_rows($resultTimKiem);
-// $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
-// $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <style>
-    .form-control{
-     
-        padding-left: 50px;
-    }
-    td{
-        padding: 5px;
-    }
+    table img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    border: 1.5px solid black;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    padding: 5px;
+    padding-right:20px;
+    
+}
+.table-hover tbody td {
+    padding: 13px 10px 13px 25px;
+
+}
+.table-hover tbody td a i{
+    font-size:22px;
+    margin-right: 8px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+}
+label{
+    margin-right: 5px;
+}
+
+input[type="radio"] {
+    transform: scale(1.6);
+    margin-right: 5px;
+    margin-left: 15px;
+}
+.form-select{
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+.card .navbar {
+    padding: 0;
+    border-radius: 10px;
+}
+
+.larger-text {
+    font-size: 20px;
+    /* Điều chỉnh kích thước chữ theo nhu cầu */
+    margin-right: 20px;
+    /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
+}
+
+.form-control {
+    height: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+    font-size: 16px;
+}   
+
+.search-btn span {
+    margin-right: 5px;
+}
+
+.pagination-link {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 1PX ;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+
+}
+
+.pagination-link:not(.active) {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+}
 </style>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
@@ -105,13 +196,14 @@ $resultChamCong = mysqli_query($conn, $sqlChamCong);
                             <td >
                                 <p>Ngày</p> 
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="ngay" value="<?php echo $ngay; ?>"></td>
+                            <td><input class="form-control me-2 search-input" type="date" name="ngay" value="<?php echo $ngay; ?>"></td>
                         </tr>
                            
                
                         <tr>
                             <td align="center" margin="5%" colspan="5" >
                                 <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-timekeeping" style="display: none">
                             </td>
                         </tr>
                         
@@ -121,6 +213,7 @@ $resultChamCong = mysqli_query($conn, $sqlChamCong);
                             <!-- <a href="index.php?page=admin-department-add"> 
                                 <input type="submit" value="Thêm" id='them' name="them" class="btn btn-outline-purple themnhanvien-btn w-60" />
                             </a> -->
+                           
                             <a class="btn" href="index.php?page=admin-timekeeping-add">Thêm</a>
                         </td>
                     </tr>
@@ -151,11 +244,10 @@ $resultChamCong = mysqli_query($conn, $sqlChamCong);
             <tbody>
                 <?php
 
-                //tổng số trang
-                // $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($resultChamCong) <> 0) {
+             
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($resultChamCong)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
                             <td >{$rows['MaCong']}</td>
                             <td >{$rows['MaNV']} </td>
@@ -177,4 +269,18 @@ $resultChamCong = mysqli_query($conn, $sqlChamCong);
     </div>
 </div>
 </div>
+<?php
+echo '<div align="center">';
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+for ($i = 1; $i <= $maxPage; $i++) {
+    if ($i == $_GET['p']) {
+        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
+    } else
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
+}
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "</div>";
+?>
 <?php $this->end(); ?>

@@ -57,7 +57,7 @@ if (isset($_POST['delete'])) {
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">XÓA CHỨC VỤ</h5>
+                <h5 class="mb-0">XÓA PHIẾU LƯƠNG</h5>
             </div>
             <div class="table-responsive">
                 <form align='center' action="" method="post" enctype="multipart/form-data">

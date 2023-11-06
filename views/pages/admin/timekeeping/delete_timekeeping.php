@@ -94,6 +94,8 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Xóa" name="delete" class="btn btn-outline-purple deleteTimekeeping-btn mb-5 w-25"/>
+                        <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"
+                                    href="index.php?page=admin-timekeeping"> Quay Lại</a>
                         </td>
                     </tr>
                 </table>
