@@ -1,24 +1,24 @@
 $(document).ready(async function () {
-    const currActiveIndex = localStorage.getItem('active-item');
-    const preActiveIndex = localStorage.getItem('pre-active-item');
+    const currActiveIndex = sessionStorage.getItem('active-item');
+    const preActiveIndex = sessionStorage.getItem('pre-active-item');
     if (currActiveIndex) {
         const currActiveEl = $(".navbar-nav").find(`[data-active='${currActiveIndex}']`);
         const preActiveEl = $(".navbar-nav").find(`[data-active='${preActiveIndex}']`);
         preActiveEl.removeClass('active');
         currActiveEl.addClass('active');
     } else {
-        localStorage.setItem('active-item', '1');
-        localStorage.setItem('pre-active-item', '0');
+        sessionStorage.setItem('active-item', '1');
+        sessionStorage.setItem('pre-active-item', '0');
         const currActiveEl = $(".navbar-nav").find(`[data-active='1']`);
         currActiveEl.addClass('active');
     }
 
     $('.nav-link').on('click', (el) => {
         const li = $(el.target).closest('li');
-        const preActiveIndex = localStorage.getItem('active-item');
+        const preActiveIndex = sessionStorage.getItem('active-item');
         const currActiveIndex = $(li).data("active");
-        localStorage.setItem('active-item', currActiveIndex);
-        localStorage.setItem('pre-active-item', preActiveIndex);
+        sessionStorage.setItem('active-item', currActiveIndex);
+        sessionStorage.setItem('pre-active-item', preActiveIndex);
     });
 
     if (currActiveIndex == '6') {
@@ -37,4 +37,11 @@ $(document).ready(async function () {
             $('#num-noti').text('');
         }
     }
+
+    $(".navbar-nav").find(`[data-active='7']`).on('click', () => {
+        sessionStorage.clear();
+        localStorage.clear();
+        clearAllCookie();
+        location.href = 'http://localhost/QuanLyTienLuong_PHP'
+    })
 })
