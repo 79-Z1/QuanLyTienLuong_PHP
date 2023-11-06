@@ -65,15 +65,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
             $lyDo = $_POST['lyDo'];
             $soTien = $_POST['soTien'];
             $duyet = $_POST['duyet'];
-            echo "<script>";
-            echo "alert('Chỉnh sữa chức vụ thành công');";
-            echo "</script>";
+            echo "<script type='text/javascript'>toastr.success('Sửa phiếu ứng lương thành công'); toastr.options.timeOut = 3000;</script>";
         } else {
             echo "<script>";
             foreach ($err as $error) {
-                echo "alert('$error');";
+                echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
             }
-            echo "</script>";
+           
         }
     }
 ?>

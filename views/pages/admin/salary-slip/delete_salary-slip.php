@@ -36,9 +36,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         where MaPhieu = '$_GET[MaPhieu]'";
         $deleteResult = mysqli_query($conn, $sqldelete);
         if ($deleteResult) {
-            echo '<div class="alert alert-success">Xóa thành công!</div>';
+            echo "<script type='text/javascript'>
+            $('#delete').prop('disabled','disabled');
+            toastr.success('Xoá phiếu ứng lương thành công');
+            setTimeout(function() {
+                window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-salary-slip" . "';
+            }, 1500);
+            </script>";
         } else {
-            echo '<div class="alert alert-danger">Xóa thất bại!</div>';
+            echo "<script type='text/javascript'>toastr.error('Xóa phiếu ứng lương không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     }
 
