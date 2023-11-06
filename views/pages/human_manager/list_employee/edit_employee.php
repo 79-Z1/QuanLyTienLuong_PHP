@@ -3,7 +3,6 @@
 
 
 <?php
-include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/models/NhanVien.php");
 include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/connect.php"); 
     $maNVien = $_GET['MaNV'];     
     $getNV= "select * from nhan_vien
@@ -45,6 +44,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
     $getChucVu = "select MaChucVu, TenChucVu from chuc_vu";
 
     $resultChucVu = mysqli_query($conn, $getChucVu);
+
+    $tuoiNamToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS027'"))['GiaTri'];
+    $tuoiNamToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS029'"))['GiaTri'];
+
+    $tuoiNuToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS028'"))['GiaTri'];
+    $tuoiNuToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS030'"))['GiaTri'];
+
+
 
     if (isset($_POST['chinhsua'])) {
 
@@ -90,6 +97,14 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
 
         $gt = $_POST['radGT'];
 
+        if($gt == 1){
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNamToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNamToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }else{
+            if(date('Y') - date('Y',strtotime($ngaySinh)) < $tuoiNuToiThieu || date('Y') - date('Y',strtotime($ngaySinh)) > $tuoiNuToiDa)
+            $err[] = "Vui lòng chọn lại ngày sinh";
+        }
+
         if(!filter_var($Email,FILTER_VALIDATE_EMAIL)){
             $err[] = "Vui lòng nhập đúng định dạng email";
         }
@@ -122,9 +137,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
             $err[] = "Vui lòng chọn đúng định dạng ảnh";
         }
 
-        if(filter_var($Email,FILTER_VALIDATE_EMAIL) && $hoNV != "" && $tenNV != "" && $ngaySinh != "" && is_numeric($cccd) 
-            && is_numeric($sdt) && $diaChi != "" && is_numeric($stk) 
-            && $_FILES['imgnv']['name']!= NULL && in_array($_FILES['imgnv']['type'],$allowed)){
+        if(empty($err)){
             $hinh = explode(".",$_FILES['imgnv']['name']);
             $tempname = $_FILES["imgnv"]["tmp_name"];
             $hinh[0] = $maNV;
@@ -159,38 +172,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
         padding-bottom: 0.3rem !important;
         
     }
-    /* .form-control-nv-left{ 
-        width: 20%;
-        padding-left: 20px;
-    }
-    .form-control-sdt-left{ 
-        width: 30%;
-        padding-left: 20px;
-    }
-    .form-control-left{ 
-        width: 40%;
-        padding-left: 20px;
-    }
-    .form-select-left{ 
-        width: 70%;
-        padding-left: 20px;
-    }
-    .form-control-tt-right{
-        width: 15%;
-        padding-left: 20px;
-    }
-    .form-select-cv-right{
-        width: 35%;
-        padding-left: 20px;
-    }
-    .form-control-dc-right{
-        width: 75%;
-        padding-left: 20px;
-    }
-    .form-control-right{
-        width: 30%;
-        padding-left: 20px;
-    }*/.form-control{
+    .form-control{
         width: 75%;
         padding-left: 20px;
     } 
