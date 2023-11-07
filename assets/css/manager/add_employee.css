@@ -1,0 +1,46 @@
+.form-control.form-select{
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.3rem !important;
+    
+}
+
+.form-control{
+    width: 75%;
+    padding-left: 20px;
+} 
+.form-select{
+    width: 75%;
+    padding-left: 20px;
+} 
+.form-date-control{
+    text-align: center;
+    width: 23%;
+}
+.form-control-img{
+    width: 50%;
+    
+}
+tbody{
+    
+    font-weight: bold;
+    height: 597px;
+}
+.label-info{
+    width: 15%;
+    text-align: right;
+    font-size: 1.1rem !important;
+}
+.info{
+    width: 35%;
+}
+h2{
+    text-align: center;
+}
+.btn{
+    background-color: #7b6bff;
+    color: white;
+}
+
+.btn:hover{
+    background-color: #5142d8;
+}
