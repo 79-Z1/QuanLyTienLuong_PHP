@@ -32,34 +32,66 @@
     td i {
         font-size: larger;
     }
+
+    .button {
+        margin-right: 150px;
+        display: inline-block;
+        padding: 0 10px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #03C03C;
+        border: none;
+        border-radius: 15px;
+    }
+
+    .button:hover {
+        background-color: #157806;
+    }
+
     .pagination-link {
-    display: inline-block;
-    padding: 3px 5px;
-    margin: 1px ;
-    border: 1px solid #ccc;
-    text-decoration: none;
-    color: #333;
-    font-size: 12px;
-    border-radius: 15px;
-}
+        display: inline-block;
+        padding: 3px 5px;
+        margin: 1px;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        color: #333;
+        font-size: 12px;
+        border-radius: 15px;
+    }
 
-.pagination-link.active {
-    background-color: #333;
-    color: #fff;
+    .pagination-link.active {
+        background-color: #333;
+        color: #fff;
 
-}
+    }
 
-.pagination-link:not(.active) {
-    font-weight: 400;
-    font-size: 12px;
-    color: #666;
-}
-.phanTrang{
-    margin-top: 13px;
-}
+    .pagination-link:not(.active) {
+        font-weight: 400;
+        font-size: 12px;
+        color: #666;
+    }
+
+    .phanTrang {
+        margin-top: 13px;
+    }
 </style>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
+include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/vendor/autoload.php");
+
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+
+$dN = date('d');
+$mN = date('m');
+$yN = date('Y');
+
 $rowsPerPage = 9; //số mẩu tin trên mỗi trang
 
 if (!isset($_GET['p'])) {
@@ -100,6 +132,7 @@ function GetDayOfWeek($date)
     <div id="thang" class="carousel slide" data-bs-interval="false">
         <div class="carousel-inner">
             <?php
+           
             $counter = 1;
 
             $sqlgetThang = "SELECT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong 
@@ -132,12 +165,12 @@ function GetDayOfWeek($date)
                                 <tbody>
                                     <tr>
                                         <?php
-                                        $sqlgetTen = "SELECT MaNV, HoNV, TenNV from nhan_vien";
-                                        $resultgetTen = mysqli_query($conn, $sqlgetTen);
-                                        $numRows = mysqli_num_rows($resultgetTen);
-                                        $sqlgetTen .= " limit $offset, $rowsPerPage";
-                                        $resultgetTen = mysqli_query($conn, $sqlgetTen);
-                                        while ($rowTen = mysqli_fetch_array($resultgetTen)) {
+                                        $sqlgetTen1 = "SELECT MaNV, HoNV, TenNV from nhan_vien";
+                                        $resultgetTen1 = mysqli_query($conn, $sqlgetTen1);
+                                        $numRows = mysqli_num_rows($resultgetTen1);
+                                        $sqlgetTen1 .= " limit $offset, $rowsPerPage";
+                                        $resultgetTen1 = mysqli_query($conn, $sqlgetTen1);
+                                        while ($rowTen = mysqli_fetch_array($resultgetTen1)) {
                                         ?>
                                             <td><?= $rowTen['MaNV'] ?></td>
                                             <td>
@@ -149,8 +182,13 @@ function GetDayOfWeek($date)
                             </table>
                         </div>
                         <div class='table-split2'>
-                            <div class="card-header">
+                            <div class="card-header d-flex justify-content-between">
                                 <h3 class="mb-0">THÁNG <?= $rowsThang['thangtrongnam'] ?> NĂM <?= $rowsThang['nam'] ?></h3>
+                                <form action="" method="post">
+                                    <input type="text" name="thangIN" value="<?= $rowsThang['thangtrongnam'] ?>" style="display: none;">
+                                    <input type="text" name="namIN" value="<?= $rowsThang['nam'] ?>" style="display: none;">
+                                    <input class="button" type="submit" value="Xuất Excel" name="xuat">
+                                </form>
                             </div>
                             <div class='date-board'>
                                 <table class="table table-hover table-nowrap">
@@ -206,6 +244,215 @@ function GetDayOfWeek($date)
                             </div>
                         </div>
                     </div>
+                    <?php
+                    if (isset($_POST['xuat'])) {
+
+                        $sqlgetTen1 = "SELECT MaNV, HoNV, TenNV from nhan_vien";
+                        $resultgetTen1 = mysqli_query($conn, $sqlgetTen1);
+                        if (mysqli_num_rows($resultgetTen1) <> 0) {
+                            $spreadsheet = new Spreadsheet();
+                            $sheet = $spreadsheet->getActiveSheet();
+
+                            $sheet->getColumnDimension('B')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('D')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('E')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('F')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('G')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('H')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('I')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('J')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('K')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('L')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('M')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('N')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('O')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('P')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('Q')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('R')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('S')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('T')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('U')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('V')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('W')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('X')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('Y')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AA')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AB')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AC')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AD')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AE')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AF')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension('AG')->setAutoSize(false)->setWidth(3.89);
+
+                            $sheet->mergeCells("A1:AG1");
+                            $sheet->setCellValue('A1', 'PHÒNG KHÁM ĐA KHOA THIỆN TRANG');
+                            $sheet->getColumnDimension('A1')->setAutoSize(true);
+                            $sheet->getStyle('A1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('0070C0');
+                            $sheet->getStyle('A1')->getFont()->setBold(true)->setName('Times New Roman')->setSize(20)->getColor()->setRGB('FFFFFF');
+                            $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("A2:AG2");
+                            $sheet->setCellValue('A2', 'BẢNG CHẤM CÔNG');
+                            $sheet->getColumnDimension('A2')->setAutoSize(true);
+                            $sheet->getStyle('A2')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FFFF00');
+                            $sheet->getStyle('A2')->getFont()->setBold(true)->setName('Times New Roman')->setSize(18)->getColor()->setRGB('FF0000');
+                            $sheet->getStyle('A2')->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("A3:AG3");
+                            $sheet->setCellValue('A3', "Tháng $_POST[thangIN] Năm $_POST[namIN] ");
+                            $sheet->getColumnDimension('A3')->setAutoSize(true);
+                            $sheet->getStyle('A3')->getFont()->setBold(true)->setName('Times New Roman')->setSize(16)->getColor()->setRGB('FF0000');;
+                            $sheet->getStyle('A3')->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("A4:AG4");
+
+
+                            foreach (range('C', 'AG') as $letra) {
+                                $sheet->getColumnDimension($letra)->setAutoSize(true);
+                                $sheet->getStyle($letra . "6")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('00B050');
+                                $sheet->getStyle($letra . "6")->getFont()->setBold(true)->setName('Times New Roman')->setSize(12);
+                                $sheet->getStyle($letra . "6")->getAlignment()->setHorizontal('center');
+                                $sheet->getStyle($letra . "6")->getAlignment()->setVertical('center');
+                            }
+                            $sheet->getColumnDimension("A5")->setAutoSize(true);
+                            $sheet->getStyle("A5")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('00B050');
+                            $sheet->getStyle("A5")->getFont()->setBold(true)->setName('Times New Roman')->setSize(12);
+                            $sheet->getStyle("A5")->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle("A5")->getAlignment()->setVertical('center');
+                            $sheet->mergeCells("A5:A7");
+                            $sheet->setCellValue('A5', 'STT');
+
+                            $sheet->mergeCells("B5:B7");
+                            $sheet->getColumnDimension("B5")->setAutoSize(true);
+                            $sheet->getStyle("B5")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('00B050');
+                            $sheet->getStyle("B5")->getFont()->setBold(true)->setName('Times New Roman')->setSize(12);
+                            $sheet->getStyle("B5")->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle("B5")->getAlignment()->setVertical('center');
+                            $sheet->setCellValue('B5', 'Họ và tên');
+
+                            $sheet->getColumnDimension("C5")->setAutoSize(true);
+                            $sheet->getStyle("C5")->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('00B050');
+                            $sheet->getStyle("C5")->getFont()->setBold(true)->setName('Times New Roman')->setSize(12);
+                            $sheet->getStyle("C5")->getAlignment()->setHorizontal('center');
+                            $sheet->getStyle("C5")->getAlignment()->setVertical('center');
+                            $sheet->mergeCells("C5:AG5");
+                            $sheet->setCellValue('C5', 'Ngày trong tháng');
+                            $cot = "C";
+                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $_POST['thangIN'], $_POST['namIN']);
+
+                            for ($i = 1; $i <= $ngaytrongthang; $i++) {
+                                $sheet->getStyle($cot . '7')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('00B050');
+                                $sheet->getStyle($cot . '7')->getFont()->setBold(true)->setName('Times New Roman');
+                                $sheet->getStyle($cot . '7')->getAlignment()->setHorizontal('center');
+                                $sheet->getStyle($cot . '7')->getAlignment()->setVertical('center');
+                                $sheet->setCellValue($cot . '7', $i);
+
+                                $ngayTrongTuan = $i . '-' . $_POST['thangIN'] . '-' . $_POST['namIN'];
+                                $day = GetDayOfWeek($ngayTrongTuan);
+                                $sheet->getStyle($cot . '6')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('00B050');
+                                $sheet->getStyle($cot . '6')->getFont()->setBold(true)->setName('Times New Roman');
+                                $sheet->getStyle($cot . '6')->getAlignment()->setHorizontal('center');
+                                $sheet->getStyle($cot . '6')->getAlignment()->setVertical('center');
+                                $sheet->setCellValue($cot . '6', $day);
+
+                                $cot++;
+                            }
+                            $numRow = 8;
+                            $stt = 1;
+                            while ($rows = mysqli_fetch_array($resultgetTen1)) {
+                                $sheet->getStyle('A' . $numRow)->getAlignment()->setHorizontal('center');
+                                $sheet->getStyle('B' . $numRow)->getAlignment()->setHorizontal('left');
+
+                                $sheet->setCellValue('A' . $numRow, $stt);
+                                $sheet->setCellValue('B' . $numRow, $rows['HoNV'] . " " . $rows['TenNV']);
+
+                                $numRow++;
+                                $stt++;
+                            }
+                            $numRow = 8;
+                            $ngaytrongthang = cal_days_in_month(CAL_GREGORIAN, $_POST['thangIN'], $_POST['namIN']);
+                            $sqlgetTen = "SELECT MaNV, HoNV, TenNV from nhan_vien";
+                            $resultgetTen = mysqli_query($conn, $sqlgetTen);
+                            if (mysqli_num_rows($resultgetTen) <> 0) {
+                                while ($rowTen = mysqli_fetch_array($resultgetTen)) {
+                                    $col = "C";
+                                    for ($i = 1; $i <= $ngaytrongthang; $i++) {
+                                        $sqlgetCC = "SELECT TinhTrang, day(Ngay) as ngay from cham_cong where MaNV = '$rowTen[MaNV]' and day(Ngay) = $i and month(Ngay) = $_POST[thangIN]";
+                                        $resultgetCC = mysqli_query($conn, $sqlgetCC);
+                                        $rowCC = mysqli_fetch_array($resultgetCC);
+                                        $numCC = mysqli_num_rows($resultgetCC);
+                                        $sheet->getStyle($col . $numRow)->getAlignment()->setHorizontal('center');
+                                        if (!is_null($rowCC)) {
+                                            if ($rowCC['TinhTrang'] == 1 && $numCC == 1) {
+                                                $sheet->setCellValue($col . $numRow, "X");
+                                            } 
+                                        }else{
+                                            $sheet->getStyle($col . $numRow)->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('808080');
+                                            $sheet->setCellValue($col . $numRow, "");
+                                        }
+                                        $col++;
+                                    }
+                                    $numRow++;
+                                }
+                            }
+
+                            $sheet->mergeCells("X" . $numRow + 1 . ":AG" . $numRow + 1);
+                            $sheet->setCellValue("X" . $numRow + 1, "Nha Trang, ngày $dN tháng $mN năm $yN");
+                            $sheet->getColumnDimension("X" . $numRow + 1)->setAutoSize(true);
+                            $sheet->getStyle("X" . $numRow + 1)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("X" . $numRow + 1)->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("X" . $numRow + 2 . ":AG" . $numRow + 2);
+                            $sheet->setCellValue("X" . $numRow + 2, "Giám đốc Công ty");
+                            $sheet->getColumnDimension("X" . $numRow + 2)->setAutoSize(true);
+                            $sheet->getStyle("X" . $numRow + 2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("X" . $numRow + 2)->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("X" . $numRow + 3 . ":AG" . $numRow + 3);
+                            $sheet->setCellValue("X" . $numRow + 3, "(Ký, họ tên, đóng dấu)");
+                            $sheet->getColumnDimension("X" . $numRow + 3)->setAutoSize(true);
+                            $sheet->getStyle("X" . $numRow + 3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("X" . $numRow + 3)->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("R" . $numRow + 2 . ":U" . $numRow + 2);
+                            $sheet->setCellValue("R" . $numRow + 2, "Quản lý nhân sự");
+                            $sheet->getColumnDimension("R" . $numRow + 2)->setAutoSize(true);
+                            $sheet->getStyle("R" . $numRow + 2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("R" . $numRow + 2)->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("R" . $numRow + 3 . ":U" . $numRow + 3);
+                            $sheet->setCellValue("R" . $numRow + 3, "(Ký, họ tên)");
+                            $sheet->getColumnDimension("R" . $numRow + 3)->setAutoSize(true);
+                            $sheet->getStyle("R" . $numRow + 3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("R" . $numRow + 3)->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("L" . $numRow + 2 . ":O" . $numRow + 2);
+                            $sheet->setCellValue("L" . $numRow + 2, "Người lập bảng");
+                            $sheet->getColumnDimension("L" . $numRow + 2)->setAutoSize(true);
+                            $sheet->getStyle("L" . $numRow + 2)->getFont()->setBold(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("L" . $numRow + 2)->getAlignment()->setHorizontal('center');
+
+                            $sheet->mergeCells("L" . $numRow + 3 . ":O" . $numRow + 3);
+                            $sheet->setCellValue("L" . $numRow + 3, "(Ký, họ tên)");
+                            $sheet->getColumnDimension("L" . $numRow + 3)->setAutoSize(true);
+                            $sheet->getStyle("L" . $numRow + 3)->getFont()->setItalic(true)->setName('Times New Roman')->setSize(10);
+                            $sheet->getStyle("L" . $numRow + 3)->getAlignment()->setHorizontal('center');
+
+                            $sheet->getStyle('A5:AG' . $numRow - 1)->getBorders()->getAllBorders()->setBorderStyle(Border::BORDER_THIN)->setColor(new Color('000000'));
+                            
+                            $sheet->getColumnDimension('C')->setAutoSize(false)->setWidth(3.89);
+                            $sheet->getColumnDimension("Z")->setAutoSize(false)->setWidth(3.89);
+
+                            $writer = new Xlsx($spreadsheet);
+                            $filename = 'BangChamCongThang' . $_POST['thangIN'] . 'Nam' . $_POST['namIN'] . '.xlsx';
+                            $pathname = $_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/ExcelResults/" . 'BangChamCongThang' . $_POST['thangIN'] . 'Nam' . $_POST['namIN'] . '.xlsx';
+                            $writer->save($pathname);
+                            header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/ExcelResults/" . $filename);
+                        } else {
+                            echo "Ko thể xuất file Excel do chưa có dữ liệu";
+                        }
+                    }
+                    ?>
                     <div class="phanTrang" align="center">
                         <?php
                         $maxPage = ceil($numRows / $rowsPerPage);
