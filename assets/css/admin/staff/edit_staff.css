@@ -29,6 +29,9 @@ tbody {
     font-weight: bold;
     height: 597px;
 }
+h2{
+    text-align: center;
+}
 .label-info{
     width: 15%;
     text-align: right;
@@ -37,14 +40,10 @@ tbody {
 .info{
     width: 35%;
 }
-h2{
-    text-align: center;
-}
-
-.btn-purple{
+.btn-purple {
+    margin-top: 20px;
     background-color: #7b6bff;
     color: white;
-    margin-top: 20px;
 }
 
 .btn-purple:hover{
