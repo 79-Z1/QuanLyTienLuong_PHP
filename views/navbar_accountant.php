@@ -33,7 +33,7 @@
                 <li class="nav-item" data-active="6">
                     <a class="nav-link" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=notification" ?>"><i class="bi bi-bell"></i>Thông báo</a>
                 </li>
-                <li class="nav-item" data-active="7">
+                <li class="nav-item" data-active="7" id="Logout">
                     <a class="nav-link"> <i class="bi bi-box-arrow-left"></i> Logout </a>
                 </li>
             </ul> <!-- Divider -->

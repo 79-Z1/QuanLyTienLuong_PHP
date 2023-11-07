@@ -38,7 +38,7 @@ $(document).ready(async function () {
         }
     }
 
-    $(".navbar-nav").find(`[data-active='7']`).on('click', () => {
+    $("#Logout").on('click', () => {
         sessionStorage.clear();
         localStorage.clear();
         clearAllCookie();
