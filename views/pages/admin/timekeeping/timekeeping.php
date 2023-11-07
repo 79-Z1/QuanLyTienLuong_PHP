@@ -53,7 +53,6 @@ $sqlTimKiem =
 
     $sqlTimKiem .= "order by MaCong";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-    echo $sqlTimKiem ;
     $numRows = mysqli_num_rows($resultTimKiem);
     
     
@@ -199,7 +198,7 @@ a {
                             </td>
                             <td>
                                 <select name="tinhTrang" class="form-select search-option">
-                                    <option value="-1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '1') echo " selected"; ?>>Trống</option>
+                                    <option value="-1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '-1') echo " selected"; ?>>Trống</option>
                                     <option value="0" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '0') echo " selected"; ?>>Nghỉ</option>
                                     <option value="1" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '1') echo " selected"; ?>>Đi làm</option>
                                 </select>    
@@ -210,7 +209,7 @@ a {
                             </td>
                             <td>
                                 <select name="nghiHL" class="form-select search-option">
-                                    <option value="-1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '1') echo " selected"; ?>>Trống</option>
+                                    <option value="-1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '-1') echo " selected"; ?>>Trống</option>
                                     <option value="0" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '0') echo " selected"; ?>>Không hưởng lương</option>
                                     <option value="1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '1') echo " selected"; ?>>Có hưởng lương</option>
                                     
