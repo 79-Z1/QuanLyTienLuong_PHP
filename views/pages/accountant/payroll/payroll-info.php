@@ -169,9 +169,13 @@ if (isset($_POST['tinh'])) {
 
     if($tienPhat < 0 ){
         $err[] = "Vui lòng nhập tiền phạt lớn hơn 0";
+    }else if($tienPhat > 5000000 ){
+        $err[] = "Vui lòng nhập tiền phạt nhỏ hơn 5000000";
     }
     if($tienThuong < 0 ){
         $err[] = "Vui lòng nhập tiền thưởng lớn hơn 0";
+    }else if($tienThuong > 5000000 ){
+        $err[] = "Vui lòng nhập tiền thưởng nhỏ hơn 5000000";
     }
 
     if(empty($err)){
