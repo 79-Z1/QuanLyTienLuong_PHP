@@ -61,8 +61,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
             $sqlupdate = "UPDATE `cham_cong` SET `MaCong`='$macong',`MaNV`='$MaNV',`TinhTrang`=$tinhTrang,`NghiHL`=$nghiHL,`Ngay`='$ngay' 
             WHERE MaCong='$macong'";
             $resultupdate = mysqli_query($conn, $sqlupdate);
-            echo "<script type='text/javascript'>toastr.success('sửa tài khoản thành công'); toastr.options.timeOut = 3000;</script>";
-            echo $sqlupdate;
+            echo "<script type='text/javascript'>toastr.success('Sửa chấm công thành công'); toastr.options.timeOut = 3000;</script>";
         }
         else {
             foreach ($err as $error) {
@@ -128,12 +127,19 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                                 <p>Tình trạng</p>
                             </td>
                             <td class="<?php if($tinhTrang == "") echo 'required'; ?>">
-                            <input class="form-control me-2 search-input" type="text" name="tinhTrang" value="<?php echo $tinhTrang; ?>"></td>
-                            
+                            <select name="tinhTrang" class="form-select search-option">
+                                    <option value="0" <?php if($tinhTrang == '0') echo " selected"; ?>>Nghỉ</option>
+                                    <option value="1" <?php if($tinhTrang == '1') echo " selected"; ?>>Đi làm</option>
+                            </select>   
                             <td>
                                 <p>Nghỉ hưởng lương</p>
                             </td>
-                            <td class="<?php if($nghiHL == "") echo 'required'; ?>"><input class="form-control me-2 search-input" type="text" name="nghiHL" value="<?php echo $nghiHL; ?>"></td>
+                            <td class="<?php if($nghiHL == "") echo 'required'; ?>">
+                            
+                            <select name="nghiHL" class="form-select search-option">
+                                    <option value="0" <?php if($nghiHL == '0') echo " selected"; ?>>Không hưởng lương</option>
+                                    <option value="1" <?php if($nghiHL == '1') echo " selected"; ?>>Có hưởng lương</option>
+                            </select>   
                         </tr>
 
                         <tr>

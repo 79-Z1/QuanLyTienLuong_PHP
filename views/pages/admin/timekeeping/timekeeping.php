@@ -23,18 +23,15 @@ if (isset($_GET['nghiHL']))
     $nghiHL = $_GET['nghiHL'];
 else $nghiHL = "";
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
-if (!isset($_GET['p'])) {
-    $_GET['p'] = 1;
-}
-//vị trí của mẩu tin đầu tiên trên mỗi trang
-$offset = ($_GET['p'] - 1) * $rowsPerPage;
+
+$sqlNV = 'select * from nhan_vien';
+$resultNV = mysqli_query($conn, $sqlNV);
 
 $sqlTimKiem =
     "select * from cham_cong
     where  1
     ";
-    
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     
     if (isset($_GET['timkiem'])) {
         if ($maCong != "") {
@@ -43,27 +40,25 @@ $sqlTimKiem =
     if ($maNV != "") {
         $sqlTimKiem .= "and MaNV = '$maNV'";
     }
-    if ($tinhTrang != "") {
+    if ($tinhTrang != -1) {
         $sqlTimKiem .= "and TinhTrang = '$tinhTrang'";
     }
     if ($ngay != "") {
         $sqlTimKiem .= "and Ngay = '$ngay'";
     }
-    if ($nghiHL !=  "") {
+    if ($nghiHL !=  -1) {
         $sqlTimKiem .= "and NghiHL = '$nghiHL'";
     }
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+
     $sqlTimKiem .= "order by MaCong";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    echo $sqlTimKiem ;
     $numRows = mysqli_num_rows($resultTimKiem);
-    $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
-    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    
+    
 
-       //tổng số trang
-                $maxPage = ceil($numRows / $rowsPerPage);
-}else{
-    $sqlTimKiem;
-    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+       
 }
 
 
@@ -160,6 +155,10 @@ a {
     font-size: 12px;
     color: #666;
 }
+    .bi{
+        font-size: 20px;
+    
+    }
 </style>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
@@ -177,19 +176,46 @@ a {
                             <td>
                                 <p>Mã nhân viên</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
+                            <td>
+                                <select name="maNV" class="form-select search-option">
+                                    <option value="">Trống</option>
+                                    <?php
+                                    if (mysqli_num_rows($resultNV) <> 0) {
+
+                                        while ($rows = mysqli_fetch_array($resultNV)) {
+                                            echo "<option";
+                                            if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
+                                            echo ">$rows[MaNV]</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>    
+                            </td>
                         </tr>
 
                         <tr>
                             <td>
                                 <p>Tình trạng</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="tinhTrang" value="<?php echo $tinhTrang; ?>"></td>
+                            <td>
+                                <select name="tinhTrang" class="form-select search-option">
+                                    <option value="-1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '1') echo " selected"; ?>>Trống</option>
+                                    <option value="0" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '0') echo " selected"; ?>>Nghỉ</option>
+                                    <option value="1" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '1') echo " selected"; ?>>Đi làm</option>
+                                </select>    
+                            </td>
                             
                             <td>
                                 <p>Nghỉ hưởng lương</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="nghiHL" value="<?php echo $nghiHL; ?>"></td>
+                            <td>
+                                <select name="nghiHL" class="form-select search-option">
+                                    <option value="-1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '1') echo " selected"; ?>>Trống</option>
+                                    <option value="0" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '0') echo " selected"; ?>>Không hưởng lương</option>
+                                    <option value="1" <?php if (isset($_GET['nghiHL']) && $_GET['nghiHL'] == '1') echo " selected"; ?>>Có hưởng lương</option>
+                                    
+                                </select>
+                            </td>
                         </tr>
 
                         <tr >
@@ -232,7 +258,7 @@ a {
                     <th scope="col">mã nhân viên</th>
                     <th scope="col">tình trạng</th>
                     <th scope="col">ngày</th>
-                    <th scope="col">nghỉ hưởng lương</th>
+                    <th class="text-center" scope="col">nghỉ hưởng lương</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -244,12 +270,23 @@ a {
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
 
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
+                        if($rows['TinhTrang'] == 0){
+                            $tt = "Nghỉ";
+                        }else{
+                         $tt = "Đi làm";
+                        }
+
+                        if($rows['NghiHL'] == 0){
+                            $offHL = "<i  style='color:red' class='bi bi-x-circle'></i>";
+                        }else{
+                         $offHL = " <i style='color:green' class='bi bi-check-circle'></i>";
+                        }
                         echo "<tr>
                             <td >{$rows['MaCong']}</td>
                             <td >{$rows['MaNV']} </td>
-                            <td >{$rows['TinhTrang']} </td>
+                            <td >{$tt} </td>
                             <td >{$rows['Ngay']} </td>
-                            <td >{$rows['NghiHL']} </td>
+                            <td align='center' >{$offHL} </td>
                             <td>
                             <a href='index.php?page=admin-timekeeping-edit&MaCong={$rows['MaCong']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                             <a href='index.php?page=admin-timekeeping-delete&MaCong={$rows['MaCong']}'><i style='color:red' class='bi bi-person-x'></i></a>
@@ -267,16 +304,16 @@ a {
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . (1) . ">Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
     } else
-        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&maCong=$maCong&maNV=$maNV&tinhTrang=$tinhTrang&nghiHL=$nghiHL&ngay=$ngay&timkiem=Tìm+kiếm&page=admin-timekeeping&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($maxPage) . ">Về cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>
