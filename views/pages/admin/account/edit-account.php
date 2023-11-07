@@ -22,12 +22,9 @@ if (isset($_POST['matKhau']))
     $matKhau = trim($_POST['matKhau']);
 
 
-if (isset($_POST['loaiTK']))
+if (isset($_POST['loaiTK'])){
     $loaiTK = $_POST['loaiTK'];
-
-
-if (isset($_POST['MaNV']))
-    $maNV = $_POST['MaNV'];
+} else $loaiTK = $row['LoaiTK'];
 
 
 if (isset($_POST['edit'])) {
@@ -39,20 +36,12 @@ if (isset($_POST['edit'])) {
     if (empty($loaiTK)) {
         $err[] = "Vui lòng nhập loại tài khoản";
     }
-    if (empty($maNV)) {
-        $err[] = "Vui lòng nhập mã nhân viên";
-    }
-    // if (empty($HSL)) {
-    //     $err[] = "Vui lòng nhập hệ số lương";
-    // } elseif (!is_numeric($HSL)) {
-    //     $err[] = "Hệ số lương phải là một số";
-    // }
+    
 
     if (empty($err)) {
         $tenTK = $_GET['TenTK'];
         $loaiTK = $_POST['loaiTK'];
-        $maNV = $_POST['maNV'];
-        $sqlupdate = "UPDATE `tai_khoan` SET `TenTK`='$tenTK',`MatKhau`='$matKhau',`LoaiTK`='$loaiTK',`MaNV`='$maNV'
+        $sqlupdate = "UPDATE `tai_khoan` SET `MatKhau`='$matKhau',`LoaiTK`='$loaiTK'
         WHERE TenTK='$tenTK'";
         
         $resultupdate = mysqli_query($conn, $sqlupdate);
@@ -81,20 +70,8 @@ if (isset($_POST['edit'])) {
                                     value="<?php echo $row["TenTK"]; ?> " disabled /></td>
                             
                                 <td>Mã nhân viên</td>
-                                <td>            
-                                <select name="maNV" class="form-select search-option">
-                                        <?php
-                                        if (mysqli_num_rows($resultmanv ) <> 0) {
-
-                                            while ($rows = mysqli_fetch_array($resultmanv )) {
-                                                echo "<option value='$rows[MaNV]'";
-                                                if (isset($_POST['MaNV']) && $_POST['MaNV'] == $rows['MaNV'] || $rows['MaNV']==$row['MaNV'] ) echo "selected";
-                                                echo ">$rows[MaNV]</option>";
-                                            }
-                                        }
-                                        ?>
-                                    </select>
-                                </td>
+                                <td><input class="form-control py-2" type="text" size="20" name="MaNV"
+                                    value="<?php echo $row["MaNV"]; ?> " disabled /></td>
                         </tr>
                         <tr class="tr">
                         
@@ -104,12 +81,12 @@ if (isset($_POST['edit'])) {
                             <td>Loại tài khoản</td>
                             <td >
                             <select class="form-select search-option" name="loaiTK" >
-                                <optgroup>
-                                    <option value="AD">Người Quản Trị</option>
-                                    <option value="QL">Quản Lí</option>
-                                    <option value="KT">Kế Toán</option>
-                                    <option value="NV">Nhân viên</option>                                    
-                                </optgroup>
+                               
+                                    <option value="AD" <?php if($loaiTK == 'AD') echo " selected"; ?>>Người Quản Trị</option>
+                                    <option value="QL" <?php if($loaiTK == 'QL') echo " selected"; ?>>Quản Lí</option>
+                                    <option value="KT" <?php if($loaiTK == 'KT') echo " selected"; ?>>Kế Toán</option>
+                                    <option value="NV" <?php if($loaiTK == 'NV') echo " selected"; ?>>Nhân viên</option>                                    
+                                    
                             </select>
                             </td>
                             

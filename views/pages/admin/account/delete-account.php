@@ -63,27 +63,37 @@ if (isset($_POST['delete'])) {
 
                             <td>Loại tài khoản</td>
                             <td >
-                            <select class="form-control py-2" name="loaiTK" disabled >
-                                <optgroup>
-                                    <option value="AD">Người Quản Trị</option>
-                                    <option value="QL">Quản Lí</option>
-                                    <option value="KT">Kế Toán</option>
-                                    <option value="NV">Nhân viên</option>                                    
-                                </optgroup>
-                            </select>
-                            </td>
+                            <input class="form-control py-2" type="text" name="loaiTK" value="<?php echo $loaiTK; ?> " disabled/></td>
                             
                             
                         </tr>
                         <tr>
                         <td id="no_color" align="center" colspan="5">
-                                <input type="submit" value="Xóa" name="delete"
-                                    class="btn btn-outline-purple deleteTaikhoann-btn mb-5 w-25" />
+                        <button class="btn btn-danger deleteTaikhoann-btn mb-5 w-25" 
+                        type="button" data-bs-toggle="modal" data-bs-target="#xacnhanxoa">Xoá</button>                       
                                 <a class="btn btn-outline-purple deleteTaikhoann-btn mb-5 w-25"
                                     href="index.php?page=admin-account"> Quay Lại</a>
                             </td>
                         </tr>
                     </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div><div class="modal fade" id="xacnhanxoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xoá nhân viên <strong><?php echo $row["TenTK"]; ?></strong> không?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form action="" method="post">
+                    <input id="delete" class="btn btn-danger" type="submit" value="Xoá" name="delete" />
                 </form>
             </div>
         </div>
