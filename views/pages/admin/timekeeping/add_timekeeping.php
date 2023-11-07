@@ -15,7 +15,6 @@ else $maCong = "";
 
 if (isset($_POST['maNV']))
     $maNV = trim($_POST['maNV']);
-else $maNV = "";
 
 if (isset($_POST['tinhTrang']))
     $tinhTrang = trim($_POST['tinhTrang']);
@@ -59,12 +58,7 @@ if (isset($_POST['them'])) {
 
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('thêm thành công'); toastr.options.timeOut = 3000;</script>";
-            // làm mới giá trị
-            $maCong = "";
-            $maNV = ""; 
-            $tinhTrang = "";
-            $ngay = "";
-            $nghiHL = "";
+
            
         } else {
             // echo "Lỗi: " . mysqli_error($conn);
@@ -105,7 +99,7 @@ if (isset($_POST['them'])) {
                         <td>Mã nhân viên</td>
                         <td>            
                         <select name="maNV" class="form-select search-option">
-                                <option value="">Trống</option>
+                                
                                 <?php
                                 if (mysqli_num_rows($resultmanv ) <> 0) {
 
@@ -124,11 +118,17 @@ if (isset($_POST['them'])) {
                         <td>Tình trạng</td>
                     <td>
                         <td>
-                            <input class="form-control py-2" type="text" size="20" name="tinhTrang" value="<?php echo $tinhTrang; ?> " /></td>
+                             <select name="tinhTrang" class="form-select search-option">
+                                    <option value="0" <?php if (isset($_POST['tinhTrang']) && $_POST['tinhTrang'] == '0') echo " selected"; ?>>Nghỉ</option>
+                                    <option value="1" <?php if (isset($_POST['tinhTrang']) && $_POST['tinhTrang'] == '1') echo " selected"; ?>>Đi làm</option>
+                            </select>        
                         </td>
                         <td>Nghỉ Hưởng Lương</td>
                         <td>
-                            <input class="form-control py-2" type="text" size="20" name="nghiHL" value="<?php echo $nghiHL; ?> "/></td>
+                             <select name="nghiHL" class="form-select search-option">
+                                    <option value="0" <?php if (isset($_POST['nghiHL']) && $_POST['nghiHL'] == '0') echo " selected"; ?>>Không hưởng lương</option>
+                                    <option value="1" <?php if (isset($_POST['nghiHL']) && $_POST['nghiHL'] == '1') echo " selected"; ?>>Có hưởng lương</option>
+                                </select>        
                         </td>
                     </tr>
 
@@ -141,7 +141,7 @@ if (isset($_POST['them'])) {
                     <tr>
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"/>
-                        <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"
+                        <a class="btn btn-outline-purple addDepartmen-btn mb-5 w-25"
                                     href="index.php?page=admin-timekeeping"> Quay Lại</a>
                         </td>
                     </tr>
