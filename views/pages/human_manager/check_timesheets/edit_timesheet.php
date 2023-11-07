@@ -26,7 +26,7 @@ $numrow = mysqli_num_rows($resultTC);
 if($numrow == 1){
     $tc = mysqli_fetch_array($resultTC);
     $loaiTC = $tc['LoaiTC'];
-}
+}else $loaiTC = -1;
 
 $hoten = $nv['HoNV'] . ' ' . $nv['TenNV'];
 $phong = $nv['TenPhong'];
@@ -52,7 +52,7 @@ $maTangCa = TaoMaTangCa($date, $i);
 if (isset($_POST['xacnhan'])) {
 
     if(isset($_POST["tinhTrang"])){
-        $tinhTrang = $_POST["nghiHL"];
+        $tinhTrang = $_POST["tinhTrang"];
     }
     if(isset($_POST["tangCa"])){
         $loaiTC = $_POST["tangCa"];
