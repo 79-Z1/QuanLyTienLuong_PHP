@@ -109,23 +109,23 @@ switch ($page) {
         break;
 
     case 'admin-staff':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'staff/admin_staff.css']);
         echo $template->render('pages/admin/staff/staff', []);
         break;
     case 'add-staff':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'staff/add_staff.css']);
         echo $template->render('pages/admin/staff/add_staff', []);
         break;
     case 'edit-staff':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'staff/edit_staff.css']);
         echo $template->render('pages/admin/staff/edit_staff', []);
         break;
     case 'detail-staff':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'staff/detail_staff.css']);
         echo $template->render('pages/admin/staff/detail_staff', []);
         break;
     case 'delete-staff':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'staff/delete_staff.css']);
         echo $template->render('pages/admin/staff/delete_staff', []);
         break;
     case 'admin-paycheck-add-paycheck':

@@ -1,54 +1,5 @@
 <?php $this->layout('layout_admin') ?>
 <?php $this->section('content'); ?>
-<style>
-	.profile-left-container {
-		margin-right: 30px;
-	}
-
-	ul li span {
-		font-size: 30px !important;
-	}
-
-	img {
-		width: 100%;
-		height: 100%;
-	}
-
-	button,
-	.btn {
-		background-color: #007bff;
-		color: #fff;
-		padding: 10px 20px;
-		border: none;
-		cursor: pointer;
-	}
-
-	.modal button {
-		background-color: #007bff;
-		color: #fff;
-		padding: 10px 20px;
-		border: none;
-		cursor: pointer;
-	}
-
-	.modal button:hover {
-		background-color: #0056b3;
-	}
-
-	.card {
-		height: 615px;
-
-	}
-	h6{
-		font-size: 23px!important;
-	}
-	.hr{
-		border: 1px solid!important;
-		width: 100%;
-		opacity: 0.25;
-		margin: 15px 2px;
-	}
-</style>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");

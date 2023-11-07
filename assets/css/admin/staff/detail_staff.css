@@ -13,35 +13,21 @@ img {
 
 button,
 .btn {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.modal button {
-    background-color: #007bff;
     color: #fff;
     padding: 10px 20px;
     border: none;
     cursor: pointer;
-}
-
-.modal button:hover {
-    background-color: #0056b3;
-    color: #fff;
 }
 
 .card {
     height: 615px;
 
 }
-
-h6 {
-    font-size: 23px !important;
+h6{
+    font-size: 23px!important;
 }
-
-.hr {
-    border: 1px solid !important;
+.hr{
+    border: 1px solid!important;
     width: 100%;
     opacity: 0.25;
     margin: 15px 2px;
