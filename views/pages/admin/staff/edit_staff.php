@@ -31,7 +31,6 @@ $Email = $nv['Email'];
 
 $newhinh = $nv['Hinh'];
 
-
 $err = array();
 
 $allowed = array('image/jpeg', 'image/png');
@@ -171,63 +170,30 @@ if (isset($_POST['chinhsua'])) {
     }
 }
 ?>
-<style>
-    .form-control.form-select {
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-
-    }
-
-    .form-control {
-        width: 75%;
-        padding-left: 20px;
-    }
-
-    .form-select {
-        width: 75%;
-        padding-left: 20px;
-    }
-
-    .form-date-control {
-        text-align: center;
-        width: 23%;
-    }
-
-    .form-control-img {
-        width: 50%;
-
-    }
-
-    tbody {
-
-        font-weight: bold;
-        height: 597px;
-    }
-</style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">CHỈNH SỬA NHÂN VIÊN</h5>
+                <h2 class="mb-0">CHỈNH SỬA NHÂN VIÊN</h2>
             </div>
             <div class="table-responsive">
                 <form align='center' action="" method="post" enctype="multipart/form-data">
                     <table class="table table-hover table-nowrap">
-                        <tr>
-                            <td>Mã nhân viên</td>
+                    <tr>
+                            <td class="label-info">Mã nhân viên</td>
                             <td><input class="form-control py-2" type="text" size="20" name="maNV" value="<?php echo $maNV; ?> " disabled="disabled" /></td>
-                            <td>Số con</td>
-                            <td class="<?php if ($soCon == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
+                            <td class="label-info">Số con</td>
+                            <td class="info <?php if ($soCon == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="soCon" value="<?php echo $soCon; ?> " /></td>
                         </tr>
                         <tr>
-                            <td>Họ </td>
-                            <td class="<?php if ($hoNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
-                            <td>Tên</td>
-                            <td class="<?php if ($tenNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
+                            <td class="label-info">Họ </td>
+                            <td class="info <?php if ($hoNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" size="20" name="hoNV" value="<?php echo $hoNV; ?> " /></td>
+                            <td class="label-info">Tên</td>
+                            <td class="info <?php if ($tenNV == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="tenNV" value="<?php echo $tenNV; ?> " /></td>
                         </tr>
                         <tr>
-                            <td>Phòng</td>
-                            <td>
+                            <td class="label-info">Phòng</td>
+                            <td class="info">
                                 <select class="form-select py-2" name="phong">
                                     <?php
                                     if (mysqli_num_rows($resultPhongBan) <> 0) {
@@ -239,9 +205,9 @@ if (isset($_POST['chinhsua'])) {
                                     }
                                     ?>
                                 </select>
-                            </td>
-                            <td>Chức Vụ</td>
-                            <td>
+                            </td >
+                            <td class="label-info">Chức Vụ</td>
+                            <td class="info">
                                 <select class="form-select py-2" name="chucVu">
                                     <?php
                                     if (mysqli_num_rows($resultChucVu) <> 0) {
@@ -256,34 +222,34 @@ if (isset($_POST['chinhsua'])) {
                             </td>
                         </tr>
                         <tr>
-                            <td>Ngày sinh</td>
-                            <td class="<?php if ($ngaySinh == "") echo 'required'; ?>"><input class="form-date-control py-2" type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
-                            <td>CCCD</td>
-                            <td class="<?php if ($cccd == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
+                            <td class="label-info">Ngày sinh</td>
+                            <td class="info <?php if ($ngaySinh == "") echo 'required'; ?>"><input class="form-date-control py-2" type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
+                            <td class="label-info">CCCD</td>
+                            <td class="info <?php if ($cccd == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
                         </tr>
                         <tr>
-                            <td>Giới tính</td>
-                            <td>
+                            <td class="label-info">Giới tính</td>
+                            <td class="info">
                                 <input type="radio" name="radGT" value="1" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '1' || $nv['GioiTinh'] == '1') echo 'checked="checked"'; ?> checked />
                                 Nam
                                 <input type="radio" name="radGT" value="0" <?php if (isset($_POST['radGT']) && $_POST['radGT'] == '0' || $nv['GioiTinh'] == '0') echo 'checked="checked"'; ?> />
                                 Nữ
                             </td>
-                            <td>Số tài khoản</td>
-                            <td class="<?php if ($stk == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="stk" value="<?php echo $stk; ?> " /></td>
+                            <td class="label-info">Số tài khoản</td>
+                            <td class="info <?php if ($stk == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="stk" value="<?php echo $stk; ?> " /></td>
                         </tr>
                         <tr>
-                            <td>Số điện thoại</td>
-                            <td class="<?php if ($sdt == "") echo 'required'; ?>">
+                            <td class="label-info">Số điện thoại</td>
+                            <td class="info <?php if ($sdt == "") echo 'required'; ?>">
                                 <input class="form-control py-2" type="text" name="soDienThoai" value="<?php echo $sdt; ?> " />
                             </td>
-                            <td>Địa chỉ</td>
-                            <td class="<?php if ($diaChi == "") echo 'required'; ?>">
+                            <td class="label-info">Địa chỉ</td>
+                            <td class="info <?php if ($diaChi == "") echo 'required'; ?>">
                                 <input class="form-control py-2" type="text" name="diaChi" value="<?php echo $diaChi; ?> " />
                             </td>
                         </tr>
                         <tr>
-                            <td>
+                            <td class="label-info">
                                 Ảnh nhân viên <br>
                             </td>
                             <td>
@@ -291,13 +257,13 @@ if (isset($_POST['chinhsua'])) {
                                 <br>
                                 <input class="form-control-img" type="file" id="formFile" name="imgnv">
                             </td>
-                            <td>Email</td>
-                            <td class="<?php if ($Email == "") echo 'required'; ?>">
+                            <td class="label-info">Email</td>
+                            <td class="info <?php if ($Email == "") echo 'required'; ?>">
                                 <input class="form-control py-2" type="text" name="email" value="<?php echo $Email; ?> " />
                             </td>
                         </tr>
                     </table>
-                    <input style="margin-top:20px" type="submit" value="Xác nhận" name="chinhsua" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
+                    <input style="margin-top:20px" type="submit" value="Lưu" name="chinhsua" class="btn btn-purple mb-5 w-25" />
                 </form>
             </div>
         </div>

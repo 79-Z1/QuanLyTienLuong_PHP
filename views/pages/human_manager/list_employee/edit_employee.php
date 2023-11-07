@@ -266,7 +266,7 @@ if (isset($_POST['chinhsua'])) {
                         </tr>
                         <tr>
                             <td id="no_color" colspan="4" align="center">
-                                <input type="submit" value="Lưu" name="chinhsua" class="btn btn-purple themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Lưu" name="chinhsua" class="btn btn-purple mb-5 w-25" />
                             </td>
                         </tr>
                     </table>
