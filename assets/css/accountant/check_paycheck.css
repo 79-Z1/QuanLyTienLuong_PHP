@@ -1,0 +1,82 @@
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+td {
+	padding: 5px;
+	padding-right: 20px;
+}
+
+.table-hover tbody td {
+	padding: 13px 10px 13px 25px;
+}
+
+.table-hover tbody td a i {
+	font-size: 22px;
+	margin-right: 8px;
+}
+
+p {
+	font-size: 18px;
+	font-weight: bold;
+	height: 30px;
+}
+
+label {
+	margin-right: 5px;
+}
+
+.form-select {
+	padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+
+.card .navbar {
+	padding: 0;
+	border-radius: 10px;
+}
+
+.larger-text {
+	font-size: 20px;
+	margin-right: 20px;
+}
+
+.form-control {
+	height: 30px;
+}
+
+a {
+	text-decoration: none;
+	color: blue;
+	font-size: 16px;
+}
+
+.search-btn {
+	width: 100%;
+}
+
+.search-btn span {
+	margin-right: 5px;
+}
+
+.pagination-link {
+	display: inline-block;
+	padding: 3px 5px;
+	margin: 1px;
+	border: 1px solid #ccc;
+	text-decoration: none;
+	color: #333;
+	font-size: 12px;
+	border-radius: 15px;
+}
+
+.pagination-link.active {
+	background-color: #333;
+	color: #fff;
+}
+
+.pagination-link:not(.active) {
+	font-weight: 400;
+	font-size: 12px;
+	color: #666;
+}

@@ -1,96 +1,11 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    td {
-        padding: 5px;
-        padding-right: 20px;
-
-    }
-
-    .table-hover tbody td {
-        padding: 13px 10px 13px 25px;
-
-    }
-
-    .table-hover tbody td a i {
-        font-size: 22px;
-        margin-right: 8px;
-    }
-
-    p {
-        font-size: 18px;
-        font-weight: bold;
-        height: 30px;
-    }
-
-    label {
-        margin-right: 5px;
-    }
-
-    .form-select {
-        padding: 0.375rem 2.25rem 0.375rem 0.75rem;
-    }
-
-    .card .navbar {
-        padding: 0;
-        border-radius: 10px;
-    }
-
-    .larger-text {
-        font-size: 20px;
-        /* Điều chỉnh kích thước chữ theo nhu cầu */
-        margin-right: 20px;
-        /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
-    }
-
-    .form-control {
-        height: 30px;
-    }
-
-    a {
-        text-decoration: none;
-        color: blue;
-        font-size: 16px;
-    }
-
-    .search-btn {
-        width: 100%;
-
-    }
-
-    .search-btn span {
-        margin-right: 5px;
-    }
-
-    .pagination-link {
-        display: inline-block;
-        padding: 3px 5px;
-        margin: 1PX;
-        border: 1px solid #ccc;
-        text-decoration: none;
-        color: #333;
-        font-size: 12px;
-        border-radius: 15px;
-    }
-
-    .pagination-link.active {
-        background-color: #333;
-        color: #fff;
-
-    }
-
-    .pagination-link:not(.active) {
-        font-weight: 400;
-        font-size: 12px;
-        color: #666;
-    }
-</style>
-
+<?php
+function money_format($tien)
+{
+    return number_format($tien, 0, ',', '.');
+}
+?>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
@@ -135,36 +50,34 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
 //lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
 
 $sqlTimKiem =
-    "select *, TenPhong, TenChucVu from nhan_vien, chuc_vu, phong_ban,phieu_luong
-            where nhan_vien.MaPhong = phong_ban.MaPhong 
-            and nhan_vien.MaChucVu = chuc_vu.MaChucVu
-            and nhan_vien.MaNV = phieu_luong.MaNV
+    "SELECT *, TenPhong, TenChucVu FROM nhan_vien, chuc_vu, phong_ban,phieu_luong
+            WHERE nhan_vien.MaPhong = phong_ban.MaPhong 
+            AND nhan_vien.MaChucVu = chuc_vu.MaChucVu
+            AND nhan_vien.MaNV = phieu_luong.MaNV
         ";
 
 if (isset($_GET['timkiem'])) {
     if ($maNV != "") {
-        $sqlTimKiem .= " and nhan_vien.MaNV = '$maNV'";
+        $sqlTimKiem .= " AND nhan_vien.MaNV = '$maNV'";
     }
     if ($hoTen != "") {
-        $sqlTimKiem .= " and concat(HoNV,' ',TenNV) like '%$hoTen%'";
+        $sqlTimKiem .= " AND concat(HoNV,' ',TenNV) LIKE '%$hoTen%'";
     }
     if ($maPhong != "") {
-        $sqlTimKiem .= " and nhan_vien.MaPhong = '$maPhong'";
+        $sqlTimKiem .= " AND nhan_vien.MaPhong = '$maPhong'";
     }
     if ($maChucVu != "") {
-        $sqlTimKiem .= " and nhan_vien.MaChucVu = '$maChucVu'";
+        $sqlTimKiem .= " AND nhan_vien.MaChucVu = '$maChucVu'";
     }
     if ($thang != "") {
-        $sqlTimKiem .= " and Thang = $thang";
+        $sqlTimKiem .= " AND Thang = $thang";
     }
     if ($nam != "") {
-        $sqlTimKiem .= " and Nam = $nam";
+        $sqlTimKiem .= " AND Nam = $nam";
     }
-
-
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 }
-$sqlTimKiem .= " order by nhan_vien.MaNV";
+$sqlTimKiem .= " ORDER BY nhan_vien.MaNV";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 $numRows = mysqli_num_rows($resultTimKiem);
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
@@ -237,7 +150,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         </tr>
                         <tr>
                             <td align="center" colspan="6">
-                                <input type="text" name="page" value="accountant-check-paycheck" style="display: none"> 
+                                <input type="text" name="page" value="accountant-check-paycheck" style="display: none">
                                 <input style="width:150" class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
                         </tr>
@@ -252,15 +165,12 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
-                <tr>
-                    <th scope="col">mã phiếu lương</th>
-                    <th scope="col">mã nhân viên</th>
-                    <th scope="col">họ tên</th>
-                    <th scope="col">chức vụ</th>
-                    <th scope="col">phòng</th>
-                    <th scope="col">số ngày công</th>
-                    <th scope="col">số ngày vắng</th>
-                </tr>
+                <th scope="col">mã nhân viên</th>
+                <th scope="col">họ tên</th>
+                <th scope="col">chức vụ</th>
+                <th scope="col">tiền lương tháng</th>
+                <th scope="col">tổng thu nhập</th>
+                <th scope="col">thực lĩnh</th>
             </thead>
 
             <tbody>
@@ -269,22 +179,21 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                 //tổng số trang
                 $maxPage = floor($numRows / $rowsPerPage) + 1;
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
-
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
-                        echo "<tr  >
-                         <td >{$rows['MaPhieuLuong']}</td>
-                            <td >{$rows['MaNV']}</td>
-                            <td >{$rows['HoNV']} {$rows['TenNV']}</td>
-                            <td >{$rows['TenChucVu']}</td>
-                            <td >{$rows['TenPhong']}</td>
-                            <td >{$rows['SoNgayCong']}</td>
-                            <td >{$rows['SoNgayVang']}</td>
-                            <td ><a href='index.php?page=accountant-detail-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
-                            <td ><a href='index.php?page=accountant-edit-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
-                            </tr>";
-                    }
-                }
                 ?>
+                        <tr>
+                            <td><?=$rows['MaNV']?></td>
+                            <td><?=$rows['HoNV']. $rows['TenNV']?></td>
+                            <td><?=$rows['TenChucVu']?></td>
+                            <td><?=number_format($rows['TienLuongThang'])?> VNĐ</td>
+                            <td><?=number_format($rows['TongThuNhap'])?> VNĐ</td>
+                            <td><?=number_format($rows['ThucLinh'])?> VNĐ</td>
+                            <td><a href='index.php?page=accountant-detail-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            <td><a href='index.php?page=accountant-edit-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
+                        </tr>
+                <?php
+                    }
+                } ?>
             </tbody>
         </table>
     </div>
