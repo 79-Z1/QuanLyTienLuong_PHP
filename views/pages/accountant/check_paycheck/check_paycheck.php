@@ -188,8 +188,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td><?=number_format($rows['TienLuongThang'])?> VNĐ</td>
                             <td><?=number_format($rows['TongThuNhap'])?> VNĐ</td>
                             <td><?=number_format($rows['ThucLinh'])?> VNĐ</td>
-                            <td><a href='index.php?page=accountant-detail-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
-                            <td><a href='index.php?page=accountant-edit-paycheck&MaPL=$rows[MaPhieuLuong]&MaNV=$rows[MaNV]'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
+                            <td><a href='index.php?page=accountant-detail-paycheck&MaPL=<?=$rows['MaPhieuLuong']?>&MaNV=<?=$rows['MaNV']?>'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            <td><a href='index.php?page=accountant-edit-paycheck&MaPL=<?=$rows['MaPhieuLuong']?>&MaNV=<?=$rows['MaNV']?>'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
                         </tr>
                 <?php
                     }
