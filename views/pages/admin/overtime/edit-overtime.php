@@ -25,10 +25,10 @@ if (isset($_POST["loaiTC"])) {
 }
 if (!isset($_POST["ngayTC"])) {
     $_POST['ngayTC'] = $ngayTC;
- }
+}
 
 if (isset($_POST['edit'])) {
-    
+
     $err = array();
 
     if (empty($maTC)) {
@@ -37,7 +37,7 @@ if (isset($_POST['edit'])) {
     if (empty($ngayTC)) {
         $err[] = "Vui lòng nhập ngày tháng";
     }
-     if ($loaiTC > 2) {
+    if ($loaiTC > 2) {
         $err[] = "Loại tăng ca không quá 2";
     }
 
@@ -47,7 +47,6 @@ if (isset($_POST['edit'])) {
         $resultupdate = mysqli_query($conn, $sqlupdate);
 
         echo "<script type='text/javascript'>toastr.success('Sửa thành công'); toastr.options.timeOut = 3000;</script>";
-
     } else {
         foreach ($err as $error) {
             echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
@@ -83,13 +82,19 @@ if (isset($_POST['edit'])) {
                         </tr>
                         <tr class="tr">
                             <td>Ngày tăng ca</td>
-                            <td><input class="form-control py-2" type="date" name="ngayTC" value="<?php echo $_POST['ngayTC'];?>" /></td>
+                            <td><input class="form-control py-2" type="date" name="ngayTC" value="<?php echo $_POST['ngayTC']; ?>" /></td>
                             <td>Loại tăng ca</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="loaiTC" value="<?php echo $loaiTC; ?>" /></td>
+                            <td>
+                                <select name="loaiTC" class="form-select search-option">
+                                    <option value="0" <?php if ($loaiTC == '0') echo " selected"; ?>>Ngày thường</option>
+                                    <option value="1" <?php if ($loaiTC == '1') echo " selected"; ?>>Nghỉ hàng tuần</option>
+                                    <option value="2" <?php if ($loaiTC == '2') echo " selected"; ?>>Nghỉ lễ</option>
+                                </select>
+                            </td>
                         </tr>
                         <tr>
                             <td id="no_color" align="center" colspan="4">
-                                <input type="submit" value="Lưu" name="edit" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Lưu" name="edit" class="btn btn-outline-success themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-overtime"> Quay Lại</a>
                             </td>
                         </tr>

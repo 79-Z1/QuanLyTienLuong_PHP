@@ -11,6 +11,11 @@ $maNV = $row["MaNV"];
 $ngayTC = $row["NgayTC"];
 $loaiTC = $row["LoaiTC"];
 
+if ($row['LoaiTC'] == 0) {
+    $loaiTC = "Ngày thường";
+} else if ($row['LoaiTC'] == 1) {
+    $loaiTC = "Nghỉ hàng tuần";
+} else $loaiTC = "Nghỉ lễ";
 $err = array();
 
 
@@ -45,7 +50,7 @@ if (isset($_POST['delete'])) {
                     <table class="table table-hover table-nowrap">
                         <tr class="tr">
                             <td>Mã tăng ca</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="maTC" value="<?php echo $row["MaTC"]; ?> " disabled="disabled" /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="maTC" value="<?php echo $row["MaTC"]; ?>" disabled="disabled" /></td>
                             <td>Mã nhân viên</td>
                             <td><input class="form-control py-2" type="text" name="maNV" value="<?php echo $maNV; ?>" disabled="disabled" /></td>
                         </tr>
@@ -53,12 +58,14 @@ if (isset($_POST['delete'])) {
                             <td>Ngày tăng ca </td>
                             <td><input class="form-control py-2" type="text" size="20" name="ngayTC" value="<?php echo $ngayTC; ?>" disabled="disabled" /></td>
                             <td>Loại tăng ca </td>
-                            <td><input class="form-control py-2" type="text" size="20" name="loaiTC" value="<?php echo $loaiTC; ?>" disabled="disabled" /></td>
+                            <td>
+                                <input class="form-control py-2" type="text" size="20" name="loaiTC" value="<?php echo $loaiTC; ?>" disabled="disabled" />
+                            </td>
                         </tr>
                         <tr>
                             <td id="no_color" align="center" colspan="4">
-                                <input type="submit" value="Xóa" name="delete" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
-                                <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-overtime"> Quay Lại</a>
+                                <button class="btn btn-outline-danger themnhanvien-btn mb-5 w-25" type="button" data-bs-toggle="modal" data-bs-target="#xacnhanxoa">Xoá</button>
+                                <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-overtime">Quay Lại</a>
                             </td>
                         </tr>
                     </table>
@@ -68,4 +75,24 @@ if (isset($_POST['delete'])) {
     </div>
 </div>
 
+<!-- Modal Xác nhận xóa -->
+<div class="modal fade" id="xacnhanxoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xoá nhân viên <strong><?php echo $row["MaTC"]; ?></strong> không?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form action="" method="post">
+                    <input id="delete" class="btn btn-danger" type="submit" value="Xoá" name="delete" />
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <?php $this->end(); ?>
