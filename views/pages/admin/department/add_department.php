@@ -22,6 +22,7 @@ if (isset($_POST['them'])) {
     if (empty($maP)) {
         $err[] = "Vui lòng nhập mã phòng ban";
     }
+    
     if (empty($TenPhong)) {
         $err[] = "Vui lòng nhập tên phòng ban";
     }
@@ -33,14 +34,12 @@ if (isset($_POST['them'])) {
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm phòng ban thành công'); toastr.options.timeOut = 3000;</script>";
             // làm mới giá trị
-            $maP = "";
-            $tenP = "";
+                $maP = "";
+                $tenP = "";
         } else {
             echo "<script type='text/javascript'>toastr.error('Thêm phòng ban không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else{
-
-        echo "<script>";
         foreach ($err as $error) {
             echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
