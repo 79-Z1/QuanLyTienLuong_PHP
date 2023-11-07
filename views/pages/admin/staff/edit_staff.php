@@ -11,25 +11,45 @@ $nv = mysqli_fetch_array($resultNV);
 
 $maNV = $nv['MaNV'];
 
-$hoNV = $nv['HoNV'];
-
-$tenNV = $nv['TenNV'];
-
-$soCon = $nv['SoCon'];
-
-$ngaySinh = $nv['NgaySinh'];
-
-$cccd = $nv['CCCD'];
-
-$stk = $nv['STK'];
-
-$sdt = $nv['SDT'];
-
-$diaChi = $nv['DiaChi'];
-
-$Email = $nv['Email'];
-
 $newhinh = $nv['Hinh'];
+
+
+if (isset($_POST['hoNV']))
+    $hoNV = trim($_POST['hoNV']);
+else $hoNV = $nv['HoNV'];
+
+if (isset($_POST['tenNV']))
+    $tenNV = trim($_POST['tenNV']);
+else $tenNV = $nv['TenNV'];
+
+if (isset($_POST['soCon']))
+    $soCon = trim($_POST['soCon']);
+else $soCon = $nv['SoCon'];
+
+if (isset($_POST['ngaySinh']))
+    $ngaySinh = trim($_POST['ngaySinh']);
+else $ngaySinh = $nv['NgaySinh'];
+
+if (isset($_POST['cccd']))
+    $cccd = trim($_POST['cccd']);
+else $cccd = $nv['CCCD'];
+
+if (isset($_POST['stk']))
+    $stk = trim($_POST['stk']);
+else $stk = $nv['STK'];
+
+if (isset($_POST['soDienThoai']))
+    $sdt = trim($_POST['soDienThoai']);
+else $sdt = $nv['SDT'];
+
+if (isset($_POST['diaChi']))
+    $diaChi = trim($_POST['diaChi']);
+else $diaChi = $nv['DiaChi'];
+
+
+if (isset($_POST['email']))
+    $Email = trim($_POST['email']);
+else $Email = $nv['Email'];
 
 $err = array();
 
@@ -52,46 +72,6 @@ $tuoiNuToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `th
 $tuoiNuToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS030'"))['GiaTri'];
 
 if (isset($_POST['chinhsua'])) {
-
-    if (isset($_POST['hoNV']))
-        $hoNV = trim($_POST['hoNV']);
-    else $hoNV = "";
-
-    if (isset($_POST['tenNV']))
-        $tenNV = trim($_POST['tenNV']);
-    else $tenNV = "";
-
-    if (isset($_POST['soCon']))
-        $soCon = trim($_POST['soCon']);
-    else $soCon = "0";
-
-    if (isset($_POST['ngaySinh']))
-        $ngaySinh = trim($_POST['ngaySinh']);
-    else $ngaySinh = "";
-
-    if (isset($_POST['cccd']))
-        $cccd = trim($_POST['cccd']);
-    else $cccd = "";
-
-    if (isset($_POST['stk']))
-        $stk = trim($_POST['stk']);
-    else $stk = "";
-
-    if (isset($_POST['soDienThoai']))
-        $sdt = trim($_POST['soDienThoai']);
-    else $sdt = "";
-
-    if (isset($_POST['diaChi']))
-        $diaChi = trim($_POST['diaChi']);
-    else $diaChi = "";
-
-    if (isset($_POST['email']))
-        $Email = trim($_POST['email']);
-    else $Email = "";
-
-    $phong = trim($_POST['phong']);
-
-    $chucVu = trim($_POST['chucVu']);
 
     $gt = $_POST['radGT'];
 
@@ -138,7 +118,7 @@ if (isset($_POST['chinhsua'])) {
     }
 
     if (empty($err)) {
-        if ($_FILES['imgnv']['name'] != NULL) {
+        if($_FILES['imgnv']['name'] != NULL){
             $hinh = explode(".", $_FILES['imgnv']['name']);
             $tempname = $_FILES["imgnv"]["tmp_name"];
             $hinh[0] = $maNV;
@@ -147,20 +127,22 @@ if (isset($_POST['chinhsua'])) {
 
             move_uploaded_file($tempname, $folder);
             $update = "UPDATE `nhan_vien` 
-                    SET `HoNV`='$hoNV',`TenNV`='$tenNV',`GioiTinh`=$gt,
-                    `NgaySinh`='$ngaySinh',`DiaChi`='$diaChi',`MaPhong`='$phong',`STK`='$stk',
-                    `CCCD`='$cccd',`MaChucVu`='$chucVu',`SoCon`='$soCon',
-                    `Hinh`='$newhinh',`SDT`='$sdt',`Email`='$Email'
-                    WHERE `MaNV` = '$maNVien'";
-        } else {
+                SET `HoNV`='$hoNV',`TenNV`='$tenNV',`GioiTinh`=$gt,
+                `NgaySinh`='$ngaySinh',`DiaChi`='$diaChi',`MaPhong`='$_POST[phong]',`STK`='$stk',
+                `CCCD`='$cccd',`MaChucVu`='$_POST[chucVu]',`SoCon`='$soCon',
+                `Hinh`='$newhinh',`SDT`='$sdt',`Email`='$Email'
+                WHERE `MaNV` = '$maNVien'";
+        }else{
             $update = "UPDATE `nhan_vien` 
-                    SET `HoNV`='$hoNV',`TenNV`='$tenNV',`GioiTinh`=$gt,
-                    `NgaySinh`='$ngaySinh',`DiaChi`='$diaChi',`MaPhong`='$phong',`STK`='$stk',
-                    `CCCD`='$cccd',`MaChucVu`='$chucVu',`SoCon`='$soCon',`SDT`='$sdt',`Email`='$Email'
-                    WHERE `MaNV` = '$maNVien'";
+                SET `HoNV`='$hoNV',`TenNV`='$tenNV',`GioiTinh`=$gt,
+                `NgaySinh`='$ngaySinh',`DiaChi`='$diaChi',`MaPhong`='$_POST[phong]',`STK`='$stk',
+                `CCCD`='$cccd',`MaChucVu`='$_POST[chucVu]',`SoCon`='$soCon',`SDT`='$sdt',`Email`='$Email'
+                WHERE `MaNV` = '$maNVien'";
         }
         mysqli_query($conn, $update);
 
+        $nv['MaPhong'] = $_POST['phong'];
+        $nv['MaChucVu'] = $_POST['chucVu'];
 
         echo "<script type='text/javascript'>toastr.success('Chỉnh sửa nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
     } else {
