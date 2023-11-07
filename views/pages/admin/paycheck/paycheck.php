@@ -13,6 +13,13 @@ else $maPL = "";
 if (isset($_GET['maNV']))
     $maNV = trim($_GET['maNV']);
 else $maNV = "";
+if (isset($_GET['thang']))
+    $thang = trim($_GET['thang']);
+else $thang = "";
+
+if (isset($_GET['nam']))
+    $nam = trim($_GET['nam']);
+else $nam = "";
 
 
 
@@ -36,6 +43,12 @@ if (isset($_GET['timkiem'])) {
     }
     if ($maNV != "") {
         $sqlTimKiem .= "and MaNV like '%$maNV%' ";
+    }
+    if ($thang != "") {
+        $sqlTimKiem .= "and Thang = '$thang' ";
+    }
+    if ($nam != "") {
+        $sqlTimKiem .= "and Nam = '$nam' ";
     }
 
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
@@ -61,7 +74,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td>
                                 <p>Mã phiếu lương</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="maPL" value=""></td>
+                            <td><input class="form-control me-2 search-input" type="text" name="maPL" value="<?php echo $maPL; ?>"></td>
                             <td>
                                 <p>Mã nhân viên</p>
                             </td>
@@ -73,7 +86,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     if (mysqli_num_rows($resultChucVu) <> 0) {
 
                                         while ($rows = mysqli_fetch_array($resultChucVu)) {
-                                            echo "<option";
+                                            echo "<option ";
                                             if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
                                             echo ">$rows[MaNV]</option>";
                                         }
@@ -81,11 +94,24 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Tháng</p>
+                            </td>
+                            <td>
+                                <input class="form-control me-2 search-input" type="text" name="thang" value="<?php echo $thang; ?>">
+                            </td>
+                            <td>
+                                <p>Năm</p>
+                            </td>
+                            <td>
+                                <input class="form-control me-2 search-input" type="text" name="nam" value="<?php echo $nam; ?>">
+                            </td>
                         </tr>
                         <tr > 
                             <td align="center" colspan="4">
-                                <input class="btn btn-outline-success search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input class="btn btn-outline-purple search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
                                 <a href="index.php?page=admin-paycheck-add-paycheck" class="btn btn-outline-success search-btn w-25">Thêm</a>
                             </td>
                         </tr>
@@ -143,17 +169,17 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&timkiem=Tìm+kiếm&p=1>Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&timkiem=Tìm+kiếm&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&thang=$thang&nam=$nam&timkiem=Tìm+kiếm&p=1>Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&thang=$thang&nam=$nam&timkiem=Tìm+kiếm&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>';
     } else {
-        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&timkiem=Tìm+kiếm&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&thang=$thang&nam=$nam&timkiem=Tìm+kiếm&p=" . $i . ">" . $i . "</a> ";
     }
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&timkiem=Tìm+kiếm&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&timkiem=Tìm+kiếm&p=" . $maxPage . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&thang=$thang&nam=$nam&timkiem=Tìm+kiếm&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-paycheck&maPL=$maPL&maNV=$maNV&thang=$thang&nam=$nam&timkiem=Tìm+kiếm&p=" . $maxPage . ">Về cuối</a> ";
 echo "</div>";
 ?>
 

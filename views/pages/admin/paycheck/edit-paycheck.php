@@ -35,10 +35,12 @@ if (isset($_POST["MaNV"])) {
     $maNV = $_POST['MaNV'];
 }
 
-if (!isset($_POST['thang']))
-    $_POST['thang'] = $thang ;
-if (!isset($_POST['nam']))
-     $_POST['nam'] = $nam ;
+if (isset($_POST['thang'])) 
+    $thang = $_POST['thang'];
+
+if (isset($_POST['nam'])) 
+    $nam = $_POST['nam'];
+
 if (isset($_POST['soNgayCong']))
     $soNgayCong = trim($_POST['soNgayCong']);
 if (isset($_POST['soNgayVang']))
@@ -70,62 +72,79 @@ if (isset($_POST['edit'])) {
 
     $err = array();
 
-
-    if (empty($_POST['thang'])) {
+    if (empty($maPL)) {
+        $err[] = "Mã phiếu lương không được để trống";
+    }
+    if (empty($thang) ) {
         $err[] = "Tháng không được để trống";
     }
-    if (empty($_POST['nam'])) {
+    if($thang < 1 || $thang > 12){
+        $err[] = "Tháng từ 1 đến 12 ";
+    }
+    if (empty($nam)) {
         $err[] = "Năm không được để trống";
     }
-    if (empty($soNgayCong)) {
+    if (empty($soNgayCong) && $soNgayCong != 0) {
         $err[] = "Số ngày công không được để trống";
-    } elseif (!is_numeric($_POST["soNgayCong"])) {
+    }elseif (!is_numeric($_POST["soNgayCong"])) {
         $err[] = "Số ngày công phải là số";
     }
-    if (!is_numeric($_POST["soNgayVang"])) {
+    if (empty($soNgayVang) && $soNgayVang != 0) {
+        $err[] = "Số ngày vắng không được để trống";
+    } elseif (!is_numeric($_POST["soNgayVang"])) {
         $err[] = "Số ngày vắng phải là số";
     }
-    if (!is_numeric($_POST["luongTangCa"])) {
+    if (empty($luongTangCa )&& $luongTangCa != 0) {
+        $err[] = "Lương tăng ca không được để trống";
+    } elseif (!is_numeric($_POST["luongTangCa"])) {
         $err[] = "Lương tăng ca phải là số";
     }
-    if (!is_numeric($_POST["luongTamUng"])) {
+    if (empty($luongTamUng )&& $luongTamUng != 0) {
+        $err[] = "Lương tạm ứng không được để trống";
+    }elseif (!is_numeric($_POST["luongTamUng"])) {
         $err[] = "Lương tạm ứng phải là số";
     }
-    if (empty($thue)) {
+    if (empty($thue )&& $thue != 0) {
         $err[] = "Thuế không được để trống";
-    } elseif (!is_numeric($_POST["thue"])) {
+    }elseif (!is_numeric($_POST["thue"])) {
         $err[] = "Thuế phải là số";
     }
-    if (!is_numeric($_POST["truBaoHiem"])) {
+    if (empty($truBaoHiem )&& $truBaoHiem != 0) {
+        $err[] = "Trừ bảo hiểm không được để trống";
+    }elseif (!is_numeric($_POST["truBaoHiem"])) {
         $err[] = "Trừ bảo hiểm phải là số";
     }
-    if (!is_numeric($_POST["troCap"])) {
+    if (empty($troCap ) && $troCap != 0) {
+        $err[] = "Trợ cấp không được để trống";
+    }elseif (!is_numeric($_POST["troCap"])) {
         $err[] = "Trợ cấp phải là số";
     }
-    if (!is_numeric($_POST["thuong"])) {
+    if (empty($thuong ) && $thuong != 0) {
+        $err[] = "Thưởng không được để trống";
+    }elseif (!is_numeric($_POST["thuong"])) {
         $err[] = "Thưởng phải là số";
     }
-    if (!is_numeric($_POST["phat"])) {
+    if (empty($phat) && $soNgayVang != 0) {
+        $err[] = "Phạt không được để trống";
+    }elseif (!is_numeric($_POST["phat"])) {
         $err[] = "Phạt phải là số";
     }
-    if (empty($tienLuongThang)) {
+    if (empty($tienLuongThang) && $tienLuongThang != 0) {
         $err[] = "Tiền lương tháng không được để trống";
-    } elseif (!is_numeric($_POST["tienLuongThang"])) {
+    }elseif (!is_numeric($_POST["tienLuongThang"])) {
         $err[] = "Tiền lương tháng phải là số";
     }
-    if (empty($tongThuNhap)) {
+    if (empty($tongThuNhap) && $tongThuNhap != 0) {
         $err[] = "Tổng thu nhập không được để trống";
-    } elseif (!is_numeric($_POST["tongThuNhap"])) {
+    }elseif (!is_numeric($_POST["tongThuNhap"])) {
         $err[] = "Tổng thu nhập phải là số";
     }
-    if (empty($thucLinh)) {
+    if (empty($thucLinh) && $thucLinh != 0) {
         $err[] = "Thực lĩnh không được để trống";
-    } elseif (!is_numeric($_POST["thucLinh"])) {
-        $err[] = "Thực lĩnh phải là số";
     }
 
     if (empty($err)) {
-        $sqlupdate = "UPDATE `phieu_luong` SET `MaPhieuLuong`='$maPL',`MaNV`='$maNV',`Thang`='$_POST[thang]',`Nam`='$_POST[nam]',`SoNgayCong`='$soNgayCong',`SoNgayVang`='$soNgayVang',`LuongTangCa`='$luongTangCa',`TienTamUng`='$luongTamUng',`Thue`='$thue',`TruBaoHiem`='$truBaoHiem',`TroCap`='$troCap',`Thuong`='$thuong',`Phat`='$phat',`TienLuongThang`='$tienLuongThang',`TongThuNhap`='$tongThuNhap',`ThucLinh`='$thucLinh',`GhiChu`='$ghiChu' WHERE MaPhieuLuong= '$maPL'";
+        $sqlupdate = "UPDATE `phieu_luong` SET `MaPhieuLuong`='$maPL',`MaNV`='$maNV',`Thang`='$thang',`Nam`='$nam',`SoNgayCong`='$soNgayCong',`SoNgayVang`='$soNgayVang',`LuongTangCa`='$luongTangCa',`TienTamUng`='$luongTamUng',`Thue`='$thue',`TruBaoHiem`='$truBaoHiem',`TroCap`='$troCap',`Thuong`='$thuong',`Phat`='$phat',`TienLuongThang`='$tienLuongThang',`TongThuNhap`='$tongThuNhap',`ThucLinh`='$thucLinh',`GhiChu`='$ghiChu' WHERE MaPhieuLuong= '$maPL'";
         $resultupdate = mysqli_query($conn, $sqlupdate);
         echo "<script type='text/javascript'>toastr.success('Sửa thành công'); toastr.options.timeOut = 3000;</script>";
     } else {
@@ -166,9 +185,9 @@ if (isset($_POST['edit'])) {
                         </tr>
                         <tr class="tr">
                             <td>Tháng</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="thang" value="<?php echo $_POST['thang']; ?>" /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="thang" value="<?php echo $thang; ?> " /></td>
                             <td>Năm</td>
-                            <td><input class="form-control py-2" type="text" name="nam" value="<?php echo $_POST['nam']; ?>" /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="nam" value="<?php echo $nam; ?> " /></td>
                         </tr>
                         <tr class="tr">
                             <td>Số ngày công</td>

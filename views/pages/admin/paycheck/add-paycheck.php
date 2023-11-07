@@ -18,12 +18,12 @@ if (isset($_POST['maNV']))
     $maNV = trim($_POST['maNV']);
 else $maNV = "";
 
-if (!isset($_POST['thang'])) {
-    $_POST['thang'] = date('m');
-}
-if (!isset($_POST['nam'])) {
-    $_POST['nam'] = date('Y');
-}
+if (isset($_POST['thang'])) 
+    $thang = $_POST['thang'];
+else $thang = "";
+if (isset($_POST['nam'])) 
+    $nam = $_POST['nam'];
+else $nam = "";
 
 if (isset($_POST['soNgayCong']))
     $soNgayCong = trim($_POST['soNgayCong']);
@@ -49,7 +49,7 @@ if (isset($_POST['truBaoHiem']))
 else $truBaoHiem = "";
 
 if (isset($_POST['troCap']))
-    $troCap = trim($_POST['troCap']);
+    $troCap = $_POST['troCap'];
 else $troCap = "";
 
 if (isset($_POST['thuong']))
@@ -82,92 +82,80 @@ if (isset($_POST['them'])) {
     if (empty($maPL)) {
         $err[] = "Mã phiếu lương không được để trống";
     }
-    if (empty($_POST['thang'])) {
+    if (empty($thang) ) {
         $err[] = "Tháng không được để trống";
     }
-    if (empty($_POST['nam'])) {
+    if($thang < 1 || $thang > 12){
+        $err[] = "Tháng từ 1 đến 12 ";
+    }
+    if (empty($nam)) {
         $err[] = "Năm không được để trống";
     }
-    if (empty($soNgayCong)) {
+    if (empty($soNgayCong) && $soNgayCong != 0) {
         $err[] = "Số ngày công không được để trống";
     }elseif (!is_numeric($_POST["soNgayCong"])) {
         $err[] = "Số ngày công phải là số";
     }
-    if (empty($soNgayVang)) {
+    if (empty($soNgayVang) && $soNgayVang != 0) {
         $err[] = "Số ngày vắng không được để trống";
     } elseif (!is_numeric($_POST["soNgayVang"])) {
         $err[] = "Số ngày vắng phải là số";
     }
-    if (empty($luongTangCa)) {
+    if (empty($luongTangCa )&& $luongTangCa != 0) {
         $err[] = "Lương tăng ca không được để trống";
     } elseif (!is_numeric($_POST["luongTangCa"])) {
         $err[] = "Lương tăng ca phải là số";
     }
-    if (empty($luongTamUng)) {
+    if (empty($luongTamUng )&& $luongTamUng != 0) {
         $err[] = "Lương tạm ứng không được để trống";
     }elseif (!is_numeric($_POST["luongTamUng"])) {
         $err[] = "Lương tạm ứng phải là số";
     }
-    if (empty($thue)) {
+    if (empty($thue )&& $thue != 0) {
         $err[] = "Thuế không được để trống";
     }elseif (!is_numeric($_POST["thue"])) {
         $err[] = "Thuế phải là số";
     }
-    if (empty($truBaoHiem)) {
+    if (empty($truBaoHiem )&& $truBaoHiem != 0) {
         $err[] = "Trừ bảo hiểm không được để trống";
     }elseif (!is_numeric($_POST["truBaoHiem"])) {
         $err[] = "Trừ bảo hiểm phải là số";
     }
-    if (empty($troCap)) {
+    if (empty($troCap ) && $troCap != 0) {
         $err[] = "Trợ cấp không được để trống";
     }elseif (!is_numeric($_POST["troCap"])) {
         $err[] = "Trợ cấp phải là số";
     }
-    if (empty($thuong)) {
+    if (empty($thuong ) && $thuong != 0) {
         $err[] = "Thưởng không được để trống";
     }elseif (!is_numeric($_POST["thuong"])) {
         $err[] = "Thưởng phải là số";
     }
-    if (empty($phat)) {
+    if (empty($phat) && $soNgayVang != 0) {
         $err[] = "Phạt không được để trống";
     }elseif (!is_numeric($_POST["phat"])) {
         $err[] = "Phạt phải là số";
     }
-    if (empty($tienLuongThang)) {
+    if (empty($tienLuongThang) && $tienLuongThang != 0) {
         $err[] = "Tiền lương tháng không được để trống";
     }elseif (!is_numeric($_POST["tienLuongThang"])) {
         $err[] = "Tiền lương tháng phải là số";
     }
-    if (empty($tongThuNhap)) {
+    if (empty($tongThuNhap) && $tongThuNhap != 0) {
         $err[] = "Tổng thu nhập không được để trống";
     }elseif (!is_numeric($_POST["tongThuNhap"])) {
         $err[] = "Tổng thu nhập phải là số";
     }
-    if (empty($thucLinh)) {
+    if (empty($thucLinh) && $thucLinh != 0) {
         $err[] = "Thực lĩnh không được để trống";
     }
 
     if (empty($err)) {
-        $sqlInsert = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`, `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) VALUES ('$maPL','$maNV','$_POST[thang]','$_POST[nam]','$soNgayCong','$soNgayVang','$luongTangCa','$luongTamUng','$thue','$truBaoHiem','$troCap','$thuong','$phat','$tienLuongThang','$tongThuNhap','$thucLinh','$ghiChu')";
+        $sqlInsert = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`, `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) VALUES ('$maPL','$maNV','$thang','$nam','$soNgayCong','$soNgayVang','$luongTangCa','$luongTamUng','$thue','$truBaoHiem','$troCap','$thuong','$phat','$tienLuongThang','$tongThuNhap','$thucLinh','$ghiChu')";
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm thành công'); toastr.options.timeOut = 3000;</script>";
-            $maPL = "";
-            $soNgayCong = "";
-            $luongTamUng = "";
-            $luongTangCa = "";
-            $soNgayVang = "";
-            $maNV = "";
-            $thue = "";
-            $truBaoHiem = "";
-            $troCap = "";
-            $thuong = "";
-            $phat = "";
-            $tienLuongThang = "";
-            $tongThuNhap = "";
-            $thucLinh = "";
-            $ghiChu = "";
             
         } else {
             echo "<script type='text/javascript'>toastr.error('Thêm không thành công'); toastr.options.timeOut = 3000;</script>";
@@ -197,8 +185,8 @@ if (isset($_POST['them'])) {
                                     <?php
                                     if (mysqli_num_rows($resultNhanVien) <> 0) {
                                         while ($rows = mysqli_fetch_array($resultNhanVien)) {
-                                            echo "<option value='$rows[MaNV]'";
-                                            if (isset($_POST['MaNV']) && $_POST['MaNV'] == $rows['MaNV'] ) echo "selected";
+                                            echo "<option ";
+                                            if (isset($_POST['maNV']) && $_POST['maNV'] == $rows['MaNV'] ) echo "selected";
                                             echo ">$rows[MaNV]</option>";
                                         }
                                     }
@@ -208,9 +196,9 @@ if (isset($_POST['them'])) {
                         </tr>
                         <tr class="tr">
                             <td>Tháng</td>
-                            <td><input class="form-control py-2" type="text" size="20" name="thang" value="<?php echo $_POST['thang']; ?>" /></td>
+                            <td><input class="form-control py-2" type="text" size="20" name="thang" value="<?php echo $thang; ?>" /></td>
                             <td>Năm</td>
-                            <td><input class="form-control py-2" type="text" name="nam" value="<?php echo $_POST['nam']; ?>" /></td>
+                            <td><input class="form-control py-2" type="text" name="nam" value="<?php echo $nam; ?>" /></td>
                         </tr>
                         <tr class="tr">
                             <td>Số ngày công</td>
@@ -256,7 +244,7 @@ if (isset($_POST['them'])) {
                                 </div>
                             </td>
                             <td align="center" id="no_color" colspan="2">
-                                <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Thêm" name="them" class="btn btn-outline-success themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-paycheck"> Quay Lại</a>
                             </td>
                         </tr>
