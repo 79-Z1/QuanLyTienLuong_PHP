@@ -5,6 +5,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
         $conn = mysqli_connect ('localhost', 'root', '', 'quan_ly_tien_luong') 
         OR die ('Could not connect to MySQL: ' . mysqli_connect_error() );
+        
     $maPhieu = $_GET["MaPhieu"];
     $getPhieuUngLuong= "select * from phieu_ung_luong where MaPhieu='$maPhieu'";   
     $resultPhieuUngLuong = mysqli_query($conn, $getPhieuUngLuong);
@@ -35,6 +36,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         $sqldelete = "delete from phieu_ung_luong
         where MaPhieu = '$_GET[MaPhieu]'";
         $deleteResult = mysqli_query($conn, $sqldelete);
+        
         if ($deleteResult) {
             echo "<script type='text/javascript'>
             $('#delete').prop('disabled','disabled');
@@ -49,6 +51,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
     }
 
 ?>
+
 <style>
     .form-control.form-select{
         padding-top: 0.3rem !important;
@@ -98,8 +101,17 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                             <td>
                                 <p>Duyệt</p>
                             </td>
+
                             <td class="<?php if($duyet == "") echo 'required'; ?>">
+                            <?php
+                                if($row['Duyet'] == 0){
+                                    $duyet = 'Chưa duyệt';
+                                }else{
+                                     $duyet = 'Đã duyệt';
+                                }
+                            ?>
                             <input class="form-control me-2 search-input" type="text" name="duyet" value="<?php echo $duyet; ?>"disabled></td>
+                        
                         </tr>
 
                         <tr>
@@ -117,7 +129,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     <tr>
                     
                         <td id="no_color" colspan="5" align="center">
-                            <input type="submit" value="Xóa" name="delete" class="btn btn-outline-purple deleteSalarySlip-btn mb-5 w-25"/>
+                        <button class="btn btn-danger deleteSalarySlip-btn mb-5 w-25" type="button" data-bs-toggle="modal" data-bs-target="#xacnhanxoa">Xoá</button>
                             <a class="btn btn-outline-purple deleteSalarySlip-btn mb-5 w-25"
                                         href="index.php?page=admin-salary-slip"> Quay Lại</a>
                         </td>
@@ -126,6 +138,26 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                 </form>
             </div>
         </div>     
+    </div>
+</div>
+<!-- Modal Xác nhận xóa -->
+<div class="modal fade" id="xacnhanxoa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận xóa</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bạn có chắc chắn muốn xoá phiếu ứng lương <strong><?php echo $row["MaPhieu"]; ?></strong> không?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                <form action="" method="post">
+                    <input id="delete" class="btn btn-danger" type="submit" value="Xoá" name="delete" />
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 <?php $this->end(); ?>  

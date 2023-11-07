@@ -57,7 +57,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         }
     
         if (empty($err)) {
-            $sqlupdate = "UPDATE `phieu_ung_luong` SET `MaNV`='$MaNV',`NgayUng`='$ngayUng',`LyDo`='$lyDo', `SoTien`=$soTien ,`Duyet`='$duyet'
+            $sqlupdate = "UPDATE `phieu_ung_luong` SET `MaNV`='$MaNV',`NgayUng`='$ngayUng',`LyDo`='$lyDo', `SoTien`=$soTien ,`Duyet`=$duyet
             WHERE MaPhieu='$maPhieu'";
             $resultupdate = mysqli_query($conn, $sqlupdate);
             $MaNV = $_POST['MaNV'];
@@ -137,7 +137,13 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                                 <p>Duyệt</p>
                             </td>
                             <td class="<?php if($duyet == "") echo 'required'; ?>">
-                            <input class="form-control me-2 search-input" type="text" name="duyet" value="<?php echo $duyet; ?>"></td>
+                                
+                            
+                            <select name="duyet" class="form-select search-option">
+                                    <option value="0" <?php if($duyet == '0') echo " selected"; ?>>Chưa duyệt</option>
+                                    <option value="1" <?php if($duyet == '1') echo " selected"; ?>>Đã duyệt</option>
+                            </select>   
+                            </td>
                         </tr>
 
                         <tr>

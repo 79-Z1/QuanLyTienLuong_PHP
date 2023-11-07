@@ -57,9 +57,6 @@ if (isset($_POST['them'])) {
     if (!is_numeric($soTien)) {
         $err[] = "Số tiền phải là số";
     } 
-    if (empty($duyet)) {
-        $err[] = "Vui lòng nhập số 1 để nghỉ hưởng lương";
-    }
 
     if (empty($err)) {
         $sqlInsert = "INSERT INTO `phieu_ung_luong`(`MaPhieu`, `MaNV`, `NgayUng`, `LyDo`, `SoTien`, `Duyet`) VALUES ('$maPhieu','$maNV','$ngayUng','$lyDo',$soTien,'$duyet')";
@@ -73,7 +70,6 @@ if (isset($_POST['them'])) {
     
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm phiếu ứng lương thành công'); toastr.options.timeOut = 3000;</script>";
-
             // làm mới giá trị
             // $maP = "";
             // $tenP = "";
@@ -81,8 +77,6 @@ if (isset($_POST['them'])) {
             echo "<script type='text/javascript'>toastr.error('Thêm phiếu ứng lương không thành công'); toastr.options.timeOut = 3000;</script>";
         }
     } else{
-
-        echo "<script>";
         foreach ($err as $error) {
             echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
 
@@ -159,7 +153,12 @@ if (isset($_POST['them'])) {
                         <td >
                                 <p>Duyệt</p> 
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="duyet" value="<?php echo $duyet; ?>"></td>
+                            <td>
+                             <select name="duyet" class="form-select search-option">
+                                    <option value="0" <?php if (isset($_POST['duyet']) && $_POST['duyet'] == '0') echo " selected"; ?>>Chưa duyệt</option>
+                                    <option value="1" <?php if (isset($_POST['duyet']) && $_POST['duyet'] == '1') echo " selected"; ?>>Đã duyệt</option>
+                                </select>        
+                        </td>
                     </tr>
 
                     <tr>
