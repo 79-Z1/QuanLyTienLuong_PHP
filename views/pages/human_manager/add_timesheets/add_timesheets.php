@@ -127,7 +127,7 @@ $num = mysqli_num_rows($resultCheck);
                     <div class="card shadow border-0 mb-7 mt-5 ">
                         <div class="card-header d-flex justify-content-between">
                             <div class="mr-auto p-2">
-                                <h5>BẢNG CHẤM CÔNG</h5>
+                                <h3>BẢNG CHẤM CÔNG</h3>
                             </div>
                             <div>
                                 <input style="font-size: 20px; padding-right: 20px; width:49%" type="date" name="ngay" value="' . $_POST["ngay"] . '">
