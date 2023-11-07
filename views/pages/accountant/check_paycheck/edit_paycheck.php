@@ -97,20 +97,31 @@ if (isset($_POST['tienThuong'])) {
 
 
 if (isset($_POST['tinh'])) {
-    $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
-    if ($tongThuNhap > $mucLuongThue) {
-        $thue = Thue($tongThuNhap - $mucLuongThue, $conn);
-    } else $thue = 0;
-    $thucLinh = $tongThuNhap - $thue - $tienTamUng;
+    if($tienPhat < 0 ){
+        $err[] = "Vui lòng nhập tiền phạt lớn hơn 0";
+    }else if($tienPhat > 5000000 ){
+        $err[] = "Vui lòng nhập tiền phạt nhỏ hơn 5000000";
+    }
+    if($tienThuong < 0 ){
+        $err[] = "Vui lòng nhập tiền thưởng lớn hơn 0";
+    }else if($tienThuong > 5000000 ){
+        $err[] = "Vui lòng nhập tiền thưởng nhỏ hơn 5000000";
+    }
+    if(empty($err)){
+        $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
+        if ($tongThuNhap > $mucLuongThue) {
+            $thue = Thue($tongThuNhap - $mucLuongThue, $conn);
+        } else $thue = 0;
+        $thucLinh = $tongThuNhap - $thue - $tienTamUng;
+    }else {
+        foreach($err as $lois){
+            echo "<script type='text/javascript'>toastr.error('$lois');</script>";
+        }
+        
+    }
 }
 if (isset($_POST['luu'])) {
     $ghiChu = trim($_POST['ghiChu']);
-
-    // $tongThuNhap = trim($_POST['tongThuNhap']);
-
-    // $thue = trim($_POST['thue']);
-
-    // $thucLinh = trim($_POST['thucLinh']);
     
     $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
     if ($tongThuNhap > $mucLuongThue) {
@@ -144,8 +155,8 @@ if (isset($_POST['luu'])) {
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header d-flex justify-content-between">
-                <h5 class="mb-0">CHỈNH SỬA PHIẾU LƯƠNG NHÂN VIÊN</h5>
-                <h5 class="mb-0"><?php echo "Tháng " . $thang . " năm " . $nam; ?></h5>
+                <h3 class="mb-0">CHỈNH SỬA PHIẾU LƯƠNG NHÂN VIÊN</h3>
+                <h3 class="mb-0"><?php echo "Tháng " . $thang . " năm " . $nam; ?></h3>
             </div>
             <div class="table-responsive">
                 <form action="" method="post" enctype="multipart/form-data">
@@ -188,9 +199,9 @@ if (isset($_POST['luu'])) {
                         </tr>
                         <tr>
                             <td>Phạt</td>
-                            <td><input class="td-control p-2" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
+                            <td><input class="td-control p-2" onchange="handleChange(this);" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
                             <td>Thưởng</td>
-                            <td><input class="td-control p-2" style="background-color: #FFF;" type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
+                            <td><input class="td-control p-2" onchange="handleChange(this);" style="background-color: #FFF;" type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
                         </tr>
                         <tr>
                             <td>Tiền lương tháng</td>
