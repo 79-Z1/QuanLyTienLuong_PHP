@@ -7,9 +7,9 @@ if (isset($_GET['maPhong']))
     $maPhong = trim($_GET['maPhong']);
 else $maPhong = "";
 
-if (isset($_GET['TenPhong']))
-    $TenPhong = $_GET['TenPhong'];
-else $TenPhong = "";
+if (isset($_GET['tenPhong']))
+    $tenPhong = $_GET['tenPhong'];
+else $tenPhong = "";
 
 $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
@@ -17,21 +17,21 @@ if (!isset($_GET['p'])) {
 }
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 $sqlTimKiem =
-    "select * from phong_ban
-            where 1
-        ";
+    "select * from phong_ban where 1";
+
 
 if (isset($_GET['timkiem'])) {
     if ($maPhong != "") {
-        $sqlTimKiem .= "and MaPhong = '$maPhong'";
+        $sqlTimKiem .= " and MaPhong = '$maPhong'";
     }
-    if ($TenPhong != "") {
-        $sqlTimKiem .= "and TenPhong = '$TenPhong'";
+
+    if ($tenPhong != "") {
+        $sqlTimKiem .= " and TenPhong like '%$tenPhong%'";
     }
 
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 }
-$sqlTimKiem .= "order by MaPhong";
+$sqlTimKiem .= " order by MaPhong";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 $numRows = mysqli_num_rows($resultTimKiem);
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
@@ -39,6 +39,57 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
 ?>
 <style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    padding: 5px;
+    padding-right:20px;
+}
+.table-hover tbody td {
+    padding: 13px 10px 13px 25px;
+
+}
+.table-hover tbody td a i{
+    font-size:22px;
+    margin-right: 8px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+}
+label{
+    margin-right: 5px;
+}
+
+.form-select{
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+.card .navbar {
+    padding: 0;
+    border-radius: 10px;
+}
+
+.larger-text {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.form-control {
+    height: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+    font-size: 16px;
+}
+
+
+
 .pagination-link {
     display: inline-block;
     padding: 3px 5px;
@@ -77,12 +128,9 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td>
                                 <p>Phòng</p>
                             </td>
-                            <td>
-                            <td><input class="form-control me-2 search-input" type="text" name="TenPhong" value="<?php echo $TenPhong; ?>"></td>
-                                <!-- <select name="phong" class="form-select search-option" id="inputGroupSelect02">
-                                    <option value="">Trống</option>
-                                    
-                                </select> -->
+                            
+                            <td><input class="form-control me-2 search-input" type="text" name="tenPhong" value="<?php echo $tenPhong; ?>"></td>
+                              
                             </td>
                         </tr>
                         <tr  >
@@ -137,16 +185,16 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=1 >Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&maPhong=$maPhong&tenPhong=$tenPhong&p=1 >Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&maPhong=$maPhong&tenPhong=$tenPhong&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
         echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
     } else
-        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . $i . ">" . $i . "</a> ";
+        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&maPhong=$maPhong&tenPhong=$tenPhong&p=" . $i . ">" . $i . "</a> ";
 }
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&MaPhong=$maPhong&TenPhong=$TenPhong&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&maPhong=$maPhong&tenPhong=$tenPhong&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-department&maPhong=$maPhong&tenPhong=$tenPhong&p=" . ($maxPage) . ">Về cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>
