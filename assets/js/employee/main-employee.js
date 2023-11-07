@@ -6,7 +6,7 @@ $(document).ready(async function () {
     }
     const { message, status, newNotiNumber } = await postData(url, data);
     if (status && newNotiNumber > 0) {
-        $('#num-noti').css({ 
+        $('#num-noti').css({
             'background-color': 'red',
             'display': 'block'
         })
@@ -26,6 +26,55 @@ $(document).ready(async function () {
         clearAllCookie();
         location.href = 'http://localhost/QuanLyTienLuong_PHP'
     })
+})
+
+$('#change').on('click', async (e) => {
+    e.preventDefault();
+    let err = false;
+    if (!$.trim($('#oldPass').val())) {
+        err = true;
+        $('#oldPass-err').text('*Mật khẩu cũ không được để trống');
+        $('#oldPass-err').css({ 'color': 'red' });
+    }
+
+    if (!$.trim($('#newPass').val())) {
+        err = true;
+        $('#newPass-err').text('*Mật khẩu mới không được để trống');
+        $('#newPass-err').css({ 'color': 'red' });
+    }
+
+    if (!$.trim($('#reNewPass').val())) {
+        err = true;
+        $('#reNewPass-err').text('*Nhập lại mật khẩu không được để trống');
+        $('#reNewPass-err').css({ 'color': 'red' });
+    } else if ($.trim($('#newPass').val()) != $.trim($('#reNewPass').val())) {
+        err = true;
+        $('#reNewPass-err').text('*Nhập lại mật khẩu không đúng');
+        $('#reNewPass-err').css({ 'color': 'red' });
+    } else {
+        const url = "http://localhost/QuanLyTienLuong_PHP/api/api-check-old-pass.php";
+        const data = {
+            MaNV: MANV,
+            OldPass: $('#oldPass').val()
+        }
+        const { message, status, check } = await postData(url, data);
+        if (status && !check) {
+            $('#oldPass-err').text('*Mật khẩu cũ không đúng');
+            $('#oldPass-err').css({ 'color': 'red' });
+        } else if (status && check) {
+            const urlChange = "http://localhost/QuanLyTienLuong_PHP/api/api-update-pass.php";
+            const dataChange = {
+                TenTK: MANV,
+                MatKhau: $('#newPass').val()
+            }
+            await postData(urlChange, dataChange);
+            toastr.success('Đổi mật khẩu thành công!');
+            setTimeout(() => {
+                location.href =  'http://localhost/QuanLyTienLuong_PHP/views/pages/employee'
+            }, 2000)
+        }
+    }
+
 })
 
 async function submitUL() {

@@ -11,59 +11,10 @@ $resultTT = mysqli_query($conn, $sqlTT);
 if (mysqli_num_rows($resultTT) > 0) {
     $TT = mysqli_fetch_array($resultTT);
 }
-if (isset($_POST['oldPass'])) {
-    $oldPass = trim($_POST['oldPass']);
-} else $oldPass = "";
-
-if (isset($_POST['newPass'])) {
-    $newPass = trim($_POST['newPass']);
-} else $newPass = "";
-
-if (isset($_POST['reNewPass'])) {
-    $reNewPass = trim($_POST['reNewPass']);
-} else $reNewPass = "";
-
-function CheckOldPassword($conn, $maNV, $oldPass)
-{
-    $sqlCheck = "select * from tai_khoan
-        where TenTK = '$maNV' and MatKhau = '$oldPass'";
-    $resultCheck = mysqli_query($conn, $sqlCheck);
-    if (mysqli_num_rows($resultCheck) > 0) {
-        return true;
-    }
-    return false;
-}
-$titleOldPass = "<b>Mật khẩu cũ</b>";
-$titleNewPass = "<b>Mật khẩu mới</b>";
-$titleReNewPass = "<b>Nhập lại mật khẩu mới</b>";
-
-if (isset($_POST["change"])) {
-    if (CheckOldPassword($conn, $TT['MaNV'], $oldPass) && $oldPass != "" && $newPass != "" && $reNewPass != "") {
-        mysqli_query($conn, "UPDATE `tai_khoan` SET `MatKhau`= '$newPass' WHERE TenTK = '$TT[MaNV]'");
-        echo "<script type='text/javascript'>
-                toastr.success('Đổi mật khẩu thành công!');
-            </script>";
-    }
-    if (!CheckOldPassword($conn, $TT['MaNV'], $oldPass)) {
-        $titleOldPass = "<b style='color:red;'>*Mật khẩu cũ không đúng</b>";
-    }
-    if ($oldPass == "") {
-        $titleOldPass = "<b style='color:red;'>*Mật khẩu cũ không được để trống</b>";
-    }
-    if ($newPass == "") {
-        $titleNewPass = "<b style='color:red;'>*Mật khẩu mới không được để trống</b>";
-    }
-    if ($reNewPass == "") {
-        $titleReNewPass = "<b style='color:red;'>*Nhập lại mật khẩu không được để trống</b>";
-    }
-    if ($newPass != $reNewPass) {
-        $titleReNewPass = "<b style='color:red;'>*Nhập lại mật khẩu không đúng</b>";
-    }
-}
 if ($TT["GioiTinh"] == 1) $gt = "Nam";
 else $gt = "Nữ";
 ?>
-<form action="" method="post">
+<form action="" method="post" id="form-change-pass" name="form-change-pass">
     <div class="modal fade" id="doimatkhau" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -72,22 +23,17 @@ else $gt = "Nữ";
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-
                     <b>Tên tài khoản</b>
                     <input class="form-control py-2" type="text" size="20" name="tenTK" value="<?= $TT['MaNV'] ?>" disabled="disabled" />
 
+                    <b id="oldPass-err">Mật khẩu cũ</b>
+                    <input class="form-control py-2" id="oldPass" type="password" size="20" name="oldPass" />
 
-                    <?= $titleOldPass ?>
-                    <input class="form-control py-2" type="password" size="20" name="oldPass" value="<?= $oldPass ?>" />
+                    <b id="newPass-err">Mật khẩu mới</b>
+                    <input class="form-control py-2" id="newPass" type="password" size="20" name="newPass" />
 
-
-                    <?= $titleNewPass ?>
-                    <input class="form-control py-2" type="password" size="20" name="newPass" value="<?= $newPass ?>" />
-
-
-                    <?= $titleReNewPass ?>
-                    <input class="form-control py-2" type="password" size="20" name="reNewPass" value="<?= $reNewPass ?>" />
-
+                    <b id="reNewPass-err">Nhập lại mật khẩu mới</b>
+                    <input class="form-control py-2" id="reNewPass" type="password" size="20" name="reNewPass"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
