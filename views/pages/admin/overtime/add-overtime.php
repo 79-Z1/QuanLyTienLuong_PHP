@@ -41,15 +41,13 @@ if (isset($_POST['add'])) {
     if (empty($_POST['ngayTC'])) {
         $err[] = "Vui lòng nhập ngày tháng";
     }
-    if ( empty($loaiTC)) {
-        $err[] = "Vui lòng nhập loại tăng ca";
-    } else if ( $loaiTC > 2) {
+    if ( $loaiTC > 2) {
         $err[] = "Loại tăng ca không quá 2";
     }
 
     if (empty($err)) {
         $sqlInsert = "INSERT INTO `tang_ca`(`MaTC`, `MaNV`, `NgayTC`, `LoaiTC`) 
-                            VALUES ('$maTC','$maNV','$_POST[ngayTC]', '$loaiTC')";
+                            VALUES ('$maTC','$maNV','$_POST[ngayTC]', $loaiTC)";
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
@@ -100,12 +98,16 @@ if (isset($_POST['add'])) {
                             </td>
                             <td>Loại tăng ca</td>
                             <td>
-                                <input class="form-control py-2" type="text" size="20" name="loaiTC" value="<?php echo $loaiTC; ?>" />
+                                <select name="loaiTC" class="form-select search-option">
+                                    <option value="0" <?php if (isset($_POST['loaiTC']) && $_POST['loaiTC'] == '0') echo " selected"; ?>>Ngày thường</option>
+                                    <option value="1" <?php if (isset($_POST['loaiTC']) && $_POST['loaiTC'] == '1') echo " selected"; ?>>Nghỉ hàng tuần</option>
+                                    <option value="2" <?php if (isset($_POST['loaiTC']) && $_POST['loaiTC'] == '2') echo " selected"; ?>>Nghỉ lễ</option>
+                                </select>
                             </td>
                         </tr>
                         <tr>
                             <td id="no_color" align="center" colspan="4">
-                                <input type="submit" value="Thêm" name="add" class="btn btn-outline-purple me-3 themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Thêm" name="add" class="btn btn-outline-success me-3 themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-overtime"> Quay Lại</a>
                             </td>
                         </tr>
