@@ -15,9 +15,7 @@
     $ngayUng = trim($_GET['ngayUng']);
     else $ngayUng = "";
 
-    if (isset($_GET['lyDo']))
-    $lyDo = trim($_GET['lyDo']);
-    else $lyDo = "";
+    
 
     if (isset($_GET['soTien']))
     $soTien = trim($_GET['soTien']);
@@ -31,46 +29,124 @@
     $resultPhieuUngLuong = mysqli_query($conn, $sqlPhieuUngLuong);
 
     $rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 8
-
+   
     if (!isset($_GET['p'])) {
         $_GET['p'] = 1;
     }
-    $numRows = mysqli_num_rows($resultPhieuUngLuong);
     $offset = ($_GET['p'] - 1) * $rowsPerPage;
+    $sqlTimKiem =
+    "select * from phieu_ung_luong where 1 ";
 
-    $sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
-    $result = mysqli_query($conn, $sql);
+if (isset($_GET['timkiem'])) {
+    if ($maPhieu != "") {
+        $sqlTimKiem .= " and MaPhieu = '$maPhieu' ";
+    }
+    if ($maNV != "") {
+        $sqlTimKiem .= " and MaNV = '$maNV' ";
+    }
+    if ($ngayUng != "") {
+        $sqlTimKiem .= " and NgayUng = '$ngayUng' ";
+    }
+    if ($soTien != "") {
+        $sqlTimKiem .= " and SoTien = '$soTien' ";
+    }
+    if ($duyet != "") {
+        $sqlTimKiem .= " and Duyet = '$duyet' ";
+    }
+
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+}
+
+    $sqlTimKiem .= " order by MaPhieu";
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+
+    $numRows = mysqli_num_rows($resultTimKiem);
+
+    $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
+    $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 ?>
 <style>
-    .form-control{
-     
-        padding-left: 50px;
-    }
-    td{
-        padding: 5px;
-    }
-        .pagination-link {
-        display: inline-block;
-        padding: 3px 5px;
-        margin: 1PX ;
-        border: 1px solid #ccc;
-        text-decoration: none;
-        color: #333;
-        font-size: 12px;
-        border-radius: 15px;
-    }
+    table {
+    border-collapse: collapse;
+    width: 100%;
+}
+td{
+    padding: 5px;
+    padding-right:20px;
+}
+.table-hover tbody td {
+    padding: 13px 10px 13px 25px;
 
-    .pagination-link.active {
-        background-color: #333;
-        color: #fff;
+}
+.table-hover tbody td a i{
+    font-size:22px;
+    margin-right: 8px;
+}
 
-    }
+p {
+    font-size: 18px;
+    font-weight: bold;
+    height: 30px;
+}
+label{
+    margin-right: 5px;
+}
 
-    .pagination-link:not(.active) {
-        font-weight: 400;
-        font-size: 12px;
-        color: #666;
-    }
+.form-select{
+    padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+}
+.card .navbar {
+    padding: 0;
+    border-radius: 10px;
+}
+
+.larger-text {
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.form-control {
+    height: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+    font-size: 16px;
+}
+
+.search-btn {
+    width: 100%;
+
+}
+
+.search-btn span {
+    margin-right: 5px;
+}
+
+
+.pagination-link {
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 1PX ;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: #333;
+    font-size: 12px;
+    border-radius: 15px;
+}
+
+.pagination-link.active {
+    background-color: #333;
+    color: #fff;
+
+}
+
+.pagination-link:not(.active) {
+    font-weight: 400;
+    font-size: 12px;
+    color: #666;
+}
 </style>
 <div class="g-6 mb-3 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
@@ -87,31 +163,47 @@
                             <td>
                                 <p>Mã nhân viên</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="maNV" value="<?php echo $maNV; ?>"></td>
+                            <td>
+                                <select name="maNV" class="form-select search-option">
+                                    <option value="">Trống</option>
+                                    <?php
+                                    if (mysqli_num_rows($resultPhieuUngLuong) <> 0) {
+
+                                        while ($rows = mysqli_fetch_array($resultPhieuUngLuong)) {
+                                            echo "<option";
+                                            if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
+                                            echo ">$rows[MaNV]</option>";
+                                        }
+                                    }
+                                    ?>
+                                </select>
+                            </td>
                         </tr>
 
                         <tr>
                             <td>
                                 <p>Ngày ứng</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="ngayUng" value="<?php echo $ngayUng; ?>"></td>
+                            <td><input class="form-control me-2 search-input" type="date" name="ngayUng" value="<?php echo $ngayUng; ?>"></td>
                             
-                            <td>
-                                <p>Lý do</p>
-                            </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="lyDo" value="<?php echo $lyDo; ?>"></td>
-                        </tr>
-
-                        <tr >
                             <td >
                                 <p>Số tiền</p> 
                             </td>
                             <td><input class="form-control me-2 search-input" type="text" name="soTien" value="<?php echo $soTien; ?>"></td>
+                        </tr>
+
+                        <tr >
+                           
                             
                             <td >
                                 <p>Duyệt</p> 
                             </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="duyet" value="<?php echo $duyet; ?>"></td>
+                            <td>
+                            <select name="duyet" class="form-select search-option">
+                                    <option value="0" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '0') echo " selected"; ?>>Chưa duyệt</option>
+                                    <option value="1" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '1') echo " selected"; ?>>Đã duyệt</option>
+                                </select>
+                            </td>
                         </tr>
                            
                
@@ -120,11 +212,11 @@
                         <tr align="center" colspan="4">
                             <td align="end" colspan="2">
                                 <input class="btn btn-outline-success search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
-                                <input type="text" name="page" value="admin-parameter" style="display: none">
+                                <input type="text" name="page" value="admin-salary-slip" style="display: none">
 
                             </td>
                             <td align="start" colspan="2">
-                                <a href="index.php?page=add-parameter" class="btn btn-outline-purple search-btn w-50">Thêm</a>
+                                <a href="index.php?page=admin-salary-slip-add" class="btn btn-outline-purple search-btn w-50">Thêm</a>
                             </td>
                         </tr>
                         
@@ -157,16 +249,21 @@
 
                 //tổng số trang
                 $maxPage = floor($numRows / $rowsPerPage) + 1;
-                if (mysqli_num_rows($result) <> 0) {
+                if (mysqli_num_rows($resultTimKiem) <> 0) {
 
-                    while ($rows = mysqli_fetch_array($result)) {
+                    while ($rows = mysqli_fetch_array($resultTimKiem)) {
+                        if($rows['Duyet'] == 0){
+                            $duyetUL = "Chưa duyệt";
+                        }else{
+                         $duyetUL = "Đã duyệt";
+                        }
                         echo "<tr>
                             <td >{$rows['MaPhieu']}</td>
                             <td >{$rows['MaNV']} </td>
                             <td >{$rows['NgayUng']} </td>
                             <td >{$rows['LyDo']} </td>
                             <td >{$rows['SoTien']} </td>
-                            <td >{$rows['Duyet']} </td>
+                            <td >{$duyetUL} </td>
                             <td>
                             <a href='index.php?page=admin-salary-slip-edit&MaPhieu={$rows['MaPhieu']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                             <a href='index.php?page=admin-salary-slip_delete&MaPhieu={$rows['MaPhieu']}'><i style='color:red' class='bi bi-person-x'></i></a>
@@ -184,17 +281,17 @@
 </div>
 <?php
     echo '<div align="center">';
-    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&p=1>Về đầu</a> ";
-    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
+    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&maPhieu=$maPhieu&maNV=$maNV&ngayUng=$ngayUng&soTien=$soTien&duyet=$duyet&timkiem=Tìm+kiếm&p=1>Về đầu</a> ";
+    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&maPhieu=$maPhieu&maNV=$maNV&ngayUng=$ngayUng&soTien=$soTien&duyet=$duyet&timkiem=Tìm+kiếm&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
     for ($i = 1; $i <= $maxPage; $i++) {
         if ($i == $_GET['p']) {
             echo '<a class="pagination-link active">' . $i . '</a>';
         } else {
-            echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&p=" . $i . ">" . $i . "</a> ";
+            echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&maPhieu=$maPhieu&maNV=$maNV&ngayUng=$ngayUng&soTien=$soTien&duyet=$duyet&timkiem=Tìm+kiếm&p=" . $i . ">" . $i . "</a> ";
         }
     }
-    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&p=" . $maxPage . ">Về cuối</a> ";
+    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&maPhieu=$maPhieu&maNV=$maNV&ngayUng=$ngayUng&soTien=$soTien&duyet=$duyet&timkiem=Tìm+kiếm&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
+    echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-salary-slip&maPhieu=$maPhieu&maNV=$maNV&ngayUng=$ngayUng&soTien=$soTien&duyet=$duyet&timkiem=Tìm+kiếm&p=" . $maxPage . ">Về cuối</a> ";
     echo "</div>";
 ?>
 <?php $this->end(); ?>
