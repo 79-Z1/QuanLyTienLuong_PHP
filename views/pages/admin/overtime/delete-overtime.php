@@ -84,7 +84,7 @@ if (isset($_POST['delete'])) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Bạn có chắc chắn muốn xoá nhân viên <strong><?php echo $row["MaTC"]; ?></strong> không?</p>
+                <p>Bạn có chắc chắn muốn xoá tăng ca <strong><?php echo $row["MaTC"]; ?></strong> không?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>

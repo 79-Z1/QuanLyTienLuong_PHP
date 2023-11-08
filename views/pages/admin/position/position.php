@@ -99,7 +99,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         </tr>
                         <tr>
                             <td align="center" colspan="4">
-                                <input class="btn btn-outline-success search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input class="btn btn-outline-purple search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
                                 <input type="text" name="page" value="admin-position" style="display: none">
                                 <a href="index.php?page=admin-position-add-position" class="btn btn-outline-success search-btn w-25">Thêm</a>
                             </td>

@@ -24,11 +24,11 @@ if (isset($_POST['edit'])) {
     if (empty($tenCV)) {
         $err[] = "Vui lòng nhập tên chức vụ";
     }
-    if (empty($HSL)) {
+    if (empty($HSL) && $HSL != 0) {
         $err[] = "Vui lòng nhập hệ số lương";
-    } elseif (!is_numeric($HSL)) {
-        $err[] = "Hệ số lương phải là một số";
-    }
+    } else if ( !is_numeric($HSL)) {
+        $err[] = "Hệ số lương là số";
+    } 
 
     if (empty($err)) {
         $sqlupdate = "UPDATE `chuc_vu` SET `MaChucVu`='$maCV',`TenChucVu`='$tenCV',`HeSoLuong`='$HSL' WHERE MaChucVu='$maCV'";
