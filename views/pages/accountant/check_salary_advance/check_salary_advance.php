@@ -5,12 +5,16 @@
 	{
 		return number_format($tien, 0, ',', '.');
 	}
+	function Ngay_Format($date){
+		$day = explode('-', $date);
+		return $day[2].'-'.$day[1].'-'.$day[0];
+	}
 ?>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
 $sqlUngLuong = 'select * from phieu_ung_luong';
-$rowsPerPage = 6; //số mẩu tin trên mỗi trang, giả sử là 5
+$rowsPerPage = 7; //số mẩu tin trên mỗi trang, giả sử là 5
 if (!isset($_GET['p'])) {
 	$_GET['p'] = 1;
 }
@@ -24,7 +28,7 @@ $sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
 $resultUngLuong = mysqli_query($conn, $sql);
 ?>
 
-<div style="height:620px">
+<div style="height:650px">
 	<div class="card shadow border-0 mb-7 mt-5">
 		<div class="card-header">
 			<h5 class="mb-0">BẢNG ỨNG LƯƠNG</h5>
@@ -51,7 +55,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 						<tr data-maphieu="<?=$rows['MaPhieu']?>">
 							<td><?=$rows['MaPhieu']?></td>
 							<td><?=$rows['MaNV']?></td>
-							<td><?=$rows['NgayUng']?></td>
+							<td><?=Ngay_Format($rows['NgayUng'])?></td>
 							<td><?=$rows['LyDo']?></td>
 							<td><?=money_format($rows['SoTien'])?> đ</td>
 							<td><p class="duyet-p" style="color:<?=$rows['Duyet'] ? 'green' : 'red' ?>;">
@@ -124,7 +128,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	<?php
 	// Tổng số trang
 	$maxPage = ceil($numRows / $rowsPerPage);
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . (1) . ">Đầu trang</a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . (1) . ">Đầu</a> ";
 	// Gắn thêm nút Back
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 
@@ -138,7 +142,7 @@ $resultUngLuong = mysqli_query($conn, $sql);
 	// Gắn thêm nút Next
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a> ";
 	// gắn nút về trang đầu
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối trang</a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-salary-advance&p=" . ($maxPage) . ">Cuối</a> ";
 	?>
 </div>
 <?php $this->end(); ?>
