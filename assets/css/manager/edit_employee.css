@@ -15,8 +15,9 @@
 }
 
 .form-date-control {
-    text-align: center;
-    width: 23%;
+    /* text-align: center;
+    font-size: 1.1rem !important;
+    width: 30% ; */
 }
 
 .form-control-img {
@@ -32,7 +33,7 @@ tbody {
 .label-info{
     width: 15%;
     text-align: right;
-    font-size: 1.1rem !important;
+    font-size: 1rem !important;
 }
 .info{
     width: 35%;

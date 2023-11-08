@@ -42,83 +42,7 @@ $sqlCheck =
     "SELECT * FROM `cham_cong` WHERE day(Ngay) = $ngay and month(Ngay)= $thang and year(Ngay) = $nam";
 $resultCheck = mysqli_query($conn, $sqlCheck);
 $num = mysqli_num_rows($resultCheck);
-
 ?>
-<style>
-    td,
-    th {
-        padding: 15px !important;
-    }
-
-    .ct {
-        text-align: center;
-    }
-
-    .form-select {
-        padding: .375rem 2.25rem .375rem .75rem !important;
-    }
-
-    tbody {
-        height: 200px;
-        overflow-y: scroll;
-    }
-
-    .button {
-        display: inline-block;
-        padding: 8px 20px;
-        font-size: 18px;
-        cursor: pointer;
-        text-align: center;
-        text-decoration: none;
-        outline: none;
-        color: #fff;
-        background-color: #03C03C;
-        border: none;
-        border-radius: 15px;
-        box-shadow: 0 9px #97ed8a;
-    }
-
-    .button:hover {
-        background-color: #157806;
-    }
-
-    .button:active {
-        background-color: #157806;
-        box-shadow: 0 5px #666;
-        transform: translateY(4px);
-    }
-
-    .tableWrap {
-        height: 547px;
-        overflow: auto;
-    }
-
-    /* Set header to stick to the top of the container. */
-    thead tr th {
-        position: sticky;
-        z-index: 9999;
-        top: 0;
-    }
-
-    #tb {
-
-        flex-direction: column;
-    }
-
-    #tb i {
-        color: #03C03C;
-        font-size: 200px;
-        margin-bottom: 10px;
-
-    }
-
-    #tb b {
-        color: #03C03C;
-        font-size: 32px;
-    }
-</style>
-
-
 <form action="" method="post">
     <?php
     if ($num <= 0) {
@@ -210,44 +134,44 @@ $num = mysqli_num_rows($resultCheck);
     </div>
     </div>
 </form>
-<?php 
-    if (isset($_POST["xacNhan"])) {
-        $date = str_replace("-", "", $_POST["ngay"]);
-        for ($i = 1; $i <= mysqli_num_rows($result); $i++) {
-            // tạo mã nhân viên
-            if ($i < 10) {
-                $maNV = "NV00" . $i;
-            } elseif ($i < 100) {
-                $maNV = "NV0" . $i;
-            } else {
-                $maNV =  "NV" . $i;
-            }
-            // lấy dữ liệu của nghỉ hưởng lương
-            if (isset($_POST["nghiHL$maNV"])) {
-                $nghiHL = $_POST["nghiHL$maNV"];
-            } else $nghiHL = 0;
-    
-            // tạo câu insert vào bản chấm công
-    
-            $sqlInsertCC = "INSERT INTO cham_cong(MaCong, MaNV, TinhTrang, Ngay, NghiHL) 
-                            VALUES ('" . TaoMaCong($i, $date) . "','$maNV'," . $_POST["tinhTrang$maNV"] . ",'$_POST[ngay]',$nghiHL);";
-            $resultInsertCC = mysqli_query($conn, $sqlInsertCC);
-    
-    
-            // kiểm tra nếu có chọn tăng ca thì gán thêm câu insert tăng ca vào 
-            if (isset($_POST["tangCa$maNV"]) && $_POST["tangCa$maNV"] != "-1") {
-                $sqlInsertTC = "INSERT INTO tang_ca(MaTC, MaNV, NgayTC, LoaiTC) 
-                VALUES ('" . TaoMaTangCa($i, $date) . "','$maNV','$_POST[ngay]','" . $_POST["tangCa$maNV"] . "');";
-                $resultInsertTC = mysqli_query($conn, $sqlInsertTC);
-            }
+<?php
+if (isset($_POST["xacNhan"])) {
+    $date = str_replace("-", "", $_POST["ngay"]);
+    for ($i = 1; $i <= mysqli_num_rows($result); $i++) {
+        // tạo mã nhân viên
+        if ($i < 10) {
+            $maNV = "NV00" . $i;
+        } elseif ($i < 100) {
+            $maNV = "NV0" . $i;
+        } else {
+            $maNV =  "NV" . $i;
         }
-        echo "<script type='text/javascript'>
+        // lấy dữ liệu của nghỉ hưởng lương
+        if (isset($_POST["nghiHL$maNV"])) {
+            $nghiHL = $_POST["nghiHL$maNV"];
+        } else $nghiHL = 0;
+
+        // tạo câu insert vào bản chấm công
+
+        $sqlInsertCC = "INSERT INTO cham_cong(MaCong, MaNV, TinhTrang, Ngay, NghiHL) 
+                            VALUES ('" . TaoMaCong($i, $date) . "','$maNV'," . $_POST["tinhTrang$maNV"] . ",'$_POST[ngay]',$nghiHL);";
+        $resultInsertCC = mysqli_query($conn, $sqlInsertCC);
+
+
+        // kiểm tra nếu có chọn tăng ca thì gán thêm câu insert tăng ca vào 
+        if (isset($_POST["tangCa$maNV"]) && $_POST["tangCa$maNV"] != "-1") {
+            $sqlInsertTC = "INSERT INTO tang_ca(MaTC, MaNV, NgayTC, LoaiTC) 
+                VALUES ('" . TaoMaTangCa($i, $date) . "','$maNV','$_POST[ngay]','" . $_POST["tangCa$maNV"] . "');";
+            $resultInsertTC = mysqli_query($conn, $sqlInsertTC);
+        }
+    }
+    echo "<script type='text/javascript'>
                     $('#xacNhan').prop('disabled','disabled');
                     toastr.success('Chấm công $ngay/$thang/$nam thành công!');
                     setTimeout(function() {
                         window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/human_manager?page=human-manager-add-timesheets" . "';
                     }, 1500);
                 </script>";
-            }
+}
 ?>
 <?php $this->end(); ?>

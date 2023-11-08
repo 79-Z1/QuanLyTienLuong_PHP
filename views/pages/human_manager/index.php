@@ -11,11 +11,11 @@ switch ($page) {
         echo $template->render('pages/human_manager/add_employee/add_employee', []);
         break;
     case 'human-manager-add-timesheets':
-        echo $template->render('header_manager', ['css' => 'human_manager/add_timesheets/add_timesheets.css', 'js' => 'human_manager/add_timesheets/add_timesheets.js']);
+        echo $template->render('header_manager', ['css' => 'add_timesheets.css', 'js' => 'human_manager/add_timesheets/add_timesheets.js']);
         echo $template->render('pages/human_manager/add_timesheets/add_timesheets', []);
         break;
     case 'human-manager-check-timesheets':
-        echo $template->render('header_manager', ['css' => 'human_manager/check_timesheets/check_timesheets.css', 'js' => 'human_manager/check_timesheets/check_timesheets.js']);
+        echo $template->render('header_manager', ['css' => 'check_timesheets.css', 'js' => 'human_manager/check_timesheets/check_timesheets.js']);
         echo $template->render('pages/human_manager/check_timesheets/check_timesheets', []);
         break;
     case 'human-manager-edit-employee':
