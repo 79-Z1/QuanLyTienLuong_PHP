@@ -1,54 +1,5 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
-<style>
-	.profile-left-container {
-		margin-right: 30px;
-	}
-
-	ul li span {
-		font-size: 30px !important;
-	}
-
-	img {
-		width: 100%;
-		height: 100%;
-	}
-
-	button,
-	.btn {
-		background-color: #007bff;
-		color: #fff;
-		padding: 10px 20px;
-		border: none;
-		cursor: pointer;
-	}
-
-	.modal button {
-		background-color: #007bff;
-		color: #fff;
-		padding: 10px 20px;
-		border: none;
-		cursor: pointer;
-	}
-
-	.modal button:hover {
-		background-color: #0056b3;
-	}
-
-	.card {
-		height: 615px;
-
-	}
-	h6{
-		font-size: 23px!important;
-	}
-	.hr{
-		border: 1px solid!important;
-		width: 100%;
-		opacity: 0.25;
-		margin: 15px 2px;
-	}
-</style>
 
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
@@ -73,7 +24,7 @@ else $gt = "Nam";
 								<img <?php echo "src='" .  '/' . explode('/', $_SERVER["PHP_SELF"])[1] . "/assets/images/imgnv/$ttNV[Hinh]" . "' alt='Avatar' " ?> class="rounded-circle" width="150">
 								<div class="mt-3 p-2">
 									<h1><?php echo "$ttNV[HoNV]     $ttNV[TenNV]"  ?></h1>
-									<h3 class="text-secondary mb-1"><?php echo "$ttNV[TenChucVu]" ?></h3>
+									<h3 class=" mb-1"><?php echo "$ttNV[TenChucVu]" ?></h3>
 								</div>
 							</div>
 						</div>
@@ -86,7 +37,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Mã nhân viên</h6>
 								</div>
-								<div class="col-sm-9 text-secondary " style="font-size: 18px;">
+								<div class="col-sm-9  " style="font-size: 18px;">
 									<?php echo "$ttNV[MaNV]" ?>
 								</div>
 							</div>
@@ -95,7 +46,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Phòng</h6>
 								</div>
-								<div class="col-sm-9 text-secondary " style="font-size: 18px;">
+								<div class="col-sm-9  " style="font-size: 18px;">
 									<?php echo "$ttNV[TenPhong]" ?>
 								</div>
 							</div>
@@ -104,7 +55,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Giới Tính</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 								
 									<?php echo "$gt " ?>
 								</div>
@@ -114,7 +65,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Ngày Sinh</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[NgaySinh]" ?>
 								</div>
 							</div>
@@ -123,7 +74,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Địa Chỉ</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[DiaChi]" ?>
 								</div>
 							</div>
@@ -132,7 +83,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Số Tài Khoản</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[STK]" ?>
 								</div>
 							</div>
@@ -141,7 +92,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">CMND</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[CCCD]" ?>
 								</div>
 							</div>
@@ -150,7 +101,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Số điện thoại</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[SDT]" ?>
 								</div>
 							</div>
@@ -159,7 +110,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Số con</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[SoCon]" ?>
 								</div>
 							</div>
@@ -168,7 +119,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Hệ số lương</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[HeSoLuong]" ?>
 								</div>
 							</div>
@@ -177,7 +128,7 @@ else $gt = "Nam";
 				</div>
 			</div>
             <div class='option-buttons d-flex justify-content-start'>
-                <a href="index.php"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+                <input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" />
             </div>
 		</div>
 	</div>

@@ -23,7 +23,7 @@ switch ($page) {
         echo $template->render('pages/accountant/payroll/payroll-info', []);
         break;
     case 'employee-detail':
-        echo $template->render('header_accountant', ['css' => 'list_employee.css', 'js' => 'list_employee.js']);
+        echo $template->render('header_accountant', ['css' => 'employee_detail.css', 'js' => 'employee_detail.js']);
         echo $template->render('pages/accountant/list_employee_info/employee-detail', []);
         break;
     case 'accountant-check-paycheck':
