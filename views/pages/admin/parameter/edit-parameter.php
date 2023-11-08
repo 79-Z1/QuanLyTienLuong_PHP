@@ -37,8 +37,10 @@ if (isset($_POST['edit'])) {
     if (empty($DVT)) {
         $err[] = "Vui lòng nhập đơn vị tính";
     }
-    if (empty($giaTri)) {
+    if (empty($giaTri) && $giaTri != 0) {
         $err[] = "Vui lòng nhập giá trị";
+    } else if(!is_numeric($giaTri)) {
+        $err[] = "Giá trị phải là số";
     }
     if($tinhTrang != 1 && $tinhTrang != 0 ){
         $err[] = "Tình trạng chỉ có 0 và 1";
@@ -86,7 +88,10 @@ if (isset($_POST['edit'])) {
                         <tr class="tr">
                             <td>Tình trạng</td>
                             <td>
-                                <input class="form-control py-2" type="text" size="20" name="tinhTrang" value="<?php echo $tinhTrang; ?>" />
+                            <select name="tinhTrang" class="form-select search-option">
+                                    <option value="0" <?php if ($tinhTrang == '0') echo " selected"; ?>>Chưa sử dụng</option>
+                                    <option value="1" <?php if ($tinhTrang == '1') echo " selected"; ?>>Đã sử dụng</option>
+                                </select>
                             </td>
                         </tr>
                         <tr class="tr">

@@ -20,9 +20,7 @@ else $giaTri = "";
 if (isset($_POST['tinhTrang']))
     $tinhTrang = trim($_POST['tinhTrang']);
 else $tinhTrang = "";
-if (isset($_POST['loaiTC']))
-    $loaiTC = trim($_POST['loaiTC']);
-else $loaiTC = "";
+
 
 
 if (isset($_POST['add'])) {
@@ -38,21 +36,20 @@ if (isset($_POST['add'])) {
     if (empty($DVT)) {
         $err[] = "Vui lòng nhập đơn vị tính";
     }
-    if (empty($giaTri)) {
+    if (empty($giaTri) && $giaTri != 0) {
+        $err[] = "Vui lòng nhập giá trị";
+    } else if(!is_numeric($giaTri)) {
         $err[] = "Vui lòng nhập giá trị";
     }
-    if (!is_numeric($tinhTrang)) {
-        $err[] = "Vui lòng nhập tình trạng";
-    } 
-    if($tinhTrang > 1 ){
+    if($tinhTrang != 1 && $tinhTrang != 0 ){
         $err[] = "Tình trạng chỉ có 0 và 1";
     }
+
 
 
     if (empty($err)) {
         $sqlInsert = "INSERT INTO `tham_so`(`MaTS`, `TenTS`, `DVT`, `GiaTri`, `TinhTrang`) VALUES ('$maTS','$tenTS','$DVT','$giaTri',$tinhTrang)";
         $resultInsert = mysqli_query($conn, $sqlInsert);
-
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm thành công'); toastr.options.timeOut = 3000;</script>";
         } else {
@@ -93,12 +90,14 @@ if (isset($_POST['add'])) {
                         <tr class="tr">
                             <td>Tình trạng</td>
                             <td>
-                                <input class="form-control py-2" type="text" size="20" name="tinhTrang" value="<?php echo $tinhTrang; ?>" />
+                                <select name="tinhTrang" class="form-select search-option">
+                                    <option value="0" <?php if (isset($_POST['tinhTrang']) && $_POST['tinhTrang'] == '0') echo " selected"; ?>>Chưa sử dụng</option>
+                                    <option value="1" <?php if (isset($_POST['tinhTrang']) && $_POST['tinhTrang'] == '1') echo " selected"; ?>>Đã sử dụng</option>
                             </td>
                         </tr>
                         <tr class="tr">
                             <td id="no_color" align="center" colspan="4">
-                                <input type="submit" value="Thêm" name="add" class="btn btn-outline-purple me-3 themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Thêm" name="add" class="btn btn-outline-success me-3 themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-parameter">Quay Lại</a>
                             </td>
                         </tr>

@@ -22,7 +22,7 @@ if (isset($_GET['tinhTrang']))
 else $tinhTrang = "";
 
 
-$rowsPerPage = 7; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
 
 
 if (!isset($_GET['p'])) {
@@ -93,7 +93,12 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                 <p>Tình trạng</p>
                             </td>
                             <td>
-                                <input class="form-control me-2 search-input" type="text" name="tinhTrang" value="<?php echo $tinhTrang; ?>">
+                            <select name="tinhTrang" class="form-select search-option">
+                                    <option value="">Trống</option>
+                                    <option value="0" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '0') echo " selected"; ?>>Chưa sử dụng</option>
+                                    <option value="1" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '1') echo " selected"; ?>>Đã sử dụng</option>
+                                    
+                                </select>
                             </td>
                         </tr>
                         <tr >
@@ -123,7 +128,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 410px">
+<div style="height: 450px">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
@@ -143,12 +148,17 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
 
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
+                        if ($rows['TinhTrang'] == 0) {
+                            $TT = "Chưa sử dụng";
+                        } else if ($rows['TinhTrang'] == 1) {
+                            $TT = "Đã sử dụng";
+                        }
                         echo "<tr>
                             <td >{$rows['MaTS']}</td>
                             <td >{$rows['TenTS']}</td>
                             <td >{$rows['DVT']}</td>
                             <td >{$rows['GiaTri']}</td>
-                            <td >{$rows['TinhTrang']}</td>
+                            <td >{$TT}</td>
                             <td >
                                 <a href='index.php?page=edit-parameter&maTS={$rows['MaTS']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                                 <a href='index.php?page=delete-parameter&maTS={$rows['MaTS']}'><i style='color:red' class='bi bi-person-x'></i></a>
