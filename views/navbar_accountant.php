@@ -37,7 +37,7 @@
                     </a>
                 </li>
                 <li class="nav-item" data-active="7" id="Logout">
-                    <a class="nav-link"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+                    <a class="nav-link"> <i class="bi bi-box-arrow-left"></i> Đăng xuất </a>
                 </li>
             </ul> <!-- Divider -->
         </div>

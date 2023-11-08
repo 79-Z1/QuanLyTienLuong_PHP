@@ -4,6 +4,7 @@ $page = $_GET['page'] ?? '';
 
 $template = new Template('');
 echo $template->render('navbar_manager', []);
+echo $template->render('footer', []);
 
 switch ($page) {
     case 'human-manager-add-employee':

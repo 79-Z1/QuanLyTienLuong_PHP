@@ -31,7 +31,7 @@ if (mysqli_num_rows($resultTT) > 0) {
                 <?php $this->renderSection('content'); ?>
             </div>
         </div>
-        <!-- END USER PROFILE -->
+        <?php $this->renderSection('footer'); ?>
 </body>
 
 </html>

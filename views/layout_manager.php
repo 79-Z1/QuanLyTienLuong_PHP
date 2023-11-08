@@ -17,7 +17,7 @@
             </main>
         </div>
     </div>
-
+    <?php $this->renderSection('footer'); ?>
 </body>
 
 </html>
