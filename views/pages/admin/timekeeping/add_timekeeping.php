@@ -9,6 +9,10 @@ $getmanv = "SELECT MaNV FROM `nhan_vien`
 order by MaNV";
 $resultmanv = mysqli_query($conn, $getmanv);
 
+$sqlMaCong = "select * from cham_cong";
+$resultMaCong = mysqli_query($conn, $sqlMaCong);
+$row = mysqli_fetch_array($resultMaCong);
+
 if (isset($_POST['maCong']))
     $maCong = trim($_POST['maCong']);
 else $maCong = "";
@@ -34,7 +38,9 @@ if (isset($_POST['them'])) {
     $err = array();
 
     if (empty($maCong)) {
-        $err[] = "Vui lòng nhập mã phòng ban";
+        $err[] = "Vui lòng nhập mã công";
+    }else if($maCong == $row["MaCong"]) {
+        $err[] = "Đã có mã công này rồi!!";
     }
     if (empty($maNV)) {
         $err[] = "Vui lòng nhập mã nhân viên";
@@ -48,23 +54,20 @@ if (isset($_POST['them'])) {
     if (empty($ngay)) {
         $err[] = "Vui lòng nhập ngày";
     }
-    if (empty($nghiHL)) {
-        $err[] = "Vui lòng nhập nghỉ hưởng lương";
-    }
+    
 
     if (empty($err)) {
-        $sqlInsert = "INSERT INTO `cham_cong`(`MaCong`, `MaNV`, `TinhTrang`, `Ngay`, `NghiHL`) VALUES ('$maCong','$maNV','$tinhTrang','$ngay','$nghiHL')";
+        $sqlInsert = "INSERT INTO `cham_cong`(`MaCong`, `MaNV`, `TinhTrang`, `Ngay`, `NghiHL`) VALUES ('$maCong','$maNV',$tinhTrang,'$ngay',$nghiHL)";
         $resultInsert = mysqli_query($conn, $sqlInsert);
 
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('thêm thành công'); toastr.options.timeOut = 3000;</script>";
-
-           
-        } else {
+        }
+        else{
             // echo "Lỗi: " . mysqli_error($conn);
             echo "<script type='text/javascript'>toastr.error('thêm không thành công'); toastr.options.timeOut = 3000;</script>";
-        }
-    } else {
+            }  
+        }else {
         foreach ($err as $error) {
             echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
         }
@@ -80,6 +83,11 @@ if (isset($_POST['them'])) {
     .form-date-control{  
         width: 70%;
     }
+    tr td {
+    font-size: 20px !important;
+    height: 20% !important;
+    font-weight: bold;
+}
 </style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
@@ -91,12 +99,12 @@ if (isset($_POST['them'])) {
             <form align='center' action="" method="post" enctype="multipart/form-data">
                 <table class="table table-hover table-nowrap">
                     <tr>
-                            <td>Mã Công</td>
+                        <td><p>Mã Công</p></td>
                         <td>
-                        <td>
-                            <input class="form-control py-2" type="text" size="20" name="maCong" value="<?php echo $maCong; ?> " /></td>
-                    </td>
-                        <td>Mã nhân viên</td>
+                            <input class="form-control py-2" type="text" size="20" name="maCong" value="<?php echo $maCong; ?> " />
+                        </td>
+                        
+                        <td><p>Mã nhân viên</p></td>
                         <td>            
                         <select name="maNV" class="form-select search-option">
                                 
@@ -105,24 +113,25 @@ if (isset($_POST['them'])) {
 
                                     while ($rows = mysqli_fetch_array($resultmanv )) {
                                         echo "<option value='$rows[MaNV]'";
-                                        if (isset($_GET['MaNV']) && $_GET['MaNV'] == $rows['MaNV']) echo "selected";
+                                        if (isset($_POST['maNV']) && $_POST['maNV'] == $rows['MaNV']) echo "selected";
                                         echo ">$rows[MaNV]</option>";
                                     }
                                 }
                                 ?>
                             </select>
-                    </td>
+                        </td>
                     </tr>
 
                     <tr>
                         <td>Tình trạng</td>
-                    <td>
+                    
                         <td>
                              <select name="tinhTrang" class="form-select search-option">
                                     <option value="0" <?php if (isset($_POST['tinhTrang']) && $_POST['tinhTrang'] == '0') echo " selected"; ?>>Nghỉ</option>
                                     <option value="1" <?php if (isset($_POST['tinhTrang']) && $_POST['tinhTrang'] == '1') echo " selected"; ?>>Đi làm</option>
                             </select>        
                         </td>
+
                         <td>Nghỉ Hưởng Lương</td>
                         <td>
                              <select name="nghiHL" class="form-select search-option">
