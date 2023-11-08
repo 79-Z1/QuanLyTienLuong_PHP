@@ -13,23 +13,8 @@ img {
 
 button,
 .btn {
-    background-color: #007bff;
-    color: #fff;
     padding: 10px 20px;
-    border: none;
     cursor: pointer;
-}
-
-.modal button {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-}
-
-.modal button:hover {
-    background-color: #0056b3;
 }
 
 .card {
@@ -44,13 +29,4 @@ h6{
     width: 100%;
     opacity: 0.25;
     margin: 15px 2px;
-}
-.btn-info{
-    background-color: white;
-    border: 1px blueviolet solid;
-    color: blueviolet;
-}
-.btn-info:hover{
-    background-color:rgb(83, 12, 150);
-    color: white;
 }

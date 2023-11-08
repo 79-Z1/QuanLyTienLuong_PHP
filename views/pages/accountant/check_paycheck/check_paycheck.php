@@ -115,8 +115,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td> <p align="center">Tháng</p> <input class="form-control me-2 search-input" size="2"  type="text" name="thang" value="<?php echo $thang; ?>"></td>
-                            <td> <p align="center">Năm</p> <input class="form-control me-2 search-input" size="4" type="text" name="nam" value="<?php echo $nam; ?>"></td>
+                            <td>
+                                <p align="center">Tháng</p>
+                            </td>
+                            <td><input class="form-control me-2 search-input" size="2" type="text" name="thang" value="<?php echo $thang; ?>"></td>
                         </tr>
                         <tr>
                             <td>
@@ -141,7 +143,13 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td align="center" colspan="2">
+                            <td>
+                                <p align="center">Năm</p>
+                            </td>
+                            <td><input class="form-control me-2 search-input" size="4" type="text" name="nam" value="<?php echo $nam; ?>"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="6" align="center">
                                 <input type="text" name="page" value="accountant-check-paycheck" style="display: none">
                                 <input style="width:150" class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
@@ -176,14 +184,14 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                 ?>
                         <tr>
-                            <td><?=$rows['MaNV']?></td>
-                            <td><?=$rows['HoNV']. " " . $rows['TenNV']?></td>
-                            <td><?=$rows['TenChucVu']?></td>
-                            <td align="right" style="padding-right:50px;"><?=number_format($rows['TienLuongThang'])?> đ</td>
-                            <td align="right" style="padding-right:50px;"><?=number_format($rows['TongThuNhap'])?> đ</td>
-                            <td align="right" style="padding-right:50px;"><?=number_format($rows['ThucLinh'])?> đ</td>
-                            <td><a href='index.php?page=accountant-detail-paycheck&MaPL=<?=$rows['MaPhieuLuong']?>&MaNV=<?=$rows['MaNV']?>'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
-                            <td><a href='index.php?page=accountant-edit-paycheck&MaPL=<?=$rows['MaPhieuLuong']?>&MaNV=<?=$rows['MaNV']?>'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
+                            <td><?= $rows['MaNV'] ?></td>
+                            <td><?= $rows['HoNV'] . " " . $rows['TenNV'] ?></td>
+                            <td><?= $rows['TenChucVu'] ?></td>
+                            <td align="right" style="padding-right:50px;"><?= number_format($rows['TienLuongThang']) ?> đ</td>
+                            <td align="right" style="padding-right:50px;"><?= number_format($rows['TongThuNhap']) ?> đ</td>
+                            <td align="right" style="padding-right:50px;"><?= number_format($rows['ThucLinh']) ?> đ</td>
+                            <td><a href='index.php?page=accountant-detail-paycheck&MaPL=<?= $rows['MaPhieuLuong'] ?>&MaNV=<?= $rows['MaNV'] ?>'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
+                            <td><a href='index.php?page=accountant-edit-paycheck&MaPL=<?= $rows['MaPhieuLuong'] ?>&MaNV=<?= $rows['MaNV'] ?>'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
                         </tr>
                 <?php
                     }

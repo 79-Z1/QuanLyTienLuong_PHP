@@ -57,64 +57,64 @@ function MoneyFormat($tien)
                 <form action="" method="post" enctype="multipart/form-data">
                     <table class="table table-hover table-nowrap">
                         <tr>
-                            <td class="label-info"><b>Mã phiếu lương:</b></td>
+                            <td class="label-left"><b>Mã phiếu lương:</b></td>
                             <td class="info"><?php echo $maPL; ?></td>
-                            <td class="label-info-right"><b>Mã nhân viên:</b></td>
-                            <td class="info-right"><?php echo $ttNV['MaNV']; ?></td>
+                            <td class="label-right"><b>Mã nhân viên:</b></td>
+                            <td class="info"><?php echo $ttNV['MaNV']; ?></td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Họ và tên:</b></td>
+                            <td class="label-left"><b>Họ và tên:</b></td>
                             <td class="info"><?php echo $ttNV["HoNV"] . " " . $ttNV["TenNV"]; ?></td>
-                            <td class="label-info-right"><b>Hệ số lương:</b></td>
-                            <td class="info-right"><?php echo $ttNV["HeSoLuong"]; ?></td>
+                            <td class="label-right"><b>Hệ số lương:</b></td>
+                            <td class="info"><?php echo $ttNV["HeSoLuong"]; ?></td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Phòng:</b></td>
+                            <td class="label-left"><b>Phòng:</b></td>
                             <td class="info"><?php echo $ttNV["TenPhong"]; ?></td>
-                            <td class="label-info-right"><b>Chức vụ:</b></td>
-                            <td class="info-right"><?php echo $ttNV["TenChucVu"]; ?></td>
+                            <td class="label-right"><b>Chức vụ:</b></td>
+                            <td class="info"><?php echo $ttNV["TenChucVu"]; ?></td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Số ngày công:</b></td>
+                            <td class="label-left"><b>Số ngày công:</b></td>
                             <td class="info"><?php echo $soNgayCong; ?></td>
-                            <td class="label-info-right"><b>Số ngày vắng:</b></td>
-                            <td class="info-right"><?php echo $soNgayVang; ?></td>
+                            <td class="label-right"><b>Số ngày vắng:</b></td>
+                            <td class="info"><?php echo $soNgayVang; ?></td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Lương tăng ca:</b></td>
+                            <td class="label-left"><b>Lương tăng ca:</b></td>
                             <td class="info"><?php echo MoneyFormat($luongTC); ?> VNĐ</td>
-                            <td class="label-info-right"><b>Tiền tạm ứng:</b></td>
-                            <td class="info-right"><?php echo MoneyFormat($tienTamUng); ?> VNĐ</td>
+                            <td class="label-right"><b>Tiền tạm ứng:</b></td>
+                            <td class="info"><?php echo MoneyFormat($tienTamUng); ?> VNĐ</td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Trợ cấp:</b></td>
+                            <td class="label-left"><b>Trợ cấp:</b></td>
                             <td class="info"><?php echo MoneyFormat($troCap); ?> VNĐ</td>
-                            <td class="label-info-right"><b>Trừ bảo hiểm:</b></td>
-                            <td class="info-right"><?php echo MoneyFormat($truBH); ?> VNĐ</td>
+                            <td class="label-right"><b>Trừ bảo hiểm:</b></td>
+                            <td class="info"><?php echo MoneyFormat($truBH); ?> VNĐ</td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Phạt:</b></td>
+                            <td class="label-left"><b>Phạt:</b></td>
                             <td class="info"><?php echo  MoneyFormat($tienPhat); ?> VNĐ</td>
-                            <td class="label-info-right"><b>Thưởng:</b></td>
-                            <td class="info-right"><?php echo MoneyFormat($tienThuong); ?> VNĐ</td>
+                            <td class="label-right"><b>Thưởng:</b></td>
+                            <td class="info"><?php echo MoneyFormat($tienThuong); ?> VNĐ</td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Tiền lương tháng:</b></td>
+                            <td class="label-left"><b>Tiền lương tháng:</b></td>
                             <td class="info"><?php echo MoneyFormat($tienLuong); ?> VNĐ</td>
-                            <td class="label-info-right"><b>Tổng thu nhập:</b></td>
-                            <td class="info-right"><?php echo MoneyFormat($tongThuNhap); ?> VNĐ</td>
+                            <td class="label-right"><b>Tổng thu nhập:</b></td>
+                            <td class="info"><?php echo MoneyFormat($tongThuNhap); ?> VNĐ</td>
                         </tr>
                         <tr>
-                            <td class="label-info"><b>Thuế:</b></td>
+                            <td class="label-left"><b>Thuế:</b></td>
                             <td class="info"><?php echo MoneyFormat($thue); ?> VNĐ</td>
 
-                            <td class="label-info-right"><b>Thực lĩnh:</b></td>
-                            <td class="info-right"><?php echo MoneyFormat($thucLinh); ?> VNĐ</td>
+                            <td class="label-right"><b>Thực lĩnh:</b></td>
+                            <td class="info"><?php echo MoneyFormat($thucLinh); ?> VNĐ</td>
                         </tr>
                         <tr align="center">
-                            <td colspan="4">
-                            <b style="font-size: 1.4rem !important;">Ghi chú:</b>
-                            <div class="text-area input-group input-group-lg">
+                            <td class="label-right"><b style="font-size: 1.4rem !important;">Ghi chú:</b></td>
+                            <td colspan="2">
+                            <div class="input-group input-group-lg">
                                 <textarea class="form-control" name="ghiChu" rows="3" maxlength="300" readonly> <?php if(isset($_POST['ghiChu']))echo htmlentities ($_POST['ghiChu']); else echo $ghiChu;?> </textarea>
                             </div>
                             </td>
@@ -124,7 +124,7 @@ function MoneyFormat($tien)
             </div>
         </div>
         <div class="option-buttons d-flex justify-content-between">
-            <a href="index.php?page=accountant-check-paycheck"><input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" /></a>
+            <a href="index.php?page=accountant-check-paycheck"><input class="btn btn-outline-purple" type="submit" value="Quay lại" /></a>
         </div>
     </div>
 </div>

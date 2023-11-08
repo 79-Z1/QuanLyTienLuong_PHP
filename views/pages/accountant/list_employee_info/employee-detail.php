@@ -135,7 +135,7 @@ function Ngay_Format($date){
 				</div>
 			</div>
             <div class='option-buttons d-flex justify-content-start'>
-				<a href="index.php?"><input class="btn btn-info" type="submit" value="Quay lại" />
+				<a href="index.php"><input class="btn btn-outline-purple" type="submit" value="Quay lại" />
             </div>
 		</div>
 	</div>
