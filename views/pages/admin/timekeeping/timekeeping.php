@@ -28,9 +28,7 @@ $sqlNV = 'select * from nhan_vien';
 $resultNV = mysqli_query($conn, $sqlNV);
 
 $sqlTimKiem =
-    "select * from cham_cong
-    where  1
-    ";
+    "select * from cham_cong where  1 ";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     
     if (isset($_GET['timkiem'])) {
@@ -38,7 +36,7 @@ $sqlTimKiem =
         $sqlTimKiem .= "and MaCong = '$maCong'";
     }
     if ($maNV != "") {
-        $sqlTimKiem .= "and MaNV = '$maNV'";
+        $sqlTimKiem .= "and MaNV like '%$maNV%'";
     }
     if ($tinhTrang != -1) {
         $sqlTimKiem .= "and TinhTrang = '$tinhTrang'";
@@ -59,8 +57,6 @@ $sqlTimKiem =
 
        
 }
-
-
 
 ?>
 <style>
@@ -182,7 +178,7 @@ a {
                                     if (mysqli_num_rows($resultNV) <> 0) {
 
                                         while ($rows = mysqli_fetch_array($resultNV)) {
-                                            echo "<option";
+                                            echo "<option ";
                                             if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
                                             echo ">$rows[MaNV]</option>";
                                         }
@@ -301,18 +297,4 @@ a {
     </div>
 </div>
 </div>
-<?php
-echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . (1) . ">Về đầu</a> ";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
-for ($i = 1; $i <= $maxPage; $i++) {
-    if ($i == $_GET['p']) {
-        echo '<a class="pagination-link active">' . $i . '</a>'; //trang hiện tại sẽ được bôi đậm
-    } else
-        echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . $i . ">" . $i . "</a> ";
-}
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-timekeeping&p=" . ($maxPage) . ">Về cuối</a> ";
-echo "</div>";
-?>
 <?php $this->end(); ?>
