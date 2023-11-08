@@ -66,7 +66,7 @@ else $gt = "Nam";
 									<h6 class="mb-0">Ngày Sinh</h6>
 								</div>
 								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
-									<?php echo "$ttNV[NgaySinh]" ?>
+									<?php echo Ngay_Format($ttNV['NgaySinh']) ?>
 								</div>
 							</div>
 							<div class="hr">	</div>

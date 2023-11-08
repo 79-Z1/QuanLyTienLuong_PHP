@@ -11,6 +11,11 @@ $ttNV = mysqli_fetch_array($resultNhanVien);
 
 if ($ttNV['GioiTinh'] == 0) $gt = "Nữ";
 else $gt = "Nam";
+
+function Ngay_Format($date){
+	$day = explode('-', $date);
+	return $day[2].'-'.$day[1].'-'.$day[0];
+}
 ?>
 
 <body>
@@ -66,7 +71,7 @@ else $gt = "Nam";
 									<h6 class="mb-0">Ngày Sinh</h6>
 								</div>
 								<div class="col-sm-9 " style="font-size: 18px;">
-									<?php echo "$ttNV[NgaySinh]" ?>
+									<?php echo Ngay_Format($ttNV['NgaySinh'])?>
 								</div>
 							</div>
 							<div class="hr">	</div>
