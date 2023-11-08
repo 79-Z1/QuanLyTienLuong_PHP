@@ -128,7 +128,7 @@ else $gt = "Nam";
 				</div>
 			</div>
             <div class='option-buttons d-flex justify-content-start'>
-                <input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" />
+				<a href="index.php?"><input class="btn btn-info" type="submit" value="Quay lại" />
             </div>
 		</div>
 	</div>

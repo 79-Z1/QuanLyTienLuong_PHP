@@ -256,7 +256,7 @@ if (isset($_POST['chinhsua'])) {
             </div>
         </div>
         <div class="option-buttons d-flex justify-content-between">
-            <input onclick="history.back()" class="btn btn-outline-purple" type="submit" value="Quay lại" />
+            <a href="index.php"></a><input class="btn btn-outline-purple" type="submit" value="Quay lại" />
         </div>
     </div>
 </div>
