@@ -1,10 +1,3 @@
-table img {
-    width: 50px;
-    height: 50px;
-    border-radius: 5px;
-    border: 1.5px solid black;
-}
-
 table {
     border-collapse: collapse;
     width: 100%;
@@ -14,19 +7,16 @@ td{
     padding-right:20px;
     
 }
-.table-hover tbody td {
-    padding: 13px 10px 13px 25px;
 
-}
 .table-hover tbody td a i{
-    font-size:22px;
+    font-size:20px;
     margin-right: 8px;
 }
 
 p {
     font-size: 18px;
     font-weight: bold;
-    height: 30px;
+    height: 20px;
 }
 label{
     margin-right: 5px;
@@ -47,19 +37,11 @@ input[type="radio"] {
 
 .larger-text {
     font-size: 20px;
-    /* Điều chỉnh kích thước chữ theo nhu cầu */
     margin-right: 20px;
-    /* Điều chỉnh khoảng cách giữa nút radio và văn bản */
 }
 
 .form-control {
     height: 30px;
-}
-
-a {
-    text-decoration: none;
-    color: blue;
-    font-size: 16px;
 }
 
 .search-btn {
