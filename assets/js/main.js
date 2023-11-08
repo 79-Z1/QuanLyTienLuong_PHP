@@ -1,6 +1,6 @@
 const MANV = getCookie('MaNV');
 const LOAITK = getCookie('LoaiTK');
-
+toastr.options.tapToDismiss = true;
 
 if (!MANV || !LOAITK) {
     location.href = "http://localhost/QuanLyTienLuong_PHP/"

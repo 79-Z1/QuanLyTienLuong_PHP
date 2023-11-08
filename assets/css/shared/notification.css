@@ -32,7 +32,9 @@
 .notification-container .dismiss-notification {
 	padding: 5px 15px !important;
 	font-weight: 600;
+	font-size: 30px;
 	text-decoration: none;
+	cursor: pointer;
 }
 
 .notification-container .dismiss-notification:hover {

@@ -31,7 +31,10 @@
                     <a class="nav-link" id="thongke" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=accountant-statistic" ?>"><i class="bi bi-bar-chart-line-fill"></i> Báo cáo thống kê </a>
                 </li>
                 <li class="nav-item" data-active="6">
-                    <a class="nav-link" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=notification" ?>"><i class="bi bi-bell"></i>Thông báo</a>
+                    <a class="nav-link d-flex align-items-center" href="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant?page=notification" ?>">
+                        <i class="bi bi-bell"></i>Thông báo
+                        <span id='num-noti' class="text-center ms-5"></span>
+                    </a>
                 </li>
                 <li class="nav-item" data-active="7" id="Logout">
                     <a class="nav-link"> <i class="bi bi-box-arrow-left"></i> Logout </a>

@@ -9,18 +9,28 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
 </head>
 <?php
-require('./connect.php');
-include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/services/jwt.php"); 
-include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]."/config/const.php"); 
+function checkValid($name): bool
+{
+	if (isset($_POST[$name]) && empty(trim($_POST[$name]))) {
+		return false;
+	}
+	return true;
+}
+?>
 
-$tentk = isset($_POST['tentk']) ? $_POST['tentk'] : '';
-$matkhau = isset($_POST['matkhau']) ? $_POST['matkhau'] : '';
-if (isset($_POST['submit'])) {
-	if (isset($_POST['tentk'], $_POST['matkhau'])) {
-		$sql = "select * from tai_khoan where TenTK = '$tentk' and MatKhau = '$matkhau'";
-		$result = mysqli_query($conn, $sql);
-		if (mysqli_num_rows($result) <> 0) {
-			while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+<body>
+	<?php
+	require('./connect.php');
+	include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/config/const.php");
+
+	$tentk = isset($_POST['tentk']) ? $_POST['tentk'] : '';
+	$matkhau = isset($_POST['matkhau']) ? $_POST['matkhau'] : '';
+	if (isset($_POST['submit'])) {
+		if (checkValid('tentk') && checkValid('matkhau')) {
+			$sql = "select * from tai_khoan where TenTK = '$tentk' and MatKhau = '$matkhau'";
+			$result = mysqli_query($conn, $sql);
+			if (mysqli_num_rows($result) <> 0) {
+				$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 				session_start();
 				$payload = [
 					'MaNV' => $row['MaNV'],
@@ -28,13 +38,10 @@ if (isset($_POST['submit'])) {
 					'iss' => 'http://localhost/QuanLyTienLuong_PHP',
 					'aud' => 'dakhoathientrang.com'
 				];
-				$jwt = new JWT();
-				$token = $jwt->generate($payload);
 				$_SESSION["MaNV"] = $row['MaNV'];
 				$_SESSION["LoaiTK"] = $row['LoaiTK'];
 				setcookie("MaNV", $row['MaNV']);
 				setcookie("LoaiTK", $row['LoaiTK']);
-				$_SESSION["Authorization"] = $token;
 				switch ($_SESSION["LoaiTK"]) {
 					case 'KT':
 						header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/accountant");
@@ -46,15 +53,12 @@ if (isset($_POST['submit'])) {
 						header('Location: ' . "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/employee");
 						break;
 				}
+			} else {
+				echo "<script type='text/javascript'>toastr.error('Sai tên tài khoản hoặc mật khẩu')</script>";
 			}
-		} else {
-			echo "<script type='text/javascript'>toastr.error('Sai tên tài khoản hoặc mật khẩu')</script>";
-		}
-	} else echo "<script type='text/javascript'>toastr.error('Không được để trống thông tin đăng nhập')</script>";
-}
-?>
-
-<body>
+		} else echo "<script type='text/javascript'>toastr.error('Không được để trống thông tin đăng nhập')</script>";
+	}
+	?>
 	<div class='wrapper container'>
 		<div class='banner'>
 			<img src='assets/images/login-banner1.jpg' alt='' />
@@ -70,7 +74,7 @@ if (isset($_POST['submit'])) {
 				<input name='matkhau' type="password" class="mb-3 w-100 form-control" id='matkhau' value="<?= $matkhau ?>" />
 			</div>
 			<div class='w-100'>
-				<a href="/<?= explode('/', $_SERVER['PHP_SELF'])[1]."/views/pages/auth/enter_email.php"?>">Quên mật khẩu?</a>
+				<a href="/<?= explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/auth/enter_email.php" ?>">Quên mật khẩu?</a>
 			</div>
 			<button name="submit" type='submit' class='btn btn-primary w-100' id='submit-btn'>
 				Login
