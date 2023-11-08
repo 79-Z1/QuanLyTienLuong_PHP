@@ -186,6 +186,11 @@ a {
                                     ?>
                                 </select>    
                             </td>
+
+                            <td >
+                                <p>Ngày</p> 
+                            </td>
+                            <td><input class="form-control me-2 search-input" type="date" name="ngay" value="<?php echo $ngay; ?>"></td>
                         </tr>
 
                         <tr>
@@ -211,30 +216,16 @@ a {
                                     
                                 </select>
                             </td>
-                        </tr>
 
-                        <tr >
                             <td >
-                                <p>Ngày</p> 
-                            </td>
-                            <td><input class="form-control me-2 search-input" type="date" name="ngay" value="<?php echo $ngay; ?>"></td>
-                        </tr>
-                           
-               
-                        <tr align="center" colspan="4">
-                            <td align="end" colspan="2">
-                                <input class="btn btn-outline-success search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input class="btn btn-outline-success search-btn w-30" name="timkiem" type="submit" value="Tìm kiếm" />
                                 <input type="text" name="page" value="admin-timekeeping" style="display: none">
 
                             </td>
-                            <td align="start" colspan="2">
-                                <a href="index.php?page=admin-timekeeping-add" class="btn btn-outline-purple search-btn w-50">Thêm</a>
+                            <td >
+                                <a href="index.php?page=admin-timekeeping-add" class="btn btn-outline-purple search-btn w-100">Thêm</a>
                             </td>
-                        </tr>
-                        
-                        <tr>
-                    </tr>
-                        
+                        </tr>             
                     </table>
 
                 </form>
