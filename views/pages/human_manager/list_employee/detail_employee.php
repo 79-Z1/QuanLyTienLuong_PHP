@@ -22,7 +22,7 @@ function Ngay_Format($date){
 	<div class="container">
 		<div class="main-body">
 			<div class="row gutters-sm">
-				<div class="col-md-4 mb-3">
+				<div class="col-md-4 mb-3 mt-5">
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center ">
@@ -35,9 +35,9 @@ function Ngay_Format($date){
 						</div>
 					</div>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-8 mt-5">
 					<div class="card mb-3">
-						<div class="card-body">
+						<div class="card-body p-4">
 							<div class="row">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Mã nhân viên</h6>

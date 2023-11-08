@@ -228,7 +228,7 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                     </tr>
                     <tr>
                         <td class="label-info">Ngày sinh</td>
-                        <td class="info <?php if($ngaySinh == "") echo 'required'; ?>"><input class="form-date-control py-2" type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
+                        <td class="info <?php if($ngaySinh == "") echo 'required'; ?>"><input class="form-control py-2" type="date" name="ngaySinh" value="<?php echo $ngaySinh; ?>" /></td>
                         <td class="label-info">CCCD</td>
                         <td class="info <?php if($cccd == "") echo 'required'; ?>"><input class="form-control py-2" type="text" name="cccd" value="<?php echo $cccd; ?> " /></td>
                     </tr>
