@@ -131,7 +131,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                 <p>Chức vụ</p>
                             </td>
                             <td>
-
                                 <select name="chucVu" class="form-select search-option" id="inputGroupSelect02">
                                     <option value="">Trống</option>
                                     <?php
@@ -145,9 +144,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td align="center" rowspan="3">
-                                <input type="text" name="page" value="admin-staff" style="display: none"> 
-                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                            <td>
+                                <input type="text" name="page" value="admin-staff" style="display: none">
+                                <input class="btn btn-outline-success" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <a href="index.php?page=add-staff" class="btn btn-outline-purple" >Thêm nhân viên</a>
                             </td>
                         </tr>
                     </table>
@@ -156,9 +156,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
             </nav>
         </div>
     </div>
-</div>
-<div style="display: flex; justify-content:center">
-    <a href="index.php?page=add-staff"><input class="btn btn-outline-success add-btn" name="them" type="submit" value="Thêm nhân viên" /></a>
 </div>
 <div style="height: 480px">
 

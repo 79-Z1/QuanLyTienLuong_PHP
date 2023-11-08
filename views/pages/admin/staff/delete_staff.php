@@ -182,8 +182,8 @@ if (isset($_POST['xoa'])) {
                 </div>
             </div>
             <div class='option-buttons d-flex justify-content-between'>
-                <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
-                <input class="btn btn-danger" type="submit" value="Xoá" data-bs-toggle="modal" data-bs-target="#xacnhanxoa" />
+                <a href="index.php?page=admin-staff"><input class="btn btn-outline-purple" type="submit" value="Quay lại" /></a>
+                <input class="btn btn-outline-danger" type="submit" value="Xoá" data-bs-toggle="modal" data-bs-target="#xacnhanxoa" />
             </div>
         </div>
     </div>

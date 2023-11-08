@@ -14,7 +14,6 @@ img {
 button,
 .btn {
     padding: 10px 20px;
-    border: none;
     cursor: pointer;
 }
 
@@ -45,12 +44,4 @@ h6 {
     width: 100%;
     opacity: 0.25;
     margin: 15px 2px;
-}
-.btn-info{
-    background-color:#00d4ff;
-    color: white;
-}
-.btn-info:hover{
-    background-color:#06b8db;
-    color: white;
 }
