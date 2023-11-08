@@ -25,7 +25,7 @@
                     <a class="nav-link" id="thongke" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-check-timesheets"?>"><i class="bi bi-calendar-check-fill"></i>Bảng chấm công</a>
                 </li>
                 <li class="nav-item" data-active="5" id="Logout">
-                    <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+                    <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Đăng xuất </a>
                 </li>
             </ul> <!-- Divider -->
         </div>

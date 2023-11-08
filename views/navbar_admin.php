@@ -40,7 +40,7 @@
                     <a class="nav-link" id="xemtt" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/admin?page=admin-parameter"?>"> <i class="bi bi-calculator"></i> Tham số </a>
                 </li>
                 <li class="nav-item" data-active="10" id="Logout">
-                    <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Logout </a>
+                    <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Đăng xuất </a>
                 </li>
             </ul> <!-- Divider -->
         </div>

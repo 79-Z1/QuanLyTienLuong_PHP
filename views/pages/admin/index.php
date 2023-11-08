@@ -4,6 +4,7 @@ $page = $_GET['page'] ?? '';
 
 $template = new Template('');
 echo $template->render('navbar_admin', []);
+echo $template->render('footer', []);
 
 switch ($page) {
     case 'admin-timekeeping':
