@@ -64,7 +64,6 @@ if (isset($_POST['them'])) {
             echo "<script type='text/javascript'>toastr.success('thêm thành công'); toastr.options.timeOut = 3000;</script>";
         }
         else{
-            // echo "Lỗi: " . mysqli_error($conn);
             echo "<script type='text/javascript'>toastr.error('thêm không thành công'); toastr.options.timeOut = 3000;</script>";
             }  
         }else {

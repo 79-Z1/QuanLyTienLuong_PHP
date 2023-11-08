@@ -3,26 +3,29 @@
 <?php
     include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-    if (isset($_GET['maPhieu']))
-    $maPhieu = $_GET['maPhieu'];
+    if (isset($_GET['maPhieu'])){
+    $maPhieu = trim($_GET['maPhieu']);
+    }
     else $maPhieu = "";
 
-    if (isset($_GET['maNV']))
+    if (isset($_GET['maNV'])){
     $maNV = trim($_GET['maNV']);
+    }
     else $maNV = "";
 
-    if (isset($_GET['ngayUng']))
+    if (isset($_GET['ngayUng'])){
     $ngayUng = trim($_GET['ngayUng']);
+    }
     else $ngayUng = "";
 
-    
-
-    if (isset($_GET['soTien']))
+    if (isset($_GET['soTien'])){
     $soTien = trim($_GET['soTien']);
+    }
     else $soTien = "";
 
-    if (isset($_GET['duyet']))
+    if (isset($_GET['duyet'])){
     $duyet = trim($_GET['duyet']);
+    }
     else $duyet = "";
 
     $sqlPhieuUngLuong = "SELECT * FROM `phieu_ung_luong`";
@@ -42,7 +45,7 @@ if (isset($_GET['timkiem'])) {
         $sqlTimKiem .= " and MaPhieu = '$maPhieu' ";
     }
     if ($maNV != "") {
-        $sqlTimKiem .= " and MaNV = '$maNV' ";
+        $sqlTimKiem .= " and MaNV like '%$maNV%' ";
     }
     if ($ngayUng != "") {
         $sqlTimKiem .= " and NgayUng = '$ngayUng' ";
@@ -50,7 +53,7 @@ if (isset($_GET['timkiem'])) {
     if ($soTien != "") {
         $sqlTimKiem .= " and SoTien = '$soTien' ";
     }
-    if ($duyet != "") {
+    if ($duyet != -1) {
         $sqlTimKiem .= " and Duyet = '$duyet' ";
     }
 
@@ -59,9 +62,9 @@ if (isset($_GET['timkiem'])) {
 
     $sqlTimKiem .= " order by MaPhieu";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-
+   
     $numRows = mysqli_num_rows($resultTimKiem);
-
+    
     $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 ?>
@@ -170,7 +173,7 @@ a {
                                     if (mysqli_num_rows($resultPhieuUngLuong) <> 0) {
 
                                         while ($rows = mysqli_fetch_array($resultPhieuUngLuong)) {
-                                            echo "<option";
+                                            echo "<option ";
                                             if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
                                             echo ">$rows[MaNV]</option>";
                                         }
@@ -178,6 +181,10 @@ a {
                                     ?>
                                 </select>
                             </td>
+                            <td >
+                                <p>Số tiền</p> 
+                            </td>
+                            <td><input class="form-control me-2 search-input" type="text" name="soTien" value="<?php echo $soTien; ?>"></td>
                         </tr>
 
                         <tr>
@@ -186,37 +193,25 @@ a {
                             </td>
                             <td><input class="form-control me-2 search-input" type="date" name="ngayUng" value="<?php echo $ngayUng; ?>"></td>
                             
-                            <td >
-                                <p>Số tiền</p> 
-                            </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="soTien" value="<?php echo $soTien; ?>"></td>
-                        </tr>
-
-                        <tr >
                            
-                            
+                        
                             <td >
                                 <p>Duyệt</p> 
                             </td>
                             <td>
                             <select name="duyet" class="form-select search-option">
+                                    <option value="-1" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '0') echo " selected"; ?>>Trống</option>
                                     <option value="0" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '0') echo " selected"; ?>>Chưa duyệt</option>
                                     <option value="1" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '1') echo " selected"; ?>>Đã duyệt</option>
                                 </select>
                             </td>
-                        </tr>
-                           
-               
-                
-                        
-                        <tr align="center" colspan="4">
-                            <td align="end" colspan="2">
-                                <input class="btn btn-outline-success search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
+                            <td>
+                                <input class="btn btn-outline-success search-btn " name="timkiem" type="submit" value="Tìm kiếm" />
                                 <input type="text" name="page" value="admin-salary-slip" style="display: none">
 
                             </td>
-                            <td align="start" colspan="2">
-                                <a href="index.php?page=admin-salary-slip-add" class="btn btn-outline-purple search-btn w-50">Thêm</a>
+                            <td >
+                                <a href="index.php?page=admin-salary-slip-add" class="btn btn-outline-purple search-btn ">Thêm</a>
                             </td>
                         </tr>
                         

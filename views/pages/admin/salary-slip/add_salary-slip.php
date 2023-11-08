@@ -9,6 +9,17 @@ $getmanv = "SELECT MaNV FROM `nhan_vien`
 order by MaNV";
 $resultmanv = mysqli_query($conn, $getmanv);
 
+$sqlMaPhieu = "select * from phieu_ung_luong where ";
+$resultMaPhieu = mysqli_query($conn, $sqlMaPhieu);
+
+function CheckMaPhieu($conn, $maPhieu){
+    $sqlMaPhieu = "select * from phieu_ung_luong where MaPhieu = '$maPhieu' ";
+    $resultMaPhieu = mysqli_query($conn, $sqlMaPhieu);
+
+    if(mysqli_num_rows($resultMaPhieu) > 0){
+        return true;
+    }return false;
+}
 
 if (isset($_POST['maPhieu']))
     $maPhieu = trim($_POST['maPhieu']);
@@ -42,6 +53,10 @@ if (isset($_POST['them'])) {
     if (empty($maPhieu)) {
         $err[] = "Vui lòng nhập mã phiếu ứng lương";
     }
+    if(CheckMaPhieu($conn, $maPhieu)) {
+        $err[] = "Đã có mã phiếu này rồi!!";
+    }
+
     if (empty($maNV)) {
         $err[] = "Vui lòng nhập mã nhân viên";
     }
@@ -61,25 +76,15 @@ if (isset($_POST['them'])) {
     if (empty($err)) {
         $sqlInsert = "INSERT INTO `phieu_ung_luong`(`MaPhieu`, `MaNV`, `NgayUng`, `LyDo`, `SoTien`, `Duyet`) VALUES ('$maPhieu','$maNV','$ngayUng','$lyDo',$soTien,'$duyet')";
         $resultInsert = mysqli_query($conn, $sqlInsert);
-        // echo $maPhieu;
-        // echo $maNV;
-        // echo $ngayUng;
-        // echo $lyDo;
-        // echo $soTien;
-        // echo $duyet;
     
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm phiếu ứng lương thành công'); toastr.options.timeOut = 3000;</script>";
-            // làm mới giá trị
-            // $maP = "";
-            // $tenP = "";
         } else {
             echo "<script type='text/javascript'>toastr.error('Thêm phiếu ứng lương không thành công'); toastr.options.timeOut = 3000;</script>";
         }
-    } else{
+        } else{
         foreach ($err as $error) {
             echo "<script type='text/javascript'>toastr.error('$error'); toastr.options.timeOut = 3000;</script>";
-
         }
     }
 }
@@ -94,8 +99,6 @@ if (isset($_POST['them'])) {
         width: 70%;
     }
     .td-control {
-    
-    
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.3;
@@ -107,25 +110,28 @@ if (isset($_POST['them'])) {
     appearance: none;
     border-radius: 0.375rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-
 }
+    tr td {
+        font-size: 20px !important;
+        height: 20% !important;
+        font-weight: bold;
+    }
 </style>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">THÊM PHIẾU ỨNG LƯƠNG</h5>
+                <h4 class="mb-0">THÊM PHIẾU ỨNG LƯƠNG</h4>
             </div>
             <div class="table-responsive">
             <form align='center' action="" method="post" enctype="multipart/form-data">
                 <table class="table table-hover table-nowrap">
                     <tr>
-                            <td>Mã Phiếu</td>
-                        <td>
+                            <td><p>Mã Phiếu</p></td>
                         <td>
                             <input class="form-control py-2" type="text" size="20" name="maPhieu" value="<?php echo $maPhieu; ?> " /></td>
                     </td>
-                        <td>Mã nhân viên</td>
+                        <td><p>Mã nhân viên</p></td>
                         <td>            
                         <select name="maNV" class="form-select search-option">
                                
@@ -134,7 +140,7 @@ if (isset($_POST['them'])) {
 
                                     while ($rows = mysqli_fetch_array($resultmanv )) {
                                         echo "<option value='$rows[MaNV]'";
-                                        if (isset($_GET['MaNV']) && $_GET['MaNV'] == $rows['MaNV']) echo "selected";
+                                        if (isset($_POST['MaNV']) && $_POST['MaNV'] == $rows['MaNV']) echo "selected";
                                         echo ">$rows[MaNV]</option>";
                                     }
                                 }
@@ -144,13 +150,13 @@ if (isset($_POST['them'])) {
                     </tr>
 
                     <tr>
-                        <td>Số tiền</td>
-                    <td>
+                        <td><p>Số tiền</p></td>
+                    
                         <td>
-                            <input class="td-control py-2" type="text" size="20" name="soTien" value="<?php echo $soTien; ?> " />VND</td>
+                            <input class="td-control py-2" type="text" size="20" name="soTien" value="<?php echo $soTien; ?> " />VND
                         </td>
                         
-                        <td >
+                            <td >
                                 <p>Duyệt</p> 
                             </td>
                             <td>
@@ -171,8 +177,6 @@ if (isset($_POST['them'])) {
                         <td>Ngày ứng </td>
                             <td class="<?php if($ngayUng == "") echo 'required'; ?>">
                             <input class="form-date-control py-2" type="date" name="ngayUng" value="<?php echo $ngayUng; ?>" /></td>
-
-                        
                     </tr>
                    
                     <tr>
