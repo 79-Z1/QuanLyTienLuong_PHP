@@ -3,7 +3,7 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-$rowsPerPage = 7; //số mẩu tin trên mỗi trang
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang
 
 if (!isset($_GET['p'])) {
 	$_GET['p'] = 1;
@@ -33,7 +33,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 	}
 
 	#tren {
-		height: 620px;
+		height: 645px;
 	}
 </style>
 <div id='tren'>
@@ -70,7 +70,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 					<tbody>
 						<?php
 						//tổng số trang
-						$maxPage = ceil($numRows / $rowsPerPage) + 1;
+						$maxPage = ceil($numRows / $rowsPerPage);
 						if (mysqli_num_rows($resultTimKiem) <> 0) {
 							while ($rows = mysqli_fetch_array($resultTimKiem)) {
 								echo "<tr>
@@ -106,7 +106,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 <div align="center">
 	<?php
 	$maxPage = ceil($numRows / $rowsPerPage);
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . (1) . "> Đầu trang </a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . (1) . "> Đầu </a> ";
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "> < </a> ";
 
 
@@ -119,7 +119,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 	}
 
 	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . "> > </a>";
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($maxPage) . "> Cuối trang </a> ";
+	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($maxPage) . "> Cuối </a> ";
 
 	echo "</p>";
 	?>

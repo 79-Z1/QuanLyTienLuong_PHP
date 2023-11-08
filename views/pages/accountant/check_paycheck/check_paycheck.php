@@ -41,7 +41,7 @@ if (isset($_GET['nam']))
     $nam = $_GET['nam'];
 else $nam = "";
 
-$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -115,10 +115,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td>
-                                <p>Tháng</p>
-                            </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="thang" value="<?php echo $thang; ?>"></td>
+                            <td> <p align="center">Tháng</p> <input class="form-control me-2 search-input" size="2"  type="text" name="thang" value="<?php echo $thang; ?>"></td>
+                            <td> <p align="center">Năm</p> <input class="form-control me-2 search-input" size="4" type="text" name="nam" value="<?php echo $nam; ?>"></td>
                         </tr>
                         <tr>
                             <td>
@@ -143,13 +141,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
-                            <td>
-                                <p>Năm</p>
-                            </td>
-                            <td><input class="form-control me-2 search-input" type="text" name="nam" value="<?php echo $nam; ?>"></td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="6">
+                            <td align="center" colspan="2">
                                 <input type="text" name="page" value="accountant-check-paycheck" style="display: none">
                                 <input style="width:150" class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
                             </td>
@@ -160,7 +152,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
         </div>
     </div>
 </div>
-<div style="height:490px">
+<div style="height:503px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
@@ -171,23 +163,25 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                 <th scope="col">tiền lương tháng</th>
                 <th scope="col">tổng thu nhập</th>
                 <th scope="col">thực lĩnh</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
             </thead>
 
             <tbody>
                 <?php
 
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
+                $maxPage = ceil($numRows / $rowsPerPage);
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                 ?>
                         <tr>
                             <td><?=$rows['MaNV']?></td>
-                            <td><?=$rows['HoNV']. $rows['TenNV']?></td>
+                            <td><?=$rows['HoNV']. " " . $rows['TenNV']?></td>
                             <td><?=$rows['TenChucVu']?></td>
-                            <td><?=number_format($rows['TienLuongThang'])?> VNĐ</td>
-                            <td><?=number_format($rows['TongThuNhap'])?> VNĐ</td>
-                            <td><?=number_format($rows['ThucLinh'])?> VNĐ</td>
+                            <td align="right" style="padding-right:50px;"><?=number_format($rows['TienLuongThang'])?> đ</td>
+                            <td align="right" style="padding-right:50px;"><?=number_format($rows['TongThuNhap'])?> đ</td>
+                            <td align="right" style="padding-right:50px;"><?=number_format($rows['ThucLinh'])?> đ</td>
                             <td><a href='index.php?page=accountant-detail-paycheck&MaPL=<?=$rows['MaPhieuLuong']?>&MaNV=<?=$rows['MaNV']?>'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
                             <td><a href='index.php?page=accountant-edit-paycheck&MaPL=<?=$rows['MaPhieuLuong']?>&MaNV=<?=$rows['MaNV']?>'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
                         </tr>
@@ -200,7 +194,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . (1) . ">Đầu</a> ";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
@@ -209,7 +203,7 @@ for ($i = 1; $i <= $maxPage; $i++) {
         echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . $i . ">" . $i . "</a> ";
 }
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-check-paycheck&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&thang=$thang&nam=$nam&p=" . ($maxPage) . ">Cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>
