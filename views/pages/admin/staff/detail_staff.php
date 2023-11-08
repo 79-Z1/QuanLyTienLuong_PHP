@@ -11,33 +11,38 @@ $ttNV = mysqli_fetch_array($resultNhanVien);
 
 if ($ttNV['GioiTinh'] == 0) $gt = "Nữ";
 else $gt = "Nam";
+
+function Ngay_Format($date){
+	$day = explode('-', $date);
+	return $day[2].'-'.$day[1].'-'.$day[0];
+}
 ?>
 
 <body>
 	<div class="container">
 		<div class="main-body">
-			<div class="row gutters-sm">
-				<div class="col-md-4 mb-3">
+			<div class="row gutters-sm ">
+				<div class="col-md-4 mb-3 mt-5">
 					<div class="card">
 						<div class="card-body">
 							<div class="d-flex flex-column align-items-center text-center ">
 								<img <?php echo "src='" .  '/' . explode('/', $_SERVER["PHP_SELF"])[1] . "/assets/images/imgnv/$ttNV[Hinh]" . "' alt='Avatar' " ?> class="rounded-circle" width="150">
 								<div class="mt-3 p-2">
 									<h1><?php echo "$ttNV[HoNV]     $ttNV[TenNV]"  ?></h1>
-									<h3 class="text-secondary mb-1"><?php echo "$ttNV[TenChucVu]" ?></h3>
+									<h3 class=" mb-1"><?php echo "$ttNV[TenChucVu]" ?></h3>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-8">
+				<div class="col-md-8 mt-5">
 					<div class="card mb-3">
-						<div class="card-body">
+						<div class="card-body p-4">
 							<div class="row">
 								<div class="col-sm-3">
 									<h6 class="mb-0">Mã nhân viên</h6>
 								</div>
-								<div class="col-sm-9 text-secondary " style="font-size: 18px;">
+								<div class="col-sm-9  " style="font-size: 18px;">
 									<?php echo "$ttNV[MaNV]" ?>
 								</div>
 							</div>
@@ -46,7 +51,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Phòng</h6>
 								</div>
-								<div class="col-sm-9 text-secondary " style="font-size: 18px;">
+								<div class="col-sm-9  " style="font-size: 18px;">
 									<?php echo "$ttNV[TenPhong]" ?>
 								</div>
 							</div>
@@ -55,7 +60,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Giới Tính</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 								
 									<?php echo "$gt " ?>
 								</div>
@@ -65,7 +70,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Ngày Sinh</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo Ngay_Format($ttNV['NgaySinh']) ?>
 								</div>
 							</div>
@@ -74,7 +79,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Địa Chỉ</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[DiaChi]" ?>
 								</div>
 							</div>
@@ -83,7 +88,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Số Tài Khoản</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[STK]" ?>
 								</div>
 							</div>
@@ -92,7 +97,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">CMND</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[CCCD]" ?>
 								</div>
 							</div>
@@ -101,7 +106,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Số điện thoại</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[SDT]" ?>
 								</div>
 							</div>
@@ -110,7 +115,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Số con</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[SoCon]" ?>
 								</div>
 							</div>
@@ -119,7 +124,7 @@ else $gt = "Nam";
 								<div class="col-sm-3">
 									<h6 class="mb-0">Hệ số lương</h6>
 								</div>
-								<div class="col-sm-9 text-secondary" style="font-size: 18px;">
+								<div class="col-sm-9 " style="font-size: 18px;">
 									<?php echo "$ttNV[HeSoLuong]" ?>
 								</div>
 							</div>
