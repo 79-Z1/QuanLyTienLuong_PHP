@@ -1,33 +1,10 @@
-.label-info{
+.label-left ,.label-right{
     width: 25%;
     text-align: right;
     font-size: 1.4rem !important;
 }
-.label-info-right{
-    width: 25%;
-    text-align: center;
-    font-size: 1.4rem !important;
-}
 .info{
-    width: 20;
-    text-align: center;
+    width: 25%;
     font-size: 1.2rem !important;
-}
-.info-right{
-    width: 20;
-    text-align: start;
-    font-size: 1.2rem !important;
-}
-.text-area{
-    align-items: center;
-    width: 40%;
-}
-.btn-info{
-    background-color: white;
-    border: 1px blueviolet solid;
-    color: blueviolet;
-}
-.btn-info:hover{
-    background-color:rgb(83, 12, 150);
-    color: white;
+    font-weight: bolder;
 }
