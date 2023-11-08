@@ -265,12 +265,12 @@ if (isset($_POST['them'])) {
                             </td>
                         </tr>
                     </table>
-                    <input type="submit" value="Thêm" name="them" class="btn btn-purple mb-5 w-25" />
+                    <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple mb-5 w-25" style="margin-top:20px"/>
                 </form>
             </div>
         </div>
         <div class="option-buttons d-flex justify-content-between">
-            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+            <a href="index.php?page=admin-staff"><input class="btn btn-outline-purple" type="submit" value="Quay lại" /></a>
         </div>
     </div>
 </div>

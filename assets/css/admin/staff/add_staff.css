@@ -40,21 +40,3 @@ h2{
 .info{
     width: 35%;
 }
-.btn-purple {
-    margin-top: 20px;
-    background-color: #7b6bff;
-    color: white;
-}
-
-.btn-purple:hover{
-    background-color: #5142d8;
-    color: white;
-}
-.btn-info{
-    background-color:#00d4ff;
-    color: white;
-}
-.btn-info:hover{
-    background-color:#06b8db;
-    color: white;
-}
