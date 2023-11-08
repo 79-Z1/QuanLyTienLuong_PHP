@@ -15,6 +15,7 @@
 .form-date-control{
     text-align: center;
     width: 23%;
+    font-size: 16px;
 }
 .form-control-img{
     width: 50%;
@@ -35,12 +36,4 @@ tbody{
 }
 h2{
     text-align: center;
-}
-.btn{
-    background-color: #7b6bff;
-    color: white;
-}
-
-.btn:hover{
-    background-color: #5142d8;
 }
