@@ -180,7 +180,7 @@ if (isset($_POST['xoa'])) {
                 </div>
             </div>
             <div class='option-buttons d-flex justify-content-between'>
-                <a href="index.php"></a><input class="btn btn-outline-purple" type="submit" value="Quay lại" />
+                <a href="index.php"><input class="btn btn-outline-purple" type="submit" value="Quay lại" /></a>
                 <input class="btn btn-outline-danger" type="submit" value="Xoá" data-bs-toggle="modal" data-bs-target="#xacnhanxoa" />
             </div>
         </div>
