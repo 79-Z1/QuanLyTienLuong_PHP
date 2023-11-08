@@ -114,7 +114,7 @@ function MoneyFormat($tien)
                         <tr align="center">
                             <td colspan="4">
                             <b style="font-size: 1.4rem !important;">Ghi chú:</b>
-                            <div class="input-group input-group-lg">
+                            <div class="text-area input-group input-group-lg">
                                 <textarea class="form-control" name="ghiChu" rows="3" maxlength="300" readonly> <?php if(isset($_POST['ghiChu']))echo htmlentities ($_POST['ghiChu']); else echo $ghiChu;?> </textarea>
                             </div>
                             </td>
@@ -122,6 +122,9 @@ function MoneyFormat($tien)
                     </table>
                 </form>
             </div>
+        </div>
+        <div class="option-buttons d-flex justify-content-between">
+            <input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" />
         </div>
     </div>
 </div>

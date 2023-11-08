@@ -140,8 +140,6 @@ if (isset($_POST['luu'])) {
         `ThucLinh`='$thucLinh',`GhiChu`= null 
         WHERE `MaPhieuLuong` = '$maPL'";
     }
-
-    echo $sqlUpdatePL;
     mysqli_query($conn,$sqlUpdatePL);
     echo "<script type='text/javascript'>
                 toastr.success('Phiếu lương tháng $thang năm $nam <br> Nhân viên $ttNV[HoNV] $ttNV[TenNV] <br> Đã được chỉnh sửa thành công!');
@@ -233,6 +231,9 @@ if (isset($_POST['luu'])) {
                     </table>
                 </form>
             </div>
+        </div>
+        <div class="option-buttons d-flex justify-content-between">
+            <input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" />
         </div>
     </div>
 </div>
