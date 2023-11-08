@@ -164,8 +164,7 @@ p {
 	display: none;
 	padding: 20px 30px 30px;
 	background: #fff;
-	/* height: 440px; */
-	
+	height: 440px;
 }
 @media (min-width: 600px) {
 	.panel {
