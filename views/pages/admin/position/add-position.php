@@ -33,9 +33,11 @@ if (isset($_POST['them'])) {
     if (empty($tenCV)) {
         $err[] = "Vui lòng nhập tên chức vụ";
     }
-    if (!empty($HSL) && !is_numeric($HSL)) {
-        $err[] = "Hệ số lương phải là một số";
-    }
+    if (empty($HSL) && $HSL != 0) {
+        $err[] = "Vui lòng nhập hệ số lương";
+    } else if ( !is_numeric($HSL)) {
+        $err[] = "Hệ số lương là số";
+    } 
 
     if (empty($err)) {
         $sqlInsert = "INSERT INTO `chuc_vu`(`MaChucVu`, `TenChucVu`, `HeSoLuong`) 
@@ -44,9 +46,6 @@ if (isset($_POST['them'])) {
 
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm thành công'); toastr.options.timeOut = 3000;</script>";
-            $maCV = "";
-            $tenCV = "";
-            $HSL = "";
         } else {
             echo "<script type='text/javascript'>toastr.error('Thêm không thành công'); toastr.options.timeOut = 3000;</script>";
         }
@@ -76,7 +75,7 @@ if (isset($_POST['them'])) {
                             <td>Tên chức vụ </td>
                             <td><input class="form-control py-2" type="text" size="20" name="tenCV" value="<?php echo $tenCV; ?> " /></td>
                             <td id="no_color" colspan="2">
-                                <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Thêm" name="them" class="btn btn-outline-success themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-position"> Quay Lại</a>
                             </td>
                         </tr>
