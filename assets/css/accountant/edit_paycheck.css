@@ -101,3 +101,12 @@ tbody{
         transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     
 }
+.btn-info{
+    background-color: white;
+    border: 1px blueviolet solid;
+    color: blueviolet;
+}
+.btn-info:hover{
+    background-color:rgb(83, 12, 150);
+    color: white;
+}
