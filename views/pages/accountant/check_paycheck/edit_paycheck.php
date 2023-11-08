@@ -233,7 +233,7 @@ if (isset($_POST['luu'])) {
             </div>
         </div>
         <div class="option-buttons d-flex justify-content-between">
-            <input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" />
+            <a href="index.php?page=accountant-check-paycheck"><input class="btn btn-info" type="submit" value="Quay lại" />
         </div>
     </div>
 </div>
