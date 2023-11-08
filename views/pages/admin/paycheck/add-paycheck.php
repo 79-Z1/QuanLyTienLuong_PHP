@@ -8,6 +8,9 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
 $getNhanVien = 'select * from nhan_vien ';
 $resultNhanVien = mysqli_query($conn, $getNhanVien);
+$sqlMaPL ='select * from phieu_luong';
+$resulMaPL = mysqli_query($conn, $sqlMaPL);
+$row = mysqli_fetch_array($resulMaPL);
 
 
 if (isset($_POST['maPL']))
@@ -81,46 +84,57 @@ if (isset($_POST['them'])) {
 
     if (empty($maPL)) {
         $err[] = "Mã phiếu lương không được để trống";
+    } else if($maPL == $row["MaPhieuLuong"]) {
+        $err[] = "Đã có mã phiếu lương này rồi!!";
     }
-    if (empty($thang) ) {
+
+    if (empty($thang) && $thang != 0) {
         $err[] = "Tháng không được để trống";
-    }
-    if($thang < 1 || $thang > 12){
+    }else if($thang < 1 || $thang > 12){
         $err[] = "Tháng từ 1 đến 12 ";
     }
-    if (empty($nam)) {
-        $err[] = "Năm không được để trống";
-    }
+
+    if (empty($nam) && $nam != 0) {
+        $err[] = "Vui lòng nhập hệ số năm";
+    } else if ( !is_numeric($nam)) {
+        $err[] = "Năm là số";
+    } 
+
     if (empty($soNgayCong) && $soNgayCong != 0) {
         $err[] = "Số ngày công không được để trống";
-    }elseif (!is_numeric($_POST["soNgayCong"])) {
+    }else if (!is_numeric($_POST["soNgayCong"])) {
         $err[] = "Số ngày công phải là số";
     }
+
     if (empty($soNgayVang) && $soNgayVang != 0) {
         $err[] = "Số ngày vắng không được để trống";
-    } elseif (!is_numeric($_POST["soNgayVang"])) {
+    } else if (!is_numeric($soNgayVang)) {
         $err[] = "Số ngày vắng phải là số";
     }
+
     if (empty($luongTangCa )&& $luongTangCa != 0) {
         $err[] = "Lương tăng ca không được để trống";
     } elseif (!is_numeric($_POST["luongTangCa"])) {
         $err[] = "Lương tăng ca phải là số";
     }
+
     if (empty($luongTamUng )&& $luongTamUng != 0) {
         $err[] = "Lương tạm ứng không được để trống";
-    }elseif (!is_numeric($_POST["luongTamUng"])) {
+    }else if (!is_numeric($_POST["luongTamUng"])) {
         $err[] = "Lương tạm ứng phải là số";
     }
+
     if (empty($thue )&& $thue != 0) {
         $err[] = "Thuế không được để trống";
-    }elseif (!is_numeric($_POST["thue"])) {
+    }else if (!is_numeric($_POST["thue"])) {
         $err[] = "Thuế phải là số";
     }
-    if (empty($truBaoHiem )&& $truBaoHiem != 0) {
+
+    if (empty($truBaoHiem) && $truBaoHiem != 0) {
         $err[] = "Trừ bảo hiểm không được để trống";
-    }elseif (!is_numeric($_POST["truBaoHiem"])) {
-        $err[] = "Trừ bảo hiểm phải là số";
-    }
+    } else if ( !is_numeric($truBaoHiem)) {
+        $err[] = "Trừ bảo hiểm là số";
+    } 
     if (empty($troCap ) && $troCap != 0) {
         $err[] = "Trợ cấp không được để trống";
     }elseif (!is_numeric($_POST["troCap"])) {
@@ -128,24 +142,28 @@ if (isset($_POST['them'])) {
     }
     if (empty($thuong ) && $thuong != 0) {
         $err[] = "Thưởng không được để trống";
-    }elseif (!is_numeric($_POST["thuong"])) {
+    }else if (!is_numeric($_POST["thuong"])) {
         $err[] = "Thưởng phải là số";
     }
-    if (empty($phat) && $soNgayVang != 0) {
-        $err[] = "Phạt không được để trống";
-    }elseif (!is_numeric($_POST["phat"])) {
-        $err[] = "Phạt phải là số";
-    }
+
+    if (empty($phat) && $phat != 0) {
+        $err[] = "Vui lòng nhập số phạt";
+    } else if ( !is_numeric($phat)) {
+        $err[] = "Phạt số lương là số";
+    } 
+
     if (empty($tienLuongThang) && $tienLuongThang != 0) {
         $err[] = "Tiền lương tháng không được để trống";
     }elseif (!is_numeric($_POST["tienLuongThang"])) {
         $err[] = "Tiền lương tháng phải là số";
     }
+
     if (empty($tongThuNhap) && $tongThuNhap != 0) {
         $err[] = "Tổng thu nhập không được để trống";
     }elseif (!is_numeric($_POST["tongThuNhap"])) {
         $err[] = "Tổng thu nhập phải là số";
     }
+
     if (empty($thucLinh) && $thucLinh != 0) {
         $err[] = "Thực lĩnh không được để trống";
     }
