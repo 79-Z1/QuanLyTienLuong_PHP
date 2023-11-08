@@ -7,8 +7,20 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
 
 
-$sqlTaiKhoan= 'select * from tai_khoan ';
-$resultTaiKhoan = mysqli_query($conn, $sqlTaiKhoan);
+
+
+$getmanv = "SELECT MaNV FROM `nhan_vien` 
+order by MaNV";
+$resultmanv = mysqli_query($conn, $getmanv);
+
+function CheckTenTK($conn, $tenTK){
+    $sqlTenTK= "select * from tai_khoan where TenTK = '$tenTK' ";
+    $resulTenTK = mysqli_query($conn, $sqlTenTK);
+
+    if(mysqli_num_rows($resulTenTK) > 0){
+        return true;
+    }return false;
+}
 
 if (isset($_POST['tenTK']))
     $tenTK = trim($_POST['tenTK']);
@@ -33,6 +45,9 @@ if (isset($_POST['them'])) {
 
     if (empty($tenTK)) {
         $err[] = "Vui lòng nhập tên tài khoản";
+    }
+    if(CheckTenTK($conn, $tenTK)) {
+        $err[] = "Đã có tên tài khoản này rồi!!";
     }
     if (empty($matKhau)) {
         $err[] = "Vui lòng nhập mật khẩu";
@@ -119,14 +134,12 @@ if (isset($_POST['them'])) {
                             <td><input class="form-control py-2" type="text" size="20" name="tenTK" value="<?php echo $tenTK; ?> " /></td>                  
                             <td>Mã nhân viên</td>
                                 <td>            
-                                <select name="maNV" class="form-select search-option">
-                                        <option value="">Trống</option>
+                                <select name="maNV" class="form-select search-option">               
                                         <?php
-                                        if (mysqli_num_rows($resultTaiKhoan ) <> 0) {
-
-                                            while ($rows = mysqli_fetch_array($resultTaiKhoan )) {
+                                        if (mysqli_num_rows($resultmanv ) <> 0) {
+                                            while ($rows = mysqli_fetch_array($resultmanv )) {
                                                 echo "<option value='$rows[MaNV]'";
-                                                if (isset($_GET['MaNV']) && $_GET['MaNV'] == $rows['MaNV']) echo "selected";
+                                                if (isset($_POST['maNV']) && $_POST['maNV'] == $rows['MaNV']) echo "selected";
                                                 echo ">$rows[MaNV]</option>";
                                             }
                                         }
