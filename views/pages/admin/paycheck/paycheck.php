@@ -23,7 +23,7 @@ else $nam = "";
 
 
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -122,7 +122,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 470px;">
+<div style="height: 480px;">
     <div class="card shadow border-0 mb-3" >
         <table class="table table-hover table-nowrap"  style="min-width: 100%;">
             <thead>
@@ -153,10 +153,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td >{$rows['SoNgayVang']}</td>
                             <td >{$rows['TienLuongThang']}</td>
                             <td >{$rows['ThucLinh']}</td>
-                            <td >
-                                <a href='index.php?page=admin-paycheck-info-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:green' class='bi bi-person-lines-fill '></i></a>
-                                <a href='index.php?page=admin-paycheck-edit-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
-                                <a href='index.php?page=admin-paycheck-delete-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:red' class='bi bi-person-x'></i></a>
+                            <td style='padding: 0.5rem 0.5rem;'>
+                                <a href='index.php?page=admin-paycheck-info-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:green; font-size: 20px; ' class='bi bi-person-lines-fill '></i></a>
+                                <a href='index.php?page=admin-paycheck-edit-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:blue; font-size: 20px;' class='bi bi-pencil-square'></i></a>
+                                <a href='index.php?page=admin-paycheck-delete-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:red; font-size: 20px;' class='bi bi-person-x'></i></a>
                             </td>
                             </tr>";
                     }
