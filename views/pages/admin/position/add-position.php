@@ -9,6 +9,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
 $sqlChucVu = 'select * from chuc_vu ';
 $resultChucVu = mysqli_query($conn, $sqlChucVu);
+$row = mysqli_fetch_array($resultChucVu);
 
 if (isset($_POST['maCV']))
     $maCV = trim($_POST['maCV']);
@@ -29,6 +30,8 @@ if (isset($_POST['them'])) {
 
     if (empty($maCV)) {
         $err[] = "Vui lòng nhập mã chức vụ";
+    }else if($maCV == $row["MaChucVu"]) {
+        $err[] = "Đã có mã chức vụ này rồi!!!";
     }
     if (empty($tenCV)) {
         $err[] = "Vui lòng nhập tên chức vụ";
