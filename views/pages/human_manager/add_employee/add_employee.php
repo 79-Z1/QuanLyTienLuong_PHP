@@ -265,13 +265,13 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/'.explode('/', $_SERVER['PHP_SELF'])[1]
                     </tr>
                     <tr>
                         <td id="no_color" colspan="4" align="center">
-                        <input type="submit" value="Thêm" name="them" class="btn btn-outline-purple themnhanvien-btn mb-5 w-25"/>
+                        <input style="margin-top: 20px;" type="submit" value="Thêm" name="them" class="btn btn-outline-purple mb-5 w-25"/>
                         </td>
                     </tr>
                 </table>
                 </form>
             </div>
-        </div>     
+        </div>
     </div>
 </div>
 <?php $this->end(); ?>

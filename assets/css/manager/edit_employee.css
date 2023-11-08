@@ -52,10 +52,11 @@ h2{
     color: white;
 }
 .btn-info{
-    background-color:#00d4ff;
-    color: white;
+    background-color: white;
+    border: 1px blueviolet solid;
+    color: blueviolet;
 }
 .btn-info:hover{
-    background-color:#06b8db;
+    background-color:rgb(83, 12, 150);
     color: white;
 }

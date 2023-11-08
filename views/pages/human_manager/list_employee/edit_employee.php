@@ -248,7 +248,7 @@ if (isset($_POST['chinhsua'])) {
                         </tr>
                         <tr>
                             <td id="no_color" colspan="4" align="center">
-                                <input type="submit" value="Lưu" name="chinhsua" class="btn btn-purple mb-5 w-25" />
+                                <input style="margin-top: 20px" type="submit" value="Lưu" name="chinhsua" class="btn btn-outline-purple mb-5 w-25" />
                             </td>
                         </tr>
                     </table>
@@ -256,7 +256,7 @@ if (isset($_POST['chinhsua'])) {
             </div>
         </div>
         <div class="option-buttons d-flex justify-content-between">
-            <a href="index.php?page=admin-staff"><input class="btn btn-info" type="submit" value="Quay lại" /></a>
+            <input onclick="history.back()" class="btn btn-info" type="submit" value="Quay lại" />
         </div>
     </div>
 </div>

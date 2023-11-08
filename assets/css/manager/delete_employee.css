@@ -18,6 +18,11 @@ button,
     cursor: pointer;
 }
 
+
+.btn-close{
+    background-color: white !important;
+}
+
 .modal button {
     background-color: #007bff;
     color: #fff;
@@ -47,10 +52,18 @@ h6 {
     margin: 15px 2px;
 }
 .btn-info{
-    background-color:#00d4ff;
-    color: white;
+    background-color: white;
+    border: 1px blueviolet solid;
+    color: blueviolet;
 }
 .btn-info:hover{
-    background-color:#06b8db;
+    background-color:rgb(83, 12, 150);
     color: white;
+}
+
+
+.btn-danger{
+    background-color: white;
+    border: 1px #f36 solid;
+    color: #f36;
 }
