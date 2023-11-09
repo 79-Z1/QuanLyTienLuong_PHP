@@ -10,7 +10,7 @@ order by MaNV";
 $resultmanv = mysqli_query($conn, $getmanv);
 
 
-function CheckMaPhieu($conn, $maCong){
+function CheckMaCong($conn, $maCong){
     $sqlMaCong = "select * from cham_cong where MaCong = '$maCong' ";
     $resultMaCong = mysqli_query($conn, $sqlMaCong);
 
@@ -46,7 +46,7 @@ if (isset($_POST['them'])) {
     if (empty($maCong)) {
         $err[] = "Vui lòng nhập mã công";
     }
-    if(CheckMaPhieu($conn, $maCong)) {
+    if(CheckMaCong($conn, $maCong)) {
         $err[] = "Đã có mã công này rồi!!";
     }
     if (empty($maNV)) {
