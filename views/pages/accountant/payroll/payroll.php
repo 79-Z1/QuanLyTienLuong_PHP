@@ -33,7 +33,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 	}
 
 	#tren {
-		height: 645px;
+		height: 638px;
 	}
 </style>
 <div id='tren'>
