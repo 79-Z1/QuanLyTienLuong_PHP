@@ -150,7 +150,7 @@ a {
     font-size: 12px;
     color: #666;
 }
-    .bi{
+    .bi-icon{
         font-size: 20px;
     
     }
@@ -263,9 +263,9 @@ a {
                         }
 
                         if($rows['NghiHL'] == 0){
-                            $offHL = "<i  style='color:red' class='bi bi-x-circle'></i>";
+                            $offHL = "<i  style='color:red' class='bi-icon bi-x-circle'></i>";
                         }else{
-                         $offHL = " <i style='color:green' class='bi bi-check-circle'></i>";
+                         $offHL = " <i style='color:green' class='bi-icon bi-check-circle'></i>";
                         }
                         echo "<tr>
                             <td align='center'>{$rows['MaCong']}</td>
