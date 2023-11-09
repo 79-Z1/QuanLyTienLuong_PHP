@@ -73,7 +73,6 @@ $tuoiNuToiThieu = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `th
 $tuoiNuToiDa = mysqli_fetch_array(mysqli_query($conn, "SELECT GiaTri FROM `tham_so` WHERE MaTS = 'TS030'"))['GiaTri'];
 
 
-
 if (isset($_POST['chinhsua'])) {    
 
     $gt = $_POST['radGT'];
@@ -120,6 +119,9 @@ if (isset($_POST['chinhsua'])) {
 
     if (empty($err)) {
         if($_FILES['imgnv']['name'] != NULL){
+
+            unlink($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$nv[Hinh]");
+
             $hinh = explode(".", $_FILES['imgnv']['name']);
             $tempname = $_FILES["imgnv"]["tmp_name"];
             $hinh[0] = $maNV;
