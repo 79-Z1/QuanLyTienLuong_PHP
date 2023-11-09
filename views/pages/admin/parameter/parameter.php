@@ -84,7 +84,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         </tr>
                         <tr>
                             <td>
-                                <p>Giá Trị</p>
+                                <p>Giá trị</p>
                             </td>
                             <td>
                                 <input class="form-control me-2 search-input" type="text" name="giaTri" value="<?php echo $giaTri; ?>">
