@@ -35,7 +35,7 @@ $sqlTimKiem =
 
 if (isset($_GET['timkiem'])) {
     if ($tenTK != "") {
-        $sqlTimKiem .= " AND TenTK LIKE '%$tenTK%'";
+        $sqlTimKiem .= " AND TenTK LIKE UPPER('%$tenTK%')";
     }
     if ($loaiTK != "") {
         $sqlTimKiem .= " AND LoaiTK = '$loaiTK'";
