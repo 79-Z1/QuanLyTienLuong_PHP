@@ -29,7 +29,7 @@ $sql = 'SELECT * FROM phieu_ung_luong LIMIT ' . $offset . ', ' . $rowsPerPage;
 $resultUngLuong = mysqli_query($conn, $sql);
 ?>
 
-<div style="height:650px">
+<div style="height:675px">
 	<div class="card shadow border-0 mb-7 mt-5">
 		<div class="card-header">
 			<h5 class="mb-0">BẢNG ỨNG LƯƠNG</h5>

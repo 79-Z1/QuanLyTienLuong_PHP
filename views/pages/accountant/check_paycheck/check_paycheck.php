@@ -41,7 +41,7 @@ if (isset($_GET['nam']))
     $nam = $_GET['nam'];
 else $nam = "";
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -160,7 +160,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
         </div>
     </div>
 </div>
-<div style="height:470px">
+<div style="height:515px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">

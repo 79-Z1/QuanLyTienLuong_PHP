@@ -1,13 +1,13 @@
 <?php $this->section('footer'); ?>
 <style>
     .left-footer {
-        width: 17%;
+        width: 16.55%;
         border-right: 1px solid #e7eaf0;
     }
 
     .footer {
         text-align: center;
-        width: 83%;
+        width: 83.45%;
         border-top: 2px solid #e7eaf0;
         padding-top: 5px;
     }

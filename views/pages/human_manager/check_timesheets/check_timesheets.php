@@ -70,7 +70,7 @@ function GetDayOfWeek($date)
                     }
             ?>
                     <div class="carousel-item <?= $actives; ?>">
-                        <div style='display:flex; height:652px'>
+                        <div style='display:flex; height:670px'>
                             <div class='table-split1'>
                                 <div class="card-header">
                                     <h3 style="padding-left: 30px;">BẢNG CHẤM CÔNG</h3>
