@@ -400,22 +400,26 @@ function GetDayOfWeek($date)
                 <?php
                     $counter++;
                 }
-            } else {
                 ?>
-                <div class="d-flex h-100 w-100 justify-content-center align-items-center">
-                    <div id="tb" class="d-flex  h-50 w-50 justify-content-center align-items-center">
-                        <i class="bi bi-ban"></i>
-                        <b>Chưa có dữ liệu chấm công!</b>
-                    </div>
-                </div>
-            <?php } ?>
+                <button class="carousel-control-prev" type="button" data-bs-target="#thang" data-bs-slide="prev" style="left: -20px;">
+                    <i style="color: black; font-size: 50px; position:fixed; top: 10px; left: 18.5%" class="bi bi-caret-left-fill"></i>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#thang" data-bs-slide="next" style="right: -20px;">
+                    <i style="color: black; font-size: 50px; position:fixed; top: 10px; right: 2.5%" class="bi bi-caret-right-fill"></i>
+                </button>
+            <?php
+            }
+            ?>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#thang" data-bs-slide="prev" style="left: -20px;">
-            <i style="color: black; font-size: 50px; position:fixed; top: 10px; left: 18.5%" class="bi bi-caret-left-fill"></i>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#thang" data-bs-slide="next" style="right: -20px;">
-            <i style="color: black; font-size: 50px; position:fixed; top: 10px; right: 2.5%" class="bi bi-caret-right-fill"></i>
-        </button>
     </div>
+    <?php if ($chamCongTonTai == 0) {
+    ?>
+        <div class="d-flex h-100 w-100 justify-content-center align-items-center">
+            <div id="tb" class="d-flex  h-50 w-50 justify-content-center align-items-center">
+                <i class="bi bi-ban"></i>
+                <b>Chưa có dữ liệu chấm công!</b>
+            </div>
+        </div>
+    <?php } ?>
 </div>
 <?php $this->end(); ?>

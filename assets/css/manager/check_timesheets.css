@@ -75,3 +75,20 @@
     .phanTrang {
         margin-top: 13px;
     }
+    #tb {
+
+        flex-direction: column;
+    }
+    
+    #tb i {
+        color:red;
+        font-size: 200px;
+        margin-bottom: 90px;
+    
+    }
+    
+    #tb b {
+        color: red;
+        font-size: 32px;
+        margin-top: 100px
+    }
