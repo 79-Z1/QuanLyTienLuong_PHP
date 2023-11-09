@@ -3,8 +3,6 @@
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-$sqlNhanVien = 'select * from nhan_vien ';
-$resultNhanVien = mysqli_query($conn, $sqlNhanVien);
 
 if (isset($_GET['maPL']))
     $maPL = trim($_GET['maPL']);
@@ -21,9 +19,7 @@ if (isset($_GET['nam']))
     $nam = trim($_GET['nam']);
 else $nam = "";
 
-
-
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -35,20 +31,20 @@ $resultChucVu = mysqli_query($conn, $sqlNhanVien);
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
 $sqlTimKiem =
-    "select * from phieu_luong where 1 ";
+    "select *, HoNV, TenNV from phieu_luong, nhan_vien where phieu_luong.MaNV = nhan_vien.MaNV ";
 
 if (isset($_GET['timkiem'])) {
     if ($maPL != "") {
-        $sqlTimKiem .= "and MaPhieuLuong like '%$maPL%' ";
+        $sqlTimKiem .= " and MaPhieuLuong like '%$maPL%' ";
     }
     if ($maNV != "") {
-        $sqlTimKiem .= "and MaNV like '%$maNV%' ";
+        $sqlTimKiem .= " and MaNV like '%$maNV%' ";
     }
     if ($thang != "") {
-        $sqlTimKiem .= "and Thang = '$thang' ";
+        $sqlTimKiem .= " and Thang = '$thang' ";
     }
     if ($nam != "") {
-        $sqlTimKiem .= "and Nam = '$nam' ";
+        $sqlTimKiem .= " and Nam = '$nam' ";
     }
 
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
@@ -94,6 +90,9 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
+                            <td>
+                                <input class="btn btn-outline-success search-btn  me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -108,11 +107,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td>
                                 <input class="form-control me-2 search-input" type="text" name="nam" value="<?php echo $nam; ?>">
                             </td>
-                        </tr>
-                        <tr > 
-                            <td align="center" colspan="4">
-                                <input class="btn btn-outline-purple search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
-                                <a href="index.php?page=admin-paycheck-add-paycheck" class="btn btn-outline-success search-btn w-25">Thêm</a>
+                            <td align="center" >
+                                <a href="index.php?page=admin-paycheck-add-paycheck" class="btn btn-outline-purple search-btn ">Thêm</a>
                             </td>
                         </tr>
                     </table>
@@ -122,46 +118,43 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 480px;">
+<div style="height: 70%;">
     <div class="card shadow border-0 mb-3" >
         <table class="table table-hover table-nowrap"  style="min-width: 100%;">
             <thead>
                 <tr>
                     <th scope="col">Mã phiếu lương</th>
                     <th scope="col">Mã nhân viên</th>
-                    <th scope="col">Tháng</th>
-                    <th scope="col">Số ngày công</th>
-                    <th scope="col">Số ngày vắng</th>
+                    <th scope="col">Họ Tên</th>
                     <th scope="col">Tiền lương tháng</th>
+                    <th scope="col">Tổng thu nhập</th>
                     <th scope="col">Thực lĩnh</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
-                <?php
+            <?php
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
-
+                $maxPage = ceil($numRows / $rowsPerPage);
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
-
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
-                        echo "<tr>
-                            <td>{$rows['MaPhieuLuong']}</td>
-                            <td >{$rows['MaNV']}</td>
-                            <td >{$rows['Thang']}</td>
-                            <td >{$rows['SoNgayCong']}</td>
-                            <td >{$rows['SoNgayVang']}</td>
-                            <td >{$rows['TienLuongThang']}</td>
-                            <td >{$rows['ThucLinh']}</td>
-                            <td style='padding: 0.5rem 0.5rem;'>
-                                <a href='index.php?page=admin-paycheck-info-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:green; font-size: 20px; ' class='bi bi-person-lines-fill '></i></a>
-                                <a href='index.php?page=admin-paycheck-edit-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:blue; font-size: 20px;' class='bi bi-pencil-square'></i></a>
-                                <a href='index.php?page=admin-paycheck-delete-paycheck&maPL={$rows['MaPhieuLuong']}'><i style='color:red; font-size: 20px;' class='bi bi-person-x'></i></a>
-                            </td>
-                            </tr>";
-                    }
-                }
                 ?>
+                       <tr>
+                            <td align=''><?= $rows['MaPhieuLuong']?></td>
+                            <td ><?= $rows['MaNV']?></td>
+                            <td ><?= $rows['HoNV'] . " " . $rows['TenNV']?></td>
+                            <td align="center" ><?= number_format($rows['TienLuongThang']) ?> VNĐ</td>
+                            <td align="center" ><?= number_format($rows['TongThuNhap']) ?> VNĐ</td>
+                            <td align="center" ><?= number_format($rows['ThucLinh']) ?> VNĐ</td>
+                            <td style='padding: 0.5rem 0.5rem;'>
+                                <a href='index.php?page=admin-paycheck-info-paycheck&maPL=<?= $rows['MaPhieuLuong'] ?>'> <i style="color:green; font-size: 20px; " class='bi bi-person-lines-fill' ></i></a>
+                                <a href='index.php?page=admin-paycheck-edit-paycheck&maPL=<?= $rows['MaPhieuLuong'] ?>'> <i style="color:blue; font-size: 20px;" class='bi bi-pencil-square'></i></a>
+                                <a href='index.php?page=admin-paycheck-delete-paycheck&maPL=<?= $rows['MaPhieuLuong'] ?>'> <i style="color:red; font-size: 20px;" class='bi bi-person-x'></i></a>
+                            </td>
+                            </tr>
+                            <?php
+                    }
+                } ?>
             </tbody>
         </table>
     </div>

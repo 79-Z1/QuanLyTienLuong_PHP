@@ -22,7 +22,7 @@ if (isset($_GET['tinhTrang']))
 else $tinhTrang = "";
 
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
 
 
 if (!isset($_GET['p'])) {
@@ -93,34 +93,29 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                 <p>Tình trạng</p>
                             </td>
                             <td>
-                            <select name="tinhTrang" class="form-select search-option">
+                                <select name="tinhTrang" class="form-select search-option">
                                     <option value="">Trống</option>
                                     <option value="0" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '0') echo " selected"; ?>>Chưa sử dụng</option>
                                     <option value="1" <?php if (isset($_GET['tinhTrang']) && $_GET['tinhTrang'] == '1') echo " selected"; ?>>Đã sử dụng</option>
-                                    
+
                                 </select>
                             </td>
                         </tr>
-                        <tr >
+                        <tr>
                             <td>
                                 <p>Đơn vị tính</p>
                             </td>
                             <td>
                                 <input class="form-control me-2 search-input" type="text" name="DVT" value="<?php echo $DVT; ?>">
                             </td>
-
-                        </tr>
-                        <tr align="center" colspan="4">
-                            <td align="end" colspan="2">
-                                <input class="btn btn-outline-success search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
+                            <td>
+                                <input class="btn btn-outline-success search-btn " name="timkiem" type="submit" value="Tìm kiếm" />
                                 <input type="text" name="page" value="admin-parameter" style="display: none">
-
                             </td>
-                            <td align="start" colspan="2">
-                                <a href="index.php?page=add-parameter" class="btn btn-outline-success search-btn w-50">Thêm</a>
+                            <td>
+                                <a href="index.php?page=add-parameter" class="btn btn-outline-purple search-btn ">Thêm</a>
                             </td>
                         </tr>
-
                     </table>
                 </form>
             </nav>
@@ -128,7 +123,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 450px">
+<div style="height: 69%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>

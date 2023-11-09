@@ -21,7 +21,7 @@ if (isset($_GET['heSoLuong'])){
 else $heSoLuong = "";
 
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 10; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -96,14 +96,13 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                 <p>Hệ số lương</p>
                             </td>
                             <td><input class="form-control me-2 search-input" type="text" name="heSoLuong" value="<?php echo $heSoLuong; ?>"></td>
-                        </tr>
-                        <tr>
-                            <td align="center" colspan="4">
-                                <input class="btn btn-outline-purple search-btn w-25 me-3" name="timkiem" type="submit" value="Tìm kiếm" />
+                            <td >
+                                <input class="btn btn-outline-success search-btn me-3" name="timkiem" type="submit" value="Tìm kiếm" />
                                 <input type="text" name="page" value="admin-position" style="display: none">
-                                <a href="index.php?page=admin-position-add-position" class="btn btn-outline-success search-btn w-25">Thêm</a>
                             </td>
-
+                            <td>
+                                <a href="index.php?page=admin-position-add-position" class="btn btn-outline-purple search-btn ">Thêm</a>
+                            </td>
                         </tr>
                     </table>
                 </form>
@@ -112,7 +111,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 475px">
+<div style="height: 75%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
