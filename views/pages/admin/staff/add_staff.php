@@ -165,7 +165,13 @@ if (isset($_POST['them'])) {
             $Email = "";
             $maNV = $newMaNV;
 
-            echo "<script type='text/javascript'>toastr.success('Thêm nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
+            echo "<script type='text/javascript'>
+                toastr.success('Thêm nhân viên thành công');
+                toastr.options.timeOut = 3000;
+                setTimeout(function() {
+                    window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-staff" . "';
+                }, 1500);
+            </script>";
         } else {
             echo "<script type='text/javascript'>toastr.error('Tải lên ảnh không thành công'); toastr.options.timeOut = 3000;</script>";
         }
