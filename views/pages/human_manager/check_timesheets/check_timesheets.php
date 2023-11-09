@@ -56,11 +56,13 @@ function GetDayOfWeek($date)
 
             $counter = 1;
 
-                $sqlgetThang = "SELECT DISTINCT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong 
+            $sqlgetThang = "SELECT DISTINCT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong 
                 ORDER BY year(Ngay) ";
 
-                $resultgetThang = mysqli_query($conn, $sqlgetThang);
+            $resultgetThang = mysqli_query($conn, $sqlgetThang);
+            $chamCongTonTai = mysqli_num_rows($resultgetThang);
 
+            if ($chamCongTonTai > 0) {
                 while ($rowsThang = mysqli_fetch_array($resultgetThang)) {
                     $actives = '';
                     if ($counter == mysqli_num_rows($resultgetThang)) {
@@ -395,10 +397,18 @@ function GetDayOfWeek($date)
                             ?>
                         </div>
                     </div>
-            <?php
+                <?php
                     $counter++;
                 }
-            ?>
+            } else {
+                ?>
+                <div class="d-flex h-100 w-100 justify-content-center align-items-center">
+                    <div id="tb" class="d-flex  h-50 w-50 justify-content-center align-items-center">
+                        <i class="bi bi-ban"></i>
+                        <b>Chưa có dữ liệu chấm công!</b>
+                    </div>
+                </div>
+            <?php } ?>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#thang" data-bs-slide="prev" style="left: -20px;">
             <i style="color: black; font-size: 50px; position:fixed; top: 10px; left: 18.5%" class="bi bi-caret-left-fill"></i>
