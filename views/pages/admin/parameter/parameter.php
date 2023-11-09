@@ -22,7 +22,7 @@ if (isset($_GET['tinhTrang']))
 else $tinhTrang = "";
 
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
 
 
 if (!isset($_GET['p'])) {
@@ -123,7 +123,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 450px">
+<div style="height: 69%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
