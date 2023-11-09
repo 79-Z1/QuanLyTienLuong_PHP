@@ -23,7 +23,7 @@ else $nam = "";
 
 
 
-$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
