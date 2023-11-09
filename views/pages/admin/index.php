@@ -25,7 +25,7 @@ switch ($page) {
         break;
 
     case 'admin-account':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'account/account.css']);
         echo $template->render('pages/admin/account/account', []);
         break;
     case 'admin-account-add':
