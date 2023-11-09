@@ -8,10 +8,16 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 
 $getNhanVien = 'select * from nhan_vien ';
 $resultNhanVien = mysqli_query($conn, $getNhanVien);
-$sqlMaPL ='select * from phieu_luong';
-$resulMaPL = mysqli_query($conn, $sqlMaPL);
-$row = mysqli_fetch_array($resulMaPL);
 
+function CheckMaPL($conn, $maPL) {
+    $sqlMaPL = "SELECT * FROM phieu_luong WHERE MaPhieuLuong = '$maPL'";
+    $resulMaPL = mysqli_query($conn, $sqlMaPL);
+
+    if (mysqli_num_rows($resulMaPL) > 0) {
+        return true;
+    }
+    return false;
+}
 
 if (isset($_POST['maPL']))
     $maPL = trim($_POST['maPL']);
@@ -84,7 +90,8 @@ if (isset($_POST['them'])) {
 
     if (empty($maPL)) {
         $err[] = "Mã phiếu lương không được để trống";
-    } else if($maPL == $row["MaPhieuLuong"]) {
+    } 
+    if(CheckMaPL($conn, $maPL)) {
         $err[] = "Đã có mã phiếu lương này rồi!!";
     }
 

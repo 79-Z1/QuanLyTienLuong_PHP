@@ -6,13 +6,18 @@
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
 
-
-$sqlTangCa = 'select * from tang_ca ';
-$resultTangCa = mysqli_query($conn, $sqlTangCa);
-$row = mysqli_fetch_array($resultTangCa);
-
 $sqlNhanVien = 'select * from nhan_vien ';
 $resultNhanVien = mysqli_query($conn, $sqlNhanVien);
+
+function CheckMaTC($conn, $maTC) {
+    $sqlTangCa = "SELECT * FROM tang_ca WHERE MaTC = '$maTC'";
+    $resultTangCa = mysqli_query($conn, $sqlTangCa);
+
+    if (mysqli_num_rows($resultTangCa) > 0) {
+        return true;
+    }
+    return false;
+}
 
 if (isset($_POST['maTC']))
     $maTC = trim($_POST['maTC']);
@@ -36,11 +41,13 @@ if (isset($_POST['add'])) {
 
     $err = array();
 
-    if (empty($maTC)) {
-        $err[] = "Vui lòng nhập mã tăng ca";
-    }else if($maTC == $row["MaTC"]) {
+    if(CheckMaTC($conn, $maTC) ) {
         $err[] = "Đã có mã tăng ca này rồi!!!";
     }
+    if (empty($maTC)) {
+        $err[] = "Vui lòng nhập mã tăng ca";
+    }
+    
     if (empty($_POST['ngayTC'])) {
         $err[] = "Vui lòng nhập ngày tháng";
     }
