@@ -90,7 +90,7 @@ $ghiChu = $row["GhiChu"];
                         <tr class="tr">
                             <td>Tổng thu nhập</td>
                             <td><input class="form-control py-2" type="text" size="20" name="tongThuNhap" value="<?php echo $row['TongThuNhap']; ?> " disabled/></td>
-                            <td>Thực Lĩnh</td>
+                            <td>Thực lĩnh</td>
                             <td><input class="form-control py-2" type="text" name="thucLinh" value="<?php echo $row['ThucLinh']; ?> " disabled/></td>
                         </tr>
                         <tr class="tr">

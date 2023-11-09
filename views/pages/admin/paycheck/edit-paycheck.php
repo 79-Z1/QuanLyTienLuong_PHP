@@ -237,7 +237,7 @@ if (isset($_POST['edit'])) {
                         <tr class="tr">
                             <td>Tổng thu nhập</td>
                             <td><input class="form-control py-2" type="text" size="20" name="tongThuNhap" value="<?php echo $tongThuNhap; ?> " /></td>
-                            <td>Thực Lĩnh</td>
+                            <td>Thực lĩnh</td>
                             <td><input class="form-control py-2" type="text" name="thucLinh" value="<?php echo $thucLinh; ?> " /></td>
                         </tr>
                         <tr class="tr">
