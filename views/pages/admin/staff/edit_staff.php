@@ -144,7 +144,13 @@ if (isset($_POST['chinhsua'])) {
         $nv['MaPhong'] = $_POST['phong'];
         $nv['MaChucVu'] = $_POST['chucVu'];
 
-        echo "<script type='text/javascript'>toastr.success('Chỉnh sửa nhân viên thành công'); toastr.options.timeOut = 3000;</script>";
+        echo "<script type='text/javascript'>
+            toastr.success('Chỉnh sửa nhân viên thành công');
+            toastr.options.timeOut = 3000;
+            setTimeout(function() {
+                window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-staff" . "';
+            }, 1500);
+        </script>";
     } else {
         foreach ($err as $lois) {
             echo "<script type='text/javascript'>toastr.error('$lois'); toastr.options.timeOut = 3000;</script>";
