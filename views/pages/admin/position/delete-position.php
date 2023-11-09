@@ -10,25 +10,49 @@ $row = mysqli_fetch_array($resultChucVu, MYSQLI_ASSOC);
 $tenCV = $row["TenChucVu"];
 $HSL = $row["HeSoLuong"];
 
+function checkCV($conn,$maCV){
+    $sqlMaCV = "select * from nhan_vien where MaChucVu = '$maCV' ";
+    $resultMaCV = mysqli_query($conn, $sqlMaCV);
+
+    if(mysqli_num_rows($resultMaCV) > 0){
+        return true;
+    }return false;
+} 
+
 $err = array();
 
 
 ?>
 <?php
 
+// if (isset($_POST['delete'])) {
+//     $sqldelete = "delete from chuc_vu where MaChucVu = '$maCV'";
+//     $deleteResult = mysqli_query($conn, $sqldelete);
+//     if ($deleteResult) {
+//         echo "<script type='text/javascript'>
+//         $('#delete').prop('disabled','disabled');
+//         toastr.success('Xoá thành công');
+//         setTimeout(function() {
+//             window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-position" . "';
+//         }, 1000);
+//         </script>";
+//     } else {
+//         echo "<script type='text/javascript'>toastr.error('Xóa không thành công'); toastr.options.timeOut = 3000;</script>";
+//     }
+// }
 if (isset($_POST['delete'])) {
-    $sqldelete = "delete from chuc_vu where MaChucVu = '$maCV'";
+    if (!checkCV($conn,$maCV)) {
+    $sqldelete = "delete from chuc_vu where MaChucVu = '$_GET[MaChucVu]'";
     $deleteResult = mysqli_query($conn, $sqldelete);
-    if ($deleteResult) {
-        echo "<script type='text/javascript'>
-        $('#delete').prop('disabled','disabled');
-        toastr.success('Xoá thành công');
-        setTimeout(function() {
-            window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-position" . "';
-        }, 1000);
-        </script>";
-    } else {
-        echo "<script type='text/javascript'>toastr.error('Xóa không thành công'); toastr.options.timeOut = 3000;</script>";
+    echo "<script type='text/javascript'>
+    $('#delete').prop('disabled','disabled');
+    toastr.success('Xoá thành công');
+    setTimeout(function() {
+        window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-position" . "';
+    }, 1500);
+    </script>";
+    }else{
+        echo "<script type='text/javascript'>toastr.error('Hiện vẫn còn nhân viên ở chức vụ này, Không thể xóa!!'); toastr.options.timeOut = 3000;</script>";
     }
 }
 
