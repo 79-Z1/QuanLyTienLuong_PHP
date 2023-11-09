@@ -1,14 +1,15 @@
 <?php $this->layout('layout_accountant') ?>
 <?php $this->section('content'); ?>
-<?php 
-	function money_format($tien)
-	{
-		return number_format($tien, 0, ',', '.');
-	}
-	function Ngay_Format($date){
-		$day = explode('-', $date);
-		return $day[2].'-'.$day[1].'-'.$day[0];
-	}
+<?php
+function money_format($tien)
+{
+	return number_format($tien, 0, ',', '.');
+}
+function Ngay_Format($date)
+{
+	$day = explode('-', $date);
+	return $day[2] . '-' . $day[1] . '-' . $day[0];
+}
 ?>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
@@ -47,40 +48,60 @@ $resultUngLuong = mysqli_query($conn, $sql);
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<?php
-					if (mysqli_num_rows($resultUngLuong) <> 0) {
-						while ($rows = mysqli_fetch_array($resultUngLuong)) {
-					?>
-						<tr data-maphieu="<?=$rows['MaPhieu']?>">
-							<td><?=$rows['MaPhieu']?></td>
-							<td><?=$rows['MaNV']?></td>
-							<td><?=Ngay_Format($rows['NgayUng'])?></td>
-							<td><?=$rows['LyDo']?></td>
-							<td><?=money_format($rows['SoTien'])?> đ</td>
-							<td><p class="duyet-p" style="color:<?=$rows['Duyet'] ? 'green' : 'red' ?>;">
-								<?=$rows['Duyet'] ? 'Đã duyệt' : 'Chưa duyệt'?>
-							</p></td>
-							<?php if($rows['Duyet']) : ?>
+				<?php
+				if (mysqli_num_rows($resultUngLuong) <> 0) {
+					while ($rows = mysqli_fetch_array($resultUngLuong)) {
+				?>
+						<tr data-maphieu="<?= $rows['MaPhieu'] ?>">
+							<td><?= $rows['MaPhieu'] ?></td>
+							<td><?= $rows['MaNV'] ?></td>
+							<td><?= Ngay_Format($rows['NgayUng']) ?></td>
+							<td><?= $rows['LyDo'] ?></td>
+							<td><?= money_format($rows['SoTien']) ?> đ</td>
+							<td>
+								<p class="duyet-p" style="color:<?= $rows['Duyet'] ? 'green' : 'red' ?>;">
+									<?= $rows['Duyet'] ? 'Đã duyệt' : 'Chưa duyệt' ?>
+								</p>
+							</td>
+							<?php if ($rows['Duyet']) : ?>
 								<td align="center">
 									<i style="font-size:35px !important;color:green;" class='bi bi-check-circle-fill'></i>
 								</td>
-							<?php else: ?>
+							<?php else : ?>
 								<td align="center">
-									<button onclick='acceptPUL(this,"<?=$rows["MaPhieu"]?>","<?=$rows["MaNV"]?>")' class='btn btn-outline-purple'>Duyệt</button>
+									<button onclick='acceptPUL(this,"<?= $rows["MaPhieu"] ?>","<?= $rows["MaNV"] ?>")' class='btn btn-outline-purple'>Duyệt</button>
 								</td>
 							<?php endif; ?>
 							<td class='text-end'>
-								<button onclick='deletePUL(this,"<?=$rows["MaPhieu"]?>","<?=$rows["MaNV"]?>")' style='background-color: red;' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover'>
+								<button data-bs-toggle="modal" data-bs-target="#<?= $rows["MaPhieu"] ?>" style='background-color: red;' class='btn btn-sm btn-xoa btn-square btn-neutral2 text-danger-hover'>
 									<i class='bi bi-trash' style='color:black'></i>
 								</button>
+								<!-- Modal xóa ứng lương-->
+								<div class="modal fade" id="<?= $rows["MaPhieu"] ?>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									<div class="modal-dialog" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title text-center" id="exampleModalLabel">Xóa phiếu ứng lương <?= $rows["MaPhieu"] ?></h5>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p style="text-align: left;">Bạn có chắc chắn muốn xóa phiếu ứng lương này không?</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+												<button onclick='deletePUL(this,"<?= $rows["MaPhieu"] ?>","<?= $rows["MaNV"] ?>")' type="button" class="btn btn-danger">Xóa</button>
+											</div>
+										</div>
+									</div>
+								</div>
 							</td>
 						</tr>
-					<?php 
-						}
+				<?php
 					}
-					?>
-				</tr>
+				}
+				?>
 
 				<!-- Modal1 -->
 				<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
