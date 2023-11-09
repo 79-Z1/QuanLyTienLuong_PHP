@@ -57,8 +57,12 @@ if (isset($_POST['xoa'])) {
         mysqli_query($conn,$sqldeleteTB);
     }
 
+
+
     $sqlNV = "DELETE FROM `nhan_vien` WHERE MaNV = '$maNV'";
     mysqli_query($conn,$sqlNV);
+
+    unlink($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/imgnv/$ttNV[Hinh]");
 
     echo "<script type='text/javascript'>
     $('#xoa').prop('disabled','disabled');
