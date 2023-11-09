@@ -64,7 +64,7 @@ if (isset($_POST['xoa'])) {
     $('#xoa').prop('disabled','disabled');
     toastr.success('Xoá thành công');
     setTimeout(function() {
-        window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/admin?page=admin-staff" . "';
+        window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/human_manager" . "';
     }, 1500);
     </script>";
 }

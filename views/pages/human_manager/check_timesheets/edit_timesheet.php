@@ -162,7 +162,7 @@ if (isset($_POST['xacnhan'])) {
             </div>
         </div>
         <div class="option-buttons d-flex justify-content-between">
-            <a href="index.php?page=human-manager-check-timesheets"></a><input class="btn btn-outline-purple" type="submit" value="Quay lại" />
+            <a href="index.php?page=human-manager-check-timesheets"><input class="btn btn-outline-purple" type="submit" value="Quay lại" /></a>
         </div>
     </div>
 </div>
