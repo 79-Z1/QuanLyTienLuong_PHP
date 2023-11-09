@@ -8,7 +8,7 @@
     <div class="container-fluid">
         <!-- Toggler --> <button class="navbar-toggler ms-n2" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarCollapse" aria-controls="sidebarCollapse" aria-expanded="false" aria-label="Toggle navigation">
              <span class="navbar-toggler-icon"></span> </button> <!-- Brand --> 
-             <a class="navbar-brand py-1 mb-lg-5 px-2 me-0" href="http://dakhoathientrang.com/"> <img style="width:242px !important; height: 70px" src="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/logo.png" ?>" alt="Logo Công Ty Á"> </a>
+             <a class="navbar-brand py-1 mb-lg-5 px-2 me-0" href="http://localhost/QuanLyTienLuong_PHP/views/pages/accountant/"> <img style="width:242px !important; height: 70px" src="<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/logo.png" ?>" alt="Logo Công Ty Á"> </a>
 
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidebarCollapse">

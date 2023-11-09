@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) <> 0) {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $tienUngToiDa = floor(($row['HeSoLuong'] * 4_160_000 / 2) / 100_000) * 100_000;
     $today = date("Y-m-d");
-    $ktraNgayUng = 1;
+    $ktraNgayUng = date('d') >= 15 ? 1 : 0;
 }
 ?>
 <?php
@@ -51,8 +51,10 @@ if (isset($_POST['submit'])) {
     VALUES ('$maul','$MaNV','$today','$lydo','$sotienung')";
     $result = mysqli_query($conn, $sqlInsert);
     echo "<script type='text/javascript'>
-            toastr.success('Gửi thành công');
-            window.location.href = 'http://localhost/QuanLyTienLuong_PHP/views/pages/employee';
+            toastr.success('Phiếu Ứng lương của bạn đã được gửi');
+                setTimeout(function() {
+                    window.location.href = 'http://localhost/QuanLyTienLuong_PHP/views/pages/employee';
+            }, 2000)
         </script>";
 }
 ?>
@@ -83,7 +85,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                         <div class="form-group">
-                            <label>Số tiền (không vượt quá <?= money_format($tienUngToiDa) ?> đ):</label>
+                            <label>Số tiền (không vượt quá <?= money_format($tienUngToiDa) ?> VNĐ):</label>
                             <input type="number" id="sotien" name="sotien" class="form-control" min="0" max="<?= $tienUngToiDa ?>" value="">
                         </div>
                     </div>

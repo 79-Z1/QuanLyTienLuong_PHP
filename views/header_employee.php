@@ -12,7 +12,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/assets/css/main_employee.css"?> type="text/css" />
     <link rel="stylesheet" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1]. "/views/assets/css/employee/{$css}" ?>" type="text/css">
-    <link rel="stylesheet" href=<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/css/shared/notification2.css" ?> type="text/css" />
+    <link rel="stylesheet" href=<?php echo "/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/css/shared/notification.css" ?> type="text/css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>

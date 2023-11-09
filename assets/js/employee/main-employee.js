@@ -93,7 +93,9 @@ async function submitUL() {
                 NoiDung: noidung
             }
             const { message, status } = await postData(url, data);
-            if (status) return true;
+            if (status) {
+                return true;
+            }
             else return false;
 
         } toastr.error(`Số tiền ứng tối đa là ${max} đ`); return false;
