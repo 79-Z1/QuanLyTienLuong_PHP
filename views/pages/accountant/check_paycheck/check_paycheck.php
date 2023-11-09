@@ -41,7 +41,7 @@ if (isset($_GET['nam']))
     $nam = $_GET['nam'];
 else $nam = "";
 
-$rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -50,7 +50,7 @@ $offset = ($_GET['p'] - 1) * $rowsPerPage;
 //lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
 
 $sqlTimKiem =
-    "SELECT *, TenPhong, TenChucVu FROM nhan_vien, chuc_vu, phong_ban,phieu_luong
+    "SELECT *, TenPhong, TenChucVu FROM nhan_vien, chuc_vu, phong_ban, phieu_luong
             WHERE nhan_vien.MaPhong = phong_ban.MaPhong 
             AND nhan_vien.MaChucVu = chuc_vu.MaChucVu
             AND nhan_vien.MaNV = phieu_luong.MaNV
@@ -160,7 +160,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
         </div>
     </div>
 </div>
-<div style="height:503px">
+<div style="height:470px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
