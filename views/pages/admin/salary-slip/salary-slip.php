@@ -28,8 +28,8 @@
     }
     else $duyet = "";
 
-    $sqlPhieuUngLuong = "SELECT * FROM `phieu_ung_luong`";
-    $resultPhieuUngLuong = mysqli_query($conn, $sqlPhieuUngLuong);
+    $sqlNV = 'select * from nhan_vien';
+    $resultNV = mysqli_query($conn, $sqlNV);
 
     $rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 8
    
@@ -170,9 +170,9 @@ a {
                                 <select name="maNV" class="form-select search-option">
                                     <option value="">Trống</option>
                                     <?php
-                                    if (mysqli_num_rows($resultPhieuUngLuong) <> 0) {
+                                    if (mysqli_num_rows($resultNV) <> 0) {
 
-                                        while ($rows = mysqli_fetch_array($resultPhieuUngLuong)) {
+                                        while ($rows = mysqli_fetch_array($resultNV)) {
                                             echo "<option ";
                                             if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
                                             echo ">$rows[MaNV]</option>";
@@ -229,13 +229,13 @@ a {
         <table class="table table-hover table-nowrap">
             <thead>
                 <tr>
-                    <th scope="col">mã phiếu</th>
-                    <th scope="col">mã nhân viên</th>
-                    <th scope="col">ngày ứng</th>
-                    <th scope="col">lý do</th>
-                    <th scope="col">số tiền</th>
-                    <th scope="col">duyệt</th>
-                    <th scope="col"></th>
+                    <th class="text-center" scope="col">mã phiếu</th>
+                    <th class="text-center" scope="col">mã nhân viên</th>
+                    <th class="text-center" scope="col">ngày ứng</th>
+                    <th class="text-center" scope="col">lý do</th>
+                    <th class="text-center" scope="col">số tiền</th>
+                    <th class="text-center" scope="col">duyệt</th>
+                    <th class="text-center" scope="col"></th>
                 </tr>
             </thead>
 
@@ -253,12 +253,12 @@ a {
                          $duyetUL = "Đã duyệt";
                         }
                         echo "<tr>
-                            <td >{$rows['MaPhieu']}</td>
-                            <td >{$rows['MaNV']} </td>
-                            <td >{$rows['NgayUng']} </td>
-                            <td >{$rows['LyDo']} </td>
-                            <td >{$rows['SoTien']} </td>
-                            <td >{$duyetUL} </td>
+                            <td align='center'  >{$rows['MaPhieu']}</td>
+                            <td align='center'  >{$rows['MaNV']} </td>
+                            <td align='center'  >{$rows['NgayUng']} </td>
+                            <td align='center'  >{$rows['LyDo']} </td>
+                            <td align='center'  >{$rows['SoTien']} </td>
+                            <td align='center'  >{$duyetUL} </td>
                             <td>
                             <a href='index.php?page=admin-salary-slip-edit&MaPhieu={$rows['MaPhieu']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                             <a href='index.php?page=admin-salary-slip_delete&MaPhieu={$rows['MaPhieu']}'><i style='color:red' class='bi bi-person-x'></i></a>
