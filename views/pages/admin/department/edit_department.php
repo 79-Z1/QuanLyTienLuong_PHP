@@ -96,7 +96,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
                     
                         <td id="no_color" colspan="5" align="center">
                         <input type="submit" value="Chỉnh sửa" name="edit" class="btn btn-outline-purple editDepartmen-btn mb-5 w-25"/>
-                        <a class="btn btn-outline-purple editDepartmen-btn mb-5 w-25" href="index.php?page=admin-parameter">Quay Lại</a>
+                        <a class="btn btn-outline-purple editDepartmen-btn mb-5 w-25" href="index.php?page=admin-department">Quay Lại</a>
                         </td>
                     </tr>
                 </table>

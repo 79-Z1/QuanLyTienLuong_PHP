@@ -8,7 +8,7 @@ if (isset($_GET['maPhong']))
 else $maPhong = "";
 
 if (isset($_GET['tenPhong']))
-    $tenPhong = $_GET['tenPhong'];
+    $tenPhong = trim($_GET['tenPhong']);
 else $tenPhong = "";
 
 $rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
@@ -131,15 +131,15 @@ a {
                             
                             <td><input class="form-control me-2 search-input" type="text" name="tenPhong" value="<?php echo $tenPhong; ?>"></td>
                               
-                            </td>
-                        </tr>
-                        <tr  >
                             <td colspan="4"  align="center"  >
                                 <input class="btn btn-outline-success search-btn me-3" name="timkiem" type="submit" value="Tìm kiếm" /> 
                                 <input type="text" name="page" value="admin-department" style="display: none">
                                 <a href="index.php?page=admin-department-add" class="btn btn-outline-purple themnhanvien-btn w-60">Thêm</a>
                                 </td>
                         </tr>
+                       
+                            
+                        
                     </table>
                 </form>
             </nav>
@@ -155,6 +155,7 @@ a {
                 <tr>
                     <th scope="col">mã phòng</th>
                     <th scope="col">tên phòng</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
 

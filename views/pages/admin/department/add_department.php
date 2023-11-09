@@ -7,6 +7,15 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
 $sqlPhongBan = 'select * from phong_ban ';
 $resultPhongBan = mysqli_query($conn, $sqlPhongBan);
 
+function CheckMaPhong($conn, $maP){
+    $sqlMaP = "select * from phong_ban where MaPhong = '$maP' ";
+    $resultMaP = mysqli_query($conn, $sqlMaP);
+
+    if(mysqli_num_rows($resultMaP) > 0){
+        return true;
+    }return false;
+}
+
 if (isset($_POST['maP']))
     $maP = trim($_POST['maP']);
 else $maP = "";
@@ -22,7 +31,9 @@ if (isset($_POST['them'])) {
     if (empty($maP)) {
         $err[] = "Vui lòng nhập mã phòng ban";
     }
-    
+    if(CheckMaPhong($conn, $maP)) {
+        $err[] = "Đã có mã phòng này rồi!!";
+    }
     if (empty($TenPhong)) {
         $err[] = "Vui lòng nhập tên phòng ban";
     }
@@ -33,9 +44,7 @@ if (isset($_POST['them'])) {
 
         if ($resultInsert) {
             echo "<script type='text/javascript'>toastr.success('Thêm phòng ban thành công'); toastr.options.timeOut = 3000;</script>";
-            // làm mới giá trị
-                $maP = "";
-                $tenP = "";
+             
         } else {
             echo "<script type='text/javascript'>toastr.error('Thêm phòng ban không thành công'); toastr.options.timeOut = 3000;</script>";
         }
