@@ -118,7 +118,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td>
                                 <p align="center">Tháng</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" size="2" type="text" name="thang" value="<?php echo $thang; ?>"></td>
+                            <td style="width: 10%;"><input class="form-control me-2 search-input" size="2" type="number" name="thang" value="<?php echo $thang; ?>"></td>
                         </tr>
                         <tr>
                             <td>
@@ -146,7 +146,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td>
                                 <p align="center">Năm</p>
                             </td>
-                            <td><input class="form-control me-2 search-input" size="4" type="text" name="nam" value="<?php echo $nam; ?>"></td>
+                            <td style="width: 10%;"><input class="form-control me-2 search-input" size="4" type="number" name="nam" value="<?php echo $nam; ?>"></td>
                         </tr>
                         <tr>
                             <td colspan="6" align="center">
