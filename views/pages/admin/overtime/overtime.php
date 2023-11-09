@@ -18,7 +18,7 @@ if (isset($_GET['loaiTC']))
 else $loaiTC = "";
 
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 10; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -87,6 +87,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     ?>
                                 </select>
                             </td>
+                            <td >
+                                <input class="btn btn-outline-success search-btn" name="timkiem" type="submit" value="Tìm kiếm" />
+                                <input type="text" name="page" value="admin-overtime" style="display: none">
+                            </td>
                         </tr>
                         <tr>
                             <td>
@@ -106,14 +110,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     <option value="2" <?php if (isset($_GET['loaiTC']) && $_GET['loaiTC'] == '2') echo " selected"; ?>>Nghỉ lễ</option>
                                 </select>
                             </td>
-                        </tr>
-                        <tr align="center" colspan="4">
-                            <td align="end" colspan="2">
-                                <input class="btn btn-outline-purple search-btn w-50" name="timkiem" type="submit" value="Tìm kiếm" />
-                                <input type="text" name="page" value="admin-overtime" style="display: none">
-                            </td>
-                            <td align="start" colspan="2">
-                                <a href="index.php?page=admin-overtime-add-overtime" class="btn btn-outline-success search-btn w-50">Thêm</a>
+                            <td >
+                                <a href="index.php?page=admin-overtime-add-overtime" class="btn btn-outline-purple search-btn ">Thêm</a>
                             </td>
                         </tr>
                     </table>
@@ -123,7 +121,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 470px">
+<div style="height: 74%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
