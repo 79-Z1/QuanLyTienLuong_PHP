@@ -36,15 +36,14 @@ function GetDayOfWeek($date)
             <?php
             $counter = 1;
 
-            $sqlgetThang = "SELECT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong
+            $sqlgetThang = "SELECT DISTINCT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong
             where MaNV = '$_SESSION[MaNV]' 
-            GROUP BY month(Ngay) 
-            ORDER BY month(Ngay)";
+            ORDER BY year(Ngay)";
 
             $resultgetThang = mysqli_query($conn, $sqlgetThang);
             $chamCongTonTai = mysqli_num_rows($resultgetThang);
 
-            if ($chamCongTonTai > 1) {
+            if ($chamCongTonTai > 0) {
 
                 while ($rowsThang = mysqli_fetch_array($resultgetThang)) {
                     $actives = '';
@@ -88,7 +87,7 @@ function GetDayOfWeek($date)
                                                     $dem++;
                                                 }
                                             }
-                                            $sqlChamCong = "SELECT TinhTrang FROM `cham_cong` WHERE MaNV = '$_SESSION[MaNV]' AND day(Ngay) = $j and month(Ngay) = $rowsThang[thangtrongnam]";
+                                            $sqlChamCong = "SELECT TinhTrang FROM `cham_cong` WHERE MaNV = '$_SESSION[MaNV]' AND day(Ngay) = $j and month(Ngay) = $rowsThang[thangtrongnam] and year(Ngay)= $rowsThang[nam]";
                                             $resultChamCong = mysqli_query($conn, $sqlChamCong);
                                             $chamCong = mysqli_fetch_array($resultChamCong);
                                             $bgcl = '';
