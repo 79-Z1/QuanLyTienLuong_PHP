@@ -200,7 +200,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 <?php
-echo '<div align="center">';
+echo '<div align="center" class="mt-4">';
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Đầu</a> ";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
