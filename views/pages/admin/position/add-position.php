@@ -5,11 +5,15 @@
 //Ket noi CSDL
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
+function CheckMaCV($conn, $maCV) {
+    $sqlChucVu = "select * from chuc_vu  WHERE MaChucVu = '$maCV'";
+    $resultMaTS = mysqli_query($conn, $sqlChucVu);
 
-
-$sqlChucVu = 'select * from chuc_vu ';
-$resultChucVu = mysqli_query($conn, $sqlChucVu);
-$row = mysqli_fetch_array($resultChucVu);
+    if (mysqli_num_rows($resultMaTS) > 0) {
+        return true;
+    }
+    return false;
+}
 
 if (isset($_POST['maCV']))
     $maCV = trim($_POST['maCV']);
@@ -30,7 +34,8 @@ if (isset($_POST['them'])) {
 
     if (empty($maCV)) {
         $err[] = "Vui lòng nhập mã chức vụ";
-    }else if($maCV == $row["MaChucVu"]) {
+    }
+    if(CheckMaCV($conn, $maCV) ) {
         $err[] = "Đã có mã chức vụ này rồi!!!";
     }
     if (empty($tenCV)) {

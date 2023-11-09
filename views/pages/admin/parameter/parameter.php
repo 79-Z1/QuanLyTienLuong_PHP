@@ -149,9 +149,9 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         if ($rows['TinhTrang'] == 0) {
-                            $TT = "Chưa sử dụng";
+                            $TT = "<span style='color: red;'>Chưa sử dụng</span>";
                         } else if ($rows['TinhTrang'] == 1) {
-                            $TT = "Đã sử dụng";
+                            $TT = "<span style='color: green;'>Đã sử dụng</span>";
                         }
                         echo "<tr>
                             <td >{$rows['MaTS']}</td>
