@@ -240,11 +240,11 @@ a {
         <table class="table table-hover table-nowrap">
             <thead>
                 <tr>
-                    <th scope="col">mã công</th>
-                    <th scope="col">mã nhân viên</th>
-                    <th scope="col">tình trạng</th>
-                    <th scope="col">ngày</th>
-                    <th class="text-center" scope="col">nghỉ hưởng lương</th>
+                    <th class="text-center" scope="col">mã công</th>
+                    <th class="text-center" scope="col">mã nhân viên</th>
+                    <th class="text-center" scope="col">tình trạng</th>
+                    <th class="text-center" scope="col">ngày</th>
+                    <th class="text-center" class="text-center" scope="col">nghỉ hưởng lương</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -268,10 +268,10 @@ a {
                          $offHL = " <i style='color:green' class='bi bi-check-circle'></i>";
                         }
                         echo "<tr>
-                            <td >{$rows['MaCong']}</td>
-                            <td >{$rows['MaNV']} </td>
-                            <td >{$tt} </td>
-                            <td >{$rows['Ngay']} </td>
+                            <td align='center'>{$rows['MaCong']}</td>
+                            <td align='center' >{$rows['MaNV']} </td>
+                            <td align='center' >{$tt} </td>
+                            <td align='center'>{$rows['Ngay']} </td>
                             <td align='center' >{$offHL} </td>
                             <td>
                             <a href='index.php?page=admin-timekeeping-edit&MaCong={$rows['MaCong']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
