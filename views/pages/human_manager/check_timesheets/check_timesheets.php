@@ -378,7 +378,7 @@ function GetDayOfWeek($date)
                         <div class="phanTrang" align="center">
                             <?php
                             $maxPage = ceil($numRows / $rowsPerPage);
-                            echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . (1) . "> Đầu trang </a> ";
+                            echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . (1) . "> Đầu </a> ";
                             echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "> < </a> ";
 
 
@@ -391,7 +391,7 @@ function GetDayOfWeek($date)
                             }
 
                             echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . "> > </a>";
-                            echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($maxPage) . "> Cuối trang </a> ";
+                            echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=human-manager-check-timesheets&p=" . ($maxPage) . "> Cuối </a> ";
 
                             echo "</p>";
                             ?>

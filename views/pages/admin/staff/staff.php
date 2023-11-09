@@ -203,7 +203,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 </div>
 <?php
 echo '<div align="center">';
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Về đầu</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . (1) . ">Đầu</a> ";
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "><</a> ";
 for ($i = 1; $i <= $maxPage; $i++) {
     if ($i == $_GET['p']) {
@@ -212,7 +212,7 @@ for ($i = 1; $i <= $maxPage; $i++) {
         echo "<a class='pagination-link'  href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . $i . ">" . $i . "</a> ";
 }
 echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . ">></a>";
-echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Về cuối</a> ";
+echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=admin-staff&maNV=$maNV&phong=$maPhong&timkiem=Tìm+kiếm&hoTen=$hoTen&chucVu=$maChucVu&radGT=$gioiTinh&p=" . ($maxPage) . ">Cuối</a> ";
 echo "</div>";
 ?>
 <?php $this->end(); ?>
