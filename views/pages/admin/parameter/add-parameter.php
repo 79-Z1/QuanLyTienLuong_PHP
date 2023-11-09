@@ -5,9 +5,15 @@
 //Ket noi CSDL
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
 
-$sqlMaTS = 'select * from tham_so ';
-$resultMaTS = mysqli_query($conn, $sqlMaTS);
-$row = mysqli_fetch_array($resultMaTS);
+function CheckMaTS($conn, $maTS) {
+    $sqlMaTS = "SELECT * FROM tham_so WHERE MaTS = '$maTS'";
+    $resultMaTS = mysqli_query($conn, $sqlMaTS);
+
+    if (mysqli_num_rows($resultMaTS) > 0) {
+        return true;
+    }
+    return false;
+}
 
 if (isset($_POST['maTS']))
     $maTS = trim($_POST['maTS']);
@@ -33,7 +39,8 @@ if (isset($_POST['add'])) {
 
     if (empty($maTS)) {
         $err[] = "Vui lòng nhập mã tham số";
-    }else if($maTS == $row["MaTS"]){
+    }
+    if(CheckMaTS($conn, $maTS) ) {
         $err[] = "Đã có mã tham số này rồi!!!";
     }
     if (empty($tenTS)) {
