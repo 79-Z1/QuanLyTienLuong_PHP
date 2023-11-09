@@ -7,6 +7,7 @@ const deletePUL = async (el, maphieu) => {
     }
     const { message, status } = await postData(url, data);
     if (status) {
+        $(`#${maphieu}`).modal('hide');
         elRemove.remove();
         toastr.success('Xóa thành công');
     }
