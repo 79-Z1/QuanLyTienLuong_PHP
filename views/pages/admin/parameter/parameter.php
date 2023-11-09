@@ -148,17 +148,19 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         } else if ($rows['TinhTrang'] == 1) {
                             $TT = "<span style='color: green;'>Đã sử dụng</span>";
                         }
-                        echo "<tr>
-                            <td >{$rows['MaTS']}</td>
-                            <td >{$rows['TenTS']}</td>
-                            <td >{$rows['DVT']}</td>
-                            <td >{$rows['GiaTri']}</td>
-                            <td >{$TT}</td>
+                        ?>
+                        <tr>
+                            <td ><?= $rows['MaTS']?></td>
+                            <td ><?= $rows['TenTS']?></td>
+                            <td ><?= $rows['DVT']?></td>
+                            <td ><?= number_format($rows['GiaTri']) ?> VNĐ</td>
+                            <td ><?= $TT ?></td>
                             <td >
-                                <a href='index.php?page=edit-parameter&maTS={$rows['MaTS']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
-                                <a href='index.php?page=delete-parameter&maTS={$rows['MaTS']}'><i style='color:red' class='bi bi-person-x'></i></a>
+                                <a href='index.php?page=edit-parameter&maTS=<?= $rows['MaTS']?>'><i style='color:blue' class='bi bi-pencil-square'></i></a>
+                                <a href='index.php?page=delete-parameter&maTS=<?= $rows['MaTS']?>'><i style='color:red' class='bi bi-person-x'></i></a>
                             </td>
-                            </tr>";
+                            </tr>
+                            <?php
                     }
                 }
                 ?>
