@@ -93,7 +93,7 @@ switch ($page) {
         break;
 
     case 'admin-position':
-        echo $template->render('header_admin', ['css' => 'position/position.css']);
+        echo $template->render('header_admin', ['css' => 'position/position1.css']);
         echo $template->render('pages/admin/position/position', []);
         break;
     case 'admin-position-add-position':
