@@ -34,12 +34,15 @@
         width: 50% !important;
         text-align: center;
     }
-
+    .member table tbody{
+        height: fit-content !important;
+    }
     .member table td {
         padding: 0 !important;
         border-right: 1px solid black !important;
         color: purple !important;
         font-size: 14px !important;
+        font-weight: var(--x-body-font-weight) !important;
     }
 </style>
 <div class="d-flex">
