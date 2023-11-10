@@ -5,7 +5,6 @@ $template = new Template('');
 if (!isset($_SESSION)) {
     session_start();
 }
-echo $template->render('footer', []);
 
 switch ($page) {
     case 'employee-check-payroll':

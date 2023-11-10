@@ -147,7 +147,7 @@ a {
     </div>
 </div>
 
-<div style="height: 600px">
+<div style="height: 605px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">

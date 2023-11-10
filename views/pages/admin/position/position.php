@@ -111,7 +111,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 73%">
+<div style="height: 75%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
