@@ -31,7 +31,7 @@
     $sqlNV = 'select * from nhan_vien';
     $resultNV = mysqli_query($conn, $sqlNV);
 
-    $rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
+    $rowsPerPage = 10; //số mẩu tin trên mỗi trang, giả sử là 8
    
     if (!isset($_GET['p'])) {
         $_GET['p'] = 1;
@@ -224,7 +224,7 @@ a {
     </div>
 </div>
 
-<div style="height: 500px">
+<div style="height: 550px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
