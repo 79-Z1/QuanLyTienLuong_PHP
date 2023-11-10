@@ -31,7 +31,5 @@ if (mysqli_num_rows($resultTT) > 0) {
                 <?php $this->renderSection('content'); ?>
             </div>
         </div>
-        <?php $this->renderSection('footer'); ?>
 </body>
-
 </html>
