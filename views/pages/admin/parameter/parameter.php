@@ -130,8 +130,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                 <tr>
                     <th scope="col">Mã tham số</th>
                     <th scope="col">Tên tham số</th>
-                    <th scope="col">Đơn vị tính</th>
                     <th scope="col">Giá trị</th>
+                    <th scope="col">Đơn vị tính</th>
                     <th scope="col">Tình trạng</th>
                     <th scope="col"></th>
                 </tr>
@@ -152,8 +152,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         <tr>
                             <td ><?= $rows['MaTS']?></td>
                             <td ><?= $rows['TenTS']?></td>
+                            <td ><?= number_format($rows['GiaTri'])?></td>
                             <td ><?= $rows['DVT']?></td>
-                            <td ><?= number_format($rows['GiaTri']) ?> VNĐ</td>
                             <td ><?= $TT ?></td>
                             <td >
                                 <a href='index.php?page=edit-parameter&maTS=<?= $rows['MaTS']?>'><i style='color:blue' class='bi bi-pencil-square'></i></a>

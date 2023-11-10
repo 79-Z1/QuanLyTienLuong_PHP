@@ -24,7 +24,10 @@ $(document).ready(async function () {
                 }
             }
         } else {
-            $('#dismiss-all').prop('disabled', true);
+            thongBaoContainer.append(`
+                <p class='w-100 text-center my-5' style='font-size: 20px'>Bạn chưa có thông báo nào</p>
+            `)
+            $('#dismiss-all').remove()
         }
     }
 
@@ -58,7 +61,10 @@ $(document).ready(async function () {
                 }
                 thongBaoContainer.html(html);
             } else {
-                $('#dismiss-all').prop('disabled', true);
+                thongBaoContainer.append(`
+                    <p class='w-100 text-center my-5' style='font-size: 20px'>Bạn chưa có thông báo nào</p>
+                `)
+                $('#dismiss-all').remove()
             }
         }
     });
@@ -84,6 +90,10 @@ $(document).ready(async function () {
         if (status) {
             $('#thongbao-container').html('');
             toastr.success('Xóa tất cả thành công');
+            thongBaoContainer.append(`
+                    <p class='w-100 text-center my-5' style='font-size: 20px'>Bạn chưa có thông báo nào</p>
+                `)
+            $('#dismiss-all').remove()
         }
     })
 })

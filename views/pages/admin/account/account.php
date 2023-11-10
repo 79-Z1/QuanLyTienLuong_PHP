@@ -22,7 +22,7 @@ $resultNV = mysqli_query($conn, $sqlNV);
 
 $sqlTK = 'select * from tai_khoan';
 $resultTK = mysqli_query($conn, $sqlTK);
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 10; //số mẩu tin trên mỗi trang, giả sử là 8
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -114,16 +114,16 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 450px">
+<div style="height: 550px">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
                 <tr>
-                    <th scope="col">Tên tài khoản</th>
-                    <th scope="col">Mật khẩu</th>
-                    <th scope="col">Loại tài khoản</th>
-                    <th scope="col">Mã nhân viên</th>
-                    <th scope="col"></th>
+                    <th class="text-center" scope="col">Tên tài khoản</th>
+                    <th class="text-center" scope="col">Mật khẩu</th>
+                    <th class="text-center" scope="col">Loại tài khoản</th>
+                    <th class="text-center" scope="col">Mã nhân viên</th>
+                    <th class="text-center" scope="col"></th>
                 </tr>
             </thead>
             <tbody>
@@ -134,10 +134,10 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
                         echo "<tr>
-                            <td>{$rows['TenTK']}</td>
-                            <td>{$rows['MatKhau']}</td>
-                            <td >{$rows['LoaiTK']}</td>
-                            <td>{$rows['MaNV']}</td>
+                            <td align='center' >{$rows['TenTK']}</td>
+                            <td align='center' >{$rows['MatKhau']}</td>
+                            <td align='center' >{$rows['LoaiTK']}</td>
+                            <td align='center' >{$rows['MaNV']}</td>
                             <td>
                                 <a href='index.php?page=admin-account-edit&TenTK={$rows['TenTK']}'><i style='color:blue' class='bi bi-pencil-square'></i></a>
                                 <a href='index.php?page=admin-account-delete&TenTK={$rows['TenTK']}'><i style='color:red' class='bi bi-person-x'></i></a>

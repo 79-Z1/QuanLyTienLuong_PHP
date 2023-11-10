@@ -76,9 +76,10 @@ function checkValid($name): bool
 			<div class='w-100'>
 				<a href="/<?= explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/auth/enter_email.php" ?>">Quên mật khẩu?</a>
 			</div>
-			<button name="submit" type='submit' class='btn btn-primary w-100' id='submit-btn'>
-				Login
+			<button name="submit" type='submit' class='btn btn-dark w-100' id='submit-btn'>
+				Đăng nhập
 			</button>
+			<a class="btn btn-warning w-100 mt-3" href="<?= "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise"?>">Bài tập</a>
 		</form>
 	</div>
 </body>

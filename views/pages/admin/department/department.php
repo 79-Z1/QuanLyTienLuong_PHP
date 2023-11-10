@@ -11,7 +11,7 @@ if (isset($_GET['tenPhong']))
     $tenPhong = trim($_GET['tenPhong']);
 else $tenPhong = "";
 
-$rowsPerPage = 8; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 11; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
@@ -147,7 +147,7 @@ a {
     </div>
 </div>
 
-<div style="height: 480px">
+<div style="height: 600px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">

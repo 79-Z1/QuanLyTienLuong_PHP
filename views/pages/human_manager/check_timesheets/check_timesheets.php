@@ -55,7 +55,6 @@ function GetDayOfWeek($date)
             <?php
 
             $counter = 1;
-
             $sqlgetThang = "SELECT DISTINCT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong 
                 ORDER BY year(Ngay) ";
 
@@ -157,7 +156,7 @@ function GetDayOfWeek($date)
                                                             }
                                                         } else $icon = '<i class="bi bi-ban"></i>';
                                                 ?>
-                                                        <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $rowCC['ngay'] ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $rowsThang['nam'] ?>'><?= $icon ?></a></td>
+                                                        <td><a style="color: black" href='index.php?page=human-manager-edit-timesheet&MaNV=<?= $rowTen['MaNV'] ?>&Ngay=<?= $i ?>&Thang=<?= $rowsThang['thangtrongnam'] ?>&Nam=<?= $rowsThang['nam'] ?>'><?= $icon ?></a></td>
                                                     <?php } ?>
                                             </tr>
                                         <?php } ?>

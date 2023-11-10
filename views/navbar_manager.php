@@ -13,19 +13,19 @@
             <!-- Navigation -->
             <ul class="navbar-nav">
                 <li class="nav-item" data-active="1">
-                    <a class="nav-link" id="xemtt" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager"?> > <i class="bi bi-person-lines-fill"></i> Danh sách nhân viên </a>
+                    <a class="nav-link" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager"?> > <i class="bi bi-person-lines-fill"></i> Danh sách nhân viên </a>
                 </li>
                 <li class="nav-item" data-active="2">
-                    <a class="nav-link" id="ungluong" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-add-employee"?>"><i class="bi bi-person-fill-add"></i></i>Thêm nhân viên</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-add-employee"?>"><i class="bi bi-person-fill-add"></i></i>Thêm nhân viên</a>
                 </li>
                 <li class="nav-item" data-active="3">
-                    <a class="nav-link" id="tinhluong" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-add-timesheets"?>"><i class="bi bi-calendar2-plus-fill"></i>  Chấm công </a>
+                    <a class="nav-link"href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-add-timesheets"?>"><i class="bi bi-calendar2-plus-fill"></i>  Chấm công </a>
                 </li>
                 <li class="nav-item" data-active="4">
-                    <a class="nav-link" id="thongke" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-check-timesheets"?>"><i class="bi bi-calendar-check-fill"></i>Bảng chấm công</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/human_manager?page=human-manager-check-timesheets"?>"><i class="bi bi-calendar-check-fill"></i>Bảng chấm công</a>
                 </li>
                 <li class="nav-item" data-active="5" id="Logout">
-                    <a class="nav-link" id="exit"> <i class="bi bi-box-arrow-left"></i> Đăng xuất </a>
+                    <a class="nav-link"> <i class="bi bi-box-arrow-left"></i> Đăng xuất </a>
                 </li>
             </ul> <!-- Divider -->
         </div>
