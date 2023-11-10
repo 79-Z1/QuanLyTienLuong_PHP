@@ -57,6 +57,12 @@ if (isset($_POST['xoa'])) {
         mysqli_query($conn,$sqldeleteTB);
     }
 
+    $sqlSelectDLMK = "SELECT * FROM `dat_lai_mat_khau` WHERE Email = '$ttNV[Email]'";
+    //nếu tồn tại $maNV ở bảng thông báo thì sẽ xoá tất cả bản ghi có $maNV
+    if(mysqli_num_rows(mysqli_query($conn,$sqlSelectDLMK)) > 0){
+        $sqldeleteDLMK = "DELETE FROM `dat_lai_mat_khau` WHERE Email = '$ttNV[Email]'";
+        mysqli_query($conn,$sqldeleteDLMK);
+    }
 
 
     $sqlNV = "DELETE FROM `nhan_vien` WHERE MaNV = '$maNV'";
