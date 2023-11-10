@@ -18,7 +18,7 @@ if (isset($_GET['loaiTC']))
 else $loaiTC = "";
 
 
-$rowsPerPage = 10; //số mẩu tin trên mỗi trang, giả sử là 8
+$rowsPerPage = 9;
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -28,9 +28,6 @@ $sqlNhanVien = 'select * from nhan_vien';
 $resultNhanVien = mysqli_query($conn, $sqlNhanVien);
 
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
-$sqlLoaiTC = 'select LoaiTC from tang_ca';
-$resultLoaiTC = mysqli_query($conn, $sqlLoaiTC);
-
 $sqlTimKiem =
     "select * from tang_ca where 1 ";
 
@@ -121,7 +118,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 74%">
+<div style="height: 68%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
