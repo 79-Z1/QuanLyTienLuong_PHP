@@ -55,7 +55,6 @@ function GetDayOfWeek($date)
             <?php
 
             $counter = 1;
-
             $sqlgetThang = "SELECT DISTINCT month(Ngay) as thangtrongnam, year(Ngay) as nam from cham_cong 
                 ORDER BY year(Ngay) ";
 

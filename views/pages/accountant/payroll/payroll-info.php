@@ -138,25 +138,19 @@ if (isset($_POST['ghiChu'])) {
 }else $ghiChu = '';
 
 
-
 if (isset($_POST['tienPhat'])) {
-    if(!is_numeric($_POST['tienPhat'])){
+    if(!is_numeric(intval($_POST['tienPhat']))){
         $tienPhat = 0;
         $err[] = "Vui lòng nhập tiền phạt đúng định dạng số";
-    }else $tienPhat = str_replace(".", "", $_POST['tienPhat']);
-
+    } else $tienPhat = str_replace(".", "", $_POST['tienPhat']);
 }
 
 if (isset($_POST['tienThuong'])) {
-    if(!is_numeric($_POST['tienThuong'])){
+    if(!is_numeric(intval($_POST['tienThuong']))){
         $tienThuong = 0;
         $err[] = "Vui lòng nhập tiền thưởng đúng định dạng số";
-    }
-    else $tienThuong = str_replace(".", "", $_POST['tienThuong']);
+    }else $tienThuong = str_replace(".", "", $_POST['tienThuong']);
 }
-else $tienThuong = 0;
-
-
 
 $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
 
@@ -242,7 +236,7 @@ if (isset($_POST['tinh'])) {
                         </tr>
                         <tr>
                             <td>Phạt</td>
-                            <td><input class="td-control p-2" onchange="handleChange(this);" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo  MoneyFormat($tienPhat); ?>" />VNĐ</td>
+                            <td><input class="td-control p-2" onchange="handleChange(this);" style="background-color: #FFF;" type="text" size="20" name="tienPhat" value="<?php echo MoneyFormat($tienPhat); ?>" />VNĐ</td>
                             <td>Thưởng</td>
                             <td><input class="td-control p-2" onchange="handleChange(this);"  style="background-color: #FFF;" type="text" size="20" name="tienThuong" value="<?php echo MoneyFormat($tienThuong); ?>">VNĐ</td>
                         </tr>
@@ -281,6 +275,7 @@ if (isset($_POST['tinh'])) {
 </div>
 <?php
 if (isset($_POST['luu'])) {
+    $tienThuong =  str_replace("", ".", $tienThuong);
     if ($ghiChu != "") {
         $sqlInsertPL = "INSERT INTO `phieu_luong`(`MaPhieuLuong`, `MaNV`, `Thang`, `Nam`, `SoNgayCong`, `SoNgayVang`, `LuongTangCa`, `TienTamUng`,
                                                  `Thue`, `TruBaoHiem`, `TroCap`, `Thuong`, `Phat`, `TienLuongThang`, `TongThuNhap`, `ThucLinh`, `GhiChu`) 

@@ -7,7 +7,7 @@ $err = array();
 
 $maPL = $_GET['MaPL'];
 
-$sql = "select phieu_luong.*, nhan_vien.MaNV, HoNV, TenNV, TenPhong, TenChucVu, HeSoLuong from nhan_vien, phong_ban, chuc_vu, phieu_luong
+$sql = "select nhan_vien.MaNV, HoNV, TenNV, TenPhong, TenChucVu, HeSoLuong from nhan_vien, phong_ban, chuc_vu
           where nhan_vien.MaNV = '$_GET[MaNV]'
           and nhan_vien.MaPhong = phong_ban.MaPhong
           and nhan_vien.MaChucVu = chuc_vu.MaChucVu
@@ -87,13 +87,24 @@ function MoneyFormat($tien)
     return number_format($tien, 0, ',', '.');
 }
 
+if (isset($_POST['ghiChu'])) {
+    $ghiChu = trim($_POST['ghiChu']);
+}else $ghiChu = $TTPL['GhiChu'];
 
 if (isset($_POST['tienPhat'])) {
-    $tienPhat = str_replace(".", "", $_POST['tienPhat']);
+    if(!is_numeric(intval($_POST['tienPhat']))){
+        $tienPhat = 0;
+        $err[] = "Vui lòng nhập tiền phạt đúng định dạng số";
+    } else $tienPhat = str_replace(".", "", $_POST['tienPhat']);
 }
+
 if (isset($_POST['tienThuong'])) {
-    $tienThuong = str_replace(".", "", $_POST['tienThuong']);
+    if(!is_numeric(intval($_POST['tienThuong']))){
+        $tienThuong = 0;
+        $err[] = "Vui lòng nhập tiền thưởng đúng định dạng số";
+    }else $tienThuong = str_replace(".", "", $_POST['tienThuong']);
 }
+
 
 
 if (isset($_POST['tinh'])) {
@@ -218,7 +229,7 @@ if (isset($_POST['luu'])) {
                             <td>Ghi chú</td>
                             <td id="no_color">
                                 <div class="input-group input-group-lg">
-                                    <textarea class="form-control" name="ghiChu" rows="3" maxlength="300"> <?php if(isset($_POST['ghiChu']))echo htmlentities ($_POST['ghiChu']); else echo $ghiChu;?> </textarea>
+                                    <textarea class="form-control" name="ghiChu" rows="3" maxlength="300"> <?php  echo $ghiChu;?> </textarea>
                                 </div>
                             </td>
                             <td id="no_color" align="center">
