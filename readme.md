@@ -73,7 +73,7 @@ To get a local copy up and running follow these simple example steps.
    <br>
    <img src="./assets/images/db_name.png" alt="Logo" width="600">
 5. Import file `database.sql` into your `quan_ly_tien_luong` database
-   * [Database]('./database.sql)
+   * [Database](https://github.com/TonyHoe/QuanLyTienLuong_PHP/blob/main/database.sql)
 6. Open new terminal from `QuanLyTienLuong_PHP` then install Composer packages
    ```sh
    composer --ignore-platform-reqs install
