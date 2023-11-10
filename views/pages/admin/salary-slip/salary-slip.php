@@ -224,7 +224,7 @@ a {
     </div>
 </div>
 
-<div style="height: 550px">
+<div style="height: 555px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">

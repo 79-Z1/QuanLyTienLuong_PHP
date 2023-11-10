@@ -18,7 +18,7 @@ if (isset($_GET['loaiTC']))
 else $loaiTC = "";
 
 
-$rowsPerPage = 9;
+$rowsPerPage = 10;
 
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
@@ -118,7 +118,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     </div>
 </div>
 
-<div style="height: 68%">
+<div style="height: 74%">
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
             <thead>
