@@ -31,7 +31,7 @@
     $sqlNV = 'select * from nhan_vien';
     $resultNV = mysqli_query($conn, $sqlNV);
 
-    $rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 8
+    $rowsPerPage = 9; //số mẩu tin trên mỗi trang, giả sử là 8
    
     if (!isset($_GET['p'])) {
         $_GET['p'] = 1;
@@ -53,7 +53,7 @@ if (isset($_GET['timkiem'])) {
     if ($soTien != "") {
         $sqlTimKiem .= " and SoTien = '$soTien' ";
     }
-    if ($duyet != -1) {
+    if ($duyet != "") {
         $sqlTimKiem .= " and Duyet = '$duyet' ";
     }
 
@@ -67,6 +67,7 @@ if (isset($_GET['timkiem'])) {
     
     $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+  
 ?>
 <style>
     table {
@@ -200,7 +201,7 @@ a {
                             </td>
                             <td>
                             <select name="duyet" class="form-select search-option">
-                                    <option value="-1" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '0') echo " selected"; ?>>Trống</option>
+                                    <option value="" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '') echo " selected"; ?>>Trống</option>
                                     <option value="0" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '0') echo " selected"; ?>>Chưa duyệt</option>
                                     <option value="1" <?php if (isset($_GET['duyet']) && $_GET['duyet'] == '1') echo " selected"; ?>>Đã duyệt</option>
                                 </select>
@@ -223,7 +224,7 @@ a {
     </div>
 </div>
 
-<div style="height: 480px">
+<div style="height: 500px">
 
     <div class="card shadow border-0 mb-3">
         <table class="table table-hover table-nowrap">
@@ -243,7 +244,7 @@ a {
                 <?php
 
                 //tổng số trang
-                $maxPage = floor($numRows / $rowsPerPage) + 1;
+                $maxPage = ceil($numRows / $rowsPerPage);
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
 
                     while ($rows = mysqli_fetch_array($resultTimKiem)) {
