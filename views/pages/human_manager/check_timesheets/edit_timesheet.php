@@ -30,8 +30,9 @@ $numrowTC = mysqli_num_rows($resultTC);
 
 if($numrowTC > 0){
     $tttc = mysqli_fetch_array($resultTC);
-
-    $loaiTC = $tttc['LoaiTC'];
+    if(isset($_POST["tangCa"])){
+        $loaiTC = $_POST["tangCa"];
+    }else $loaiTC = $tttc['LoaiTC'];
 }
 
 $sqlcc = "SELECT TinhTrang, NghiHL FROM cham_cong
@@ -45,8 +46,10 @@ $numrowcc = mysqli_num_rows($resultcc);
 if($numrowcc > 0){
     $ttCC = mysqli_fetch_array($resultcc);
 
-    $tinhTrang = $ttCC['TinhTrang'];
-        
+    if(isset($_POST["tinhTrang"])){
+        $tinhTrang = $_POST["tinhTrang"];
+    }else $tinhTrang = $ttCC['TinhTrang'];
+
     $nghiHL = $ttCC['NghiHL'];
 }
 
@@ -72,16 +75,9 @@ $maChamCong = TaoMaChamCong($date,$i);
 
 if (isset($_POST['xacnhan'])) {
 
-    if(isset($_POST["tinhTrang"])){
-        $tinhTrang = $_POST["tinhTrang"];
-    }
     if (isset($_POST["nghiHL"])) {
         $nghiHL = $_POST["nghiHL"];
     }else $nghiHL = 0;
-
-    if(isset($_POST["tangCa"])){
-        $loaiTC = $_POST["tangCa"];
-    }
 
     if ($_POST['tinhTrang'] == '1') {
         if($numrowcc == 0){
