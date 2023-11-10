@@ -31,7 +31,7 @@ if (isset($_GET['radGT']))
     $gioiTinh = $_GET['radGT'];
 else $gioiTinh = "";
 
-$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
+$rowsPerPage = 6; //số mẩu tin trên mỗi trang, giả sử là 10
 if (!isset($_GET['p'])) {
     $_GET['p'] = 1;
 }
