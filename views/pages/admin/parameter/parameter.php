@@ -153,7 +153,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td ><?= $rows['MaTS']?></td>
                             <td ><?= $rows['TenTS']?></td>
                             <td ><?= $rows['DVT']?></td>
-                            <td ><?= number_format($rows['GiaTri']) ?> VNĐ</td>
+                            <td ><?= number_format($rows['GiaTri']). " " . $rows['DVT'] ?></td>
                             <td ><?= $TT ?></td>
                             <td >
                                 <a href='index.php?page=edit-parameter&maTS=<?= $rows['MaTS']?>'><i style='color:blue' class='bi bi-pencil-square'></i></a>
