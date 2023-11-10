@@ -2,40 +2,55 @@
 <?php $this->section('content'); ?>
 <?php
 include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF'])[1] . "/connect.php");
+
 $MaNV = $_GET['MaNV'];
 
 $strdate = $_GET['Nam'] . '-' . $_GET['Thang'] . '-' . $_GET['Ngay'];
-$sqlnv = "select nhan_vien.MaNV, HoNV, TenNV, TenPhong, TenChucVu,TinhTrang, NghiHL, Ngay from nhan_vien, chuc_vu, phong_ban, cham_cong
-     where nhan_vien.MaNV = '$MaNV'
-     and cham_cong.Ngay = '$strdate'
-     and nhan_vien.MaPhong = phong_ban.MaPhong
-     and nhan_vien.MaChucVu = chuc_vu.MaChucVu
-     and cham_cong.MaNV = nhan_vien.MaNV";
+
+$sqlnv = "SELECT nhan_vien.MaNV, HoNV, TenNV, TenPhong, TenChucVu FROM nhan_vien, chuc_vu, phong_ban
+     WHERE nhan_vien.MaNV = '$MaNV'
+     AND nhan_vien.MaPhong = phong_ban.MaPhong
+     AND nhan_vien.MaChucVu = chuc_vu.MaChucVu";
 
 $resultnv = mysqli_query($conn, $sqlnv);
+
 $nv = mysqli_fetch_array($resultnv);
-
-$sqlTangCa = "SELECT * FROM tang_ca 
-    where tang_ca.MaNV = '$MaNV'
-    and NgayTC = '$strdate'";
-
-$resultTC = mysqli_query($conn, $sqlTangCa);
-
-$numrow = mysqli_num_rows($resultTC);
-
-if($numrow == 1){
-    $tc = mysqli_fetch_array($resultTC);
-    $loaiTC = $tc['LoaiTC'];
-}else $loaiTC = -1;
 
 $hoten = $nv['HoNV'] . ' ' . $nv['TenNV'];
 $phong = $nv['TenPhong'];
 $chucVu = $nv['TenChucVu'];
-$nghiHL = $nv['NghiHL'];
-$tinhTrang = $nv['TinhTrang'];
 
-$date = str_replace("-", "", $strdate);
+$sqlTangCa = "SELECT * FROM tang_ca 
+    WHERE tang_ca.MaNV = '$MaNV'
+    AND NgayTC = '$strdate'";
 
+$resultTC = mysqli_query($conn, $sqlTangCa);
+
+$numrowTC = mysqli_num_rows($resultTC);
+
+if($numrowTC > 0){
+    $tttc = mysqli_fetch_array($resultTC);
+
+    $loaiTC = $tttc['LoaiTC'];
+}
+
+$sqlcc = "SELECT TinhTrang, NghiHL FROM cham_cong
+        WHERE cham_cong.Ngay = '$strdate'
+        AND cham_cong.MaNV = '$MaNV'";
+
+$resultcc = mysqli_query($conn, $sqlcc);
+
+$numrowcc = mysqli_num_rows($resultcc);
+
+if($numrowcc > 0){
+    $ttCC = mysqli_fetch_array($resultcc);
+
+    $tinhTrang = $ttCC['TinhTrang'];
+        
+    $nghiHL = $ttCC['NghiHL'];
+}
+
+$date = str_replace("-", "", date('Y-m-d',strtotime($strdate)));
 
 $i = substr($MaNV, 2);
 
@@ -47,6 +62,12 @@ function TaoMaTangCa($date, $i)
 
 $maTangCa = TaoMaTangCa($date, $i);
 
+function TaoMaChamCong($date, $i)
+{
+    return "C" . $date . $i;
+}
+
+$maChamCong = TaoMaChamCong($date,$i);
 
 
 if (isset($_POST['xacnhan'])) {
@@ -54,19 +75,24 @@ if (isset($_POST['xacnhan'])) {
     if(isset($_POST["tinhTrang"])){
         $tinhTrang = $_POST["tinhTrang"];
     }
+    if (isset($_POST["nghiHL"])) {
+        $nghiHL = $_POST["nghiHL"];
+    }else $nghiHL = 0;
+
     if(isset($_POST["tangCa"])){
         $loaiTC = $_POST["tangCa"];
     }
 
-    if (isset($_POST["nghiHL"])) {
-        $nghiHL = $_POST["nghiHL"];
-    } else $nghiHL = 0;
-    
-
     if ($_POST['tinhTrang'] == '1') {
-        $updateChamCong = "UPDATE `cham_cong` 
-        SET `TinhTrang` = $_POST[tinhTrang], `NghiHL`= $nghiHL WHERE MaNV = '$MaNV' AND Ngay = '$strdate'";
-        mysqli_query($conn,$updateChamCong);
+        if($numrowcc == 0){
+            $sqlinsertCC = "INSERT INTO `cham_cong`(`MaCong`, `MaNV`, `TinhTrang`, `Ngay`, `NghiHL`) 
+            VALUES ('$maChamCong','$MaNV',$_POST[tinhTrang],'$strdate',$nghiHL)";
+            mysqli_query($conn,$sqlinsertCC);
+        }else{
+            $updateChamCong = "UPDATE `cham_cong` 
+            SET `TinhTrang` = $_POST[tinhTrang], `NghiHL`= $nghiHL WHERE MaNV = '$MaNV' AND Ngay = '$strdate'";
+            mysqli_query($conn,$updateChamCong);
+        }
         if ($_POST['tangCa'] == '-1') {
             if ($numrow == 1) {
                 $deleteTC = "DELETE FROM `tang_ca` WHERE MaNV = '$MaNV' AND NgayTC = '$strdate'";
@@ -91,13 +117,14 @@ if (isset($_POST['xacnhan'])) {
         $deleteTC = "DELETE FROM `tang_ca` WHERE MaNV = '$MaNV' AND NgayTC = '$strdate'";
         mysqli_query($conn, $deleteTC);
     }
+    echo "<script type='text/javascript'>toastr.success('Chỉnh sửa thông tin chấm công thành công'); toastr.options.timeOut = 3000;</script>";
 }
 ?>
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
             <div class="card-header">
-                <h5 class="mb-0">CHỈNH SỬA CHẤM CÔNG NHÂN VIÊN NGÀY <?php echo $strdate?> </h5>
+                <h5 class="mb-0">CHỈNH SỬA CHẤM CÔNG NHÂN VIÊN NGÀY <?php echo $_GET['Ngay'] . '-' . $_GET['Thang'] . '-' . $_GET['Nam']?> </h5>
             </div>
             <div class="table-responsive">
                 <form align='center' action="" method="post" enctype="multipart/form-data">
