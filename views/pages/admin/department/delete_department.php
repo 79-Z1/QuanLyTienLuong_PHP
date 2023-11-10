@@ -32,7 +32,7 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         }, 1500);
         </script>";
         }else{
-            echo "<script type='text/javascript'>toastr.error('Hiện vẫn còn nhân viên ở phòng này, Không thể xóa!!'); toastr.options.timeOut = 3000;</script>";
+            echo "<script type='text/javascript'>toastr.error('Hiện vẫn còn nhân viên ở phòng này, không thể xóa!!'); toastr.options.timeOut = 3000;</script>";
         }
     }
     if(isset($_POST["maP"])) {
