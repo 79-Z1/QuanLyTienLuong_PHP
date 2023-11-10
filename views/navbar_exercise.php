@@ -16,19 +16,19 @@
                     <a class="nav-link" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise"?> > <i class="bi bi-emoji-kiss-fill"></i> Giới thiệu </a>
                 </li>
                 <li class="nav-item" data-active="2">
-                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise?page=exercise-TranNgocTien"?>"><i class="bi bi-person-fill"></i>Trần Ngọc Tiến</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise/TranNgocTien"?>"><i class="bi bi-person-fill"></i>Trần Ngọc Tiến</a>
                 </li>
                 <li class="nav-item" data-active="3">
-                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise?page=exercise-PhamNgocTuyen"?>"><i class="bi bi-person-fill"></i>Phạm Ngọc Tuyển</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise/PhamNgocTuyen"?>"><i class="bi bi-person-fill"></i>Phạm Ngọc Tuyển</a>
                 </li>
                 <li class="nav-item" data-active="4">
-                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise?page=exercise-LeHoangThien"?>"><i class="bi bi-person-fill"></i>Lê Hoàng Thiện</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise/LeHoangThien"?>"><i class="bi bi-person-fill"></i>Lê Hoàng Thiện</a>
                 </li>
                 <li class="nav-item" data-active="5">
-                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise?page=exercise-NguyenDuyThien"?>"><i class="bi bi-person-fill"></i>Nguyễn Duy Thiên</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise/NguyenDuyThien"?>"><i class="bi bi-person-fill"></i>Nguyễn Duy Thiên</a>
                 </li>
                 <li class="nav-item" data-active="6">
-                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise?page=exercise-TruongKhanhHoa"?>"><i class="bi bi-person-fill"></i>Trương Khánh Hòa</a>
+                    <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise/TruongKhanhHoa"?>"><i class="bi bi-person-fill"></i>Trương Khánh Hòa</a>
                 </li>
                 <li class="nav-item" data-active="7">
                     <a href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1]?>" class="nav-link"> <i class="bi bi-box-arrow-left"></i> Đăng nhập </a>

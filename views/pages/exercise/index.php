@@ -6,25 +6,25 @@ echo $template->render('navbar_exercise', []);
 echo $template->render('footer', []);
 
 switch ($page) {
-    case 'exercise-TranNgocTien':
+    case 'TranNgocTien':
         echo $template->render('header_exercise', []);
-        echo $template->render('pages/exercise/TranNgocTien', []);
+        echo $template->render('pages/exercise/TranNgocTien/TranNgocTien', []);
         break;
-    case 'exercise-LeHoangThien':
+    case 'LeHoangThien':
         echo $template->render('header_exercise', []);
-        echo $template->render('pages/exercise/LeHoangThien', []);
+        echo $template->render('pages/exercise/LeHoangThien/LeHoangThien', []);
         break;
-    case 'exercise-PhamNgocTuyen':
+    case 'PhamNgocTuyen':
         echo $template->render('header_exercise', []);
-        echo $template->render('pages/exercise/PhamNgocTuyen', []);
+        echo $template->render('pages/exercise/PhamNgocTuyen/PhamNgocTuyen', []);
         break;
-    case 'exercise-NguyenDuyThien':
+    case 'NguyenDuyThien':
         echo $template->render('header_exercise', []);
-        echo $template->render('pages/exercise/NguyenDuyThien', []);
+        echo $template->render('pages/exercise/NguyenDuyThien/NguyenDuyThien', []);
         break;
-    case 'exercise-TruongKhanhHoa':
+    case 'TruongKhanhHoa':
         echo $template->render('header_exercise', []);
-        echo $template->render('pages/exercise/TruongKhanhHoa', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/TruongKhanhHoa', []);
         break;
     default:
         echo $template->render('header_exercise', []);

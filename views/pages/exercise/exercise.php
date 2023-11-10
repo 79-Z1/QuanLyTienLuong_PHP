@@ -22,14 +22,16 @@
                 <div class="card-content d-flex flex-column align-items-center">
                     <h4 class="pt-2">Trương Khánh Hòa</h4>
                     <h5>NHÓM PHÓ</h5>
-                    <span class="maxim">❝ Ngôn ngữ là nhất thời, <br>thuật toán là mãi mãi ❞</span>
+                    <span class="maxim">
+                        ❝ Lập trình tại nhân, 
+                        <br>Thực được tại thiên ❞</span>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
             <div class="card p-0">
                 <div class="card-image">
-                    <img src="<?="/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/NguyenDuyThien.jpg"?>" alt='Avatar'>
+                    <img src="<?="/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/assets/images/NguyenDuyThien.png"?>" alt='Avatar'>
                 </div>
                 <div class="card-content d-flex flex-column align-items-center">
                     <h4 class="pt-2">Nguyễn Duy Thiên</h4>
