@@ -1,7 +1,7 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
-
 <html>
-
 <head>
 
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -31,6 +31,7 @@
                 <td align="center">Tên khách hàng: <input type="text" name="tenKH" size="30" value="<?php if (isset($_GET['tenKH'])) echo $_GET['tenKH']; ?>">
 
                 </td>
+                <input type="text" name="page" value="TNT-QLBS-Find-KH" style="display: none">
                 <td rowspan="2" align="center"><input type="submit" name="tim" value="Tìm kiếm"></td>
 
             </tr>
@@ -45,8 +46,15 @@
     </form>
 
     <?php
+    if (isset($_GET['tenKH'])) {
+		$tenKH = $_GET['tenKH'];
+	} else $tenKH = "";
+	if (isset($_GET['maKH'])) {
+		$maKH = $_GET['maKH'];
+	} else $maKH = "";
+	
 
-    if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    if (isset($_GET['tim'])) {
 
         if (empty($_GET['tenKH']) && empty($_GET['maKH'])) {
             // echo "<p align='center'>Vui lòng nhập tên khách hàng hoặc mã khách hàng</p>";
@@ -58,7 +66,7 @@
             $tenKH = $_GET['tenKH'];
             $maKH = $_GET['maKH'];
 
-            require('connect.php');
+            require('connect_qlbs.php');
 
             $query = "Select khach_hang.*
 		      from khach_hang
@@ -106,16 +114,14 @@
                         <td>'.$row2['Ngay_HD'].'</td>
                         <td>'.$row2['Tri_gia'].'</td>
                     </tr>';
-
-        
-
                 }
                 echo '</table>';
             }
         }
     }
-    
     ?>
-</body>
+        <p align="left"><a href="?page=">Quay lại</a></p>
 
+</body>
 </html>
+<?php $this->end(); ?>

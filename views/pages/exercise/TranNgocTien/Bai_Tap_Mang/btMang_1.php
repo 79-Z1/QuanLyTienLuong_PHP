@@ -1,13 +1,16 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<style type="text/css">
 
-	table{
+	table td{
 
 		color: #ffff00;
 
-		background-color: gray;     
+		background-color: gray;    
+		border: 1px black solid !important; 
 
 	}
 
@@ -144,5 +147,8 @@
 			</tr>
 		</table>
 	</form>
+	<p align="left"><a href="?page=">Quay lại</a></p>
+
 </body>
 </html>
+<?php $this->end(); ?>

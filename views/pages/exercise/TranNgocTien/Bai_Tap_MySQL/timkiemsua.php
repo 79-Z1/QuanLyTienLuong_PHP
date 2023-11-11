@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 
 <html>
@@ -11,14 +13,14 @@
 </head>
 
 <body>
-	<?php 
-		require('connect.php');
+	<?php
+	require('connect_qlbs.php');
 
-		$qr_LoaiSua ="select Ten_loai, Ma_loai_sua from loai_sua";
-		$qr_HangSua ="select Ten_hang_sua, Ma_hang_sua from hang_sua";
+	$qr_LoaiSua = "select Ten_loai, Ma_loai_sua from loai_sua";
+	$qr_HangSua = "select Ten_hang_sua, Ma_hang_sua from hang_sua";
 
-		$loaiSua = mysqli_query($conn, $qr_LoaiSua);
-		$hangSua = mysqli_query($conn, $qr_HangSua);
+	$loaiSua = mysqli_query($conn, $qr_LoaiSua);
+	$hangSua = mysqli_query($conn, $qr_HangSua);
 
 	?>
 	<form action="" method="get">
@@ -37,31 +39,31 @@
 			<tr align="center">
 				<td>Loại sữa</td>
 				<td>
-					<select name="loaisua" >
+					<select name="loaisua">
 						<option value="">Trống</option>
-						<?php 
-							if (mysqli_num_rows($loaiSua) <> 0) {
-								while ($row = mysqli_fetch_array($loaiSua, MYSQLI_ASSOC)) {
-									echo "<option value='$row[Ma_loai_sua]'";
-									if(isset($_GET['loaisua']) && $_GET['loaisua'] == $row['Ma_loai_sua']) echo "selected";
-									echo ">$row[Ten_loai]</option>";
-								}
+						<?php
+						if (mysqli_num_rows($loaiSua) <> 0) {
+							while ($row = mysqli_fetch_array($loaiSua, MYSQLI_ASSOC)) {
+								echo "<option value='$row[Ma_loai_sua]'";
+								if (isset($_GET['loaisua']) && $_GET['loaisua'] == $row['Ma_loai_sua']) echo "selected";
+								echo ">$row[Ten_loai]</option>";
 							}
+						}
 						?>
 					</select>
 				</td>
 				<td>Hãng sữa</td>
 				<td>
-					<select name="hangsua" >
+					<select name="hangsua">
 						<option value="" selected>Trống</option>
-						<?php 
-							if (mysqli_num_rows($hangSua) <> 0) {
-								while ($row = mysqli_fetch_array($hangSua, MYSQLI_ASSOC)) {
-									echo "<option value='$row[Ma_hang_sua]'";
-									if(isset($_GET['hangsua']) && $_GET['hangsua'] == $row['Ma_hang_sua']) echo "selected";
-									echo ">$row[Ten_hang_sua]</option>";
-								}
+						<?php
+						if (mysqli_num_rows($hangSua) <> 0) {
+							while ($row = mysqli_fetch_array($hangSua, MYSQLI_ASSOC)) {
+								echo "<option value='$row[Ma_hang_sua]'";
+								if (isset($_GET['hangsua']) && $_GET['hangsua'] == $row['Ma_hang_sua']) echo "selected";
+								echo ">$row[Ten_hang_sua]</option>";
 							}
+						}
 						?>
 					</select>
 				</td>
@@ -69,7 +71,7 @@
 			<tr>
 
 				<td colspan="4" align="center">Tên sữa: <input type="text" name="tensua" size="30" value="<?php if (isset($_GET['tensua'])) echo $_GET['tensua']; ?>">
-
+					<input type="text" name="page" value="TNT-QLBS-Find-Sua" style="display: none">
 					<input type="submit" name="tim" value="Tìm kiếm">
 				</td>
 
@@ -81,11 +83,19 @@
 
 	<?php
 
-	if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+	if (isset($_GET['tensua'])) {
 		$tensua = $_GET['tensua'];
+	} else $tensua = "";
+	if (isset($_GET['loaisua'])) {
 		$ls = $_GET['loaisua'];
+	} else $ls = "";
+	if (isset($_GET['hangsua'])) {
 		$hs = $_GET['hangsua'];
-		
+	} else $hs = "";
+
+	if (isset($_GET['tim'])) {
+
+
 		$timkiem = "Select *
 
 			from sua, hang_sua, loai_sua
@@ -93,16 +103,16 @@
 			WHERE sua.ma_hang_sua = hang_sua.ma_hang_sua
 			and sua.ma_loai_sua = loai_sua.ma_loai_sua";
 
-		if($tensua!=""){
+		if ($tensua != "") {
 			$timkiem .= " AND Ten_sua like '%$tensua%'";
 		}
-		if($hs!=""){
+		if ($hs != "") {
 			$timkiem .= " AND hang_sua.Ma_hang_sua = '$hs'";
 		}
-		if($ls!=""){
+		if ($ls != "") {
 			$timkiem .= " AND loai_sua.Ma_loai_sua = '$ls'";
-		}	
-		
+		}
+
 		$resultTimKiem = mysqli_query($conn, $timkiem);
 
 		if (mysqli_num_rows($resultTimKiem) <> 0) {
@@ -118,7 +128,7 @@
 
 					$row['Ten_sua'] . ' - ' . $row['Ten_hang_sua'] . '</h3></td></tr>';
 
-				echo '<tr><td width="200" align="center"><img src="Hinh_sua/' . $row['Hinh'] . '"/></td>';
+				echo '<tr><td width="200" align="center"><img src="/QuanLyTienLuong_PHP/views/pages/exercise/TranNgocTien/Bai_Tap_MySQL/Hinh_sua/' . $row['Hinh'] . '" alt=""></td>';
 
 				echo '<td><i><b>Thành phần dinh dưỡng:</i></b><br />' . $row['TP_Dinh_Duong'] . '<br />';
 
@@ -132,10 +142,10 @@
 			}
 		} else echo "<div><b>Không tìm thấy sản phẩm này.</b></div>";
 	}
-
-
-?>
+	?>
+	    <p align="left"><a href="?page=">Quay lại</a></p>
 
 </body>
 
 </html>
+<?php $this->end(); ?>

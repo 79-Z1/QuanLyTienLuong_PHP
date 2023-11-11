@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -51,7 +53,7 @@ function tao_ma_sua($soluong) {
 }
 ?>
 <?php
-require("connect.php");
+require("connect_qlbs.php");
 $sqlGetTTHangSua = 'select * from hang_sua';
 $tthangsua = mysqli_query($conn, $sqlGetTTHangSua);
 $sqlGetTTLoaiSua = 'select * from loai_sua';
@@ -65,7 +67,7 @@ if(isset($_POST['them'])) {
         if(isset($_FILES['hinhanh']['name'])!=NULL) {
             $hinhsua = $_FILES['hinhanh']['name'];
             $tempname = $_FILES["hinhanh"]["tmp_name"];
-            $folder = "C:\\xampp\\htdocs\\bai_tap\\mysql\\QLBanSua\\Sua\\img\\".$hinhsua;
+            $folder = "C:\\xampp\\htdocs\\QuanLyTienLuong_PHP\\views\\pages\\exercise\\TranNgocTien\\Bai_Tap_MySQL\\Hinh_sua\\".$hinhsua;
             $sqlInsert = "INSERT INTO `sua`(`Ma_sua`, `Ten_sua`, `Ma_hang_sua`, `Ma_loai_sua`, `Trong_luong`, `Don_gia`, `TP_Dinh_Duong`, `Loi_ich`, `Hinh`) 
             VALUES ('$masua','$_POST[tensua]','$_POST[hangsua]','$_POST[loaisua]','$_POST[trongluong]','$_POST[dongia]','$_POST[tpdinhduong]','$_POST[loiich]','$hinhsua')";
             mysqli_query($conn, $sqlInsert);
@@ -142,6 +144,9 @@ if(isset($_POST['them'])) {
             </tr>
         </table>
     </form>
+    <p align="left"><a href="?page=">Quay lại</a></p>
+
 </body>
 
 </html>
+<?php $this->end(); ?>

@@ -1,4 +1,5 @@
-
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 	<head>
@@ -78,6 +79,7 @@
 			    </tr>
 			</table>
 		</form>
+		<p align="left"><a href="?page=">Quay lại</a></p>
 	</body>
 </html>
-
+<?php $this->end(); ?>

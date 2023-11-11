@@ -1,4 +1,5 @@
-
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 
 <html>
@@ -45,7 +46,7 @@ input {
 
 <?php 
 
-abstract class Hinh{
+abstract class HinhTNT{
 
 	protected $ten, $dodai;
 
@@ -79,7 +80,7 @@ abstract class Hinh{
 
 }
 
-class HinhTron extends Hinh{
+class HinhTronTNT extends HinhTNT{
 
 	const PI=3.14;
 
@@ -97,7 +98,7 @@ class HinhTron extends Hinh{
 
 }
 
-class HinhVuong extends Hinh{
+class HinhVuongTNT extends HinhTNT{
 
 	public function tinh_CV(){
 
@@ -113,7 +114,7 @@ class HinhVuong extends Hinh{
 
 }
 
-class TamGiacDeu extends Hinh{
+class TamGiacDeuTNT extends HinhTNT{
 
 	public function tinh_CV(){
 
@@ -129,7 +130,7 @@ class TamGiacDeu extends Hinh{
 
 }
 
-class TamGiacThuong extends Hinh{
+class TamGiacThuongTNT extends HinhTNT{
     public $b;
     public $c;
 	public function tinh_CV(){
@@ -144,7 +145,7 @@ class TamGiacThuong extends Hinh{
 	}
 
 }
-class HinhChuNhat extends Hinh{
+class HinhChuNhatTNT extends HinhTNT{
     public $b;
 	public function tinh_CV(){
 
@@ -165,7 +166,7 @@ if(isset($_POST['tinh'])){
 
 	if(isset($_POST['hinh']) && ($_POST['hinh'])=="hv"){
 
-		$hv=new HinhVuong();
+		$hv=new HinhVuongTNT();
 
 		$hv->setTen($_POST['ten']);
 
@@ -179,7 +180,7 @@ if(isset($_POST['tinh'])){
 
 	if(isset($_POST['hinh']) && ($_POST['hinh'])=="ht"){
 
-		$ht=new HinhTron();
+		$ht=new HinhTronTNT();
 
 		$ht->setTen($_POST['ten']);
 
@@ -193,7 +194,7 @@ if(isset($_POST['tinh'])){
 
     if(isset($_POST['hinh']) && ($_POST['hinh'])=="tgd"){
 
-		$tgd=new TamGiacDeu();
+		$tgd=new TamGiacDeuTNT();
 
 		$tgd->setTen($_POST['ten']);
 
@@ -207,7 +208,7 @@ if(isset($_POST['tinh'])){
 
     if(isset($_POST['hinh']) && ($_POST['hinh'])=="tgt"){
 
-		$tgt=new TamGiacThuong();
+		$tgt=new TamGiacThuongTNT();
         
 		$tgt->setTen($_POST['ten']);
 
@@ -223,7 +224,7 @@ if(isset($_POST['tinh'])){
 	}
     if(isset($_POST['hinh']) && ($_POST['hinh'])=="hcn"){
 
-		$hcn=new HinhChuNhat();
+		$hcn=new HinhChuNhatTNT();
         
 		$hcn->setTen($_POST['ten']);
 
@@ -307,7 +308,8 @@ if(isset($_POST['tinh'])){
 </fieldset>
 
 </form>
-
+<p align="left"><a href="?page=">Quay lại</a></p>
 </body>
 
 </html>
+<?php $this->end(); ?>

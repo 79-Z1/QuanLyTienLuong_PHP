@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 
@@ -57,7 +59,7 @@
 <body>
     <?php
 
-    abstract class NhanVien1
+    abstract class NhanVienTNT
     {
         protected $hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon;
         function __construct($hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon)
@@ -80,7 +82,7 @@
         abstract function TinhTroCap();
     }
 
-    class NhanVienVanPhong1 extends NhanVien
+    class NhanVienVanPhongTNT extends NhanVienTNT
     {
         private $soNgayVang;
 
@@ -112,7 +114,7 @@
         }
     }
 
-    class NhanVienSanXuat extends NhanVien
+    class NhanVienSanXuatTNT extends NhanVienTNT
     {
         private $soSP;
 
@@ -191,7 +193,7 @@
         if ($soCon != "" && $hoTen != "" && $ngaySinh != "" && $ngayVaoLam != "" && $heSL != "") {
             if ($_POST['radLNV'] == "vp") {
                 if (is_numeric($soCon) && is_numeric($heSL) && is_numeric($soNgayVang)) {
-                    $nhanVien =  new NhanVienVanPhong(
+                    $nhanVien =  new NhanVienVanPhongTNT(
                         $hoTen,
                         $_POST['radGT'],
                         $ngaySinh,
@@ -210,7 +212,7 @@
             }
             if ($_POST['radLNV'] == "sx") {
                 if (is_numeric($soCon) && is_numeric($heSL) && is_numeric($soSP)) {
-                    $nhanVien =  new NhanVienSanXuat(
+                    $nhanVien =  new NhanVienSanXuatTNT(
                         $hoTen,
                         $_POST['radGT'],
                         $ngaySinh,
@@ -311,6 +313,7 @@
         </table>
     </form>
     <button type="button" id="nhan">Nhấn</button>
+    <p align="left"><a href="?page=">Quay lại</a></p>
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -326,3 +329,4 @@
 </script>
 
 </html>
+<?php $this->end(); ?>

@@ -1,4 +1,5 @@
-
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 	<head>
@@ -47,7 +48,7 @@
 	<body>
 		<?php
 
-            class PhanSo{
+            class PhanSoTNT{
                 public $tuSo;
                 public $mauSo;
                 
@@ -63,27 +64,27 @@
                     $this->mauSo /= $a;     
                 }
                 function CongPhanSo($phanSo){
-                    $kq = new PhanSo();
+                    $kq = new PhanSoTNT();
                     $kq->tuSo = ($this->tuSo*$phanSo->mauSo + $this->mauSo*$phanSo->tuSo);
                     $kq->mauSo = $this->mauSo*$phanSo->mauSo;
                     return $kq;
                 }
                 function TruPhanSo($phanSo){
-                    $kq = new PhanSo();
+                    $kq = new PhanSoTNT();
                     $kq->tuSo = ($this->tuSo*$phanSo->mauSo - $this->mauSo*$phanSo->tuSo);
                     $kq->mauSo = $this->mauSo*$phanSo->mauSo;
                     return $kq;
                 }
 
                 function NhanPhanSo($phanSo){
-                    $kq = new PhanSo();
+                    $kq = new PhanSoTNT();
                     $kq->tuSo = $this->tuSo*$phanSo->tuSo;
                     $kq->mauSo = $this->mauSo*$phanSo->mauSo;
                     return $kq;
                 }
 
                 function ChiaPhanSo($phanSo){
-                    $kq = new PhanSo();
+                    $kq = new PhanSoTNT();
                     $kq->tuSo = $this->tuSo*$phanSo->mauSo;
                     $kq->mauSo = $this->mauSo*$phanSo->tuSo;
                     return $kq;
@@ -107,11 +108,11 @@
             $ketqua = "";
 			if(isset($_POST['kq']))
 		        if (is_numeric($tu1) && is_numeric($tu2) && is_numeric($mau1) && is_numeric($mau2))  {
-                    $ps1 = new PhanSo();
+                    $ps1 = new PhanSoTNT();
                     $ps1->tuSo = $tu1;
                     $ps1->mauSo = $mau1;
 
-                    $ps2 = new PhanSo();
+                    $ps2 = new PhanSoTNT();
                     $ps2->tuSo = $tu2;
                     $ps2->mauSo = $mau2;
 
@@ -243,7 +244,7 @@
                 </tr>
 			</table>
 		</form>
-        
+        <p align="left"><a href="?page=">Quay lại</a></p>
 	</body>
 </html>
-
+<?php $this->end(); ?>

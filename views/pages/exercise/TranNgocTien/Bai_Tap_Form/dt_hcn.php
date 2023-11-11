@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
@@ -36,7 +38,7 @@ else $chieudai=0;
 if(isset($_POST['chieurong'])) 
     $chieurong=trim($_POST['chieurong']); 
 else $chieurong=0;
-if(isset($_POST['tinh']))
+if(isset($_POST['tinhdt']))
         if (is_numeric($chieudai) && is_numeric($chieurong))  
             $dientich=$chieudai * $chieurong;
         else {
@@ -44,6 +46,15 @@ if(isset($_POST['tinh']))
                 $dientich="";
             }
 else $dientich=0;
+if(isset($_POST['tinhcv']))
+        if (is_numeric($chieudai) && is_numeric($chieurong))  
+            $chuvi= ($chieudai + $chieurong) * 2;
+        else {
+                echo "<font color='red'>Vui lòng nhập vào số! </font>"; 
+                $chuvi="";
+            }
+else $chuvi = 0;
+
 ?>
 <form align='center' action="" method="post">
 <table>
@@ -68,5 +79,7 @@ else $dientich=0;
     </tr>
 </table>
 </form>
+<p align="left"><a href="?page=">Quay lại</a></p>
 </body>
 </html>
+<?php $this->end(); ?>

@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -111,5 +113,7 @@
 
         
 	</form>
+    <p align="left"><a href="?page=">Quay lại</a></p>
 </body>
 </html>
+<?php $this->end(); ?>

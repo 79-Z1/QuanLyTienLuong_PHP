@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 	<head>
@@ -46,20 +48,20 @@
 			    $ghiChu=trim($_POST['ghiChu']); 
 			else $ghiChu="";
 			
-			if(isset($_POST['gui']))
-			{
-				if($sdt!="" && $hoTen!="" && $diaChi!=""){
-					$action = "xulyThongtin.php";
-				}
-				else{
-					$action = "";
-					echo "Vui lòng kiểm tra lại và nhập đầy đủ thông tin!";
-				}
-			}
-			else $action = "";
+			// if(isset($_POST['gui']))
+			// {
+			// 	if($sdt!="" && $hoTen!="" && $diaChi!=""){
+			// 		$action = "?page=TNT-form-xu-ly-TT";
+			// 	}
+			// 	else{
+			// 		$action = "";
+			// 		echo "Vui lòng kiểm tra lại và nhập đầy đủ thông tin!";
+			// 	}
+			// }
+			// else $action = "";
 			
 		?>
-		<form align='center' action="<?php echo $action;?>" method="post">
+		<form align='center' action="?page=TNT-form-xu-ly-TT" method="post">
 
 			<table>
 			    <thead>
@@ -121,5 +123,7 @@
 			    </tr>
 			</table>
 		</form>
+		<p align="left"><a href="?page=">Quay lại</a></p>
 	</body>
 </html>
+<?php $this->end(); ?>

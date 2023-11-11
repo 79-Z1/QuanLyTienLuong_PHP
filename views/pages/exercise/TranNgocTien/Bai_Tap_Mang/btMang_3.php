@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,7 +49,6 @@
                 $namA = $mang_can[$can];
                 $namA = $namA . " " . $mang_chi[$chi];
                 $hinh = $mang_hinh[$chi];
-                $hinh_anh = "<img src = 'image/$hinh'>";
             }
             else echo "Vui lòng nhập năm > 0";
 
@@ -67,10 +68,11 @@
                 <td><input type="submit" name="xuLy"  size="20" value="=>"/></td>
                 <td><input type="text" disabled="disabled" name="namA" size="30" value="<?php echo $namA;?>"></td>
             </tr>
-			<th colspan="3"><?php echo $hinh_anh;?></th>
+			<th colspan="3"><img src="/QuanLyTienLuong_PHP/views/pages/exercise/TranNgocTien/Bai_Tap_Mang/image/<?php echo $hinh ?>" alt=""></th>
 		</table>
-
-        
 	</form>
+    <p align="left"><a href="?page=">Quay lại</a></p>
+
 </body>
 </html>
+<?php $this->end(); ?>

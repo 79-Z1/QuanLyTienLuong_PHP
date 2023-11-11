@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 	<head>
@@ -60,20 +62,20 @@
             // );
             
             function inDSSV($arr){
-                $fp = @fopen('TranNgocTien_62132217.dat',"r");
+                $fp = @fopen('./TranNgocTien_62132217.dat',"r");
                 if(!$fp){
                     echo "Mở file không thành công";
                 }
                 else{
                     while(!feof($fp)){
                         $importSV = fgets($fp);
-                        $ttsv = explode(",",$importSV);
-                        $arr[$ttsv[1]] = array(
-                            "maLop" => $ttsv[0],
-                            "hoTen" => $ttsv[2],
-                            "gioiTinh" => $ttsv[3],
-                            "ngaySinh" => $ttsv[4],
-                        );
+                        // $ttsv = explode(",",$importSV);
+                        // $arr[$ttsv[1]] = array(
+                        //     "maLop" => $ttsv[0],
+                        //     "hoTen" => $ttsv[2],
+                        //     "gioiTinh" => $ttsv[3],
+                        //     "ngaySinh" => $ttsv[4],
+                        // );
                     }
                     fclose($fp);
                 }
@@ -143,7 +145,7 @@
 			}
 
             if(isset($_POST['luu'])){
-                $fp = @fopen('TranNgocTien_62132217.dat',"a+");
+                $fp = @fopen("./TranNgocTien_62132217.dat","a+");
                 if(!$fp){
                     echo "Mở file không thành công";
                 }
@@ -214,3 +216,4 @@
 <?php
     
 ?>
+<?php $this->end(); ?>
