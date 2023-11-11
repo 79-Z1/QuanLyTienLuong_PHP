@@ -36,7 +36,10 @@
                 <div class="card-content d-flex flex-column align-items-center">
                     <h4 class="pt-2">Nguyễn Duy Thiên</h4>
                     <h5>NHÓM VIÊN</h5>
-                    <span class="maxim">❝ Ngôn ngữ là nhất thời, <br>thuật toán là mãi mãi ❞</span>
+                    <span class="maxim">
+                        ❝Đó không phải là lỗi,
+                        <br>Đó là tính năng❞
+                                </span>
                 </div>
             </div>
         </div>
