@@ -248,7 +248,7 @@ if (isset($_POST['edit'])) {
                                 </div>
                             </td>
                             <td align="center" id="no_color" colspan="2">
-                                <input type="submit" value="Sửa" name="edit" class="btn btn-outline-success themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Lưu" name="edit" class="btn btn-outline-success themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-paycheck">Quay Lại</a>
                             </td>
                         </tr>

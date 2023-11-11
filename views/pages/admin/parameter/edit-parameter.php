@@ -96,7 +96,7 @@ if (isset($_POST['edit'])) {
                         </tr>
                         <tr class="tr">
                             <td id="no_color" align="center" colspan="4">
-                                <input type="submit" value="Sửa" name="edit" class="btn btn-outline-purple me-3 themnhanvien-btn mb-5 w-25" />
+                                <input type="submit" value="Lưu" name="edit" class="btn btn-outline-success me-3 themnhanvien-btn mb-5 w-25" />
                                 <a class="btn btn-outline-purple themnhanvien-btn mb-5 w-25" href="index.php?page=admin-parameter">Quay Lại</a>
                             </td>
                         </tr>
