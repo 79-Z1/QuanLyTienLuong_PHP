@@ -110,6 +110,14 @@ switch ($page) {
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/TruongKhanhHoa/mysql/KhachHang/timkiemkhachhang', []);
         break;
+    case 'TKH-mysql-suakh':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mysql/KhachHang/suakh', []);
+        break;
+    case 'TKH-mysql-xoakh':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mysql/KhachHang/xoakh', []);
+        break;
     case 'TKH-mysql-login':
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/TruongKhanhHoa/mysql/user/login', []);

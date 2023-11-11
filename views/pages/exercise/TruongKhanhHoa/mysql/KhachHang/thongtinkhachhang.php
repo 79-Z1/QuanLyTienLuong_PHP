@@ -45,6 +45,8 @@ if (mysqli_num_rows($result) <> 0) {
         echo "<td>$rows[3]</td>";
         echo "<td>$rows[4]</td>";
         echo "<td>$rows[5]</td>";
+        echo "<td><a class='p-3' href='index.php?page=TKH-mysql-suakh&makh=$rows[0]'>Sửa</a></td>";
+        echo "<td><a class='p-3' href='index.php?page=TKH-mysql-xoakh&makh=$rows[0]'>Xóa</a></td>";
         echo "</tr>";
         $stt += 1;
     }

@@ -30,7 +30,7 @@
                 <li class="nav-item" data-active="6">
                     <a class="nav-link" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/views/pages/exercise/TruongKhanhHoa"?>"><i class="bi bi-person-fill"></i>Trương Khánh Hòa</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" onclick="sessionStorage.clear()">
                     <a href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1]?>" class="nav-link"> <i class="bi bi-box-arrow-left"></i> Đăng nhập </a>
                 </li>
             </ul> 

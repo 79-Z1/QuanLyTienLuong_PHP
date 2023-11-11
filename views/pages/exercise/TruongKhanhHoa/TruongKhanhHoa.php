@@ -154,12 +154,6 @@
                         </a></td>
                     </tr>
                     <tr>
-                        <td>[MySQL Khách hàng] Tìm kiếm khách hàng</td>
-                        <td><a href="index.php?page=TKH-mysql-timkh">
-                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
-                        </a></td>
-                    </tr>
-                    <tr>
                         <td>[MySQL User] Login</td>
                         <td><a href="index.php?page=TKH-mysql-login">
                             <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>

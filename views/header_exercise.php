@@ -9,7 +9,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/assets/css/main.css"?> type="text/css" />
     <link rel="stylesheet" href=<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1] ."/assets/css/exercise/exercise.css"?> type="text/css" />
     <link rel="stylesheet" href="<?php echo "/". explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/css/exercise/{$css}" ?>" type="text/css">
@@ -17,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script defer src="/<?php echo explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/js/navbar.js"?>"></script>
 </head>
 <?php $this->end(); ?>
