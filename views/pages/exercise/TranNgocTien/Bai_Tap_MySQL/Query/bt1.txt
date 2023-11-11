@@ -1,0 +1,54 @@
+1. Liệt kê danh sách hãng sữa gồm có tên hãng sữa, địa chỉ, điện thoại
+
+SELECT Ten_hang_sua, Dia_chi, Dien_thoai FROM hang_sua
+
+2. Liệt kê danh sách khách hàng gồm có các thông tin sau: tên khách hàng, địa chỉ, điện thoại, danh sách 
+sẽ được sắp theo thứ tự tên khách hàng tăng dần.
+
+SELECT `Ten_khach_hang`, `Phai`, `Dia_chi`, `Dien_thoai`, `Email` FROM `khach_hang` ORDER BY Ten_khach_hang ASC
+
+3. Liệt kê danh sách khách hàng gồm có các thông tin sau: tên khách hàng, phái, địa chỉ, điện thoại, 
+danh sách sẽ được sắp theo thứ tự nam trước, nữ sau.
+
+SELECT `Ten_khach_hang`, `Phai`, `Dia_chi`, `Dien_thoai` FROM `khach_hang` ORDER BY Phai ASC
+
+4. Liệt kê danh sách sữa gồm có: tên sữa, trọng lượng, đơn giá. Có sắp tăng theo cột tên sữa, và sắp 
+giảm theo cột đơn giá
+
+SELECT `Ten_sua`, `Trong_luong`, `Don_gia`FROM `sua` ORDER BY Ten_sua ASC, Don_gia DESC
+
+5. Liệt kê danh sách sữa gồm có: tên sữa, trọng lượng, đơn giá, thành phần dinh dưỡng. Chỉ liệt kê các 
+sữa có tên bắt đầu là 'S'.
+
+SELECT  `Ten_sua`,  `Trong_luong`, `Don_gia`, `TP_Dinh_Duong` FROM `sua` WHERE Ten_sua like "S%"
+
+6. Liệt kê danh sách các hãng sữa có ký tự cuối cùng của mã hãng sữa là 'M', gồm có các thông tin sau: 
+mã hãng sữa, tên hãng sữa, địa chỉ, điện thoại.
+
+SELECT `Ma_hang_sua`, `Ten_hang_sua`, `Dia_chi`, `Dien_thoai` FROM `hang_sua` WHERE Ma_hang_sua like "%M"
+
+7. Liệt kê danh sách sữa mà trong tên sữa có từ 'grow'.
+
+SELECT * FROM `sua` WHERE Ten_sua like "%grow%"
+
+8. Liệt kê danh sách sữa có đơn giá lớn hơn 100.000 VNĐ, gồm các thông tin: tên sữa, đơn giá, trọng 
+lượng, danh sách được xếp theo thứ tự tên sữa giảm dần.
+
+SELECT `Ten_sua`, `Trong_luong`, `Don_gia`FROM `sua` WHERE Don_gia > 100000 ORDER BY Ten_sua DESC
+
+9. Cho biết các sữa có mã loại sữa là 'SC' và có mã hãng sữa là 'VNM' gồm các thông tin sau: tên sữa, 
+thành phần dinh dưỡng, lợi ích, trong đó tên sữa sắp theo thứ tự tăng dần
+
+SELECT `Ten_sua`, `TP_Dinh_Duong`, `Loi_ich` FROM `sua` WHERE Ma_loai_sua = "SC" and Ma_hang_sua = "VNM" ORDER BY Ten_sua
+
+10. Liệt kê danh sách sữa có trọng lượng lớn hơn hay bằng 900 gr hoặc mã hãng sữa là 'DS'
+
+SELECT * FROM `sua` WHERE Trong_luong >= 900 or Ma_sua = "DS"
+
+11. Liệt kê danh sách các sữa có đơn giá từ 100.000 VNĐ đến 150.000 VNĐ
+
+SELECT * FROM `sua` WHERE Don_gia BETWEEN 100000 and 150000
+
+
+
+
