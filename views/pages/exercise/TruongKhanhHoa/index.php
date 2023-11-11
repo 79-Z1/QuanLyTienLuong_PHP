@@ -11,7 +11,7 @@ switch ($page) {
         echo $template->render('pages/exercise/TruongKhanhHoa/form/form-chuvi-dientich', []);
         break;
     default:
-        echo $template->render('header_exercise', []);
+        echo $template->render('header_exercise', ['css' => 'TruongKhanhHoa/TruongKhanhHoa.css']);
         echo $template->render('pages/exercise/TruongKhanhHoa/TruongKhanhHoa', []);
         break;
 }
