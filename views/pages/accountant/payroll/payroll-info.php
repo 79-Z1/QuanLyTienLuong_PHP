@@ -53,7 +53,7 @@ function LuongTangCa($conn, $maNV, $thang, $nam, $luongTheoGio){
 }
 
 function TienTamUng($conn, $maNV, $thang, $nam){
-    $sql = "SELECT SoTien FROM `phieu_ung_luong` WHERE MaNV = '$maNV' and month(NgayUng) = $thang and year(NgayUng) = $nam";
+    $sql = "SELECT SoTien FROM `phieu_ung_luong` WHERE MaNV = '$maNV' and month(NgayUng) = $thang and year(NgayUng) = $nam and Duyet = 1";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) != 0){
         $row = mysqli_fetch_array($result);

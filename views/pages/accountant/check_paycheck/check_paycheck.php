@@ -177,7 +177,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
             <tbody>
                 <?php
-
                 //tổng số trang
                 $maxPage = ceil($numRows / $rowsPerPage);
                 if (mysqli_num_rows($resultTimKiem) <> 0) {
