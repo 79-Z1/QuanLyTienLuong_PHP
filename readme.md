@@ -60,7 +60,7 @@ This is an example of how you may give instructions on setting up your project l
 To get a local copy up and running follow these simple example steps.
 ### Installation
 > [!IMPORTANT]
-> XAMPP version must be 8.2.4 and PHP version must be 8.2.4.
+> XAMPP version must be larger than 8.2.4 and PHP version must be larger than 8.2.4.
 1. Download XAMPP, Composer
      * https://www.apachefriends.org/download.html
      * https://getcomposer.org/download/
@@ -80,8 +80,12 @@ To get a local copy up and running follow these simple example steps.
    ```sh
    composer --ignore-platform-reqs install
    ```
-6. Access to `http://localhost/QuanLyTienLuong_PHP/`
-7. All done !!!
+6. Continue run this command
+   ```sh
+   php -f .\server-notification.php
+   ```
+7. Access to `http://localhost/QuanLyTienLuong_PHP/`
+8. All done !!!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
