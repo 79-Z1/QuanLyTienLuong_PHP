@@ -1,32 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
+<style>
+    table {
+        background: #ffd94d;
+        border: 0 solid yellow;
+    }
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thêm sữa mới</title>
-    <style>
-        table {
-            background: #ffd94d;
-            border: 0 solid yellow;
-        }
+    thead {
+        background: #fff14d;
+    }
 
-        thead {
-            background: #fff14d;
-        }
+    td {
+        color: blue;
+    }
 
-        td {
-            color: blue;
-        }
-
-        h3 {
-            font-family: verdana;
-            text-align: center;
-            color: #ff8100;
-            font-size: 30px;
-        }
-    </style>
-</head>
+    h3 {
+        font-family: verdana;
+        text-align: center;
+        color: #ff8100;
+        font-size: 30px;
+    }
+</style>
 <?php
 function money_format($tien)
 {
@@ -40,18 +34,20 @@ function checkValid($name): bool
     }
     return true;
 }
-function tao_ma_sua($soluong) {
-    if($soluong < 10) {
-        return "SUA00".$soluong;
+function tao_ma_sua($soluong)
+{
+    if ($soluong < 10) {
+        return "SUA00" . $soluong;
     } else if ($soluong < 100) {
-        return "SUA0".$soluong;
-    }  else if ($soluong < 1000) {
-        return "SUA".$soluong;
+        return "SUA0" . $soluong;
+    } else if ($soluong < 1000) {
+        return "SUA" . $soluong;
     }
 }
 ?>
 <?php
-require("../connect.php");
+$conn = mysqli_connect('localhost', 'root', '', 'qlbansua')
+    or die('Could not connect to MySQL: ' . mysqli_connect_error());
 $sqlGetTTHangSua = 'select * from hang_sua';
 $tthangsua = mysqli_query($conn, $sqlGetTTHangSua);
 $sqlGetTTLoaiSua = 'select * from loai_sua';
@@ -60,21 +56,22 @@ $sqlDemSua = "SELECT * FROM `sua`";
 $ttsua = mysqli_query($conn, $sqlDemSua);
 $soluongsua = mysqli_num_rows($ttsua);
 $masua = tao_ma_sua($soluongsua + 1);
-if(isset($_POST['them'])) {
-    if(checkValid('tensua') && checkValid('trongluong') && checkValid('dongia') && checkValid('trongluong') && checkValid('tpdinhduong') && checkValid('loiich')) {
-        if(isset($_FILES['hinhanh']['name'])!=NULL) {
+if (isset($_POST['them'])) {
+    if (checkValid('tensua') && checkValid('trongluong') && checkValid('dongia') && checkValid('trongluong') && checkValid('tpdinhduong') && checkValid('loiich')) {
+        if (isset($_FILES['hinhanh']['name']) != NULL) {
             $hinhsua = $_FILES['hinhanh']['name'];
             $tempname = $_FILES["hinhanh"]["tmp_name"];
-            $folder = "C:\\xampp\\htdocs\\bai_tap\\mysql\\QLBanSua\\Sua\\img\\".$hinhsua;
+            $folder = "C:\\xampp\\htdocs\\QuanLyTienLuong_PHP\\views\\pages\\exercise\\TruongKhanhHoa\\Hinh_sua\\" . $hinhsua;
             $sqlInsert = "INSERT INTO `sua`(`Ma_sua`, `Ten_sua`, `Ma_hang_sua`, `Ma_loai_sua`, `Trong_luong`, `Don_gia`, `TP_Dinh_Duong`, `Loi_ich`, `Hinh`) 
             VALUES ('$masua','$_POST[tensua]','$_POST[hangsua]','$_POST[loaisua]','$_POST[trongluong]','$_POST[dongia]','$_POST[tpdinhduong]','$_POST[loiich]','$hinhsua')";
             mysqli_query($conn, $sqlInsert);
-            move_uploaded_file($tempname,$folder);
+            move_uploaded_file($tempname, $folder);
             echo "<h2>Thêm thành công</h2>";
-        }  echo "<h2>Vui lòng chọn file</h2>";
+        } else echo "<h2>Vui lòng chọn file</h2>";
     } else echo "<h2>Vui lòng nhập đầy đủ thông tin</h2>";
 }
 ?>
+
 <body>
     <form action="" method="post" enctype="multipart/form-data">
         <table align='center' border='1' cellpadding='2' cellspacing='2' style='border-collapse:collapse'>
@@ -83,7 +80,7 @@ if(isset($_POST['them'])) {
             </thead>
             <tr>
                 <td>Mã sữa</td>
-                <td><input type="text" name="masua" value="<?= $masua ?? ''?>" disabled/></td>
+                <td><input type="text" name="masua" value="<?= $masua ?? '' ?>" disabled /></td>
             </tr>
             <tr>
                 <td>Tên sữa</td>
@@ -142,6 +139,4 @@ if(isset($_POST['them'])) {
             </tr>
         </table>
     </form>
-</body>
-
-</html>
+    <?php $this->end(); ?>

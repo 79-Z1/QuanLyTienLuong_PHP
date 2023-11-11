@@ -42,7 +42,7 @@
         $sothuhai=trim($_POST['sothuhai']); 
     else $sothuhai=0;
 ?>
-    <form align='center' action="ketquapheptinh.php" method="post">
+    <form align='center' action="index.php?page=TKH-form-ketquapheptinh" method="post">
         <table>
             <thead>
                 <th colspan="2" align="center">

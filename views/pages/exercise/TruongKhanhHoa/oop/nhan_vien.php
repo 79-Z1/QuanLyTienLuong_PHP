@@ -1,35 +1,116 @@
-<!-- <!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
-<html>
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
+<style>
+    form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-        form {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-        fieldset {
-            background-color: #eeeeee;
-            width: fit-content;
-        }
+    fieldset {
+        background-color: #eeeeee;
+        width: fit-content;
+    }
 
-        legend {
-            background-color: gray;
-            color: white;
-            padding: 5px 10px;
-        }
+    legend {
+        background-color: gray;
+        color: white;
+        padding: 5px 10px;
+    }
 
-        input {
-            margin: 5px;
-        }
-    </style>
-</head>
+    input {
+        margin: 5px;
+    }
+</style>
 <?php
+abstract class NhanVienTKH
+{
+    protected $hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon;
+    function __construct($hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon)
+    {
+        $this->hoTen = $hoTen;
+        $this->soCon = $soCon;
+        $this->gioiTinh = $gioiTinh;
+        $this->ngaySinh = $ngaySinh;
+        $this->ngayVaoLam = $ngayVaoLam;
+        $this->heSL = $heSL;
+    }
+    const LUONGCB = 1_350_000;
 
+    function tinh_tien_thuong()
+    {
+        $nvl = explode("-", $this->ngayVaoLam);
+        return (date("Y") - $nvl[2]) * 1_000_000;
+    }
+    abstract function tinh_tien_luong();
+    abstract function tinh_tro_cap();
+}
+
+class NhanVienVanPhongTKH extends NhanVienTKH
+{
+    private $soNgayVang;
+
+    function __construct($hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon, $soNgayVang)
+    {
+        parent::__construct($hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon);
+        $this->soNgayVang = $soNgayVang;
+    }
+    const DINHMUCVANG = 4;
+    const DONGIAPHAT = 200_000;
+
+    function tinh_tien_phat()
+    {
+        if ($this->soNgayVang > self::DINHMUCVANG) {
+            return ($this->soNgayVang - self::DINHMUCVANG) * self::DONGIAPHAT;
+        }
+        return 0;
+    }
+    function tinh_tro_cap()
+    {
+        if ($this->gioiTinh == "nu") {
+            return 200_000 * $this->soCon * 1.5;
+        }
+        return 200_000 * $this->soCon;
+    }
+    function tinh_tien_luong()
+    {
+        return self::LUONGCB * $this->heSL;
+    }
+}
+
+class NhanVienSanXuatTKH extends NhanVienTKH
+{
+    private $soSP;
+
+    function __construct($hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon, $soSP)
+    {
+        parent::__construct($hoTen, $gioiTinh, $ngaySinh, $ngayVaoLam, $heSL, $soCon);
+        $this->soSP = $soSP;
+    }
+    const DINHMUCSP = 20;
+    const DONGIASP = 200_000;
+
+    function tinh_tien_thuong()
+    {
+        if ($this->soSP > self::DINHMUCSP) {
+            return ($this->soSP - self::DINHMUCSP) * self::DONGIASP * 0.03;
+        }
+        return 0;
+    }
+    public function tinh_tro_cap()
+    {
+        return 120_000 * $this->soCon;
+    }
+    public function tinh_tien_luong()
+    {
+        return $this->soSP * self::DONGIASP;
+    }
+}
+?>
+<?php
 if (isset($_POST['tinh'])) {
     if (!empty($_POST['hovaten']) && !empty($_POST['socon']) && !empty($_POST['ngaysinh']) && !empty($_POST['ngayvaolam']) && !empty($_POST['hesoluong'])) {
         $hovaten = $_POST['hovaten'];
@@ -47,7 +128,7 @@ if (isset($_POST['tinh'])) {
                 if (!empty($_POST['songayvang'])) {
                     if (is_numeric($_POST['songayvang'])) {
                         $songayvang = $_POST['songayvang'];
-                        $nvvp = new NhanVieVanPhong($hovaten, $gioitinh, $ngayvaolam, $hesoluong, $socon, $songayvang);
+                        $nvvp = new NhanVienVanPhongTKH($hovaten, $gioitinh, $ngaysinh, $ngayvaolam, $hesoluong, $socon, $songayvang);
                         $tienthuong = $nvvp->tinh_tien_thuong();
                         $trocap = $nvvp->tinh_tro_cap();
                         $tienphat = $nvvp->tinh_tien_phat();
@@ -60,7 +141,7 @@ if (isset($_POST['tinh'])) {
                 if (!empty($_POST['sosanpham'])) {
                     if (is_numeric($_POST['sosanpham'])) {
                         $sosanpham = $_POST['sosanpham'];
-                        $nvsx = new NhanVienSanXuat($hovaten, $gioitinh, $ngayvaolam, $hesoluong, $socon, $sosanpham);
+                        $nvsx = new NhanVienSanXuatTKH($hovaten, $gioitinh, $ngaysinh, $ngayvaolam, $hesoluong, $socon, $sosanpham);
                         $tienthuong = $nvsx->tinh_tien_thuong();
                         $trocap = $nvsx->tinh_tro_cap();
                         $tienluong = $nvsx->tinh_tien_luong();
@@ -72,7 +153,7 @@ if (isset($_POST['tinh'])) {
     } else echo "<h3 style='color: red'>Vui lòng nhập đầy đủ thông tin!!!</h3>";
 } else {
 }
-?> -->
+?>
 <form action="" method="post">
     <fieldset>
         <legend>QUẢN LÝ NHÂN VIÊN</legend>
@@ -165,6 +246,4 @@ if (isset($_POST['tinh'])) {
         </table>
     </fieldset>
 </form>
-</body>
-
-</html> -->
+<?php $this->end(); ?>

@@ -1,42 +1,46 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
-<html>
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
+<style>
+    .wrapper {
+        display: block;
+        max-width: 1200px;
+        margin: 0 auto;
+    }
 
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Thông tin sữa</title>
-    <style>
-        .wrapper {
-            display: block;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -12px;
+        margin-right: -12px;
+    }
 
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            margin-left: -12px;
-            margin-right: -12px;
-        }
+    .item {
+        flex: 0 0 16.66667%;
+        max-width: 16.66667%;
+        margin: 0 5px 10px 5px;
+        border: 1px solid #000;
+    }
 
-        .item {
-            flex: 0 0 16.66667%;
-            max-width: 16.66667%;
-            margin: 0 5px 10px 5px;
-            border: 1px solid #000;
-        }
-        p {
-            margin: 5px 0;
-        }
-        img {
-            width: 100px;
-        }
-    </style>
-</head>
+    p {
+        margin: 5px 0;
+    }
+
+    img {
+        width: 100px;
+    }
+</style>
 <?php
 // Ket noi CSDL
-require("../connect.php");
-$sql = 'select * from sua';
-$result = mysqli_query($conn, $sql);
+$conn = mysqli_connect('localhost', 'root', '', 'qlbansua')
+    or die('Could not connect to MySQL: ' . mysqli_connect_error());
+$rowsPerPage = 5; //số mẩu tin trên mỗi trang, giả sử là 10
+if (!isset($_GET['p'])) {
+    $_GET['p'] = 1;
+}
+//vị trí của mẩu tin đầu tiên trên mỗi trang
+$offset = ($_GET['p'] - 1) * $rowsPerPage;
+//lấy $rowsPerPage mẩu tin, bắt đầu từ vị trí $offset
+$result = mysqli_query($conn, "SELECT * FROM sua LIMIT $offset,$rowsPerPage");
 $ds_sua = [];
 while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     $ds_sua[] = array(
@@ -52,20 +56,41 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     );
 }
 ?>
-
-<body>
-    <h1 align="center" style="background-color: blueviolet;">THÔNG TIN CÁC SẢN PHẨM</h1>
-    <div class="wrapper">
-        <div class="container">
-            <?php foreach ($ds_sua as $sua) : ?>
-                <div class="item" align="center">
-                    <a href="./chitietsua.php?masua=<?= $sua['Ma_sua'] ?>"><?= $sua['Ten_sua'] ?></a>
-                    <p><?= $sua['Trong_luong'] ." - ". $sua['Don_gia'] ?></p>
-                    <img src="../Hinh_sua/<?= $sua['Hinh'] ?>" alt="">
-                </div>
-            <?php endforeach; ?>
-        </div>
+<h1 align="center" style="background-color: blueviolet;">THÔNG TIN CÁC SẢN PHẨM</h1>
+<div class="wrapper">
+    <div class="container">
+        <?php foreach ($ds_sua as $sua) : ?>
+            <div class="item" align="center">
+                <a href="index.php?page=TKH-mysql-chitietsua&masua=<?= $sua['Ma_sua'] ?>"><?= $sua['Ten_sua'] ?></a>
+                <p><?= $sua['Trong_luong'] . " - " . $sua['Don_gia'] ?></p>
+                <img src="Hinh_sua/<?= $sua['Hinh'] ?>" alt="">
+            </div>
+        <?php endforeach; ?>
     </div>
-</body>
-
-</html>
+</div>
+<?php 
+    $re = mysqli_query($conn, 'select * from sua');
+    //tổng số mẩu tin cần hiển thị
+    $numRows = mysqli_num_rows($re);
+    //tổng số trang
+    $maxPage = floor($numRows / $rowsPerPage) + 1;
+    
+    echo "<div align='center'>";
+    echo "<a href=" .$_SERVER['PHP_SELF']."?page=TKH-mysql-ttsua&p=1 >tới trang đầu</a> ";
+    //gắn thêm nút Back
+    if ($_GET['p'] > 1)
+    echo "<a href=" .$_SERVER['PHP_SELF']."?page=TKH-mysql-ttsua&p=".($_GET['p']-1)."><</a> ";
+    //tạo link tương ứng tới các trang
+    for ($i = 1; $i <= $maxPage; $i++) {
+        if ($i == $_GET['p']) {
+            echo  $i. ' '; //trang hiện tại sẽ được bôi đậm
+        } else
+            echo "<a href=". $_SERVER['PHP_SELF']. "?page=TKH-mysql-ttsua&p=". $i . ">". $i ."</a> ";
+    }
+    //gắn thêm nút Next
+    if ($_GET['p'] < $maxPage)
+    echo "<a href=". $_SERVER['PHP_SELF']."?page=TKH-mysql-ttsua&p=".($_GET['p']+1).">></a>";
+    echo "<a href=" .$_SERVER['PHP_SELF']."?page=TKH-mysql-ttsua&p=".($maxPage).">Tới trang cuối</a> ";
+    echo "</div>";
+?>
+<?php $this->end(); ?>

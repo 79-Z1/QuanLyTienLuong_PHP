@@ -48,7 +48,7 @@
         $ghichu=trim($_POST['ghichu']); 
     else $ghichu="";
 ?>
-    <form align='center' action="xulyThongtin.php" method="post">
+    <form align='center' action="index.php?page=TKH-form-xulythongtin" method="post">
         <table>
             <thead>
                 <th colspan="2" align="center">

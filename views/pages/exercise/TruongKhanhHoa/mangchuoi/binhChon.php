@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <?php 
     $listBH = array(
         3 => "Em của ngày hôm qua",
@@ -22,3 +24,4 @@
     }
     echo "</ul> <br>";
 ?>
+<?php $this->end(); ?>

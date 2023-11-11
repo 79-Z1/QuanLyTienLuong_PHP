@@ -84,7 +84,7 @@
                 </tr>
             <tr>
                 <td></td>
-                <td><img src="./images/<?php echo $hinh ?>" alt=""></td>
+                <td><img src="/QuanLyTienLuong_PHP/views/pages/exercise/TruongKhanhHoa/images/<?php echo $hinh ?>" alt=""></td>
                 <td></td>
             </tr>
         </table>

@@ -1,7 +1,5 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <style>
 fieldset {
   background-color: #eeeeee;
@@ -105,5 +103,4 @@ input {
 	</table>
 </fieldset>
 </form>
-</body>
-</html>
+<?php $this->end(); ?>
