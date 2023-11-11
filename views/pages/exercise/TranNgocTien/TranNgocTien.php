@@ -49,19 +49,129 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 				<table class="table table-hover table-nowrap">
 					<thead class="thead-light">
 						<tr>
+							<th style="text-align: center;" colspan="2" scope="col">Bài tập về form</th>
+						</tr>
+						<tr>
 							<th scope="col">tên bài tập</th>
 							<th scope="col">chạy file</th>
 						</tr>
 					</thead>
-
 					<tbody>
 						<?php
-							//tổng số trang
-							$maxPage = ceil($numRows / $rowsPerPage);
 						?>
 						<tr>
-							<td>aaaaaaaaaaaaaa</td>
-							<td><a href=""><i class="bi bi-arrow-right-square-fill"></i></a></td>
+							<td>Chu vi diện tích hình chữ nhật</td>
+							<td><a href="?page=TNT-form-dt_cv_hcn"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Chu vi - Diện tích các hình học cơ bản</td>
+							<td><a href="?page=TNT-form-dt_cv"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Tính tiền điện</td>
+							<td><a href="?page=TNT-form-tien-dien"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Các phép tính</td>
+							<td><a href="?page=TNT-form-phep-tinh"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Nhập thông tin</td>
+							<td><a href="?page=TNT-form-nhapTT"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+					</tbody>
+					<thead class="thead-light">
+						<tr>
+							<th style="text-align: center;" colspan="2" scope="col">Bài tập về Mảng</th>
+						</tr>
+						<tr>
+							<th scope="col">tên bài tập</th>
+							<th scope="col">chạy file</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						?>
+						<tr>
+							<td>Bài tập 1</td>
+							<td><a href="?page=TNT-Mang-1"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 2</td>
+							<td><a href="?page=TNT-Mang-2"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 3</td>
+							<td><a href="?page=TNT-Mang-3"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 4</td>
+							<td><a href="?page=TNT-Mang-4"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 5</td>
+							<td><a href="?page=TNT-Mang-5"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 6</td>
+							<td><a href="?page=TNT-Mang-6"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 7</td>
+							<td><a href="?page=TNT-Mang-7"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 8</td>
+							<td><a href="?page=TNT-Mang-8"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 9</td>
+							<td><a href="?page=TNT-Mang-9"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 10</td>
+							<td><a href="?page=TNT-Mang-10"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập mảng 2 chiều</td>
+							<td><a href="?page=TNT-Mang-2-Chieu"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài kiểm tra mảng - Trần Ngọc Tiến</td>
+							<td><a href="?page=TNT-Mang-KT"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+					</tbody>
+					<thead class="thead-light">
+						<tr>
+							<th style="text-align: center;" colspan="2" scope="col">Bài tập về hướng đối tượng</th>
+						</tr>
+						<tr>
+							<th scope="col">tên bài tập</th>
+							<th scope="col">chạy file</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						?>
+						<tr>
+							<td>Bài tập 1</td>
+							<td><a href="?page=TNT-Object-1"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 2</td>
+							<td><a href="?page=TNT-Object-2"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài tập 3</td>
+							<td><a href="?page=TNT-Object-3"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Các đối tượng hình học</td>
+							<td><a href="?page=TNT-Object-VD"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Bài kiểm tra hướng đối tượng - Trần Ngọc Tiến</td>
+							<td><a href="?page=TNT-Object-KT"><i class="bi bi-arrow-right-square-fill"></i></a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -69,25 +179,4 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 		</div>
 	</div>
 </div>
-<div align="center">
-	<?php
-	$maxPage = ceil($numRows / $rowsPerPage);
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . (1) . "> Đầu </a> ";
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($_GET['p'] > 1 ? $_GET['p'] - 1 : 1) . "> < </a> ";
-
-
-	for ($i = 1; $i <= $maxPage; $i++) {
-		if ($i == $_GET['p']) {
-			echo '<b><a class="pagination-link active" href=' . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . $i . ">" . $i . "</a></b> "; // Trang hiện tại sẽ được bôi đậm
-		} else {
-			echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . $i . ">" . $i . "</a> ";
-		}
-	}
-
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($_GET['p'] < $maxPage ? $_GET['p'] + 1 : $maxPage) . "> > </a>";
-	echo "<a class='pagination-link' href=" . $_SERVER['PHP_SELF'] . "?page=accountant-payroll&p=" . ($maxPage) . "> Cuối </a> ";
-
-	echo "</p>";
-	?>
-</div>
-	<?php $this->end(); ?>
+<?php $this->end(); ?>

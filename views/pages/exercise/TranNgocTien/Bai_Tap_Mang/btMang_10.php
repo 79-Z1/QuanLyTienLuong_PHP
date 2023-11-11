@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,3 +103,4 @@
 	</form>
 </body>
 </html>
+<?php $this->end(); ?>

@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 
@@ -38,7 +40,7 @@
 
 <body>
     <?php
-    abstract class NhanVien
+    abstract class NhanVienTNT1
     {
         protected $maSo, $hoTen, $ngaySinh, $gioiTinh, $bangCap;
         const mucThuongCB = 5_000_000;
@@ -96,7 +98,7 @@
         }
         abstract function TinhTienThuong();
     }
-    class NhanVienVanPhong extends NhanVien
+    class NhanVienVanPhongTNT1 extends NhanVienTNT1
     {
         private $chucVu, $phongBan, $xepLoai;
         function __construct($maSo, $hoTen, $ngaySinh, $gioiTinh, $bangCap, $chucVu, $phongBan, $xepLoai)
@@ -161,7 +163,7 @@
             }
         }
     }
-    class NhanVienPhongThiNghiem extends NhanVien
+    class NhanVienPhongThiNghiemTNT extends NhanVienTNT1
     {
         private $soSanPham, $soSangKien;
         function __construct($maSo, $hoTen, $ngaySinh, $gioiTinh, $bangCap, $soSanPham, $soSangKien)
@@ -223,7 +225,7 @@
 
     if (isset($_POST['them'])) {
         if (isset($_POST['radNV']) && $_POST['radNV'] == 'vp') {
-            $nvvp = new NhanVienVanPhong(
+            $nvvp = new NhanVienVanPhongTNT1(
                 $maSo,
                 $hoTen,
                 $ngaySinh,
@@ -251,7 +253,7 @@
             }
         } else {
             if($soSP <=3 && $soSK <=3){
-                $nvtn = new NhanVienPhongThiNghiem(
+                $nvtn = new NhanVienPhongThiNghiemTNT(
                     $maSo,
                     $hoTen,
                     $ngaySinh,
@@ -400,3 +402,4 @@
 </script>
 
 </html>
+<?php $this->end(); ?>

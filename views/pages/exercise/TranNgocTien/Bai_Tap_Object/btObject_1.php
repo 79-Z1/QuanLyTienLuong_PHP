@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 
@@ -100,14 +102,14 @@
 
 
 
-    class Nguoi
+    class NguoiTNT
     {
         public $hoTen;
         public $diaChi;
         public $gioiTinh;
     }
 
-    class SinhVien extends Nguoi
+    class SinhVienTNT extends NguoiTNT
     {
         public $lop;
         public $nganhHoc;
@@ -120,7 +122,7 @@
         }
     }
 
-    class GiangVien extends Nguoi
+    class GiangVienTNT extends NguoiTNT
     {
         public $trinhDo;
 
@@ -141,7 +143,7 @@
 
     if (isset($_POST['nhap'])) {
         if (isset($_POST['radLa']) && $_POST['radLa'] == 'gv') {
-            $gv = new GiangVien();
+            $gv = new GiangVienTNT();
             $gv->hoTen = $hoTen;
             $gv->diaChi = $diaChi;
             if (isset($_POST['radGT']) && $_POST['radGT'] == 'nam') {
@@ -175,7 +177,7 @@
             }
             $ketqua .= "\nLương: " . $gv->tinhLuong();
         } else {
-            $sv = new SinhVien();
+            $sv = new SinhVienTNT();
             $sv->hoTen = $hoTen;
             $sv->diaChi = $diaChi;
             $sv->lop = $lop;
@@ -309,3 +311,4 @@
 </script>
 
 </html>
+<?php $this->end(); ?>

@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 	<head>
@@ -39,7 +41,7 @@
 
 			
 		?>
-		<form align='center' action="ketquapheptinh.php" method="post">
+		<form align='center' action="?page=TNT-form-ket-qua-PT" method="post">
 			<table>
 			    <thead>
 			        <th colspan="2" align="center"><h3>PHÉP TÍNH TRÊN HAI SỐ</h3></th>
@@ -64,3 +66,4 @@
 		</form>
 	</body>
 </html>
+<?php $this->end(); ?>

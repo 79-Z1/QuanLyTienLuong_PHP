@@ -3,6 +3,7 @@
     .left-footer {
         width: 16.55%;
         border-right: 1px solid #e7eaf0;
+        background-color: white !important;
     }
 
     .footer {
@@ -33,9 +34,12 @@
     .member table{
         width: 50% !important;
         text-align: center;
+        background-color: #f5f9fc  !important;
+        
     }
     .member table tbody{
         height: fit-content !important;
+        
     }
     .member table td {
         padding: 0 !important;
@@ -43,6 +47,7 @@
         color: purple !important;
         font-size: 14px !important;
         font-weight: var(--x-body-font-weight) !important;
+        
     }
 </style>
 <div class="d-flex">
