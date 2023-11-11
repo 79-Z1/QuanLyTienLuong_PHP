@@ -1,3 +1,6 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 <head>
@@ -96,3 +99,5 @@ while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)){
 
 </body>
 </html>
+
+<?php $this->end(); ?>
