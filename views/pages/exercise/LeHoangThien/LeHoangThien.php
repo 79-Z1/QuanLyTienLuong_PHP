@@ -72,6 +72,18 @@
 							<td>CSDL MySQL : BT2_11</td>
 							<td><a href="index.php?page=LHT-CSDL_MySQL-BT2_11"><i class="bi bi-arrow-right-square-fill"></i></a></td>
 						</tr>
+						<tr>
+							<td>CSDL MySQL : BT2_12 Thông tin khách hàng</td>
+							<td><a href="index.php?page=LHT-CSDL_MySQL-Info-KhachHang"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>CSDL MySQL : BT2_12 Sửa thông tin khách hàng</td>
+							<td><a href="index.php?page=LHT-CSDL_MySQL-edit-KhachHang"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>CSDL MySQL : BT2_12 Xóa thông tin khách hàng</td>
+							<td><a href="index.php?page=LHT-CSDL_MySQL-delete-KhachHang"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
 					</tbody>
 				</table>
 			</form>

@@ -119,7 +119,7 @@
                 <div class="item" align="center">
                     <a href="./chitietsua.php?masua=<?= $sua['Ma_sua'] ?>"><?= $sua['Ten_sua'] ?></a>
                     <p><?= $sua['Trong_luong'] . " - " . $sua['Don_gia'] ?></p>
-                    <img src="./Hinh_sua/<?= $sua['Hinh'] ?>" alt="">
+                    <img src="Hinh_sua/<?= $sua['Hinh'] ?>" alt="">
                 </div>
             <?php endforeach; ?>
         </div>
