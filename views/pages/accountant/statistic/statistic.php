@@ -256,8 +256,8 @@ if (mysqli_num_rows($resultPhong) > 0) {
 		?>
 					<div id="bangDuLieu">
 
-						<div class="card shadow border-0 mb-3">
-							<table class="table table-hover table-nowrap">
+						<div class="card border-0 mb-3">
+							<table class="table">
 								<thead>
 									<tr>
 										<th scope="col">mã phiếu lương</th>
@@ -298,16 +298,16 @@ if (mysqli_num_rows($resultPhong) > 0) {
 											<td><?= $rows['HeSoLuong'] ?></td>
 											<td><?= $rows['SoNgayCong'] ?></td>
 											<td><?= $rows['SoNgayVang'] ?></td>
-											<td><?= MoneyFormat($rows['LuongTangCa']) ?></td>
-											<td><?= MoneyFormat($rows['TienTamUng']) ?></td>
-											<td><?= MoneyFormat($rows['TroCap']) ?></td>
-											<td><?= MoneyFormat($rows['TruBaoHiem']) ?></td>
-											<td><?= MoneyFormat($rows['Thuong']) ?></td>
-											<td><?= MoneyFormat($rows['Phat']) ?></td>
-											<td><?= MoneyFormat($rows['TienLuongThang']) ?></td>
-											<td><?= MoneyFormat($rows['TongThuNhap']) ?></td>
-											<td><?= MoneyFormat($rows['Thue']) ?></td>
-											<td><?= MoneyFormat($rows['ThucLinh']) ?></td>
+											<td><?= MoneyFormat($rows['LuongTangCa']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['TienTamUng']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['TroCap']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['TruBaoHiem']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['Thuong']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['Phat']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['TienLuongThang']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['TongThuNhap']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['Thue']) ?> VNĐ</td>
+											<td><?= MoneyFormat($rows['ThucLinh']) ?> VNĐ</td>
 											<td><?= $rows['GhiChu'] ?></td>
 										</tr>
 									<?php }
