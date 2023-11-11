@@ -49,45 +49,20 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 				<table class="table table-hover table-nowrap">
 					<thead class="thead-light">
 						<tr>
-							<th scope="col">mã nhân viên</th>
-							<th scope="col">họ tên</th>
-							<th scope="col">chức vụ</th>
-							<th scope="col">phòng</th>
-							<th scope="col">tình trạng</th>
-							<th scope="col">tính lương</th>
+							<th scope="col">tên bài tập</th>
+							<th scope="col">chạy file</th>
 						</tr>
 					</thead>
 
 					<tbody>
 						<?php
-						//tổng số trang
-						$maxPage = ceil($numRows / $rowsPerPage);
-						if (mysqli_num_rows($resultTimKiem) <> 0) {
-							while ($rows = mysqli_fetch_array($resultTimKiem)) {
-								echo "<tr>
-                        <td>{$rows['MaNV']}</td>
-                        <td>{$rows['HoNV']} {$rows['TenNV']}</td>
-                        <td>{$rows['TenChucVu']}</td>
-                        <td>{$rows['TenPhong']}</td>";
-								if (CheckTinhTrang($rows['MaNV'], $thang, $nam, $conn)) {
-									echo "
-								<td style='color:green'> Đã Tính </td>
-								<td ' style='color:green; font-size:35px !important; padding-left:50px'>
-									<i class='bi bi-check-circle-fill'></i>
-								</td>
-							";
-								} else {
-									echo "
-							<td style='color:red'> Chưa tính </td>
-							<td>
-								<a class='btn btn-outline-purple p-2' href ='index.php?page=payroll-info&MaNV=$rows[MaNV]&thang=$thang&nam=$nam&p=$_GET[p]'>Tính lương</a>
-							</td>
-							";
-								}
-								echo "</tr>";
-							}
-						}
+							//tổng số trang
+							$maxPage = ceil($numRows / $rowsPerPage);
 						?>
+						<tr>
+							<td>aaaaaaaaaaaaaa</td>
+							<td><a href=""><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
 					</tbody>
 				</table>
 			</form>
@@ -115,4 +90,4 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 	echo "</p>";
 	?>
 </div>
-<?php $this->end(); ?>
+	<?php $this->end(); ?>

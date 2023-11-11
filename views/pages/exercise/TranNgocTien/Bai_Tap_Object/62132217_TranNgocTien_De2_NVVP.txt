@@ -1,0 +1,21 @@
+
+Mã số:NV001
+Họ tên:Trần Ngọc Tiến
+Ngày sinh:10/05/2002
+Giới tính:Nam
+Bằng cấp:Tiến Sĩ
+Chức vụ:TP
+Phòng ban:Điều Hành
+Xếp loại:A,
+Tiền thưởng:20000000
+ 
+Mã số: NV003
+Họ tên: Vũ Lê Hoàng Nam
+Ngày sinh: 01/09/2002
+Giới tính: Nam
+Bằng cấp: Thạc Sĩ
+Chức vụ: PP
+Phòng ban: Kế Toán
+Xếp loại: A
+Tiền thưởng: 15000000
+ 

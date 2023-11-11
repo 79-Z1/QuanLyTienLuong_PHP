@@ -1,0 +1,37 @@
+
+Mã số:NV002
+Họ tên:Trương Khánh Hòa
+Ngày sinh:01/09/2002
+Giới tính:Nam
+Bằng cấp:Cử Nhân
+Số sản phẩm thực nghiệm:2
+Số sáng kiến:01/09/2002
+Tiền thưởng:12000000
+ 
+Mã số:NV003
+Họ tên:Nguyễn Duy Thiên
+Ngày sinh:01/09/2002
+Giới tính:Nữ
+Bằng cấp:Cử Nhân
+Số sản phẩm thực nghiệm:2
+Số sáng kiến:01/09/2002
+Tiền thưởng:12000000
+ 
+Mã số: NV001
+Họ tên: Trần Ngọc Tiến
+Ngày sinh: 2002-10-05
+Giới tính: Nam
+Bằng cấp: Tiến Sĩ
+Số sản phẩm thực nghiệm: 2
+Số sáng kiến: 2002-10-05
+Tiền thưởng: 6015000000
+ 
+Mã số: NV001
+Họ tên: Trần Ngọc Tiến
+Ngày sinh: 2002-10-05
+Giới tính: Nam
+Bằng cấp: Tiến Sĩ
+Số sản phẩm thực nghiệm: 2
+Số sáng kiến: 2002-10-05
+Tiền thưởng: 6015000000
+ 
