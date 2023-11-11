@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <style>
     p {
         font-size: 20px;
@@ -15,3 +17,5 @@
     if(isset($_POST['chk4'])) echo $_POST['chk4']; 
 ?></p>
 <p>Ghi chú: <?php if(isset($_POST['ghichu'])) echo $_POST['ghichu']; ?></p>
+<a class="mt-5" href="index.php">Quay lại</a>
+<?php $this->end(); ?>

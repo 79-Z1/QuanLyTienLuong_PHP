@@ -151,6 +151,9 @@ else $n=0;
         <tr>
             <td colspan="2" align="center"><input type="submit" value="Xử lý" name="xuly" /></td>
         </tr>
+        <tr>
+            <td><a class="mt-5" href="index.php">Quay lại</a></td>
+        </tr>
     </table>
 </form>
 <?php $this->end(); ?>

@@ -1,22 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>Register</title>
-    <style>
-        form {
-            width: 800px;
-            margin: 50px auto;
-        }
-    </style>
-</head>
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
+<style>
+    form {
+        width: 800px;
+        margin: 50px auto;
+    }
+</style>
 
 <body>
     <?php
-    require("../connect.php");
+    $conn = mysqli_connect('localhost', 'root', '', 'qlbansua')
+    or die('Could not connect to MySQL: ' . mysqli_connect_error());
     if (isset($_POST['username'])) $username = $_POST['username'];
     else $username = '';
     if (isset($_POST['password'])) $password = $_POST['password'];
@@ -56,7 +50,6 @@
         <div class="d-flex justify-content-center">
             <button type="submit" name='submit' class="btn btn-primary btn-block mb-4">Register</button>
         </div>
+        <a class="mt-5" href="index.php">Quay lại</a>
     </form>
-</body>
-
-</html>
+    <?php $this->end(); ?>

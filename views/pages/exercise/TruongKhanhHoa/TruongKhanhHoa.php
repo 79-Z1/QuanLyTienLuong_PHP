@@ -70,6 +70,24 @@
                         </a></td>
                     </tr>
                     <tr>
+                        <td>[Mảng chuỗi] Bình chọn</td>
+                        <td><a href="index.php?page=TKH-mangchuoi-binhchon">
+                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>[Mảng chuỗi] Số thuận nghịch</td>
+                        <td><a href="index.php?page=TKH-mangchuoi-sothuannghich">
+                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>[Mảng chuỗi] Mảng 2 chiều</td>
+                        <td><a href="index.php?page=TKH-mangchuoi-mang2chieu">
+                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
+                        </a></td>
+                    </tr>
+                    <tr>
                         <td>[Mảng chuỗi] Kiểm tra giữa kì</td>
                         <td><a href="index.php?page=TKH-mangchuoi-ktragiuaki">
                             <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
@@ -132,6 +150,24 @@
                     <tr>
                         <td>[MySQL Khách hàng] Tìm kiếm khách hàng</td>
                         <td><a href="index.php?page=TKH-mysql-timkh">
+                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>[MySQL Khách hàng] Tìm kiếm khách hàng</td>
+                        <td><a href="index.php?page=TKH-mysql-timkh">
+                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>[MySQL User] Login</td>
+                        <td><a href="index.php?page=TKH-mysql-login">
+                            <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
+                        </a></td>
+                    </tr>
+                    <tr>
+                        <td>[MySQL User] Register</td>
+                        <td><a href="index.php?page=TKH-mysql-register">
                             <i style="font-size: 20px; padding-left: 30px;" class="bi bi-arrow-right-square-fill"></i>
                         </a></td>
                     </tr>

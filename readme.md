@@ -59,27 +59,29 @@ After two months of learning about PHP our group has built this project. This is
 This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 ### Installation
+> [!IMPORTANT]
+> XAMPP version must be 8.2.4 and PHP version must be 8.2.4.
 1. Download XAMPP, Composer
      * https://www.apachefriends.org/download.html
      * https://getcomposer.org/download/
-2. Clone the repo in /xampp/htdocs
+1. Clone the repo in /xampp/htdocs
    ```sh
    git clone https://github.com/TonyHoe/QuanLyTienLuong_PHP.git
    ```
-3. Start `Apache` and `MySQL` and Click Admin on line `MySQL`
+2. Start `Apache` and `MySQL` and Click Admin on line `MySQL`
    <br>
    <img src="./assets/images/xampp.png" alt="Logo" width="600">
-4. Create new database name `quan_ly_tien_luong` type `utf8_general_ci`
+3. Create new database name `quan_ly_tien_luong` type `utf8_general_ci`
    <br>
    <img src="./assets/images/db_name.png" alt="Logo" width="600">
-5. Import file `database.sql` into your `quan_ly_tien_luong` database
+4. Import file `database.sql` into your `quan_ly_tien_luong` database
    * [Database](https://github.com/TonyHoe/QuanLyTienLuong_PHP/blob/main/database.sql)
-6. Open new terminal from `QuanLyTienLuong_PHP` then install Composer packages
+5. Open new terminal from `QuanLyTienLuong_PHP` then install Composer packages
    ```sh
    composer --ignore-platform-reqs install
    ```
-7. Access to `http://localhost/QuanLyTienLuong_PHP/`
-8. All done !!!
+6. Access to `http://localhost/QuanLyTienLuong_PHP/`
+7. All done !!!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

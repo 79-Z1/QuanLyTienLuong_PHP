@@ -54,6 +54,18 @@ switch ($page) {
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/TruongKhanhHoa/mangchuoi/timnamamlich', []);
         break;
+    case 'TKH-mangchuoi-binhchon':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mangchuoi/binhChon', []);
+        break;
+    case 'TKH-mangchuoi-sothuannghich':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mangchuoi/sothuannghich', []);
+        break;
+    case 'TKH-mangchuoi-mang2chieu':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mangchuoi/mang2chieu', []);
+        break;
     case 'TKH-oop-nhanvien':
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/TruongKhanhHoa/oop/nhan_vien', []);
@@ -97,6 +109,14 @@ switch ($page) {
     case 'TKH-mysql-timkh':
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/TruongKhanhHoa/mysql/KhachHang/timkiemkhachhang', []);
+        break;
+    case 'TKH-mysql-login':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mysql/user/login', []);
+        break;
+    case 'TKH-mysql-register':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TruongKhanhHoa/mysql/user/register', []);
         break;
     default:
         echo $template->render('header_exercise', ['css' => 'TruongKhanhHoa/TruongKhanhHoa.css']);

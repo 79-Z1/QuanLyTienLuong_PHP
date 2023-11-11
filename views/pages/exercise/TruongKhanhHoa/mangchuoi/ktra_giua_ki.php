@@ -1,10 +1,17 @@
 <?php $this->layout('layout_exercise') ?>
 <?php $this->section('content'); ?>
 <style>
+    form {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
     fieldset {
         background-color: #eeeeee;
     }
-
     legend {
         background-color: gray;
         color: white;
@@ -108,6 +115,9 @@ if (isset($_POST['them']) || isset($_POST['luu'])) {
             <tr>
                 <td align="center"><input type="submit" name="them" value="Thêm sinh viên" /></td>
                 <td align="center"><input type="submit" name="luu" value="Lưu vào file" /></td>
+            </tr>
+            <tr>
+                <td><a class="mt-5" href="index.php">Quay lại</a></td>
             </tr>
         </table>
     </fieldset>

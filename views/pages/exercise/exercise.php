@@ -1,5 +1,6 @@
 <?php $this->layout('layout_exercise') ?>
 <?php $this->section('content'); ?>
+<?php echo 'Current PHP version: ' . phpversion();?>
 <div class="container">
     <div class="row">
         <div class="col-lg-4">

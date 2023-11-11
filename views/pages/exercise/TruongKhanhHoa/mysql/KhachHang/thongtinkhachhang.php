@@ -40,8 +40,8 @@ if (mysqli_num_rows($result) <> 0) {
         echo "<td>$rows[0]</td>";
         echo "<td>$rows[1]</td>";
         echo $rows[2] == 1 ?
-            "<td align='center'><img src='avatar/nu.jpg'></td>" :
-            "<td align='center'><img src='avatar/nam.jpg'></td>";
+            "<td align='center'><img src='avatar/Avt-đôi-Anime-nu.jpg'></td>" :
+            "<td align='center'><img src='avatar/Avt-đôi-Anime-nam.jpg'></td>";
         echo "<td>$rows[3]</td>";
         echo "<td>$rows[4]</td>";
         echo "<td>$rows[5]</td>";
