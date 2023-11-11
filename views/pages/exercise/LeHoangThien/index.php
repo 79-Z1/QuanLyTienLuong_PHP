@@ -54,6 +54,18 @@ switch ($page) {
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/LeHoangThien/CSDL_MySQL/Bai2_11', []);
         break;
+    case 'LHT-CSDL_MySQL-Info-KhachHang':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/LeHoangThien/CSDL_MySQL/Info-KhachHang', []);
+        break;
+    case 'LHT-CSDL_MySQL-edit-KhachHang':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/LeHoangThien/CSDL_MySQL/edit-KhachHang', []);
+        break;
+    case 'LHT-CSDL_MySQL-delete-KhachHang':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/LeHoangThien/CSDL_MySQL/delete-KhachHang', []);
+        break;
     default:
         echo $template->render('header_exercise', ['css' => 'LeHoangThien/LeHoangThien.css']);
         echo $template->render('pages/exercise/LeHoangThien/LeHoangThien', []);
