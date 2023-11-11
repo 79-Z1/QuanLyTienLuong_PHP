@@ -75,23 +75,6 @@ include_once($_SERVER['DOCUMENT_ROOT'] . '/' . explode('/', $_SERVER['PHP_SELF']
         }
     }
 ?>
-<style>
-    .form-control.form-select{
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-        
-    }
-    .form-select{
-        width: 100%;
-        padding-left: 20px;
-        padding-left: 50px;
-    } 
-    /* tbody{
-        
-        font-weight: bold;
-        height: 597px;
-    } */
-</style>
 
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
