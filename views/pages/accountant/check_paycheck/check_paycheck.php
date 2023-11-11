@@ -187,9 +187,9 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             <td><?= $rows['MaNV'] ?></td>
                             <td><?= $rows['HoNV'] . " " . $rows['TenNV'] ?></td>
                             <td><?= $rows['TenChucVu'] ?></td>
-                            <td align="right" style="padding-right:50px;"><?= number_format($rows['TienLuongThang']) ?> đ</td>
-                            <td align="right" style="padding-right:50px;"><?= number_format($rows['TongThuNhap']) ?> đ</td>
-                            <td align="right" style="padding-right:50px;"><?= number_format($rows['ThucLinh']) ?> đ</td>
+                            <td align="right" style="padding-right:50px;"><?= number_format($rows['TienLuongThang']) ?> VNĐ</td>
+                            <td align="right" style="padding-right:50px;"><?= number_format($rows['TongThuNhap']) ?> VNĐ</td>
+                            <td align="right" style="padding-right:50px;"><?= number_format($rows['ThucLinh']) ?> VNĐ</td>
                             <td><a href='index.php?page=accountant-detail-paycheck&MaPL=<?= $rows['MaPhieuLuong'] ?>&MaNV=<?= $rows['MaNV'] ?>'><i style='color:green' class='bi bi-person-lines-fill'></i></a></td>
                             <td><a href='index.php?page=accountant-edit-paycheck&MaPL=<?= $rows['MaPhieuLuong'] ?>&MaNV=<?= $rows['MaNV'] ?>'><i style='color:blue' class='bi bi-pencil-square'></i></a></td>
                         </tr>
