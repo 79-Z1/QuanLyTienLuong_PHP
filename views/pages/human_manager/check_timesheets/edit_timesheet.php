@@ -113,7 +113,13 @@ if (isset($_POST['xacnhan'])) {
         $deleteTC = "DELETE FROM `tang_ca` WHERE MaNV = '$MaNV' AND NgayTC = '$strdate'";
         mysqli_query($conn, $deleteTC);
     }
-    echo "<script type='text/javascript'>toastr.success('Chỉnh sửa thông tin chấm công thành công'); toastr.options.timeOut = 3000;</script>";
+    echo "<script type='text/javascript'>
+    toastr.success('Chỉnh sửa thông tin chấm công thành công');
+    toastr.options.timeOut = 3000;
+    setTimeout(function() {
+        window.location.href = '/" . explode('/', $_SERVER['PHP_SELF'])[1] . "/views/pages/human_manager?page=human-manager-check-timesheets" . "';
+    }, 3000);
+    </script>";
 }
 ?>
 <div class="g-6 mb-6 w-100 search-container mt-5">
