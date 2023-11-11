@@ -7,7 +7,7 @@ echo $template->render('footer', []);
 
 switch ($page) {
     default:
-        echo $template->render('header_exercise', []);
+        echo $template->render('header_exercise', ['css' => 'TranNgocTien/TranNgocTien.css', 'js' => 'TranNgocTien.js']);
         echo $template->render('pages/exercise/TranNgocTien/TranNgocTien', []);
         break;
 }
