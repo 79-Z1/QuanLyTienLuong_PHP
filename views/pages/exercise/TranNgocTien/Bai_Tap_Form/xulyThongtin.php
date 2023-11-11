@@ -120,6 +120,7 @@
 				</td>
 			    </tr>
 			</table>
+			<p align="left"><a href="?page=">Quay lại</a></p>
 	</body>
 </html>
 <?php $this->end(); ?>

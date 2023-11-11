@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
 
@@ -39,7 +41,7 @@
 
 <body>
     <?php
-    require("connect.php");
+    require("connect_qlbs.php");
     $sql = "select * from khach_hang where Ma_khach_hang = '$_GET[maKH]'";
     $result = mysqli_query($conn, $sql);
     $ttKH = mysqli_fetch_array($result);
@@ -130,11 +132,13 @@
             </tr>
             <td colspan="2" align="center">
                 <input type="submit" value="Cập nhật" name="update" />
-                <a href="thongtinkhachhang.php">Quay về</a>
             </td>
             </tr>
         </table>
+        <p align="left"><a href="?page=TNT-QLBS-List-KH">Quay lại</a></p>
+        
     </form>
 </body>
 
 </html>
+<?php $this->end(); ?>

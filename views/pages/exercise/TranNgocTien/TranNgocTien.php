@@ -57,8 +57,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						?>
 						<tr>
 							<td>Chu vi diện tích hình chữ nhật</td>
 							<td><a href="?page=TNT-form-dt_cv_hcn"><i class="bi bi-arrow-right-square-fill"></i></a></td>
@@ -90,8 +88,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						?>
+
 						<tr>
 							<td>Bài tập 1</td>
 							<td><a href="?page=TNT-Mang-1"><i class="bi bi-arrow-right-square-fill"></i></a></td>
@@ -151,8 +148,6 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 						</tr>
 					</thead>
 					<tbody>
-						<?php
-						?>
 						<tr>
 							<td>Bài tập 1</td>
 							<td><a href="?page=TNT-Object-1"><i class="bi bi-arrow-right-square-fill"></i></a></td>
@@ -172,6 +167,49 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 						<tr>
 							<td>Bài kiểm tra hướng đối tượng - Trần Ngọc Tiến</td>
 							<td><a href="?page=TNT-Object-KT"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+					</tbody>
+					<thead class="thead-light">
+						<tr>
+							<th style="text-align: center;" colspan="2" scope="col">Bài tập quản lý bán sữa</th>
+						</tr>
+						<tr>
+							<th scope="col">tên bài tập</th>
+							<th scope="col">chạy file</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Danh sách sữa</td>
+							<td><a href="?page=TNT-QLBS-List-Sua"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Tìm kiếm sữa</td>
+							<td><a href="?page=TNT-QLBS-Find-Sua"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Danh sách khách hàng</td>
+							<td><a href="?page=TNT-QLBS-List-KH"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Tìm kiếm khách hàng</td>
+							<td><a href="?page=TNT-QLBS-Find-KH"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Danh sách sửa - Chi tiết sữa</td>
+							<td><a href="?page=TNT-QLBS-Anh-Sua"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Thêm sữa</td>
+							<td><a href="?page=TNT-QLBS-Add-Sua"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Đăng nhập</td>
+							<td><a href="?page=TNT-QLBS-Login"><i class="bi bi-arrow-right-square-fill"></i></a></td>
+						</tr>
+						<tr>
+							<td>Đăng kí</td>
+							<td><a href="?page=TNT-QLBS-Register"><i class="bi bi-arrow-right-square-fill"></i></a></td>
 						</tr>
 					</tbody>
 				</table>

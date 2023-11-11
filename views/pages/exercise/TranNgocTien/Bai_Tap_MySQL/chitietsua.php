@@ -1,3 +1,5 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 
 <html>
@@ -12,7 +14,7 @@
 
 <body>
     <?php 
-        require("connect.php");
+        require("connect_qlbs.php");
         $sql = "select sua.*, Ten_hang_sua  from sua, hang_sua where sua.Ma_hang_sua=hang_sua.Ma_hang_sua and Ma_sua = '$_GET[MaSua]'";
         $result = mysqli_query($conn, $sql);
         if(mysqli_num_rows($result)<>0){
@@ -24,7 +26,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <img src='Hinh_sua/$rows[Hinh]'>
+                            <img src='/QuanLyTienLuong_PHP/views/pages/exercise/TranNgocTien/Bai_Tap_MySQL/Hinh_sua/$rows[Hinh]'>
                         </td>
                         <td>
                             <i><b>Thành phần dinh dưỡng:</b></i>
@@ -34,14 +36,13 @@
                             <p align='end'><i><b>Trọng lượng: </b></i>$rows[Trong_luong]<i><b> - Đơn giá: </b></i>$rows[Don_gia]</p>
                         </td>
                     </tr>
-                    <tr>
-                        <td><a href='javascript:window.history.back(-1);'>Quay về</a></td>
-                    </tr>
                 </table>
                 ";
             }
         }
 	
     ?>
+    <p align="left"><a href="?page=TNT-QLBS-Anh-Sua">Quay lại</a></p>
 
 </body>
+<?php $this->end(); ?>

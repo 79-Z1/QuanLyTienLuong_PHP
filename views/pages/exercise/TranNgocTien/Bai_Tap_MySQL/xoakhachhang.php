@@ -1,13 +1,13 @@
+<?php $this->layout('layout_exercise') ?>
+<?php $this->section('content'); ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN">
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Xóa khách hàng</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
-
     <style type="text/css">
         /*body {  
 	            background-color: #d24dff;
@@ -36,10 +36,9 @@
         }
     </style>
 </head>
-
 <body>
     <?php
-    require("connect.php");
+    require("connect_qlbs.php");
     $sql = "select * from khach_hang where Ma_khach_hang = '$_GET[maKH]'";
     $result = mysqli_query($conn, $sql);
     $sqlCheck = "select * from hoa_don where Ma_khach_hang = '$_GET[maKH]'";
@@ -54,8 +53,6 @@
     $sdt = $ttKH['Dien_thoai'];
 
     $email = $ttKH['Email'];
-
-    
 
     ?>
     <form align='center' action="" method="post">
@@ -96,10 +93,10 @@
             </tr>
             <td colspan="2" align="center">
                 <input id="delete" type="submit" value="Xóa" name="delete" />
-                <a href="thongtinkhachhang.php">Quay về</a>
             </td>
             </tr>
         </table>
+        <p align="left"><a href="?page=TNT-QLBS-List-KH">Quay lại</a></p>
     </form>
     <?php 
         if (isset($_POST['delete'])) {
@@ -117,5 +114,5 @@
         }
     ?>
 </body>
-
 </html>
+<?php $this->end(); ?>

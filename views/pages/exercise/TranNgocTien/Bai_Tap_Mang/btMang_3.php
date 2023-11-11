@@ -71,6 +71,8 @@
 			<th colspan="3"><img src="/QuanLyTienLuong_PHP/views/pages/exercise/TranNgocTien/Bai_Tap_Mang/image/<?php echo $hinh ?>" alt=""></th>
 		</table>
 	</form>
+    <p align="left"><a href="?page=">Quay lại</a></p>
+
 </body>
 </html>
 <?php $this->end(); ?>

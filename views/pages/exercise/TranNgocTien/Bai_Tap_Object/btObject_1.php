@@ -293,8 +293,9 @@
             </tr>
         </table>
     </form>
-
+    <p align="left"><a href="?page=">Quay lại</a></p>
 </body>
+
 <script type="text/javascript">
     $(document).ready(function() {
         $('.sinhVien').hide();

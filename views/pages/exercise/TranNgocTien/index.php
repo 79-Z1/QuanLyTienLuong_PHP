@@ -103,8 +103,52 @@ switch ($page) {
     case 'TNT-Object-KT':
         echo $template->render('header_exercise', []);
         echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_Object/62132217_TranNgocTien_De2', []);
-        break;    
-
+        break;
+        
+    case 'TNT-QLBS-List-Sua':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/thongtinsua', []);
+        break;
+    case 'TNT-QLBS-Find-Sua':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/timkiemsua', []);
+        break;
+    case 'TNT-QLBS-List-KH':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/thongtinkhachhang', []);
+        break;
+    case 'TNT-QLBS-Find-KH':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/timkiemkhachhang', []);
+        break;
+    case 'TNT-QLBS-Add-Sua':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/themsua', []);
+        break;
+    case 'TNT-QLBS-Anh-Sua':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/Bai_2-5', []);
+        break;
+    case 'TNT-QLBS-Login':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/login', []);
+        break;
+    case 'TNT-QLBS-Register':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/register', []);
+        break;
+    case 'TNT-QLBS-Detail-Sua':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/chitietsua', []);
+        break;
+    case 'TNT-QLBS-Edit-KH':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/edit_kh', []);
+        break;
+    case 'TNT-QLBS-Delete-KH':
+        echo $template->render('header_exercise', []);
+        echo $template->render('pages/exercise/TranNgocTien/Bai_Tap_MySQL/xoakhachhang', []);
+        break;
     default:
         echo $template->render('header_exercise', ['css' => 'TranNgocTien/TranNgocTien.css']);
         echo $template->render('pages/exercise/TranNgocTien/TranNgocTien', []);

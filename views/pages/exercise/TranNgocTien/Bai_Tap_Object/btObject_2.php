@@ -313,6 +313,7 @@
         </table>
     </form>
     <button type="button" id="nhan">Nhấn</button>
+    <p align="left"><a href="?page=">Quay lại</a></p>
 </body>
 <script type="text/javascript">
     $(document).ready(function() {
