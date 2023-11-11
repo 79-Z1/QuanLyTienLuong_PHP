@@ -80,21 +80,7 @@ if (isset($_POST['them'])) {
     }
 }
 ?>
-<style>
-    .form-control.form-select{
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-        
-    }
-    .form-date-control{  
-        width: 70%;
-    }
-    tr td {
-    font-size: 20px !important;
-    height: 20% !important;
-    font-weight: bold;
-}
-</style>
+
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">

@@ -8,19 +8,19 @@ echo $template->render('footer', []);
 
 switch ($page) {
     case 'admin-timekeeping':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'timekeeping/timekeeping.css']);
         echo $template->render('pages/admin/timekeeping/timekeeping', []);
         break;
     case 'admin-timekeeping-add':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'timekeeping/add_timekeeping.css']);
         echo $template->render('pages/admin/timekeeping/add_timekeeping', []);
         break;
     case 'admin-timekeeping-edit':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'timekeeping/edit_timekeeping.css']);
         echo $template->render('pages/admin/timekeeping/edit_timekeeping', []);
         break;
     case 'admin-timekeeping-delete':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'timekeeping/delete_timekeeping.css']);
         echo $template->render('pages/admin/timekeeping/delete_timekeeping', []);
         break;
 
@@ -29,32 +29,32 @@ switch ($page) {
         echo $template->render('pages/admin/account/account', []);
         break;
     case 'admin-account-add':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'account/add_account.css']);
         echo $template->render('pages/admin/account/add-account', []);
         break;
     case 'admin-account-edit':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'account/edit_account.css']);
         echo $template->render('pages/admin/account/edit-account', []);
         break;
     case 'admin-account-delete':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'account/delete_account.css']);
         echo $template->render('pages/admin/account/delete-account', []);
         break;
 
     case 'admin-department':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'department/department.css']);
         echo $template->render('pages/admin/department/department', []);
         break;
     case 'admin-department-add':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'department/add_department.css']);
         echo $template->render('pages/admin/department/add_department', []);
         break;
     case 'admin-department-edit':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'department/edit_department.css']);
         echo $template->render('pages/admin/department/edit_department', []);
         break;
     case 'admin-department-delete':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'department/delete_department.css']);
         echo $template->render('pages/admin/department/delete_department', []);
         break;
 
@@ -76,19 +76,19 @@ switch ($page) {
         break;
 
     case 'admin-salary-slip':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'salary-slip/salary-slip.css']);
         echo $template->render('pages/admin/salary-slip/salary-slip', []);
         break;
     case 'admin-salary-slip-add':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'salary-slip/add_salary-slip.css']);
         echo $template->render('pages/admin/salary-slip/add_salary-slip', []);
         break;
     case 'admin-salary-slip-edit':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'salary-slip/edit_salary-slip.css']);
         echo $template->render('pages/admin/salary-slip/edit_salary-slip', []);
         break;
     case 'admin-salary-slip_delete':
-        echo $template->render('header_admin', []);
+        echo $template->render('header_admin', ['css' => 'salary-slip/delete_salary-slip.css']);
         echo $template->render('pages/admin/salary-slip/delete_salary-slip', []);
         break;
 

@@ -9,7 +9,7 @@ $getmanv = "SELECT MaNV FROM `nhan_vien`
 order by MaNV";
 $resultmanv = mysqli_query($conn, $getmanv);
 
-$sqlMaPhieu = "select * from phieu_ung_luong where ";
+$sqlMaPhieu = "select * from phieu_ung_luong where 1";
 $resultMaPhieu = mysqli_query($conn, $sqlMaPhieu);
 
 function CheckMaPhieu($conn, $maPhieu){
@@ -89,34 +89,7 @@ if (isset($_POST['them'])) {
     }
 }
 ?>
-<style>
-    .form-control.form-select{
-        padding-top: 0.3rem !important;
-        padding-bottom: 0.3rem !important;
-        
-    }
-    .form-date-control{  
-        width: 70%;
-    }
-    .td-control {
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.3;
-    color: #16192c;
-    background-clip: padding-box;
-    border: 1px solid #e7eaf0;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    border-radius: 0.375rem;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
-    tr td {
-        font-size: 20px !important;
-        height: 20% !important;
-        font-weight: bold;
-    }
-</style>
+
 <div class="g-6 mb-6 w-100 search-container mt-5">
     <div class="col-xl-12 col-sm-12 col-12">
         <div class="card shadow border-0 mb-7">
