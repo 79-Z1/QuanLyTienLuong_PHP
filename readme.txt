@@ -9,4 +9,5 @@ Lưu ý: Giải nén vào thư mục htdocs.
     composer --ignore-platform-reqs install
 - Bước 6: Tiếp tục chạy đoạn mã sau
     php -f .\server-notification.php
-- truy cập vào: http://localhost/QuanLyTienLuong_PHP/
+- Bước 7: truy cập vào: http://localhost/QuanLyTienLuong_PHP/
+
