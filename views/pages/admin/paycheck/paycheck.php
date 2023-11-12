@@ -48,6 +48,12 @@ if (isset($_GET['timkiem'])) {
     }
 
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    if(mysqli_num_rows($resultTimKiem) == 0){
+        echo "<script type='text/javascript'>
+                toastr.error('Không tìm thấy phiếu lương này');
+                toastr.options.timeOut = 3000;
+            </script>";
+    }
 }
 
 $sqlTimKiem .= " order by MaPhieuLuong";
@@ -57,12 +63,7 @@ $numRows = mysqli_num_rows($resultTimKiem);
 
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-if(mysqli_num_rows($resultTimKiem) == 0){
-    echo "<script type='text/javascript'>
-            toastr.error('Không tìm thấy tài khoản này');
-            toastr.options.timeOut = 3000;
-        </script>";
-}
+
 ?>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
@@ -104,13 +105,13 @@ if(mysqli_num_rows($resultTimKiem) == 0){
                                 <p>Tháng</p>
                             </td>
                             <td>
-                                <input class="form-control me-2 search-input" type="text" name="thang" value="<?php echo $thang; ?>">
+                                <input class="form-control me-2 search-input" type="number" min="1" max="12" name="thang" value="<?php echo $thang; ?>">
                             </td>
                             <td>
                                 <p>Năm</p>
                             </td>
                             <td>
-                                <input class="form-control me-2 search-input" type="text" name="nam" value="<?php echo $nam; ?>">
+                                <input class="form-control me-2 search-input" type="number" min="2000"   name="nam" value="<?php echo $nam; ?>">
                             </td>
                             <td align="center" >
                                 <a href="index.php?page=admin-paycheck-add-paycheck" class="btn btn-outline-purple search-btn ">Thêm</a>

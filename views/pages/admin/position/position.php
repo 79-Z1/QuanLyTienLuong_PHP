@@ -36,10 +36,10 @@ $sqlTimKiem =
 
 if (isset($_GET['timkiem'])) {
     if ($maCV != "") {
-        $sqlTimKiem .= "and MaChucVu = '$maCV' ";
+        $sqlTimKiem .= "and MaChucVu like '%$maCV%' ";
     }
     if ($tenChucVu != "") {
-        $sqlTimKiem .= "and TenChucVu = '$tenChucVu' ";
+        $sqlTimKiem .= "and TenChucVu like '%$tenChucVu%' ";
     }
     if ($heSoLuong != "") {
         $sqlTimKiem .= "and HeSoLuong like '$heSoLuong%' ";
@@ -56,7 +56,7 @@ $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 if(mysqli_num_rows($resultTimKiem) == 0){
     echo "<script type='text/javascript'>
-            toastr.error('Không tìm thấy tài khoản này');
+            toastr.error('Không tìm thấy chức vụ này');
             toastr.options.timeOut = 3000;
         </script>";
 }
@@ -77,18 +77,7 @@ if(mysqli_num_rows($resultTimKiem) == 0){
                                 <p>Tên chức vụ</p>
                             </td>
                             <td>
-                                <select name="tenChucVu" class="form-select search-option">
-                                    <option value="">Trống</option>
-                                    <?php
-                                    if (mysqli_num_rows($resultChucVu) <> 0) {
-                                        while ($rows = mysqli_fetch_array($resultChucVu)) {
-                                            echo "<option name='tenChucVu'";
-                                            if (isset($_GET['tenChucVu']) && $_GET['tenChucVu'] == $rows['TenChucVu']) echo "selected";
-                                            echo ">$rows[TenChucVu]</option>";
-                                        }
-                                    }
-                                    ?>
-                                </select>
+                                <input class="form-control me-2 search-input" type="text" name="tenChucVu" value="<?php echo $tenChucVu; ?>">
                             </td>
 
                         </tr>

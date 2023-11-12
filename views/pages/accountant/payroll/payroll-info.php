@@ -150,7 +150,7 @@ if (isset($_POST['tienThuong'])) {
         $tienThuong = 0;
         $err[] = "Vui lòng nhập tiền thưởng đúng định dạng số";
     }else $tienThuong = str_replace(".", "", $_POST['tienThuong']);
-}
+}else $tienThuong=0;
 
 $tongThuNhap = $tienLuong + $troCap + $tienThuong + $luongTC - $tienPhat - $truBH;
 

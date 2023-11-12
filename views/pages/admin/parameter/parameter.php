@@ -35,7 +35,7 @@ $sqlTimKiem =
 
 if (isset($_GET['timkiem'])) {
     if ($maTS != "") {
-        $sqlTimKiem .= " and MaTS = '$maTS' ";
+        $sqlTimKiem .= " and MaTS like '%$maTS%' ";
     }
     if ($tenTS != "") {
         $sqlTimKiem .= " and TenTS like '%$tenTS%' ";
@@ -44,7 +44,7 @@ if (isset($_GET['timkiem'])) {
         $sqlTimKiem .= " and DVT like '%$DVT%' ";
     }
     if ($giaTri != "") {
-        $sqlTimKiem .= " and GiaTri = '$giaTri' ";
+        $sqlTimKiem .= " and GiaTri like '%$giaTri%' ";
     }
     if ($tinhTrang != "") {
         $sqlTimKiem .= " and TinhTrang = '$tinhTrang' ";
@@ -57,7 +57,7 @@ $sqlTimKiem .= " order by MaTS";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 if(mysqli_num_rows($resultTimKiem) == 0){
     echo "<script type='text/javascript'>
-            toastr.error('Không tìm thấy tài khoản này');
+            toastr.error('Không tìm thấy tham số này');
             toastr.options.timeOut = 3000;
         </script>";
 }
@@ -154,7 +154,7 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                         <tr>
                             <td ><?= $rows['MaTS']?></td>
                             <td ><?= $rows['TenTS']?></td>
-                            <td ><?= number_format($rows['GiaTri'])?></td>
+                            <td ><?= $rows['GiaTri']?></td>
                             <td ><?= $rows['DVT']?></td>
                             <td ><?= $TT ?></td>
                             <td >
