@@ -53,6 +53,12 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 $numRows = mysqli_num_rows($resultTimKiem);
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+if(mysqli_num_rows($resultTimKiem) == 0){
+    echo "<script type='text/javascript'>
+            toastr.error('Không tìm thấy tài khoản này');
+            toastr.options.timeOut = 3000;
+        </script>";
+}
 ?>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">

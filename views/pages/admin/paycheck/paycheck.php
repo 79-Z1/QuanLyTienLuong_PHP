@@ -26,7 +26,7 @@ if (!isset($_GET['p'])) {
 }
 
 $sqlNhanVien = 'select * from nhan_vien';
-$resultChucVu = mysqli_query($conn, $sqlNhanVien);
+$resultMaNhanVien = mysqli_query($conn, $sqlNhanVien);
 
 $offset = ($_GET['p'] - 1) * $rowsPerPage;
 
@@ -35,16 +35,16 @@ $sqlTimKiem =
 
 if (isset($_GET['timkiem'])) {
     if ($maPL != "") {
-        $sqlTimKiem .= " and MaPhieuLuong like '%$maPL%' ";
+        $sqlTimKiem .= " and phieu_luong.MaPhieuLuong like '%$maPL%' ";
     }
     if ($maNV != "") {
-        $sqlTimKiem .= " and MaNV like '%$maNV%' ";
+        $sqlTimKiem .= " and phieu_luong.MaNV like '%$maNV%' ";
     }
     if ($thang != "") {
-        $sqlTimKiem .= " and Thang = '$thang' ";
+        $sqlTimKiem .= " and phieu_luong.Thang = '$thang' ";
     }
     if ($nam != "") {
-        $sqlTimKiem .= " and Nam = '$nam' ";
+        $sqlTimKiem .= " and phieu_luong.Nam = '$nam' ";
     }
 
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
@@ -57,7 +57,12 @@ $numRows = mysqli_num_rows($resultTimKiem);
 
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-
+if(mysqli_num_rows($resultTimKiem) == 0){
+    echo "<script type='text/javascript'>
+            toastr.error('Không tìm thấy tài khoản này');
+            toastr.options.timeOut = 3000;
+        </script>";
+}
 ?>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
@@ -76,12 +81,12 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                             </td>
                             <td>
 
-                                <select name="maNV" class="form-select search-option" id="inputGroupSelect02">
+                                <select name="maNV" class="form-select search-option">
                                     <option value="">Trống</option>
                                     <?php
-                                    if (mysqli_num_rows($resultChucVu) <> 0) {
+                                    if (mysqli_num_rows($resultMaNhanVien) <> 0) {
 
-                                        while ($rows = mysqli_fetch_array($resultChucVu)) {
+                                        while ($rows = mysqli_fetch_array($resultMaNhanVien)) {
                                             echo "<option ";
                                             if (isset($_GET['maNV']) && $_GET['maNV'] == $rows['MaNV']) echo "selected";
                                             echo ">$rows[MaNV]</option>";
