@@ -42,7 +42,7 @@
 
 if (isset($_GET['timkiem'])) {
     if ($maPhieu != "") {
-        $sqlTimKiem .= " and MaPhieu = '$maPhieu' ";
+        $sqlTimKiem .= " and MaPhieu like '%$maPhieu%' ";
     }
     if ($maNV != "") {
         $sqlTimKiem .= " and MaNV like '%$maNV%' ";
