@@ -52,12 +52,14 @@ $sqlTimKiem =
     $sqlTimKiem .= "order by MaCong";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
     $numRows = mysqli_num_rows($resultTimKiem);
-    
-    
-
-       
+         
 }
-
+if(mysqli_num_rows($resultTimKiem) == 0){
+    echo "<script type='text/javascript'>
+            toastr.error('Không tìm thấy chấm công');
+            toastr.options.timeOut = 3000;
+        </script>";
+}
 ?>
 
 <!-- Card stats -->

@@ -37,6 +37,12 @@ $numRows = mysqli_num_rows($resultTimKiem);
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 
+if(mysqli_num_rows($resultTimKiem) == 0){
+    echo "<script type='text/javascript'>
+            toastr.error('Không tìm thấy phòng ban này');
+            toastr.options.timeOut = 3000;
+        </script>";
+}
 ?>
 <style>
 table {
