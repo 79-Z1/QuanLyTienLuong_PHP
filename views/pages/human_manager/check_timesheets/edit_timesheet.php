@@ -33,7 +33,7 @@ if($numrowTC > 0){
     if(isset($_POST["tangCa"])){
         $loaiTC = $_POST["tangCa"];
     }else $loaiTC = $tttc['LoaiTC'];
-}
+}else $loaiTC = -1;
 
 $sqlcc = "SELECT TinhTrang, NghiHL FROM cham_cong
         WHERE cham_cong.Ngay = '$strdate'
@@ -51,7 +51,7 @@ if($numrowcc > 0){
     }else $tinhTrang = $ttCC['TinhTrang'];
 
     $nghiHL = $ttCC['NghiHL'];
-}
+}else $nghiHL = 0;
 
 $date = str_replace("-", "", date('Y-m-d',strtotime($strdate)));
 
