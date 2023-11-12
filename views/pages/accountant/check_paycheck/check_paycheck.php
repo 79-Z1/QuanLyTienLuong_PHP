@@ -76,19 +76,18 @@ if (isset($_GET['timkiem'])) {
         $sqlTimKiem .= " AND Nam = $nam";
     }
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    if (mysqli_num_rows($resultTimKiem) == 0) {
+        echo "<script type='text/javascript'>
+                toastr.error('Không tìm thấy thông tin phiếu lương');
+                toastr.options.timeOut = 3000;
+            </script>";
+    }
 }
 $sqlTimKiem .= " ORDER BY nhan_vien.MaNV";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 $numRows = mysqli_num_rows($resultTimKiem);
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-
-if(mysqli_num_rows($resultTimKiem) == 0){
-    echo "<script type='text/javascript'>
-            toastr.error('Không tìm thấy thông tin phiếu lương');
-            toastr.options.timeOut = 3000;
-        </script>";
-}
 
 ?>
 <!-- Card stats -->
@@ -125,7 +124,7 @@ if(mysqli_num_rows($resultTimKiem) == 0){
                             <td>
                                 <p align="center">Tháng</p>
                             </td>
-                            <td style="width: 10%;"><input class="form-control me-2 search-input" size="2" type="number" name="thang" min = 1 require max = 12 value="<?php echo $thang; ?>"></td>
+                            <td style="width: 10%;"><input class="form-control me-2 search-input" size="2" type="number" name="thang" min=1 require max=12 value="<?php echo $thang; ?>"></td>
                         </tr>
                         <tr>
                             <td>
@@ -153,7 +152,7 @@ if(mysqli_num_rows($resultTimKiem) == 0){
                             <td>
                                 <p align="center">Năm</p>
                             </td>
-                            <td style="width: 10%;"><input class="form-control me-2 search-input" size="4" type="number" min = 2000 max = 2100 name="nam" require value="<?php echo $nam; ?>"></td>
+                            <td style="width: 10%;"><input class="form-control me-2 search-input" size="4" type="number" min=2000 max=2100 name="nam" require value="<?php echo $nam; ?>"></td>
                         </tr>
                         <tr>
                             <td colspan="6" align="center">
