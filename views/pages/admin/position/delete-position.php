@@ -27,7 +27,7 @@ $err = array();
 
 if (isset($_POST['delete'])) {
     if (!checkCV($conn,$maCV)) {
-    $sqldelete = "delete from chuc_vu where MaChucVu = '$_GET[MaChucVu]'";
+    $sqldelete = "delete from chuc_vu where MaChucVu = '$_GET[maCV]'";
     $deleteResult = mysqli_query($conn, $sqldelete);
     echo "<script type='text/javascript'>
     $('#delete').prop('disabled','disabled');
