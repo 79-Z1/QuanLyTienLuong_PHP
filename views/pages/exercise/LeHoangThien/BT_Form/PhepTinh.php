@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <label for="so2">Số Thứ Nhì:</label>
     <input type="text" name="so2" id="so2" required>
     <br>
-    <input type="submit" value="Tính">
+    <input type="submit" value="Kết quả">
   </form>
 </body>
 </html>
