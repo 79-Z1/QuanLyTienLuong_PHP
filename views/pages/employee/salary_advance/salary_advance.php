@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
         </script>";
 }
 ?>
-<div class="container d-flex justify-content-center h-100 align-items-center">
+<div class="container d-flex justify-content-center align-items-center" style="height: 400px !important">
     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12 edit_information">
         <?php if ($ktraNgayUng == 0) { ?>
             <div class=" d-flex w-100 justify-content-center align-items-center">
