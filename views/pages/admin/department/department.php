@@ -22,7 +22,7 @@ $sqlTimKiem =
 
 if (isset($_GET['timkiem'])) {
     if ($maPhong != "") {
-        $sqlTimKiem .= " and MaPhong = '$maPhong'";
+        $sqlTimKiem .= " and MaPhong like '%$maPhong%'";
     }
 
     if ($tenPhong != "") {

@@ -47,7 +47,7 @@ $sqlTimKiem =
 
 if (isset($_GET['timkiem'])) {
     if ($maNV != "") {
-        $sqlTimKiem .= "and MaNV = '$maNV'";
+        $sqlTimKiem .= "and MaNV like '%$maNV%'";
     }
     if ($hoTen != "") {
         $sqlTimKiem .= "and concat(HoNV,' ',TenNV) like '%$hoTen%'";
