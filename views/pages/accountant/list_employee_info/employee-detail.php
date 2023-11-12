@@ -115,6 +115,15 @@ function Ngay_Format($date){
 							<div class="hr">	</div>
 							<div class="row">
 								<div class="col-sm-3">
+									<h6 class="mb-0">Email</h6>
+								</div>
+								<div class="col-sm-9 " style="font-size: 18px;">
+									<?php echo "$ttNV[Email]" ?>
+								</div>
+							</div>
+							<div class="hr">	</div>
+							<div class="row">
+								<div class="col-sm-3">
 									<h6 class="mb-0">Số con</h6>
 								</div>
 								<div class="col-sm-9 " style="font-size: 18px;">
