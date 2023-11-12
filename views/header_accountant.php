@@ -16,8 +16,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script defer src="/<?php echo explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/js/main.js"?>"></script>
-    <script defer src="/<?php echo explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/js/socket.js"?>"></script>
     <script defer src="/<?php echo explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/js/navbar.js"?>"></script>
+    <script defer src="/<?php echo explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/js/socket.js"?>"></script>
     <script defer src="/<?php echo explode('/', $_SERVER['PHP_SELF'])[1]. "/assets/js/accountant/{$js}"?>"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>

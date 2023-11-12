@@ -39,7 +39,7 @@ if (mysqli_num_rows($result) <> 0) {
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $tienUngToiDa = floor(($row['HeSoLuong'] * 4_160_000 / 2) / 100_000) * 100_000;
     $today = date("Y-m-d");
-    $ktraNgayUng = date('d') >= 15 ? 1 : 0;
+    $ktraNgayUng = date('d') < 15 ? 0 : 1; 
 }
 ?>
 <?php
@@ -58,7 +58,7 @@ if (isset($_POST['submit'])) {
         </script>";
 }
 ?>
-<div class="container d-flex justify-content-center align-items-center" style="height: 400px !important">
+<div class="container d-flex justify-content-center align-items-center" style="height: 400px;">
     <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12 col-xs-12 edit_information">
         <?php if ($ktraNgayUng == 0) { ?>
             <div class=" d-flex w-100 justify-content-center align-items-center">

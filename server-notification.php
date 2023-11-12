@@ -21,6 +21,7 @@ class Notification implements MessageComponentInterface  {
 
     public function onMessage(ConnectionInterface $from, $msg) {
         $data = json_decode($msg);
+        echo "###:: $data->NguoiGui gửi tới $data->NguoiNhan nội dung: $data->NoiDung\n";
         foreach ( $this->clients as $client ) {
             if ( $from->resourceId == $client->resourceId ) {
                 continue;
@@ -55,7 +56,7 @@ $server = IoServer::factory(
             new Notification()
         )
     ),
-    8080
+    8085
 );
 echo "********** Server is running...**********\n";
 $server->run();

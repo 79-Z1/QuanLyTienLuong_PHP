@@ -1,4 +1,4 @@
-const conn = new WebSocket('ws://localhost:8080');
+const conn = new WebSocket('ws://localhost:8085');
 
 conn.onopen = function (e) {
     console.log("Khởi tạo kết nối thành công!");
@@ -38,8 +38,9 @@ conn.onmessage = async function (e) {
             LoaiTKNguoiNhan: LOAITK
         }
         const { message, status, newNotiNumber } = await postData(url, data);
+        console.log('Noti number: ', newNotiNumber);
         if (status && newNotiNumber > 0) {
-            $('#num-noti').css({ 
+            $('#num-noti').css({
                 'background-color': 'red',
                 'display': 'block'
             })
