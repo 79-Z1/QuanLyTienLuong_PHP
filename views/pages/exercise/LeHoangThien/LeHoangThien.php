@@ -57,10 +57,6 @@
 							<td><a href="index.php?page=LHT-HDT-BT1"><i class="bi bi-arrow-right-square-fill"></i></a></td>
 						</tr>
                         <tr>
-							<td>Hướng đối tượg : BT2</td>
-							<td><a href="index.php?page=LHT-HDT-BT2"><i class="bi bi-arrow-right-square-fill"></i></a></td>
-						</tr>
-                        <tr>
 							<td>CSDL MySQL : Phân nhánh</td>
 							<td><a href="index.php?page=LHT-CSDL_MySQL-PhanTrang"><i class="bi bi-arrow-right-square-fill"></i></a></td>
 						</tr>
