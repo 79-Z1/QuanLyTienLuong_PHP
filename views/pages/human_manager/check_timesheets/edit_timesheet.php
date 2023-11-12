@@ -51,7 +51,11 @@ if($numrowcc > 0){
     }else $tinhTrang = $ttCC['TinhTrang'];
 
     $nghiHL = $ttCC['NghiHL'];
-}else $nghiHL = 0;
+}else{
+    $nghiHL = 0;
+    $tinhTrang = 0;
+} 
+    
 
 $date = str_replace("-", "", date('Y-m-d',strtotime($strdate)));
 
@@ -90,12 +94,12 @@ if (isset($_POST['xacnhan'])) {
             mysqli_query($conn,$updateChamCong);
         }
         if ($_POST['tangCa'] == '-1') {
-            if ($numrow == 1) {
+            if ($numrowTC == 1) {
                 $deleteTC = "DELETE FROM `tang_ca` WHERE MaNV = '$MaNV' AND NgayTC = '$strdate'";
                 mysqli_query($conn, $deleteTC);
             }
         } else {
-            if ($numrow == 0) {
+            if ($numrowTC == 0) {
                 $sqlinsertTC = "INSERT INTO `tang_ca`(`MaTC`, `MaNV`, `NgayTC`, `LoaiTC`)
                                     VALUES ('$maTangCa','$MaNV','$strdate',$_POST[tangCa])";
                 mysqli_query($conn, $sqlinsertTC);
@@ -161,7 +165,7 @@ if (isset($_POST['xacnhan'])) {
                             <td>Tăng ca</td>
                             <td>
                                 <select id='tangCa' name='tangCa' class='form-select search-option'>
-                                    <option value='-1' <?php if (isset($_POST['tangCa']) && $_POST['tangCa'] == '-1' || $numrow == 0) echo 'selected' ?>>Không Tăng Ca</option>
+                                    <option value='-1' <?php if (isset($_POST['tangCa']) && $_POST['tangCa'] == '-1' || $numrowTC == 0) echo 'selected' ?>>Không Tăng Ca</option>
                                     <option value='0' <?php if (isset($_POST['tangCa']) && $_POST['tangCa'] == '0' || $loaiTC == '0') echo 'selected' ?>>Ngày Thường</option>
                                     <option value='1' <?php if (isset($_POST['tangCa']) && $_POST['tangCa'] == '1' || $loaiTC == '1') echo 'selected' ?>>Nghỉ Hằng Tuần</option>
                                     <option value='2' <?php if (isset($_POST['tangCa']) && $_POST['tangCa'] == '2' || $loaiTC == '2') echo 'selected' ?>>Nghỉ Lễ</option>
