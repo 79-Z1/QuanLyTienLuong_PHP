@@ -58,6 +58,12 @@ if (isset($_GET['timkiem'])) {
     }
 
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
+    if(mysqli_num_rows($resultTimKiem) == 0){
+        echo "<script type='text/javascript'>
+                toastr.error('Không tìm thấy phiếu ứng lương này');
+                toastr.options.timeOut = 3000;
+            </script>";
+    }
 }
 
     $sqlTimKiem .= " order by MaPhieu";
@@ -68,12 +74,7 @@ if (isset($_GET['timkiem'])) {
     $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
   
-    if(mysqli_num_rows($resultTimKiem) == 0){
-        echo "<script type='text/javascript'>
-                toastr.error('Không tìm thấy phiếu ứng lương này');
-                toastr.options.timeOut = 3000;
-            </script>";
-    }
+   
 ?>
 
 <div class="g-6 mb-3 w-100 search-container mt-5">
