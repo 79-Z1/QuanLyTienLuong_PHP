@@ -35,7 +35,9 @@ $sqlPhieuLuong = "SELECT * FROM phieu_luong, nhan_vien, phong_ban, chuc_vu
 								WHERE phieu_luong.MaNV = nhan_vien.MaNV 
 								and nhan_vien.MaChucVu = chuc_vu.MaChucVu
 								and nhan_vien.MaPhong = phong_ban.MaPhong
-								and Thang = $thangChon and $nam = $namChon";
+								and Thang = $thangChon and $nam = $namChon
+								order by phieu_luong.MaNV
+								";
 $resultPhieuLuong = mysqli_query($conn, $sqlPhieuLuong);
 
 $lt10 = mysqli_num_rows(mysqli_query($conn, "SELECT MaNV FROM `phieu_luong` WHERE Thang = $thangChon and Nam = $namChon and ThucLinh < 10000000"));
@@ -272,8 +274,8 @@ if (mysqli_num_rows($resultPhong) > 0) {
 										<th scope="col">tiền tạm ứng</th>
 										<th scope="col">trợ cấp</th>
 										<th scope="col">trừ bảo hiểm</th>
-										<th scope="col">phạt</th>
 										<th scope="col">thưởng</th>
+										<th scope="col">phạt</th>
 										<th scope="col">tiền lương tháng</th>
 										<th scope="col">tổng thu nhập</th>
 										<th scope="col">thuế</th>
