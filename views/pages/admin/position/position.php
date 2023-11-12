@@ -11,14 +11,13 @@ if (isset($_GET['maCV'])){
 else $maCV = "";
 
 if (isset($_GET['tenChucVu'])){
-    $tenChucVu = trim($_GET['tenChucVu']);
+    $tenChucVu = $_GET['tenChucVu'];
 }   
 else $tenChucVu = "";
 
 if (isset($_GET['heSoLuong'])){
     $heSoLuong = $_GET['heSoLuong'];
-}
-else $heSoLuong = "";
+}else $heSoLuong = "";
 
 
 $rowsPerPage = 10; //số mẩu tin trên mỗi trang, giả sử là 8
@@ -43,10 +42,8 @@ if (isset($_GET['timkiem'])) {
         $sqlTimKiem .= "and TenChucVu = '$tenChucVu' ";
     }
     if ($heSoLuong != "") {
-        $sqlTimKiem .= "and HeSoLuong like '%$heSoLuong%' ";
+        $sqlTimKiem .= "and HeSoLuong like '$heSoLuong%' ";
     }
-
-
     $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
 }
 
@@ -57,7 +54,12 @@ $numRows = mysqli_num_rows($resultTimKiem);
 
 $sqlTimKiem .= " LIMIT $offset,$rowsPerPage";
 $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
-
+if(mysqli_num_rows($resultTimKiem) == 0){
+    echo "<script type='text/javascript'>
+            toastr.error('Không tìm thấy tài khoản này');
+            toastr.options.timeOut = 3000;
+        </script>";
+}
 ?>
 <!-- Card stats -->
 <div class="g-6 mb-3 w-100 search-container mt-5">
@@ -79,9 +81,8 @@ $resultTimKiem = mysqli_query($conn, $sqlTimKiem);
                                     <option value="">Trống</option>
                                     <?php
                                     if (mysqli_num_rows($resultChucVu) <> 0) {
-
                                         while ($rows = mysqli_fetch_array($resultChucVu)) {
-                                            echo "<option";
+                                            echo "<option name='tenChucVu'";
                                             if (isset($_GET['tenChucVu']) && $_GET['tenChucVu'] == $rows['TenChucVu']) echo "selected";
                                             echo ">$rows[TenChucVu]</option>";
                                         }
