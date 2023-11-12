@@ -56,7 +56,7 @@ $sqlTimKiem =
 }
 if(mysqli_num_rows($resultTimKiem) == 0){
     echo "<script type='text/javascript'>
-            toastr.error('Không tìm thấy chấm công');
+            toastr.error('Không tìm thấy chấm công này');
             toastr.options.timeOut = 3000;
         </script>";
 }
