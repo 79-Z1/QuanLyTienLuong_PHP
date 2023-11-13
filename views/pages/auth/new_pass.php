@@ -47,7 +47,7 @@ function checkValid(): bool
                     $sql = "select MaNV from nhan_vien where Email like '$row[Email]'";
                     $result = mysqli_query($conn, $sql);
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-                    $updateSQL = "UPDATE tai_khoan SET MatKhau = $password WHERE MaNV = '$row[MaNV]'";
+                    $updateSQL = "UPDATE tai_khoan SET MatKhau = '$password' WHERE MaNV = '$row[MaNV]'";
                     mysqli_query($conn, $updateSQL);
                     echo "<script type='text/javascript'>
                         toastr.success('Đổi mật khẩu thành công');
