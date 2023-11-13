@@ -7,7 +7,7 @@
 <h3 align="center">Quản lý nhân sự và tiền lương Phòng khám đa khoa Thiện Trang</h3>
 
   <p align="center">
-    This's a group assignment in Open source develop course taught by Ms. Nguyen Thi Bich Hang
+    This's a group assignment in Open source develop course taught by Ms. Le Thi Bich Hang
   </p>
 </div>
 
